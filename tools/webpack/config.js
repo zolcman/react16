@@ -2,9 +2,9 @@
 const CSSModules = true;
 
 // Disable js lint error terminating here
-const eslint = true;
+const eslint = false;
 // Disable style lint error terminating here
-const stylelint = true;
+const stylelint = false;
 
 // Register vendors here
 const vendor = [

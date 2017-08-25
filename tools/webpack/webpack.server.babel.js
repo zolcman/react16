@@ -25,12 +25,12 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'eslint',
-      },
+    //  {
+    //    test: /\.jsx?$/,
+    //    enforce: 'pre',
+    //    exclude: /node_modules/,
+    //    loader: 'eslint',
+  //    },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,

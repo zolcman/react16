@@ -1,3 +1,7 @@
-.Home {
-  padding: 0 15px;
+:global {
+
+.wrapper {
+  background: #ccc;
+  min-height: 900px;
+}
 }

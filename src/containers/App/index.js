@@ -30,7 +30,7 @@ export default () => {
       <Helmet {...config.app} />
       <div className={styles.header}>
         <img src={require('./assets/logo.svg')} alt="Logo" role="presentation" />
-        <h1>{config.app.title}</h1>
+        <h1>Calendar</h1>
       </div>
       <hr />
       <Switch>

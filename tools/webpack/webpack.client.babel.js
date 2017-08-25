@@ -21,20 +21,20 @@ const getPlugins = () => {
     new ExtractTextPlugin({
       filename: '[name].[contenthash:8].css',
       allChunks: true,
-      disable: isDev, // Disable css extracting on development
+      disable: isDev,   // Disable css extracting on development
       ignoreOrder: CSSModules,
     }),
     new webpack.LoaderOptionsPlugin({
       options: {
         // Javascript lint
         eslint: { failOnError: eslint },
-        context: '/', // Required for the sourceMap of css/sass loader
+        context: '/',   // Required for the sourceMap of css/sass loader
         debug: isDev,
         minimize: !isDev,
       },
     }),
     // Style lint
-    new StyleLintPlugin({ syntax: 'scss', failOnError: stylelint }),
+    // new StyleLintPlugin({ syntax: 'scss', failOnError: false }),
     // Setup enviorment variables for client
     new webpack.EnvironmentPlugin({ NODE_ENV: JSON.stringify(nodeEnv) }),
     // Setup global variables for client
@@ -47,19 +47,19 @@ const getPlugins = () => {
     webpackIsomorphicToolsPlugin,
   ];
 
-  if (isDev) { // For development
+  if (isDev) {  // For development
     plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       // Prints more readable module names in the browser console on HMR updates
       new webpack.NamedModulesPlugin(),
-      new webpack.IgnorePlugin(/webpack-stats\.json$/) // eslint-disable-line comma-dangle
+      new webpack.IgnorePlugin(/webpack-stats\.json$/)  // eslint-disable-line comma-dangle
     );
   } else {
     plugins.push( // For production
       new BabiliPlugin(),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', minChunks: Infinity }),
-      new webpack.optimize.ModuleConcatenationPlugin() // eslint-disable-line comma-dangle
+      new webpack.optimize.ModuleConcatenationPlugin()  // eslint-disable-line comma-dangle,
     );
   }
 
@@ -70,7 +70,7 @@ const getPlugins = () => {
 const getEntry = () => {
   // For development
   let entry = [
-    'babel-polyfill', // Support promise for IE browser (for dev)
+    'babel-polyfill',   // Support promise for IE browser (for dev)
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
     './src/client.js',
@@ -106,12 +106,12 @@ module.exports = {
   },
   module: {
     rules: [
-      {
-        test: /\.jsx?$/,
-        enforce: 'pre',
-        exclude: /node_modules/,
-        loader: 'eslint',
-      },
+      // {
+      //   test: /\.jsx?$/,
+      //   enforce: 'pre',
+      //   exclude: /node_modules/,
+      //   loader: 'eslint',
+      // },
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
@@ -173,6 +173,29 @@ module.exports = {
           ],
         }),
       },
+        {
+            test: /\.less$/,
+            loader: ExtractTextPlugin.extract({
+                fallback: 'style',
+                use: [
+                    {
+                        loader: 'css',
+                        options: {
+                            importLoaders: 2,
+                            sourceMap: true,
+                            modules: false,
+                            context: path.join(process.cwd(), './src'),
+                            localIdentName: isDev ? '[name]__[local].[hash:base64:5]' : '[hash:base64:5]',
+                            minimize: !isDev,
+                        },
+                    },
+                    { loader: 'postcss', options: { sourceMap: true } },
+                    {
+                        loader: 'less',
+                    },
+                ],
+            }),
+        },
       {
         test: /\.(woff2?|ttf|eot|svg)$/,
         loader: 'url',
