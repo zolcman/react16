@@ -24,6 +24,7 @@ const Html = ({ store, htmlContent }: Props) => {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
         {head.title.toComponent()}
         {head.base.toComponent()}
@@ -58,7 +59,7 @@ const Html = ({ store, htmlContent }: Props) => {
                 // $FlowFixMe: It's not an issue
                 require('../containers/NotFound/styles.scss')._style +
                 // $FlowFixMe: It's not an issue
-              
+
                 // $FlowFixMe: It's not an issue
                 require('../components/UserCard/styles.scss')._style,
               }}
