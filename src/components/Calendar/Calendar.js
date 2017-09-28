@@ -501,7 +501,7 @@ function mapStateToProps(state) {
 
 //console.log(state.Reducer.emulate);
     return {
-        data : state.Reducer.emulate,
+        data : state.toJS().WorkReducer.emulate,
 
     }
 }

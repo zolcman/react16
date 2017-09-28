@@ -3,7 +3,7 @@
 
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch,Link,  BrowserRouter as Router, } from 'react-router-dom';
+import { Route, Switch,Link,  BrowserRouter as Router } from 'react-router-dom';
 import Helmet from 'react-helmet';
 //import UserList from '../../components/UserList';
 import Calendar from '../../components/Calendar/Calendar';
@@ -61,23 +61,22 @@ export class Home extends PureComponent {
 
     return (
       <div className="">
-        <Router>
-    <div>
-      <ul>
-        {this.state.data.map((itemb,index) => (
-            <li><Link to={`/${itemb.path}`}>{itemb.title}</Link></li>
 
-        ))}
+    <div>ssssdddddd
+      <ul>
+        <li><Link to="/dashboard">Netflix</Link></li>
       </ul>
 
       <hr/>
+      <Switch>
+          <Route exact path="/" component={Calendar} />
+          <Route exact path="/dashboard" component={dummyChart} />
+
+      </Switch>
 
 
-      <Route exact path="/tabs/dummyTable" component={dummyTable}/>
-      <Route path="/tabs/dummyChart" component={dummyChart}/>
-      <Route path="/tabs/dummyList" component={dummyList}/>
     </div>
-  </Router>
+
 
 
       </div>

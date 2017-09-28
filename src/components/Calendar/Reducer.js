@@ -7,7 +7,7 @@ const initialUserState =
 
 }
 ;
-const Reducer = function(state = initialUserState, action) {
+const WorkReducer = function(state = initialUserState, action) {
    //console.log('actiondata in reducer:' + action.data + action.type);
 
   switch(action.type) {
@@ -24,4 +24,4 @@ const Reducer = function(state = initialUserState, action) {
   return state;
   }
 }
-export default Reducer
+export default WorkReducer
