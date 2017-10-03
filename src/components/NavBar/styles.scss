@@ -85,16 +85,20 @@ ul.left-side-menu li a:hover {
   font-size: 16px;
   height: 80px;
   box-sizing: border-box;
-  padding: 20px 10px;
+  padding: 20px 5px;
     padding-top: 30px;
     border-bottom: 5px solid #7ed321;
   display: block;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .selected {
   border-bottom: 10px solid #7ed321!important;
   font-weight: 700;
   padding: 20px 10px!important;
   padding-top: 30px!important;
+  margin-left: 0px!important;
+  margin-right: 0px!important;
 }
 .logo {
   background: url(./img/logo.svg) no-repeat;
