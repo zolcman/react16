@@ -9,7 +9,7 @@ import Helmet from 'react-helmet';
 
 import * as action from './action';
 import type { UserInfo as UserInfoType, Dispatch, Reducer } from '../../types';
-import UserCard from '../../components/UserCard';
+//import UserCard from '../../components/UserCard';
 import styles from './styles.scss';
 
 type Props = {
@@ -46,7 +46,7 @@ export class UserInfo extends PureComponent {
       return <p>Oops, Failed to load info!</p>;
     }
 
-    return <UserCard info={userInfoById.info} />;
+  //  return <UserCard info={userInfoById.info} />;
   }
 
   render() {
