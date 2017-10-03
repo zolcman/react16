@@ -79,8 +79,19 @@ ul.left-side-menu li a {
     padding-top: 30px;
   display: block;
 }
+ul.left-side-menu li a:hover {
+  text-decoration: none;
+  color:white;
+  font-size: 16px;
+  height: 80px;
+  box-sizing: border-box;
+  padding: 20px 10px;
+    padding-top: 30px;
+    border-bottom: 5px solid #7ed321;
+  display: block;
+}
 .selected {
-  border-bottom: 10px solid #7ed321;
+  border-bottom: 10px solid #7ed321!important;
   font-weight: 700;
   padding: 20px 10px!important;
   padding-top: 30px!important;
