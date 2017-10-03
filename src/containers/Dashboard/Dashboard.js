@@ -9,6 +9,11 @@ class Dashboard extends Component {
         super(props)
 
         this.state = {
+			
+			log:[
+				{id:1,name:'Backup job "Test Backup Job" has finished successfully at 17.09.2017'},{id:2,name:'Backup job "Test Backup Job" has finished successfully at 17.09.2017'},
+				{id:2,name:'Backup job "Test Backup Job" has finished successfully at 17.09.2017'}
+				],
 
 
     }
@@ -23,7 +28,7 @@ class Dashboard extends Component {
 
 
         return (
-        <div className="container">
+        <div className="container dashmrgn">
 		 
 			<div className="leftclmn">
 				<div className="sqare">
@@ -42,7 +47,17 @@ class Dashboard extends Component {
 				<div className="sqareheading">Performance Statistics</div>
 				</div>
 			</div>
-			<div className="rightclmn">right</div>
+			<div className="rightclmn">
+			<div className="sqareheading">Event Log</div>
+			
+			<ul className="eventlog">
+                                        {this.state.log.map((itembc,index) => (
+                                            <li className="eventlogli" key={index}>{itembc.name}</li>
+
+                                        ))}
+                                      </ul>
+			
+			</div>
 				
 			
 			
