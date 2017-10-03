@@ -23,9 +23,30 @@ class Dashboard extends Component {
 
 
         return (
-          <div className="container">
-
-          </div>
+        <div className="container">
+		 
+			<div className="leftclmn">
+				<div className="sqare">
+				<div className="sqareheading">Protection Status</div>
+				</div>
+				<div className="sqare">
+				<div className="sqareheading">Protection Status</div>
+				</div>
+				<div className="sqare">
+				<div className="sqareheading">Protection Status</div>
+				</div>
+				<div className="sqare">
+				<div className="sqareheading">Protection Status</div>
+				</div>
+				<div className="sqarestats">
+				<div className="sqareheading">Performance Statistics</div>
+				</div>
+			</div>
+			<div className="rightclmn">right</div>
+				
+			
+			
+       </div>
 
 
 
