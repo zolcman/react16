@@ -1,7 +1,7 @@
 /* @flow */
 
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import _ from 'lodash';
 import NavBar from '../../components/NavBar/NavBar'
@@ -28,7 +28,7 @@ export default () => {
   return (
     <div className={styles.App}>
       <Helmet {...config.app} />
-      <NavBar/>
+      <NavBar />
       <Switch>
         {routes.map(route => routeWithSubRoutes(route))}
       </Switch>

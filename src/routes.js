@@ -18,12 +18,14 @@ export default [
 
   },
   {
+
     path: '/dashboard',
     component: Dashboard, // Add your route here
 
   },
 
   {
+
     path: '/backupjobs',
     component: Backup, // Add your route here
 

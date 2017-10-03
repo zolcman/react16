@@ -1,0 +1,49 @@
+:global {
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+
+.container {
+  background: white;
+}
+.gt-left {
+  float: left;
+}
+.gt-right {
+  float: right;
+}
+.wrap {
+  width: 1212px;
+  margin: 0 auto;
+  padding-top: 33px;
+}
+
+.gt-clear {
+  clear: both;
+}
+
+.filters {
+  height: 128px;
+  background: #f8f8f8;
+  border-bottom: 1px solid #ccc;
+}
+.filter-wrapper {
+  max-width: 1140px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 28px;
+}
+
+.breadcrumbs {
+  color:#ccc;
+  font-size: 13px;
+}
+
+.breadcrumbs a {
+  color:#408209;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+}

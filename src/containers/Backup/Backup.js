@@ -1,7 +1,7 @@
 import React, { Component,  PropTypes} from 'react'
-
+import styles from './styles.scss';
 import { connect} from 'react-redux';
-
+import { Link } from 'react-router-dom';
 
 
 class Backup extends Component {
@@ -23,7 +23,18 @@ class Backup extends Component {
 
 
         return (
-          <div>Backup</div>
+          <div>
+            <div className="filters">
+              <div className="filter-wrapper">
+              <div className="breadcrumbs">
+                <Link to='/'>Home</Link> / Backup Jobs
+              </div>
+              <div className="filter-blocks gt-clear">
+
+              </div>
+            </div>
+            </div>
+          </div>
         )
     }
 }

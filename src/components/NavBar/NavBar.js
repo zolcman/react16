@@ -1,7 +1,7 @@
 import React, { Component,  PropTypes} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
-import { Route, Switch,Link,  BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 
 
 class NavBar extends Component {
@@ -30,15 +30,23 @@ class NavBar extends Component {
 
 
         return (
-            <div className="gt-clear">
-              <div className="logo-wrap gt-left"></div>
+            <div className="gt-clear navbar">
+              <div className="logo-wrap gt-left">
+                <div className="logo"></div>
+              </div>
               <div className="gt-left menu-block">
-                <ul>
-                  <li><Link to="/dashboard">Dashboard</Link></li>
-                  <li><Link to="/backupjobs">Backup Jobs</Link></li>
-                  <li><Link to="/protectedvms">Protected VM's</Link></li>
-                  <li><Link to="/alert">Alert</Link></li>
-                </ul>
+                <div className="left-side-block gt-left">
+                  <ul className="left-side-menu">
+                    <li><NavLink exact activeClassName="selected" to="/">Dashboard</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/backupjobs">Backup Jobs</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/protectedvms">Protected VM's</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/alert">Alert</NavLink></li>
+                  </ul>
+                </div>
+                <div className="right-side-block gt-right">
+                  ADMIN
+                </div>
+
               </div>
             </div>
         )
@@ -61,4 +69,4 @@ function mapStateToProps(state) {
 
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavBar));
