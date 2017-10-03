@@ -5,9 +5,12 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Route, Switch,Link,  BrowserRouter as Router } from 'react-router-dom';
 import Helmet from 'react-helmet';
-//import UserList from '../../components/UserList';
+
 
 import styles from './styles.scss';
+
+
+
 
 
 // Export this for unit testing more easily
@@ -39,10 +42,11 @@ export class Home extends PureComponent {
     return (
       <div className="">
 
-   <div>
       {/*   <ul>
       <li><Link to="/dashboard">Netflix</Link></li>
       </ul> */}
+
+
 
       <hr/>
     {/*   <Switch>
@@ -50,9 +54,6 @@ export class Home extends PureComponent {
           <Route exact path="/dashboard" component={dummyChart} />
 
       </Switch> */}
-
-
-    </div>
 
 
 
