@@ -35,13 +35,13 @@ class Dashboard extends Component {
 				<div className="sqareheading">Protection Status</div>
 				</div>
 				<div className="sqare">
-				<div className="sqareheading">Protection Status</div>
+				<div className="sqareheading">Job Status</div>
 				</div>
 				<div className="sqare">
-				<div className="sqareheading">Protection Status</div>
+				<div className="sqareheading">Repository Status</div>
 				</div>
 				<div className="sqare">
-				<div className="sqareheading">Protection Status</div>
+				<div className="sqareheading">Backup Server Status</div> 
 				</div>
 				<div className="sqarestats">
 				<div className="sqareheading">Performance Statistics</div>
