@@ -1,0 +1,36 @@
+:global {
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+.container {
+  background: white;
+}
+.gt-left {
+  float: left;
+}
+.gt-right {
+  float: right;
+}
+.wrap {
+  width: 1212px;
+  margin: 0 auto;
+  padding-top: 33px;
+}
+
+.gt-clear {
+  clear: both;
+}
+
+.logo-wrap {
+  height: 80px;
+  background-color: #00b420;
+  width: 295px;
+}
+
+.menu-block {
+  height: 80px;
+  background-color: #4a4a4a;
+  width: calc(100% - 295px) ;
+}
+
+
+
+}
