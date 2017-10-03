@@ -7,7 +7,9 @@ import { Route, Switch,Link,  BrowserRouter as Router } from 'react-router-dom';
 import Helmet from 'react-helmet';
 //import UserList from '../../components/UserList';
 import Calendar from '../../components/Calendar/Calendar';
+
 import styles from './styles.scss';
+import Pavel from '../../components/Pavel/Pavel';
 
 
 const dummyTable = () => (
@@ -61,7 +63,7 @@ export class Home extends PureComponent {
 
     return (
       <div className="">
-
+<Pavel />
     <div>ssssdddddd
       <ul>
         <li><Link to="/dashboard">Netflix</Link></li>
