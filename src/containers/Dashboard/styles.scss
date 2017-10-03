@@ -1,5 +1,5 @@
 :global {
-
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 .container {
   background: white;
   width: 100%;
@@ -20,7 +20,7 @@
 	
 
 .leftclmn { 
-width: 66%;
+width: 68.4%;
 float: left;
 display: flex;
 flex-direction: row;
@@ -28,37 +28,76 @@ flex-flow: row wrap;
 align-items: center;
 }	
 .rightclmn { 
-width: 34%;
+width: 31.6%;
 float: left;
 display: block;
+border: 1px solid #00b420;
+box-sizing: border-box;
+height: 863px;
 }
 .sqare { 
-width: 45%;
+width: 46.2%;
 height: 265px;
-border: 1px solid black;
+border: 1px solid #00b420;
 box-sizing: border-box;
 margin-right: auto;
 margin-bottom: 34px;
 }
 	
 .sqarestats {
-width: 95%;
+width: 96.4%;
 height: 265px;
-border: 1px solid black;
+border: 1px solid #00b420;
 box-sizing: border-box;
 margin-right: auto;
 margin-bottom: 34px;
 }
 	
-.sqareheading { 
-width: 100%;
-height: 55px;
-display: block;
-background-color: #f0f0f0;
-color: black; line-height: 55px;
-text-align: center; font-family: "Open Sans";
-font-size: 16px; font-weight: bold;
+.sqareheading {
+    width: 100%;
+    height: 53px;
+    display: block;
+    background-color: #f0f0f0;
+    color: #4a4a4a;
+    line-height: 53px;
+    text-align: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 20px;
 }
-	
+.dashmrgn{
+margin-top: 36px;
+	}
+.eventlog{
+margin: 0px;
+padding: 0px;
+}
+.eventlogli {
+    color: #4a4a4a;
+    height: 68px;
+    list-style: none;
+    padding-top: 12px;
+    padding-left: 40px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+.eventlogli:nth-child(2n) {
+background: #fafafa;	
+}
+.eventlogli:before {
+    content: "\2022";
+    color: #7ed321;
+    position: absolute;
+    left: 15px;
+    top: 24px;
+    font-size: 38px;
+    line-height: 16px;
+}
 
 }
