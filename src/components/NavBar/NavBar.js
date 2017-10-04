@@ -17,12 +17,12 @@ class NavBar extends Component {
     }
 
     componentDidMount() {
-		
-		
+
+
 		$( document ).ready(function() {
 			$("body").children().find(".ulic3").hide();
           $(document).click(function (e) {
-		
+
 			  var ic3 = e.target;
 			  var clname = e.target.className;
 			  if (clname == "ic3" ){
@@ -32,11 +32,11 @@ class NavBar extends Component {
 			  }
 
 
-          
+
         });
 		});
-		
-		
+
+
 
 
     }
@@ -48,6 +48,7 @@ class NavBar extends Component {
     render(){
 
         return (
+          <div className="gradient">
             <div className="gt-clear navbar">
               <div className="logo-wrap gt-left">
                 <div className="logo"></div>
@@ -62,8 +63,8 @@ class NavBar extends Component {
                   </ul>
                 </div>
                 <div className="right-side-block gt-left">
-                  
-			
+
+
 						<div className="topmenuright">
 							<div className="ic1"></div>
 							<div className="ic2"></div>
@@ -78,10 +79,11 @@ class NavBar extends Component {
 							</div>
 							<div className="ic4"></div>
 						</div>
-			
+
                 </div>
 
               </div>
+            </div>
             </div>
         )
     }

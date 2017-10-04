@@ -24,18 +24,33 @@
 }
 .navbar {
   height: 80px;
+  margin: 0 auto;
+    width: 100%;
+    max-width: 1140px;
 }
 
 .logo-wrap {
   height: 80px;
   background-color: #00b420;
-  width: 295px;
+  width: 170px;
+}
+
+.gradient {
+  width: 100%;
+  background: rgba(0,180,33,1);
+background: -moz-linear-gradient(left, rgba(0,180,33,1) 0%, rgba(0,180,33,1) 51%, rgba(74,74,74,1) 52%, rgba(74,74,74,1) 100%);
+background: -webkit-gradient(left top, right top, color-stop(0%, rgba(0,180,33,1)), color-stop(51%, rgba(0,180,33,1)), color-stop(52%, rgba(74,74,74,1)), color-stop(100%, rgba(74,74,74,1)));
+background: -webkit-linear-gradient(left, rgba(0,180,33,1) 0%, rgba(0,180,33,1) 51%, rgba(74,74,74,1) 52%, rgba(74,74,74,1) 100%);
+background: -o-linear-gradient(left, rgba(0,180,33,1) 0%, rgba(0,180,33,1) 51%, rgba(74,74,74,1) 52%, rgba(74,74,74,1) 100%);
+background: -ms-linear-gradient(left, rgba(0,180,33,1) 0%, rgba(0,180,33,1) 51%, rgba(74,74,74,1) 52%, rgba(74,74,74,1) 100%);
+background: linear-gradient(to right, rgba(0,180,33,1) 0%, rgba(0,180,33,1) 51%, rgba(74,74,74,1) 52%, rgba(74,74,74,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00b421', endColorstr='#4a4a4a', GradientType=1 );
 }
 
 .menu-block {
   height: 80px;
   background-color: #4a4a4a;
-  width: calc(100% - 295px) ;
+  width: calc(100% - 170px) ;
 }
 ul.left-side-menu  {
   padding: 0;
@@ -108,17 +123,17 @@ ul.left-side-menu li a:hover {
   width: 120px;
   float: right;
 }
-	
-	
+
+
 	.topmenuright{
-		
+
 		width:270px;
 		height: 30px;
 		display: block;
 		clear: both;
 		margin-left: 253px;
 		margin-top: 29px;
-		
+
 	}
 	.ic1{
 		background: url(img/search.svg);
@@ -129,7 +144,7 @@ ul.left-side-menu li a:hover {
 		margin-right: 20px;
 		position: relative;
 	}
-	.ic1:after{ 
+	.ic1:after{
 		content: "";
 		width: 1px;
 		height: 11px;
@@ -137,7 +152,7 @@ ul.left-side-menu li a:hover {
 		display: block;
 		margin-left: 45px;
 		margin-top: 6px;
-		
+
 	}
 	.ic2{
 		background: url(img/notification.svg);
@@ -157,7 +172,7 @@ ul.left-side-menu li a:hover {
 		margin-right: 34px;
 		cursor: pointer;
 	}
-	.ic3:after{ 
+	.ic3:after{
 		content: "";
 		width: 1px;
 		height: 11px;
@@ -165,7 +180,7 @@ ul.left-side-menu li a:hover {
 		display: block;
 		margin-left: 63px;
 		margin-top: 6px;
-		
+
 	}
 	.ic4{
 		background: url(img/logout.svg);
