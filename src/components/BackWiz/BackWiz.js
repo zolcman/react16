@@ -24,6 +24,7 @@ class BackWiz extends Component {
 
 
     close() {
+      this.setState({page:1})
       this.props.close();
     }
 
