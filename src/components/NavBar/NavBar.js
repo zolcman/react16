@@ -17,6 +17,27 @@ class NavBar extends Component {
     }
 
     componentDidMount() {
+		
+		
+		$( document ).ready(function() {
+			$("body").children().find(".ulic3").hide();
+          $(document).click(function (e) {
+		
+			  var ic3 = e.target;
+			  var clname = e.target.className;
+			  if (clname == "ic3"){
+			  $(ic3).children().toggle();
+			  } else {
+			  $(ic3).children().find(".ulic3").hide();
+			  $(ic3).parent().find(".ulic3").hide();
+			  }
+
+
+          
+        });
+		});
+		
+		
 
 
     }
@@ -26,8 +47,6 @@ class NavBar extends Component {
 
 
     render(){
-
-
 
         return (
             <div className="gt-clear navbar">
@@ -43,8 +62,24 @@ class NavBar extends Component {
                     <li><NavLink activeClassName="selected" to="/alert">Alert</NavLink></li>
                   </ul>
                 </div>
-                <div className="right-side-block gt-right">
-                  ADMIN
+                <div className="right-side-block gt-left">
+                  
+			
+						<div className="topmenuright">
+							<div className="ic1"></div>
+							<div className="ic2"></div>
+							<div className="ic3">
+								<ul className="ulic3">
+									<li><a href="#">Add Veam Server</a></li>
+									<li><a href="#">Add Veam Server</a></li>
+									<li><a href="#">Add Veam Server</a></li>
+									<li><a href="#">Add Veam Server</a></li>
+									<li><a href="#">Add Veam Server</a></li>
+								</ul>
+							</div>
+							<div className="ic4"></div>
+						</div>
+			
                 </div>
 
               </div>
