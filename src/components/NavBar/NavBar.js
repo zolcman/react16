@@ -25,11 +25,10 @@ class NavBar extends Component {
 		
 			  var ic3 = e.target;
 			  var clname = e.target.className;
-			  if (clname == "ic3"){
+			  if (clname == "ic3" ){
 			  $(ic3).children().toggle();
 			  } else {
-			  $(ic3).children().find(".ulic3").hide();
-			  $(ic3).parent().find(".ulic3").hide();
+			  $("body").children().find(".ulic3").hide();
 			  }
 
 
