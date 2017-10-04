@@ -3,6 +3,7 @@ import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
+import BackWiz from '../../components/BackWiz/BackWiz';
 
 class Backup extends Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Backup extends Component {
           table:[
             {name:'test job1',cluster:'Ntnx1',cur_stat:'running',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'},
             {name:'test job2',cluster:'Ntnx2',cur_stat:'failure',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'}
-          ]
+          ],
+          openWiz:false,
 
     }
 }
@@ -40,6 +42,14 @@ class Backup extends Component {
       //  this.props.toastrActions2();
       this.setState({selectOP3:val})
 
+    }
+
+    openWiz() {
+      this.setState({openWiz:true})
+    }
+
+    closeWiz() {
+      this.setState({openWiz:false})
     }
 
     render(){
@@ -110,7 +120,7 @@ console.log(this.state.selectOP)
                   <div className="btns-group gt-left">
                       <a className="bk-btn gt-left start-btn">Start</a>
                       <a className="bk-btn gt-left start-btn">Stop</a>
-                      <a className="bk-btn gt-left start-btn">Add</a>
+                      <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left start-btn">Add</a>
                       <a className="bk-btn gt-left start-btn">Edit</a>
                       <a className="bk-btn gt-left start-btn">Delete</a>
                       <a className="bk-btn gt-left start-btn">Refresh</a>
@@ -125,6 +135,7 @@ console.log(this.state.selectOP)
               <div className="table-content">
                 <table className="bk-table">
                   <thead>
+                    <tr>
                     <th>Name</th>
                     <th>Cluster</th>
                     <th>Curent Status</th>
@@ -135,6 +146,7 @@ console.log(this.state.selectOP)
                     <th>Last run</th>
                     <th>VM's</th>
                     <th>Description</th>
+                    </tr>
                   </thead>
                   <tbody>
                     {list.map((item,index) => (
@@ -157,6 +169,7 @@ console.log(this.state.selectOP)
                 </table>
               </div>
             </div>
+            <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
           </div>
         )
     }
