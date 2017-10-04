@@ -13,6 +13,10 @@ class Backup extends Component {
             { value: 'one', label: 'One' },
             { value: 'two', label: 'Two' }
           ],
+          table:[
+            {name:'test job1',cluster:'Ntnx1',cur_stat:'running',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'},
+            {name:'test job2',cluster:'Ntnx2',cur_stat:'failure',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'}
+          ]
 
     }
 }
@@ -41,10 +45,13 @@ class Backup extends Component {
     render(){
 console.log(this.state.selectOP)
 
+
+        var list = this.state.table || []
+
         return (
           <div>
             <div className="filters">
-              <div className="filter-wrapper">
+              <div className="filter-wrapper gt-clear">
               <div className="breadcrumbs">
                 <Link to='/'>Home</Link> / Backup Jobs
               </div>
@@ -91,7 +98,64 @@ console.log(this.state.selectOP)
                 </div>
 
               </div>
+
             </div>
+
+
+
+            </div>
+
+            <div className="cntrl-btns gt-clear">
+              <div className="btns-wrapper gt-clear">
+                  <div className="btns-group gt-left">
+                      <a className="bk-btn gt-left start-btn">Start</a>
+                      <a className="bk-btn gt-left start-btn">Stop</a>
+                      <a className="bk-btn gt-left start-btn">Add</a>
+                      <a className="bk-btn gt-left start-btn">Edit</a>
+                      <a className="bk-btn gt-left start-btn">Delete</a>
+                      <a className="bk-btn gt-left start-btn">Refresh</a>
+                  </div>
+                  <div className="search-panel gt-right">
+                    <input className="srch-comp" placeholder="search"/>
+                  </div>
+              </div>
+            </div>
+            <div className="table-wrapper">
+
+              <div className="table-content">
+                <table className="bk-table">
+                  <thead>
+                    <th>Name</th>
+                    <th>Cluster</th>
+                    <th>Curent Status</th>
+                    <th>Last Run Result</th>
+                    <th>Linked PD's</th>
+                    <th>RPO</th>
+                    <th>Start time</th>
+                    <th>Last run</th>
+                    <th>VM's</th>
+                    <th>Description</th>
+                  </thead>
+                  <tbody>
+                    {list.map((item,index) => (
+                        <tr className="" key={index}>
+                        <td><a className="link-table">{item.name}</a></td>
+                        <td>{item.cluster}</td>
+                        <td>{item.cur_stat}</td>
+                        <td className="width11">{item.lst_run}</td>
+                        <td>{item.linked}</td>
+                        <td>{item.pro}</td>
+                        <td>{item.srt_time}</td>
+                        <td className="width16">{item.last_run}</td>
+                        <td>{item.WMs}</td>
+                        <td>{item.desription}</td>
+                        </tr>
+
+                    ))}
+                  </tbody>
+
+                </table>
+              </div>
             </div>
           </div>
         )
