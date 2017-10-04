@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>stop</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="stop" fill-rule="nonzero" fill="#7ED321">
+            <g id="Shape">
+                <path d="M8,22 L22,22 L22,8 L8,8 L8,22 Z M9,9 L21,9 L21,21 L9,21 L9,9 Z"></path>
+                <path d="M15,0 C6.729,0 0,6.729 0,15 C0,23.271 6.729,30 15,30 C23.271,30 30,23.271 30,15 C30,6.729 23.271,0 15,0 Z M15,29 C7.2805,29 1,22.7195 1,15 C1,7.2805 7.2805,1 15,1 C22.7195,1 29,7.2805 29,15 C29,22.7195 22.7195,29 15,29 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>
