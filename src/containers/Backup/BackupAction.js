@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { apiUrl, Urls } from '../../middlewares/url'
 
-export const GET_VM_LIST = 'GET_VM_LIST';
-export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
+export const GET_BACK_LIST = 'GET_BACK_LIST';
+export const GET_BACK_DETAIL = 'GET_BACK_DETAIL';
 
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -15,7 +15,7 @@ const headers = {
 function receiveData22(json) {
 	return{
 
-		type: GET_VM_LIST,
+		type: GET_BACK_LIST,
 		data: json
 
 	}
@@ -23,13 +23,13 @@ function receiveData22(json) {
 
 
 
-export function GetVmList (params) {
+export function GetBackList (params) {
 
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 			//dispatch(showLoading()),
-			axios.get(getURI("vms"),headers).then(function (response) {
+			axios.get(getURI("jobs"),headers).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -48,19 +48,19 @@ var accessToken = sessionStorage.getItem('accessToken');
 function receiveData23(json) {
 	return{
 
-		type: GET_VM_LIST_DETAIL,
+		type: GET_BACK_DETAIL,
 		data: json
 
 	}
 };
 
-export function GetVmListDetail (id) {
+export function GetBackDetail (id) {
 
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/Vms/${ id }/backups`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/Policies/${ id }/vms`,headers).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return

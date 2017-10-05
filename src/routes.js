@@ -9,6 +9,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import Backup from './containers/Backup/Backup';
 import Protected from './containers/Protected/Protected';
 import ProtectedDetail from './containers/Protected/ProtectedDetail';
+import BackupDetail from './containers/Backup/BackupDetail';
 import Alert from './containers/Alert/Alert';
 
 export default [
@@ -42,6 +43,13 @@ export default [
     exact:true,
     path: '/vmsdetail/:id',
     component: ProtectedDetail, // Add your route here
+
+  },
+
+  {
+    exact:true,
+    path: '/jobdetail/:id',
+    component: BackupDetail, // Add your route here
 
   },
 

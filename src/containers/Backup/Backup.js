@@ -4,6 +4,9 @@ import { connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
+import { GetBackList } from './BackupAction'
+
+
 
 class Backup extends Component {
     constructor(props) {
@@ -24,7 +27,16 @@ class Backup extends Component {
 }
     componentDidMount() {
 
+        this.props.GetBackList();
+
     }
+
+    componentWillReceiveProps(nextProps) {
+
+      if (nextProps.backup) {
+     this.setState({table:nextProps.backup})
+}
+     }
 
     changeSelect(val) {
       //  this.props.toastrActions2();
@@ -151,16 +163,16 @@ console.log(this.state.selectOP)
                   <tbody>
                     {list.map((item,index) => (
                         <tr className="" key={index}>
-                        <td><a className="link-table">{item.name}</a></td>
+                        <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                         <td>{item.cluster}</td>
-                        <td>{item.cur_stat}</td>
-                        <td className="width11">{item.lst_run}</td>
-                        <td>{item.linked}</td>
-                        <td>{item.pro}</td>
-                        <td>{item.srt_time}</td>
-                        <td className="width16">{item.last_run}</td>
-                        <td>{item.WMs}</td>
-                        <td>{item.desription}</td>
+                        <td>{item.status}</td>
+                        <td className="width11">{item.lastRunResult}</td>
+                        <td>{item.linkedPds}</td>
+                        <td>{item.rpo}</td>
+                        <td>{item.startTime}</td>
+                        <td className="width16">{item.lastRun}</td>
+                        <td>{item.vmsCount}</td>
+                        <td>{item.description}</td>
                         </tr>
 
                     ))}
@@ -178,7 +190,7 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
 
-
+      GetBackList: () => dispatch(GetBackList()),
 
 
     }
@@ -189,6 +201,7 @@ function mapStateToProps(state) {
 //console.log(state.Reducer.emulate);
     return {
 
+      backup:state.toJS().BackupReducer.backups,
 
     }
 }

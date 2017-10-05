@@ -2,7 +2,7 @@
 import Immutable from 'immutable'
 
 const initialUserState =
-{  
+{
 
 }
 ;
@@ -14,8 +14,8 @@ const ProtectedReducer = function(state = initialUserState, action) {
   case 'GET_VM_LIST':
 		 return Object.assign({}, state, { vms: action.data });
  break;
-     case 'GET_JOB_LIST':
-        return Object.assign({}, state, { joblist: action.data });
+     case 'GET_VM_LIST_DETAIL':
+        return Object.assign({}, state, { vmsdetail: action.data });
         break;
 
 
