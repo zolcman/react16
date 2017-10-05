@@ -8,7 +8,7 @@ if(process.env.NODE_ENV === 'development') {
 const Urls = {
 
   vms : '/api/v1/Vms',
-  
+
 }
 
 

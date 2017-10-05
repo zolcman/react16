@@ -2,14 +2,13 @@ import React, { Component,  PropTypes} from 'react'
 import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
-import { GetVmList } from './ProtectedAction'
+import { GetVmListDetail } from './ProtectedAction'
 
-class Protected extends Component {
+class ProtectedDetail extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-
 
 
     }
@@ -17,14 +16,15 @@ class Protected extends Component {
     componentDidMount() {
 
 
-        this.props.GetVmList();
+      this.props.GetVmListDetail(this.props.match.params.id);
+
     }
 
     componentWillReceiveProps(nextProps) {
 
       if (nextProps.vms) {
      this.setState({table:nextProps.vms})
-}
+      }
      }
 
 
@@ -42,12 +42,20 @@ class Protected extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / Protected VM's
+                    <Link to='/'>Home</Link> / <Link to='/protectedvms'>Protected VM's</Link> / {this.props.match.params.id}
                   </div>
-                  <div className="vm-counter gt-left">Protected VM's (3)</div>
+                  <div className="vm-counter gt-left">Protected VM's (2)</div>
                 </div>
                 <div className="gt-right label-view">
-                  <div className="label-view-status">Restores in Progress</div>
+                  <div className="label-view-status">Consistency group</div>
+                  <div className="label-view-counter">NONE</div>
+                </div>
+                <div className="gt-right label-view mar2px">
+                  <div className="label-view-status ">Cluster</div>
+                  <div className="label-view-counter">NONE</div>
+                </div>
+                <div className="gt-right label-view mar2px">
+                  <div className="label-view-status ">Current Job Status</div>
                   <div className="label-view-counter">NONE</div>
                 </div>
 
@@ -56,7 +64,6 @@ class Protected extends Component {
                 <div className="gt-left">
                   <a className="gt-left res-btns">Restore VM</a>
                   <a className="gt-left res-btns">Quick Backup</a>
-                  <a className="gt-left res-btns">Delete</a>
                   <a className="gt-left res-btns">Refresh</a>
                 </div>
                 <div className="search-panel gt-right">
@@ -70,11 +77,11 @@ class Protected extends Component {
                     <thead>
                       <tr>
                       <th>Date</th>
-                      <th>Snapshots</th>
-                      <th>Backups</th>
+                      <th>Type</th>
+                      <th>Job</th>
                       <th>Status</th>
-                      <th>Cluster</th>
-                      <th>Last Protection</th>
+                      <th>Backup Site</th>
+                      <th>Last sucsess</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -82,9 +89,7 @@ class Protected extends Component {
 
                       {list.map((item,index) => (
                           <tr className="" key={index}>
-                          <td>
-                              <Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link>
-                        </td>
+                          <td><a className="link-table">{item.name}</a></td>
                           <td>{item.snapshots}</td>
                           <td>{item.backups}</td>
                           <td className="width11">{item.status}</td>
@@ -108,7 +113,7 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
 
-      GetVmList: () => dispatch(GetVmList()),
+      GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
 
 
     }
@@ -116,11 +121,11 @@ const mapDispatchToProps = function(dispatch) {
 
 function mapStateToProps(state) {
 
-console.log(state.toJS().ProtectedReducer.vms);
+
     return {
 
-          vms:state.toJS().ProtectedReducer.vms,
+      //    vms:state.toJS().ProtectedReducer.vms,
 
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Protected);
+export default connect(mapStateToProps, mapDispatchToProps)(ProtectedDetail);
