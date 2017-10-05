@@ -108,7 +108,28 @@ a.bk-btn {
 }
 
 .start-btn {
-  background: url('./img/1.png') no-repeat #f8f8f8;
+  background: url('./img/start.svg') no-repeat #f8f8f8;
+  background-size: 20px;
+}
+.stop-btn {
+  background: url('./img/stop.svg') no-repeat #f8f8f8;
+  background-size: 20px;
+}
+.add-btn {
+  background: url(./img/J_add.svg)no-repeat #f8f8f8;
+  background-size: 20px;
+}
+.edit-btn {
+  background: url('./img/edit.svg') no-repeat #f8f8f8;
+  background-size: 20px;
+}
+.delete-btn {
+  background: url('./img/delete.svg') no-repeat #f8f8f8;
+  background-size: 20px;
+}
+.refresh-btn {
+  background: url('./img/refresh.svg') no-repeat #f8f8f8;
+  background-size: 20px;
 }
 
 .table-wrapper {

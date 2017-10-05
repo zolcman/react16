@@ -119,11 +119,11 @@ console.log(this.state.selectOP)
               <div className="btns-wrapper gt-clear">
                   <div className="btns-group gt-left">
                       <a className="bk-btn gt-left start-btn">Start</a>
-                      <a className="bk-btn gt-left start-btn">Stop</a>
-                      <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left start-btn">Add</a>
-                      <a className="bk-btn gt-left start-btn">Edit</a>
-                      <a className="bk-btn gt-left start-btn">Delete</a>
-                      <a className="bk-btn gt-left start-btn">Refresh</a>
+                      <a className="bk-btn gt-left stop-btn">Stop</a>
+                      <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn">Add</a>
+                      <a className="bk-btn gt-left edit-btn">Edit</a>
+                      <a className="bk-btn gt-left delete-btn">Delete</a>
+                      <a className="bk-btn gt-left refresh-btn">Refresh</a>
                   </div>
                   <div className="search-panel gt-right">
                     <input className="srch-comp" placeholder="search"/>

@@ -2,6 +2,7 @@ import React, { Component,  PropTypes} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
+import Select from 'react-select';
 
 
 class BackWiz extends Component {
@@ -60,21 +61,110 @@ class BackWiz extends Component {
 
     }
 
+	
+	changeSelect2(val) {
+      //  this.props.toastrActions2();
+      this.setState({selectOP2:val})
+
+    }
+	
+	
+	window1(){ 
+	return(
+	<div>
+		<div className="zagname">General Settings</div>
+		<div>Job Name:</div>
+		<input type="text" />
+		<div>Job Name:</div>
+		<textarea></textarea>
+		
+	</div>
+	)
+	}
+	
+	window2(){
+	return(
+	<div>
+		
+		<div className="zagname">Assign VMs</div>
+		<div>Total VMs in cluster: 254</div>
+		<div>Selected objects: 5</div>
+		<div className="iconboxtbsearch">
+			<div className="addic">Add</div>
+			<div className="removeic">Remove</div>
+			<div className="exclusionsic">Exclusions</div>
+			<div className="searchiccont">
+				<input placeholder="Search" type="text"/><input type="button"/>
+			</div>
+		</div>
+		
+		
+	</div>
+	)
+	
+	}
+	window3(){
+		
+		return(
+	<div>
+		
+		<div className="zagname">Backup Destination</div>
+		<div>Selected VMs: 24</div>
+		<div>Aproximate Backup size: 954 GB</div>
+		
+		<div>Backup repository:</div>
+		<Select
+                      className="repo1"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		<div className="capacitycont">
+			
+			<span className="storageic"></span><span className="cap">Capacity:</span><span className="quant"></span>
+			
+		</div>
+			
+		<div className="bottomelse">
+			<div className="onltext">Advanced job settings including compression, <br/> deduplicating and other settings</div>
+			<div className="onltextbtn">Advanced</div>
+			
+		</div>
+		
+	</div>
+	)	
+	}
+	window4(){
+		return(
+		<div>
+		<div className="zagname">Configure Shedule</div>
+		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
+		<div><label><input type="checkbox" checked name="dva"/> run the job automaticaly</label></div>
+	    </div>
+			)
+	}
+	window5(){ 
+	
+	}
+
+	
+	
     renderPage () {
       if (this.state.page == 1) {
-        return (<div>1</div>)
+        return (<div>{this.window1()}</div>)
       }
       if (this.state.page == 2) {
-        return (<div>2</div>)
+        return (<div>{this.window2()}</div>)
       }
       if (this.state.page == 3) {
-        return (<div>3</div>)
+        return (<div>{this.window3()}</div>)
       }
       if (this.state.page == 4) {
-        return (<div>4</div>)
+        return (<div>{this.window4()}</div>)
       }
       if (this.state.page == 5) {
-        return (<div>5</div>)
+        return (<div>{this.window5()}</div>)
       }
     }
     switch (param) {
