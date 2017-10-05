@@ -208,19 +208,19 @@ class BackWiz extends Component {
 		<div>
   <div className="zagname">Review Summary</div>
 			<dl className="floated">
-  <dt>Name:</dt>
+  <dt>Name</dt>
   <dd>definition for first item in list</dd>
-  <dt>Source Cluster:</dt>
+  <dt>Source Cluster</dt>
   <dd>NTNXCL 1</dd>
-  <dt>VMs:</dt>
+  <dt>VMs</dt>
   <dd>35</dd>
-  <dt>Target repository:</dt>
+  <dt>Target repository</dt>
   <dd>TestRepo1</dd>
-  <dt>Target path:</dt>
+  <dt>Target path</dt>
   <dd>C:\Backup\</dd>
-  <dt>Shedule:</dt>
+  <dt>Shedule</dt>
   <dd>Daily at 10:00 PM</dd>
-  <dt>Retention:</dt>
+  <dt>Retention</dt>
   <dd>5 restore points</dd>
 </dl>
 	<div><label><input type="checkbox" checked name="dva"/> Run backup job when i click add</label></div>		
