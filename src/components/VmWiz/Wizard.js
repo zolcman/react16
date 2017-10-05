@@ -82,7 +82,7 @@ class Wizard extends Component {
             Navigate to corresponding restore session under history node to monitor the progress
           </div>
           <div className="windows-list">
-            <dl class="floated">
+            <dl className="floated">
                 <dt>Proxy</dt>
                 <dd>definition for first item in list</dd>
                 <dt>Original VM name</dt>

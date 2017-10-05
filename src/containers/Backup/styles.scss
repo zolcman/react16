@@ -81,20 +81,24 @@
   box-sizing: border-box;
   padding-top: 14px;
 }
+
 a.bk-btn {
   width: 100px;
   height: 35px;
   border-radius: 3px;
   border: 1px solid #ccc;
   background-position: 7px 7px;
-  padding-top: 6px;
+  padding-top: 7px;
+  font-size: 15px;
   box-sizing: border-box;
   color: #4a4a4a;
   padding-left: 36px;
   cursor:pointer;
   margin-right: 20px;
 }
-
+a.fixpad {
+  padding-top: 9px;
+}
 
 
 .srch-comp {
@@ -196,6 +200,6 @@ top: 8px;
 }
 
 
-	
+
 
 }
