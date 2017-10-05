@@ -3,6 +3,7 @@ import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Select from 'react-select';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 
 class BackWiz extends Component {
@@ -72,11 +73,11 @@ class BackWiz extends Component {
 	window1(){ 
 	return(
 	<div>
-		<div className="zagname">General Settings</div>
-		<div>Job Name:</div>
-		<input type="text" />
-		<div>Job Name:</div>
-		<textarea></textarea>
+		<div className="zagname">General Settings</div> 
+		<div className="upperlbl">Job Name:</div>
+		<input className="jobname" type="text" />
+		<div className="upperlbl">Job Description:</div>
+		<textarea className="firstscreent"></textarea>
 		
 	</div>
 	)
@@ -87,8 +88,8 @@ class BackWiz extends Component {
 	<div>
 		
 		<div className="zagname">Assign VMs</div>
-		<div>Total VMs in cluster: 254</div>
-		<div>Selected objects: 5</div>
+		<div className="pagetwoundertxt">Total VMs in cluster: 254</div>
+		<div className="pagetwoundertxt">Selected objects: 5</div>
 		<div className="iconboxtbsearch">
 			<div className="addic">Add</div>
 			<div className="removeic">Remove</div>
@@ -118,6 +119,7 @@ class BackWiz extends Component {
                       name="form-field-name"
                       value={this.state.selectOP2}
                       options={this.state.options}
+					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
 		<div className="capacitycont">
@@ -141,30 +143,102 @@ class BackWiz extends Component {
 		<div className="zagname">Configure Shedule</div>
 		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
 		<div><label><input type="checkbox" checked name="dva"/> run the job automaticaly</label></div>
+			
+			
+			<Tabs>
+    <TabList>
+      <Tab>Title 1</Tab>
+      <Tab>Title 2</Tab>
+	  <Tab>Title 3</Tab>
+	  <Tab>Title 4</Tab>
+    </TabList>
+
+    <TabPanel>
+      <h2>Any content 1</h2>
+    </TabPanel>
+    <TabPanel>
+      <h2>Any content 2</h2>
+    </TabPanel>
+	<TabPanel>
+      <h2>Any content 3</h2>
+    </TabPanel>
+	<TabPanel>
+      <h2>Any content 4</h2>
+    </TabPanel>
+  </Tabs>
+			
+	<div>Restore Points to keep on disc: <input type="number"/></div>
+			
+<div className="autoretry">
+			<div><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
+			<div className="autoretryleft">
+			<div>Retry failed VMs processing:</div>
+			<div><input type="number"/></div>
+			</div>
+			<div className="autoretryright">
+			<div>Wait before each retry attempt for </div>
+			<div><input type="number"/></div>
+			</div>
+			
+</div>
+			
+			<div><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
+			<div className="bottomwith">
+			<span>Terminate job of it exceeds allowed backup window<input type="button" value="Window..."/></span>
+			</div>
+			
+			<div className="bottomwithline">
+			If the job does not complete within allocated backup window, it will be terminated to prevent snapshot commit during production hours
+			</div>
+			
+			
 	    </div>
 			)
 	}
-	window5(){ 
-	
+
+
+	window5(){
+		
+		return(
+		<div>
+			<dl class="floated">
+  <dt>Name:</dt>
+  <dd>definition for first item in list</dd>
+  <dt>Source Cluster:</dt>
+  <dd>NTNXCL 1</dd>
+  <dt>VMs:</dt>
+  <dd>35</dd>
+  <dt>Target repository:</dt>
+  <dd>TestRepo1</dd>
+  <dt>Target path:</dt>
+  <dd>C:\Backup\</dd>
+  <dt>Shedule:</dt>
+  <dd>Daily at 10:00 PM</dd>
+  <dt>Retention:</dt>
+  <dd>5 restore points</dd>
+</dl>
+	<div><label><input type="checkbox" checked name="dva"/> Run backup job when i click add</label></div>		
+</div>		
+		)
 	}
 
 	
 	
     renderPage () {
       if (this.state.page == 1) {
-        return (<div>{this.window1()}</div>)
+        return (<div className="wizzard1">{this.window1()}</div>)
       }
       if (this.state.page == 2) {
-        return (<div>{this.window2()}</div>)
+        return (<div className="wizzard1">{this.window2()}</div>)
       }
       if (this.state.page == 3) {
-        return (<div>{this.window3()}</div>)
+        return (<div className="wizzard1">{this.window3()}</div>)
       }
       if (this.state.page == 4) {
-        return (<div>{this.window4()}</div>)
+        return (<div className="wizzard1">{this.window4()}</div>)
       }
       if (this.state.page == 5) {
-        return (<div>{this.window5()}</div>)
+        return (<div className="wizzard1">{this.window5()}</div>)
       }
     }
     switch (param) {
