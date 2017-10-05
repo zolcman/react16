@@ -2,7 +2,7 @@ import React, { Component,  PropTypes} from 'react'
 import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
-
+import { GetVmList } from './ProtectedAction'
 
 class Protected extends Component {
     constructor(props) {
@@ -19,13 +19,25 @@ class Protected extends Component {
 }
     componentDidMount() {
 
+
+        this.props.GetVmList();
     }
+
+    componentWillReceiveProps(nextProps) {
+
+      if (nextProps.vms) {
+     this.setState({table:nextProps.vms})
+}
+     }
+
 
 
 
     render(){
 
   var list = this.state.table || []
+
+  console.log(this.state.table)
 
         return (
           <div>
@@ -59,15 +71,18 @@ class Protected extends Component {
                 <div className="table-content">
                   <table className="bk-table">
                     <thead>
+                      <tr>
                       <th>Date</th>
                       <th>Snapshots</th>
                       <th>Backups</th>
                       <th>Status</th>
                       <th>Cluster</th>
                       <th>Last Protection</th>
-
+                      </tr>
                     </thead>
                     <tbody>
+
+
                       {list.map((item,index) => (
                           <tr className="" key={index}>
                           <td><a className="link-table">{item.name}</a></td>
@@ -94,7 +109,7 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
 
-
+      GetVmList: () => dispatch(GetVmList()),
 
 
     }
@@ -105,6 +120,7 @@ function mapStateToProps(state) {
 //console.log(state.Reducer.emulate);
     return {
 
+          vms:state.toJS().ProtectedReducer.vms,
 
     }
 }
