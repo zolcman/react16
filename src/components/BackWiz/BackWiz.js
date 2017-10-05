@@ -99,6 +99,9 @@ class BackWiz extends Component {
 			</div>
 		</div>
 		
+		<div className="consteptwo">
+		</div>
+		
 		
 	</div>
 	)
@@ -110,10 +113,10 @@ class BackWiz extends Component {
 	<div>
 		
 		<div className="zagname">Backup Destination</div>
-		<div>Selected VMs: 24</div>
-		<div>Aproximate Backup size: 954 GB</div>
+		<div className="pagetwoundertxt">Selected VMs: 24</div>
+		<div className="pagetwoundertxt">Approximate Backup size: 954 GB</div>
 		
-		<div>Backup repository:</div>
+		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
                       className="repo1"
                       name="form-field-name"
@@ -137,7 +140,9 @@ class BackWiz extends Component {
 	</div>
 	)	
 	}
+	
 	window4(){
+		
 		return(
 		<div>
 		<div className="zagname">Configure Shedule</div>
@@ -201,7 +206,8 @@ class BackWiz extends Component {
 		
 		return(
 		<div>
-			<dl class="floated">
+  <div className="zagname">Review Summary</div>
+			<dl className="floated">
   <dt>Name:</dt>
   <dd>definition for first item in list</dd>
   <dt>Source Cluster:</dt>

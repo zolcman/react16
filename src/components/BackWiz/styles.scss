@@ -111,10 +111,7 @@ padding: 8px 13px;
 }
 	
 
-dl {
-    border: 3px double #ccc;
-    padding: 0.5em;
-  }
+
   dt {
     float: left;
     clear: left;
@@ -122,12 +119,31 @@ dl {
     text-align: right;
     font-weight: bold;
   }
-  dt::after {
-    content: ":";
-  }
   dd {
     margin: 0 0 0 110px;
     padding: 0 0 0.5em 0;
+	}
+	dd, dt { 
+		line-height: 38px; height: 38px; box-sizing: border-box;
+	}
+	dt{ 
+		min-width: 210px;
+		text-align: left;
+		font-size: 14px;
+	}
+	dd{
+	font-size: 14px;	
+	}
+	
+	.floated dd:nth-child(4n){
+    background: #f9f9f9;
+    margin-left: 0;
+	}
+	.floated dd{
+	border-top:1px solid #dddddd;
+	}
+	.floated dd:last-child{
+	border-bottom:1px solid #dddddd;
 	}
 	
 	
@@ -150,11 +166,11 @@ dl {
 	.firstscreent { 
 	border: 1px solid #dddddd;
 	border-radius: 1px; resize: none;
-	width: 605px;
+	width: 100%;
 	height: 80px;
 	}
 	.jobname {
-	width: 605px;
+	width: 100%;
 	}
 	.upperlbl {
 	font-weight: 600;
@@ -228,11 +244,73 @@ dl {
 		
 	}
 	.iconboxtbsearch{
-		margin-top: 23px;
+	margin-top: 23px;
+    display: block;
+    height: 30px;
+	margin-bottom: 30px;
 	}
-	
-	
-	
+	.consteptwo{
+		padding-top: 50px;
+		padding-left: 25px;
+		padding-right: 25px;
+		padding-bottom: 5px;
+		box-sizing: border-box;
+		border: 1px solid #dadada;
+		
+	}
+	.bckprpstr{
+	margin-top: 22px;
+	margin-bottom: 11px;
+	}
+
+.repo1 div, .repo1 span, .repo1 input,{
+max-height: 28px;
+line-height: 28px;
+box-sizing: border-box;
+	}
+.capacitycont {
+width: 100%;
+height: 75px;
+background: #fafafa;
+margin-top: 20px;
+display: block;
+line-height: 75px;
+box-sizing: border-box;
+padding-left: 69px;
+font-size: 14px;
+font-weight: 600;
+	}
+.bottomelse{
+width: 100%;
+margin-top: 40px;
+position: relative;
+	}
+.onltext{
+font-size: 13px;
+	}
+.onltextbtn {
+width: 120px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #7ed321;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 50px;
+}
+.onltextbtn {
+    width: 120px;
+    height: 28px;
+    line-height: 28px;
+    border: 1px solid #7ed321;
+    font-size: 13px;
+    text-align: center;
+    border-radius: 50px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 	
 	
 	
