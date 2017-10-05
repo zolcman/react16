@@ -137,10 +137,11 @@ padding: 8px 13px;
 	
 	.floated dd:nth-child(4n){
     background: #f9f9f9;
-    margin-left: 0;
+    
 	}
 	.floated dd{
 	border-top:1px solid #dddddd;
+	margin-left: 0;
 	}
 	.floated dd:last-child{
 	border-bottom:1px solid #dddddd;
@@ -193,7 +194,7 @@ padding: 8px 13px;
 	position: relative;
 	}
 	.removeic{
-	width:105px;
+	width:115px;
 	margin-left: 13px;
 	float: left;
 	height:30px;
@@ -306,7 +307,7 @@ font-size: 13px;
     top: 0;
 	color: #7ed321;
 }
-	.addic:after , .removeic:after , .exclusionsic:after {
+	.addic:after , .removeic:after {
 	content: "";
 	width: 2px;
 	height: 14px;
