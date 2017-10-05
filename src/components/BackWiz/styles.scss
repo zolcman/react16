@@ -190,6 +190,7 @@ padding: 8px 13px;
 	padding-left: 38px;
 	box-sizing: border-box;
 	background-size: 30px;
+	position: relative;
 	}
 	.removeic{
 	width:105px;
@@ -201,9 +202,10 @@ padding: 8px 13px;
 	padding-left: 38px;
 	box-sizing: border-box;
 	background-size: 30px;
+	position: relative;
 	}
 	.exclusionsic{
-	width: 105px;
+	width: 123px;
 	margin-left: 14px;
 	float: left;
 	height:30px;
@@ -212,6 +214,7 @@ padding: 8px 13px;
 	padding-left: 38px;
 	box-sizing: border-box;
 	background-size: 30px;
+	position: relative;
 	}
 	.searchiccont{
 	height:30px;
@@ -288,15 +291,7 @@ position: relative;
 .onltext{
 font-size: 13px;
 	}
-.onltextbtn {
-width: 120px;
-    height: 28px;
-    line-height: 28px;
-    border: 1px solid #7ed321;
-    font-size: 13px;
-    text-align: center;
-    border-radius: 50px;
-}
+
 .onltextbtn {
     width: 120px;
     height: 28px;
@@ -309,8 +304,19 @@ width: 120px;
     position: absolute;
     right: 0;
     top: 0;
+	color: #7ed321;
 }
-
+	.addic:after , .removeic:after , .exclusionsic:after {
+	content: "";
+	width: 2px;
+	height: 14px;
+	background-color: #a4a4a4;
+	position: absolute;
+	display: block;
+	right: 0;
+    top: 9px;
+	
+	}
 	
 	
 	
