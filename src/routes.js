@@ -8,6 +8,7 @@ import NotFoundPage from './containers/NotFound';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Backup from './containers/Backup/Backup';
 import Protected from './containers/Protected/Protected';
+import ProtectedDetail from './containers/Protected/ProtectedDetail';
 import Alert from './containers/Alert/Alert';
 
 export default [
@@ -34,6 +35,13 @@ export default [
   {
     path: '/protectedvms',
     component: Protected, // Add your route here
+
+  },
+
+  {
+    exact:true,
+    path: '/vmsdetail/:id',
+    component: ProtectedDetail, // Add your route here
 
   },
 
