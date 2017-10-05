@@ -2,7 +2,7 @@ import React, { Component,  PropTypes} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
-
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 class Wizard extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class Wizard extends Component {
 
 
     close() {
-      this.setState({page:1})
+      this.setState({page:4}) // binded when all ok change to 1
       this.props.close();
     }
 
@@ -136,13 +136,19 @@ class Wizard extends Component {
 
     changewindow () {
       this.setState({finish:true})
+
+    }
+
+    cancelTask () {
+        this.props.close();
+      this.setState({finish:false,page:4})
     }
 
     renderFinish() {
       return (
         <div>
           <div className="windows-list">
-            <dl class="floated">
+            <dl className="floated">
                 <dt>VM name</dt>
                 <dd>2222</dd>
                 <dt>Restore type</dt>
@@ -157,7 +163,69 @@ class Wizard extends Component {
                 <dd>Daily at 10:00 PM</dd>
               </dl>
           </div>
+          <div className="tabs">
+            <Tabs>
+
+              <TabList>
+                <Tab>Statistic</Tab>
+                <Tab>Reason</Tab>
+              </TabList>
+              <div className="tabs-con-panel">
+              <TabPanel>
+                <div>{this.firsttab()}</div>
+              </TabPanel>
+              <TabPanel>
+                <div>22</div>
+              </TabPanel>
+              </div>
+            </Tabs>
+
+          </div>
         </div>
+      )
+    }
+
+   move() {
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, 10);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+        } else {
+            width++;
+            elem.style.width = width + '%';
+        }
+    }
+}
+
+
+
+    firsttab() {
+
+      return (
+        <div>
+            <div className="progress-bar-titles">
+              <div className="gt-left">Restore started</div>
+              <div className="gt-right">11.3/ 10 GB</div>
+            </div>
+          <div className="progress-bar">
+            <div id="myBar"></div>
+          </div>
+          <a onClick={this.move.bind(this)}>Click to test progress bar</a>
+          <div className="windows-list">
+          <dl className="floated">
+              <dt>Object remaining</dt>
+              <dd>2222</dd>
+              <dt>Restore rate</dt>
+              <dd>NTNXCL 1</dd>
+              <dt>Time remaining</dt>
+              <dd>35</dd>
+
+            </dl>
+      </div>
+        </div>
+
       )
     }
 
@@ -200,22 +268,34 @@ class Wizard extends Component {
 
                     </div>
                     <div className="btns-go-back gt-clear">
-                       {this.state.page == 4 ?
-                         (
-                           <div>
-                             <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Cancel</a>
-                              <a onClick={this.changewindow.bind(this)} className="go-btn gt-right go-btn-global mar11px">Finish</a>
+                      {this.state.finish ? (<div>
+                        <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
+                        <a onClick={this.cancelTask.bind(this)} className="go-btn gt-right go-btn-global mar11px">Cancel restore task</a>
 
-                           </div>
 
-                         )
-                          :
-                          (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)
-                        }
-                      {this.state.page == 1 ? (null)
-                         :
-                          (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>
-                        )}
+                      </div>) : (
+
+                        <div>
+                          {this.state.page == 4 ?
+                            (
+                              <div>
+                                <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global">Cancel</a>
+                                 <a onClick={this.changewindow.bind(this)} className="go-btn gt-right go-btn-global mar11px">Finish</a>
+
+                              </div>
+
+                            )
+                             :
+                             (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)
+                           }
+                         {this.state.page == 1 ? (null)
+                            :
+                             (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>
+                           )}
+                        </div>
+
+                      )}
+
 
 
                     </div>
