@@ -110,7 +110,9 @@ padding: 8px 13px;
   margin-right: 13px;
 }
 
-
+.stage4{
+		font-size: 14px;
+	}
 
   dt {
     float: left;
@@ -323,15 +325,143 @@ font-size: 13px;
 		padding-left: 20px;
 		box-sizing: border-box;
 	}
-
-
-
-
-
-
-
-
-
+	.myown .react-tabs__tab{
+	float: left;
+    width: 140px;
+	margin-right: 2px;
+	color: #9e9e9e;
+	font-size: 14px;
+	}
+	.myown .tabs-con-panel { 
+	padding: 20px;
+	}
+	.myown .react-tabs__tab--selected{
+	color: black;
+	font-weight: 500;
+	}
+	.tabf1 {
+    float: left;
+    width: 115px;
+    margin-right: 40px;
+}
+	.tabf2 { 
+	float: left;
+	width: 255px;
+    margin-right: 40px;
+	}
+	.tabf3 { 
+	float: left;
+	width: 76px;
+	}
+	.myown div {
+	display: block;
+	position: relative;	
+	}
+	.myown span {
+	display: inline-block;
+	}
+	.myown .tabs-con-panel{
+	min-height: 50px;
+	}
+	
+	.tabs1 {
+    float: left;
+    width: 100px;
+    margin-right: 15px;
+}
+	.tabs2 { 
+	float: left;
+	width: 140px;
+    margin-right: 15px;
+	}
+	.tabs3 { 
+	float: left;
+	width: 140px;
+	margin-right: 15px;
+	}
+	.tabs4 { 
+	float: left;
+	width: 100px;
+	}
+	.myown {
+		margin-bottom: 24px;
+	}
+	.respoints{
+		margin-left: 25px;
+		width: 105px;
+	
+	}
+	.autoretry {
+		box-sizing: border-box;
+		background: #fafafa;
+		padding: 20px;
+		clear: both;
+		height: 150px;
+		margin-top: 18px;
+	}
+	.autoretryleft , .autoretryright {
+		width: 50%;
+		float: left;
+	}
+	.checkboxstyling {
+		line-height: 22px;
+		height: 22px;
+		margin-bottom: 27px;
+	}
+	.checkboxstyling input {
+		line-height: 22px;
+		height: 22px;
+	}
+.checkboxstyling {
+		line-height: 22px;
+		height: 22px;
+	}
+	.bottomwith {
+		padding-left: 20px;
+		box-sizing: border-box;
+		position: relative;
+		padding-bottom: 20px;
+	}
+	.windbtn{
+		width: 100px;
+		height: 30px!important;
+		line-height: 22px!important;
+		color: #999999;
+		border-radius: 1px;
+		text-align: center;
+		border: 1px solid #cccccc!important;
+		background: #e5e5e5;
+		margin-left: auto;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+	}
+	.bckpchkbx {
+		height: 22px;
+		width: 100%;
+		margin-bottom: 27px;
+		margin-top: 20px;
+	}
+	
+	.bottomwithline {
+		color: #9b9b9b;
+		padding-top: 10px;
+		border-top: 1px solid #dadada;
+	}
+	.autoretry input {
+	margin-top:0px;
+	}
+	.autoretryleft input {
+		margin-top: 13px;
+	}
+	.autoretryright input {
+		margin-top: 13px;
+	}
+	.stage4 label {
+		color: #80d325;
+		
+	}
 
 
 }
