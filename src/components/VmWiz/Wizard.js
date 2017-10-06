@@ -19,6 +19,11 @@ class Wizard extends Component {
 
     componentDidMount() {
 
+      if (this.props.fromlist) {
+        this.setState({finish:true}) // сдесь будем сразу по id выполнять запрос на обновление прогрессбара
+        console.log('fuck')
+      }
+
 
     }
 
@@ -27,6 +32,8 @@ class Wizard extends Component {
     close() {
       this.setState({page:4}) // binded when all ok change to 1
       this.props.close();
+
+
     }
 
     pagechange() {
@@ -141,7 +148,15 @@ class Wizard extends Component {
 
     cancelTask () {
         this.props.close();
-      this.setState({finish:false,page:4})
+
+
+      if (this.props.fromlist) {
+        this.props.refreshtablelist();
+        this.setState({finish:true,page:4}) // обновляем страницу если нажали cancel
+      }
+      else {
+        this.setState({finish:false,page:4})
+      }
     }
 
     renderFinish() {
@@ -230,6 +245,7 @@ class Wizard extends Component {
     }
 
     render(){
+      console.log(this.props.vmid)
 
         return (
           <div>

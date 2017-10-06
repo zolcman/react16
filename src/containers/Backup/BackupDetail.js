@@ -23,6 +23,17 @@ class BackupDetail extends Component {
 
       this.props.GetBackDetail(this.props.match.params.id);
 
+
+
+    }
+
+    componentDidUpdate () {
+
+      $('.table-content tr').click(function (event) {
+        $('.table-content tr').removeClass("selected-green");
+        $(this).addClass( "selected-green" );
+      });
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -49,6 +60,10 @@ class BackupDetail extends Component {
        this.setState({openWiz2:false})
      }
 
+     chooseitem(id) {
+       console.log(id);
+       this.setState({choosen:true,vmid:id})
+     }
 
     render(){
 
@@ -95,7 +110,11 @@ class BackupDetail extends Component {
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
-                  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns">Restore VM</a>
+                  {this.state.choosen ? (  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns">Restore VM</a>)
+                  :
+                  (  <a  className="gt-left res-btns turnoff-btn">Restore VM</a>)
+                }
+
                   <a className="gt-left res-btns">Quick Backup</a>
                   <a className="gt-left res-btns">Refresh</a>
                 </div>
@@ -121,7 +140,7 @@ class BackupDetail extends Component {
 
 
                       {list.map((item,index) => (
-                          <tr className="" key={index}>
+                          <tr onClick={this.chooseitem.bind(this,item.Id)} key={index}>
                           <td>{item.name}</td>
                           <td>{item.recoveryPoints}</td>
                           <td>{item.status}</td>
@@ -139,7 +158,7 @@ class BackupDetail extends Component {
               </div>
               </div>
               <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-              <Wizard open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+              <Wizard vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

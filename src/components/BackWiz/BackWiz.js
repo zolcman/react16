@@ -4,7 +4,7 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
+import  SWizard from '../SmWiz/SWizard'
 
 class BackWiz extends Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class BackWiz extends Component {
         this.state = {
 
           page:'1',
+          openWiz3:false,
 
         }
     }
@@ -62,60 +63,60 @@ class BackWiz extends Component {
 
     }
 
-	
+
 	changeSelect2(val) {
       //  this.props.toastrActions2();
       this.setState({selectOP2:val})
 
     }
-	
-	
-	window1(){ 
+
+
+	window1(){
 	return(
 	<div>
-		<div className="zagname">General Settings</div> 
+		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
 		<input className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
 		<textarea className="firstscreent"></textarea>
-		
+
 	</div>
 	)
 	}
-	
+
 	window2(){
 	return(
 	<div>
-		
+
 		<div className="zagname">Assign VMs</div>
 		<div className="pagetwoundertxt">Total VMs in cluster: 254</div>
 		<div className="pagetwoundertxt">Selected objects: 5</div>
 		<div className="iconboxtbsearch">
-			<div className="addic">Add</div>
+			<div onClick={this.openWiz3.bind(this)} className="addic">Add</div>
 			<div className="removeic">Remove</div>
 			<div className="exclusionsic">Exclusions</div>
 			<div className="searchiccont">
 				<input placeholder="Search" type="text"/><input type="button"/>
 			</div>
 		</div>
-		
+
 		<div className="consteptwo">
 		</div>
-		
-		
+
+
 	</div>
 	)
-	
+
 	}
 	window3(){
-		
+
 		return(
 	<div>
-		
+
 		<div className="zagname">Backup Destination</div>
 		<div className="pagetwoundertxt">Selected VMs: 24</div>
 		<div className="pagetwoundertxt">Approximate Backup size: 954 GB</div>
-		
+
 		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
                       className="repo1"
@@ -126,30 +127,30 @@ class BackWiz extends Component {
                       onChange={this.changeSelect2.bind(this)}
         />
 		<div className="capacitycont">
-			
+
 			<span className="storageic"></span><span className="cap">Capacity:</span><span className="quant"></span>
-			
+
 		</div>
-			
+
 		<div className="bottomelse">
 			<div className="onltext">Advanced job settings including compression, <br/> deduplicating and other settings</div>
 			<div className="onltextbtn">Advanced</div>
-			
+
 		</div>
-		
+
 	</div>
-	)	
+	)
 	}
-	
+
 	window4(){
-		
+
 		return(
 		<div>
 		<div className="zagname">Configure Shedule</div>
 		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
 		<div><label><input type="checkbox" checked name="dva"/> run the job automaticaly</label></div>
-			
-			
+
+
 			<Tabs>
     <TabList>
       <Tab>Title 1</Tab>
@@ -171,9 +172,9 @@ class BackWiz extends Component {
       <h2>Any content 4</h2>
     </TabPanel>
   </Tabs>
-			
+
 	<div>Restore Points to keep on disc: <input type="number"/></div>
-			
+
 <div className="autoretry">
 			<div><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
 			<div className="autoretryleft">
@@ -184,26 +185,26 @@ class BackWiz extends Component {
 			<div>Wait before each retry attempt for </div>
 			<div><input type="number"/></div>
 			</div>
-			
+
 </div>
-			
+
 			<div><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
 			<div className="bottomwith">
 			<span>Terminate job of it exceeds allowed backup window<input type="button" value="Window..."/></span>
 			</div>
-			
+
 			<div className="bottomwithline">
 			If the job does not complete within allocated backup window, it will be terminated to prevent snapshot commit during production hours
 			</div>
-			
-			
+
+
 	    </div>
 			)
 	}
 
 
 	window5(){
-		
+
 		return(
 		<div>
   <div className="zagname">Review Summary</div>
@@ -223,13 +224,13 @@ class BackWiz extends Component {
   <dt>Retention</dt>
   <dd>5 restore points</dd>
 </dl>
-	<div><label><input type="checkbox" checked name="dva"/> Run backup job when i click add</label></div>		
-</div>		
+	<div><label><input type="checkbox" checked name="dva"/> Run backup job when i click add</label></div>
+</div>
 		)
 	}
 
-	
-	
+
+
     renderPage () {
       if (this.state.page == 1) {
         return (<div className="wizzard1">{this.window1()}</div>)
@@ -276,6 +277,16 @@ class BackWiz extends Component {
       console.log('addd')
     }
 
+    openWiz3() {
+      this.setState({openWiz3:true})
+    }
+
+    closeWiz3() {
+      this.setState({openWiz3:false})
+    }
+
+
+
     render(){
 
         return (
@@ -315,6 +326,7 @@ class BackWiz extends Component {
 
               ):
               (null)}
+              <SWizard open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
               </div>
 
         )

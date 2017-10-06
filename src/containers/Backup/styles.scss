@@ -190,6 +190,7 @@ top: 8px;
 .link-table {
   color: #408209;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .width16 {
@@ -198,8 +199,13 @@ top: 8px;
 .width11 {
   width: 11%!important;
 }
-
-
+.selected-green {
+  background-color: rgba(60, 255, 60, 0.25) !important;
+}
+.turnoff-btn {
+  color:#e8e8e8!important;
+  cursor: default!important;
+}
 
 
 }

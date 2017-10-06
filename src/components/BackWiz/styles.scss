@@ -109,7 +109,7 @@ padding: 8px 13px;
 .back-btn  {
   margin-right: 13px;
 }
-	
+
 
 
   dt {
@@ -123,21 +123,21 @@ padding: 8px 13px;
     margin: 0 0 0 110px;
     padding: 0 0 0.5em 0;
 	}
-	dd, dt { 
+	dd, dt {
 		line-height: 38px; height: 38px; box-sizing: border-box;
 	}
-	dt{ 
+	dt{
 		min-width: 210px;
 		text-align: left;
 		font-size: 14px;
 	}
 	dd{
-	font-size: 14px;	
+	font-size: 14px;
 	}
-	
+
 	.floated dd:nth-child(4n){
     background: #f9f9f9;
-    
+
 	}
 	.floated dd{
 	border-top:1px solid #dddddd;
@@ -146,9 +146,9 @@ padding: 8px 13px;
 	.floated dd:last-child{
 	border-bottom:1px solid #dddddd;
 	}
-	
-	
-	
+
+
+
 	.zagname {
 	font-size: 15px;
     font-weight: 900;
@@ -164,7 +164,7 @@ padding: 8px 13px;
 	height: 25px;
 	line-height: 25px;
 	}
-	.firstscreent { 
+	.firstscreent {
 	border: 1px solid #dddddd;
 	border-radius: 1px; resize: none;
 	width: 100%;
@@ -192,6 +192,7 @@ padding: 8px 13px;
 	box-sizing: border-box;
 	background-size: 30px;
 	position: relative;
+  cursor: pointer;
 	}
 	.removeic{
 	width:115px;
@@ -245,7 +246,7 @@ padding: 8px 13px;
 		border-top-left-radius: 0;
 		border-bottom-left-radius: 0;
 		border: 1px solid #cccccc;
-		
+
 	}
 	.iconboxtbsearch{
 	margin-top: 23px;
@@ -260,7 +261,7 @@ padding: 8px 13px;
 		padding-bottom: 5px;
 		box-sizing: border-box;
 		border: 1px solid #dadada;
-		
+
 	}
 	.bckprpstr{
 	margin-top: 22px;
@@ -316,21 +317,21 @@ font-size: 13px;
 	display: block;
 	right: 0;
     top: 9px;
-	
+
 	}
 	.floated dt {
 		padding-left: 20px;
 		box-sizing: border-box;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 }

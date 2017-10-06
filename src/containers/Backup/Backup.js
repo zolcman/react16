@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
-
+import Wizard from '../../components/VmWiz/Wizard';
 
 
 class Backup extends Component {
@@ -22,7 +22,8 @@ class Backup extends Component {
             {name:'test job2',cluster:'Ntnx2',cur_stat:'failure',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'}
           ],
           openWiz:false,
-
+          openWiz2:false,
+          fromlist:true,
     }
 }
     componentDidMount() {
@@ -64,8 +65,26 @@ class Backup extends Component {
       this.setState({openWiz:false})
     }
 
+    openWiz2(id) {
+
+      this.setState({openWiz2:true})
+      this.setState({vmid:id})
+      this.setState({fromlist:true})
+    }
+
+    closeWiz2() {
+      this.setState({openWiz2:false})
+    }
+
+    refreshlist () {
+      console.log('refrshed')
+      this.props.GetBackList();
+    }
+
+
+
     render(){
-console.log(this.state.selectOP)
+
 
 
         var list = this.state.table || []
@@ -165,7 +184,13 @@ console.log(this.state.selectOP)
                         <tr className="" key={index}>
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                         <td>{item.cluster}</td>
-                        <td>{item.status}</td>
+                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id)} className="link-table">{item.status}</a>)
+                        : (<span>{item.status}</span>)
+
+
+                      }
+
+                         </td>
                         <td className="width11">{item.lastRunResult}</td>
                         <td>{item.linkedPds}</td>
                         <td>{item.rpo}</td>
@@ -182,6 +207,7 @@ console.log(this.state.selectOP)
               </div>
             </div>
             <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
+            <Wizard vmid={this.state.vmid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

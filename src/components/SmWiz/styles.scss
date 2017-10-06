@@ -1,0 +1,74 @@
+:global {
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+
+.freeze {
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top:0;
+}
+.pop-up-windowsmall {
+  width: 500px;
+  margin: 0 auto;
+  min-height: 200px;
+  background: white;
+  margin-top:140px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    overflow: hidden;
+    color:#4a4a4a;
+    font-family: 'Open Sans', sans-serif;
+        margin-bottom: 50px;
+}
+.pop-up-header {
+  background: #F8F8F8;
+  height: 50px;
+  padding: 13px;
+  box-sizing: border-box;
+}
+.close-pop {
+  cursor: pointer;
+}
+.pop-up-h-title {
+  font-weight: 600;
+  color:#4a4a4a;
+
+}
+.body-popup3 {
+  min-height: 200px;
+  padding: 15px;
+}
+
+
+
+.btns-go-back {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 23px;
+padding: 20px;
+}
+.go-btn-global {
+  display: block;
+cursor: pointer;
+padding: 8px;
+border: 1px solid #7ED321;
+color: #7ED321;
+border-radius: 17px;
+font-size: 14px;
+padding: 8px 13px;
+}
+.back-btn  {
+  margin-right: 13px;
+}
+
+
+
+
+
+
+}
