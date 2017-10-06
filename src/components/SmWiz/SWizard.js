@@ -66,7 +66,9 @@ class SWizard extends Component {
     }
 
 
-
+reset () {
+  this.setState({checked:[]})
+}
 
 
 
@@ -93,6 +95,13 @@ class SWizard extends Component {
                 onCheck={checked => this.setState({ checked })}
                 onExpand={expanded => this.setState({ expanded })}
             />
+                        </div>
+                        <div className="btns-group">
+
+
+                          <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
+                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Add</a>
+                          <a onClick={this.reset.bind(this)} className="go-btn gt-right go-btn-global mr10r">Reset</a>
                         </div>
                       </div>
                   </div>
