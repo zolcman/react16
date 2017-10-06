@@ -14,7 +14,7 @@ class BackWiz extends Component {
         this.state = {
 
           page:'1',
-          openWiz3:false,
+          openWiz3:true,
 
         }
     }
