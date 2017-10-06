@@ -150,33 +150,130 @@ class BackWiz extends Component {
 		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
 		<div><label><input type="checkbox" checked name="dva"/> run the job automaticaly</label></div>
 
-
+<div className="myown">
 			<Tabs>
     <TabList>
-      <Tab>Title 1</Tab>
-      <Tab>Title 2</Tab>
-	  <Tab>Title 3</Tab>
-	  <Tab>Title 4</Tab>
+      <Tab>Daily at this time:</Tab>
+      <Tab>Monthly at this time:</Tab>
+	  <Tab>Periodicaly every:</Tab>
+	  <Tab>After this job:</Tab>
     </TabList>
-
+<div className="tabs-con-panel">
     <TabPanel>
-      <h2>Any content 1</h2>
+      
+		<Select
+                      className="tabf1"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabf2"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabf3"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+			
     </TabPanel>
     <TabPanel>
-      <h2>Any content 2</h2>
+      <Select
+                      className="tabs1"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabs2"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabs3"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabs4"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
     </TabPanel>
 	<TabPanel>
-      <h2>Any content 3</h2>
+    <Select
+                      className="tabf1"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabf2"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
+		
+		<Select
+                      className="tabf3"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
     </TabPanel>
 	<TabPanel>
-      <h2>Any content 4</h2>
+      <Select
+                      className="tabl1"
+                      name="form-field-name"
+                      value={this.state.selectOP2}
+                      options={this.state.options}
+					  searchable={false}
+                      onChange={this.changeSelect2.bind(this)}
+        />
     </TabPanel>
+</div>
+			
   </Tabs>
-
-	<div>Restore Points to keep on disc: <input type="number"/></div>
+</div>
+	<div>Restore Points to keep on disc:<input className="respoints" type="number"/></div>
 
 <div className="autoretry">
-			<div><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
+			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
+			<div className="clear">
 			<div className="autoretryleft">
 			<div>Retry failed VMs processing:</div>
 			<div><input type="number"/></div>
@@ -185,12 +282,13 @@ class BackWiz extends Component {
 			<div>Wait before each retry attempt for </div>
 			<div><input type="number"/></div>
 			</div>
+			</div>
 
 </div>
 
-			<div><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
+			<div className="bckpchkbx"><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
 			<div className="bottomwith">
-			<span>Terminate job of it exceeds allowed backup window<input type="button" value="Window..."/></span>
+			<span>Terminate job of it exceeds allowed backup window<input className="windbtn" type="button" value="Window..."/></span>
 			</div>
 
 			<div className="bottomwithline">
@@ -242,7 +340,7 @@ class BackWiz extends Component {
         return (<div className="wizzard1">{this.window3()}</div>)
       }
       if (this.state.page == 4) {
-        return (<div className="wizzard1">{this.window4()}</div>)
+        return (<div className="wizzard1 stage4">{this.window4()}</div>)
       }
       if (this.state.page == 5) {
         return (<div className="wizzard1">{this.window5()}</div>)
