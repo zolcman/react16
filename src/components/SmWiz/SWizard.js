@@ -54,7 +54,8 @@ class SWizard extends Component {
 
 
     add () {
-      console.log('addd')
+      this.props.close();
+      this.props.array(this.state.checked)
     }
 
 

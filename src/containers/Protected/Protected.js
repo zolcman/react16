@@ -10,7 +10,8 @@ class Protected extends Component {
 
         this.state = {
 
-
+          filteredItems: false,
+          filterval: '',
 
     }
 }
@@ -27,12 +28,22 @@ class Protected extends Component {
 }
      }
 
-
+     filter(e) {
+       var value = e.target.value;
+       this.setState({filterval: value})
+       this.setState({
+         filteredItems: !value
+           ? false
+           : this.state.table.filter(function (item) {
+             return item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+           })
+       })
+     }
 
 
     render(){
 
-  var list = this.state.table || []
+  var list = this.state.filteredItems || this.state.table || []
 
   console.log(this.state.table)
 
@@ -60,7 +71,7 @@ class Protected extends Component {
                   <a className="gt-left res-btns">Refresh</a>
                 </div>
                 <div className="search-panel gt-right">
-                  <input className="srch-comp" placeholder="search"/>
+                  <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
                 </div>
               </div>
               <div className="table-wrapper">

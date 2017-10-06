@@ -14,8 +14,8 @@ class BackWiz extends Component {
         this.state = {
 
           page:'1',
-          openWiz3:true,
-
+          openWiz3:false,
+          array:[],
         }
     }
 
@@ -101,6 +101,16 @@ class BackWiz extends Component {
 		</div>
 
 		<div className="consteptwo">
+      <table>
+        <tbody>
+          {this.state.array.map((item,index) => (
+              <tr key={index}>
+                <td>{item}</td>
+              </tr>
+
+          ))}
+        </tbody>
+      </table>
 		</div>
 
 
@@ -160,35 +170,33 @@ class BackWiz extends Component {
     </TabList>
 <div className="tabs-con-panel">
     <TabPanel>
-      
-		<Select
-                      className="tabf1"
-                      name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
-					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
-        />
-		
-		<Select
-                      className="tabf2"
-                      name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
-					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
-        />
-		
-		<Select
-                      className="tabf3"
-                      name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
-					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
-        />
-		
-			
+
+		<input type="number" className="clock gt-left"/>
+    <div className="gt-left width150px">
+      <Select
+
+                        name="form-field-name"
+                        value={this.state.selectOP2}
+                        options={this.state.options}
+  					  searchable={false}
+                        onChange={this.changeSelect2.bind(this)}
+          />
+
+    </div>
+    <div className="gt-left width150px">
+      <Select
+
+                        name="form-field-name"
+                        value={this.state.selectOP2}
+                        options={this.state.options}
+  					  searchable={false}
+                        onChange={this.changeSelect2.bind(this)}
+          />
+    </div>
+
+
+
+
     </TabPanel>
     <TabPanel>
       <Select
@@ -199,7 +207,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
-		
+
 		<Select
                       className="tabs2"
                       name="form-field-name"
@@ -208,7 +216,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
-		
+
 		<Select
                       className="tabs3"
                       name="form-field-name"
@@ -217,7 +225,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
-		
+
 		<Select
                       className="tabs4"
                       name="form-field-name"
@@ -236,7 +244,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
-		
+
 		<Select
                       className="tabf2"
                       name="form-field-name"
@@ -245,7 +253,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
-		
+
 		<Select
                       className="tabf3"
                       name="form-field-name"
@@ -266,7 +274,7 @@ class BackWiz extends Component {
         />
     </TabPanel>
 </div>
-			
+
   </Tabs>
 </div>
 	<div>Restore Points to keep on disc:<input className="respoints" type="number"/></div>
@@ -383,6 +391,10 @@ class BackWiz extends Component {
       this.setState({openWiz3:false})
     }
 
+    uptable(array) {
+      console.log(array);
+      this.setState({array:array})
+    }
 
 
     render(){
@@ -424,7 +436,7 @@ class BackWiz extends Component {
 
               ):
               (null)}
-              <SWizard open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
+              <SWizard array={this.uptable.bind(this)} open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
               </div>
 
         )

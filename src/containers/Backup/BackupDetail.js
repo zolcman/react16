@@ -15,6 +15,8 @@ class BackupDetail extends Component {
 
           openWiz:false,
           openWiz2:false,
+          filteredItems: false,
+          filterval: '',
 
     }
 }
@@ -65,9 +67,22 @@ class BackupDetail extends Component {
        this.setState({choosen:true,vmid:id})
      }
 
+
+     filter(e) {
+       var value = e.target.value;
+       this.setState({filterval: value})
+       this.setState({
+         filteredItems: !value
+           ? false
+           : this.state.table.filter(function (item) {
+             return item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+           })
+       })
+     }
+
     render(){
 
-  var list = this.state.table || []
+  var list = this.state.filteredItems || this.state.table || []
 
   console.log(this.state.table)
 
@@ -97,7 +112,7 @@ class BackupDetail extends Component {
               </div>
               <div className="cntrl-btns gt-clear">
                 <div className="btns-wrapper gt-clear">
-                    <div className="btns-group gt-left">
+                    <div className=" gt-left">
                         <a className="bk-btn gt-left start-btn">Start</a>
                         <a className="bk-btn gt-left stop-btn">Stop</a>
                         <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn">Add</a>
@@ -119,7 +134,7 @@ class BackupDetail extends Component {
                   <a className="gt-left res-btns">Refresh</a>
                 </div>
                 <div className="search-panel gt-right">
-                  <input className="srch-comp" placeholder="search"/>
+                  <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
                 </div>
               </div>
               <div className="table-wrapper">

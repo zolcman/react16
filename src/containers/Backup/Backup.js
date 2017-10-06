@@ -24,6 +24,11 @@ class Backup extends Component {
           openWiz:false,
           openWiz2:false,
           fromlist:true,
+          filteredItems: false,
+          filterval: '',
+          claster:false,
+          status:false,
+          cur:false,
     }
 }
     componentDidMount() {
@@ -36,26 +41,139 @@ class Backup extends Component {
 
       if (nextProps.backup) {
      this.setState({table:nextProps.backup})
-}
+     this.setState({tablebackup:nextProps.backup})
+
+     let camlistpre = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.cluster}));
+     let camlistpre3 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.lastRunResult}));
+
+     let camlistpre2 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.status}));
+
+     this.setState({options:camlistpre});
+      this.setState({options2:camlistpre2});
+     this.setState({options3:camlistpre3});
+
+
+        }
      }
 
     changeSelect(val) {
-      //  this.props.toastrActions2();
-      this.setState({selectOP:val})
+      if (val) {
+        this.setState({selectOP:val})
+        this.setState({claster:val.label})
+        this.filters(val.label,this.state.cur,this.state.status);
+        console.log(val.label)
+      }
+      if (!val) {
+        this.setState({claster:false})
+        this.setState({selectOP:val})
+        this.filters(false,this.state.cur,this.state.status);
+      }
 
     }
 
     changeSelect2(val) {
-      //  this.props.toastrActions2();
-      this.setState({selectOP2:val})
+      if (val) {
+        this.setState({selectOP2:val})
+        this.setState({cur:val.label})
+        this.filters(this.state.claster,val.label,this.state.status);
+        console.log(val.label)
+      }
+      if (!val) {
+        this.setState({cur:false})
+        this.setState({selectOP2:val})
+        this.filters(this.state.claster,false,this.state.status);
+      }
 
     }
+
 
     changeSelect3(val) {
-      //  this.props.toastrActions2();
-      this.setState({selectOP3:val})
+      if (val) {
+        this.setState({selectOP3:val})
+        this.setState({status:val.label})
+        this.filters(this.state.claster,this.state.cur,val.label);
+      }
+      if (!val) {
+        this.setState({status:false})
+        this.setState({selectOP3:val})
+        this.filters(this.state.claster,this.state.cur,false);
+      }
+
+
+      }
+
+    filters(claster,cur,status) {
+
+      if (status && claster && cur) {
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return item.cluster == claster && item.lastRunResult == status && item.status == cur;
+             });
+        this.setState({table:clear})
+      }
+
+
+      if (!status && claster && cur) {
+        console.log(claster)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return item.cluster == claster && item.status == cur;
+             });
+        this.setState({table:clear})
+      }
+
+      if (status && !claster && cur) {
+        console.log(claster)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return item.lastRunResult == status && item.status == cur;
+             });
+        this.setState({table:clear})
+      }
+
+      if (status && claster && !cur) {
+        console.log(claster)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return item.lastRunResult == status && item.cluster == claster ;
+             });
+        this.setState({table:clear})
+      }
+
+      if (!status && !claster && cur) {
+        console.log(cur)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return  item.status == cur;
+             });
+        this.setState({table:clear})
+      }
+
+      if (status && !claster && !cur) {
+        console.log(claster)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return  item.lastRunResult == status;
+             });
+        this.setState({table:clear})
+      }
+
+      if (!status && claster && !cur) {
+        console.log(claster)
+        var clear = this.state.tablebackup.filter(function(item) {
+                 return  item.cluster == claster;
+             });
+        this.setState({table:clear})
+      }
+
+
+      if (!status && !claster && !cur) {
+        console.log(claster)
+        this.setState({table:this.state.tablebackup})
+      }
 
     }
+
+
+
+
+
+
+
 
     openWiz() {
       this.setState({openWiz:true})
@@ -81,13 +199,25 @@ class Backup extends Component {
       this.props.GetBackList();
     }
 
+    filter(e) {
+      var value = e.target.value;
+      this.setState({filterval: value})
+      this.setState({
+        filteredItems: !value
+          ? false
+          : this.state.table.filter(function (item) {
+            return item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+          })
+      })
+    }
+
 
 
     render(){
 
 
 
-        var list = this.state.table || []
+        var list = this.state.filteredItems || this.state.table || []
 
         return (
           <div>
@@ -118,7 +248,7 @@ class Backup extends Component {
                       className="cusselect"
                       name="form-field-name"
                       value={this.state.selectOP2}
-                      options={this.state.options}
+                      options={this.state.options2}
                       onChange={this.changeSelect2.bind(this)}
                     />
                   </div>
@@ -131,7 +261,7 @@ class Backup extends Component {
                       className="cusselect"
                       name="form-field-name"
                       value={this.state.selectOP3}
-                      options={this.state.options}
+                      options={this.state.options3}
                       onChange={this.changeSelect3.bind(this)}
                     />
                   </div>
@@ -148,7 +278,7 @@ class Backup extends Component {
 
             <div className="cntrl-btns gt-clear">
               <div className="btns-wrapper gt-clear">
-                  <div className="btns-group gt-left">
+                  <div className=" gt-left">
                       <a className="bk-btn gt-left start-btn fixpad">Start</a>
                       <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
@@ -156,8 +286,8 @@ class Backup extends Component {
                       <a className="bk-btn gt-left delete-btn fixpad">Delete</a>
                       <a className="bk-btn gt-left refresh-btn fixpad">Refresh</a>
                   </div>
-                  <div className="search-panel gt-right">
-                    <input className="srch-comp" placeholder="search"/>
+                  <div className="search-panel gt-right fixer91">
+                    <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
                   </div>
               </div>
             </div>
