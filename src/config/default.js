@@ -3,12 +3,12 @@ module.exports = {
   port: process.env.PORT,
   app: {
     htmlAttributes: { lang: 'en' },
-    title: 'React Cool Starter',
-    titleTemplate: 'React Cool Starter - %s',
+    title: 'Web Console - Veeam Nutanix Backup',
+    titleTemplate: 'Web Console - Veeam Nutanix Backup',
     meta: [
       {
         name: 'description',
-        content: 'The best react universal starter boilerplate in the world.',
+        content: 'Veeam Nutanix Backup Web Console',
       },
     ],
   },

@@ -37,6 +37,15 @@ class Backup extends Component {
 
     }
 
+    componentDidUpdate () {
+
+      $('.table-content tr').click(function (event) {
+        $('.table-content tr').removeClass("selected-green");
+        $(this).addClass( "selected-green" );
+      });
+
+    }
+
     componentWillReceiveProps(nextProps) {
 
       if (nextProps.backup) {
@@ -44,16 +53,33 @@ class Backup extends Component {
      this.setState({tablebackup:nextProps.backup})
 
      let camlistpre = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.cluster}));
-     let camlistpre3 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.lastRunResult}));
+
 
      let camlistpre2 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.status}));
+     var camlistpre3 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.lastRunResult}));
 
-     this.setState({options:camlistpre});
-      this.setState({options2:camlistpre2});
-     this.setState({options3:camlistpre3});
+    let change1 =  this.distinct(camlistpre) ;
+    let change2 =  this.distinct(camlistpre2) ;
+    let change3 =  this.distinct(camlistpre3) ;
+
+     this.setState({options:change1});
+      this.setState({options2:change2});
+     this.setState({options3:change3});
 
 
         }
+     }
+
+     distinct(array) {
+       var flags = {};
+       var newPlaces = array.filter(function(entry) {
+           if (flags[entry.label]) {
+             return false;
+           }
+             flags[entry.label] = true;
+             return true;
+           });
+           return newPlaces;
      }
 
     changeSelect(val) {
@@ -211,7 +237,10 @@ class Backup extends Component {
       })
     }
 
-
+    chooseitem(id) {
+      console.log(id);
+      this.setState({choosen:true,jobid:id})
+    }
 
     render(){
 
@@ -229,7 +258,7 @@ class Backup extends Component {
               <div className="filter-blocks gt-clear">
                 <div className="jobs-counter gt-left">Backup Jobs (3)</div>
                 <div className="filter-1 gt-left marr20">
-                  <div className="gt-left filter-label">Nutanix claster:</div>
+                  <div className="gt-left filter-label">Nutanix cluster:</div>
                   <div className="gt-left filter-select">
                     <Select
                       className="cusselect"
@@ -254,7 +283,7 @@ class Backup extends Component {
                   </div>
 
                 </div>
-                <div className="filter-1 gt-left">
+                <div className="filter-1 gt-right">
                   <div className="gt-left filter-label">Last Result:</div>
                   <div className="gt-left filter-select">
                     <Select
@@ -279,7 +308,10 @@ class Backup extends Component {
             <div className="cntrl-btns gt-clear">
               <div className="btns-wrapper gt-clear">
                   <div className=" gt-left">
-                      <a className="bk-btn gt-left start-btn fixpad">Start</a>
+                    {this.state.choosen ? (  <a className="bk-btn gt-left start-btn fixpad">Start</a>)
+                     :
+                      (  <a className="bk-btn gt-left start-btn fixpad diabledstart">Start</a>)}
+
                       <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
                       <a className="bk-btn gt-left edit-btn fixpad">Edit</a>
@@ -296,7 +328,7 @@ class Backup extends Component {
               <div className="table-content">
                 <table className="bk-table">
                   <thead>
-                    <tr>
+                    <tr >
                     <th>Name</th>
                     <th>Cluster</th>
                     <th>Curent Status</th>
@@ -311,7 +343,7 @@ class Backup extends Component {
                   </thead>
                   <tbody>
                     {list.map((item,index) => (
-                        <tr className="" key={index}>
+                        <tr onClick={this.chooseitem.bind(this,item.Id)} className="" key={index}>
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                         <td>{item.cluster}</td>
                         <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id)} className="link-table">{item.status}</a>)

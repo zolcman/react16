@@ -378,6 +378,18 @@ class BackWiz extends Component {
         </div>
       )
     }
+    renderbublenames() {
+      return (
+        <div className="titles-settings gt-left">
+
+          <div className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? (' ') :('greyfixer34')}>General <br/> Settings</div>
+          <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}> Assign <br/> VM's</div>
+          <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')} >Backup <br/> Destination</div>
+          <div className={ this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')} >Configure <br/> Shedule</div>
+          <div className={  this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}>Review <br/> Summary</div>
+        </div>
+      )
+    }
 
     add () {
       console.log('addd')
@@ -413,13 +425,8 @@ class BackWiz extends Component {
                     <div className="body-popup gt-clear">
                     <div className="pagination-buble gt-left">
                       {this.renderBubbles()}
-                      <div className="titles-settings gt-left">
-                        <div>General <br/> Settings</div>
-                        <div className="mar69px">Assign <br/> VM's</div>
-                        <div className="mar69px">Backup <br/> Destination</div>
-                        <div className="mar69px">Configure <br/> Shedule</div>
-                        <div className="mar69px">Review <br/> Summary</div>
-                      </div>
+                      {this.renderbublenames()}
+
                     </div>
                     <div className="view-change gt-left">
                       {this.renderPage()}

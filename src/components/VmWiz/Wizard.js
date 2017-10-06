@@ -21,7 +21,7 @@ class Wizard extends Component {
 
       if (this.props.fromlist) {
         this.setState({finish:true}) // сдесь будем сразу по id выполнять запрос на обновление прогрессбара
-        console.log('fuck')
+
       }
 
 
@@ -93,7 +93,7 @@ class Wizard extends Component {
                 <dt>Proxy</dt>
                 <dd>definition for first item in list</dd>
                 <dt>Original VM name</dt>
-                <dd>NTNXCL 1</dd>
+                <dd>{this.props.vmid}</dd>
                 <dt>Restore point</dt>
                 <dd>35</dd>
                 <dt>Target host</dt>
@@ -137,6 +137,21 @@ class Wizard extends Component {
       )
     }
 
+    renderbublenames() {
+      return (
+        <div className="titles-settings gt-left">
+
+          <div className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? (' ') :('greyfixer34')}>Virtual <br/> Machines</div>
+          <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}> Restore <br/> Mode</div>
+          <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar79px') :('mar69px greyfixer34')} >Reason</div>
+          <div className={ this.state.page == 4  ? ('mar85px') :('mar85px greyfixer34')} >Summary</div>
+
+        </div>
+
+
+      )
+    }
+
     add () {
       console.log('addd')
     }
@@ -165,7 +180,7 @@ class Wizard extends Component {
           <div className="windows-list">
             <dl className="floated">
                 <dt>VM name</dt>
-                <dd>2222</dd>
+                <dd>{this.props.vmid}</dd>
                 <dt>Restore type</dt>
                 <dd>NTNXCL 1</dd>
                 <dt>Restore point</dt>
@@ -267,12 +282,8 @@ class Wizard extends Component {
                         <div>
                         <div className="pagination-buble gt-left">
                         {this.renderBubbles()}
-                        <div className="titles-settings gt-left">
-                          <div>Virtual <br/> Machines</div>
-                          <div className="mar69px">Restore <br/> Mode</div>
-                          <div className="mar79px">Reason</div>
-                          <div className="mar85px">Summary</div>
-                        </div>
+                        {this.renderbublenames()}
+
                         </div>
                         <div className="view-change gt-left">
                           {this.renderPage()}

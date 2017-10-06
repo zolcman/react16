@@ -63,10 +63,11 @@
   font-weight: 600;
 }
 .filter-select {
-  width: 120px;
+  width: 140px;
+  font-size: 14px;
 }
 .marr20 {
-  margin-right: 80px;
+  margin-right: 50px;
 }
 .btns-wrapper {
   max-width: 1140px;
@@ -206,6 +207,11 @@ top: 8px;
   color:#e8e8e8!important;
   cursor: default!important;
 }
-
+.diabledstart {
+  cursor: default!important;
+  border: 1px solid rgba(204, 204, 204, 0.31)!important;
+      background: url('./img/start.svg') no-repeat rgba(232, 232, 232, 0.12);
+  background-size: 20px;
+}
 
 }
