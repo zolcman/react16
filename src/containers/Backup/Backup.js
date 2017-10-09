@@ -6,7 +6,7 @@ import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
 import Wizard from '../../components/VmWiz/Wizard';
-import ClockPicker from 'react-clockpicker'
+
 
 class Backup extends Component {
     constructor(props) {
