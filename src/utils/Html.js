@@ -26,9 +26,7 @@ const Html = ({ store, htmlContent }: Props) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css"></link>
-        
-        <script type="text/javascript" src="/dist/bootstrap-clockpicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="/dist/bootstrap-clockpicker.min.css"></link>
+      
         {head.title.toComponent()}
         {head.base.toComponent()}
         {head.meta.toComponent()}
