@@ -223,6 +223,7 @@
     height: 35px;
     border-top: 1px solid #ccc;
     width: 10%;
+    box-sizing: border-box;
   }
 
   .bk-table tr:nth-child(2n) {

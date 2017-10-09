@@ -20,7 +20,8 @@ class BackWiz extends Component {
           hours: 12,
           minutes: 20,
           enabled: true,
-          options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}]
+          options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
+          checked5:false,
         }
     }
 
@@ -336,7 +337,7 @@ class BackWiz extends Component {
   <dt>Retention</dt>
   <dd>5 restore points</dd>
 </dl>
-	<div><label><input type="checkbox" unChecked name="dva"/> Run backup job when i click add</label></div>
+	<div><label><input type="checkbox" checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
 		)
 	}

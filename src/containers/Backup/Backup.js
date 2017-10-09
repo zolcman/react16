@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
-import Wizard from '../../components/VmWiz/Wizard';
+import JobWizard from '../../components/JobWiz/JobWizard';
 
 
 class Backup extends Component {
@@ -205,7 +205,7 @@ class Backup extends Component {
     openWiz2(id) {
 
       this.setState({openWiz2:true})
-      this.setState({vmid:id})
+      this.setState({jobid:id})
       this.setState({fromlist:true})
     }
 
@@ -238,6 +238,7 @@ class Backup extends Component {
       if (status != 'Running') {
         console.log(id);
         this.setState({choosen:true,jobid:id})
+
       }
 
     }
@@ -254,6 +255,10 @@ class Backup extends Component {
 
 
 
+    }
+
+    openWiz234 () {
+      this.setState({openWiz2:true})
     }
 
     render(){
@@ -325,7 +330,7 @@ class Backup extends Component {
             <div className="cntrl-btns gt-clear">
               <div className="btns-wrapper gt-clear">
                   <div className=" gt-left">
-                    {this.state.choosen ? (  <a className="bk-btn gt-left start-btn fixpad">Start</a>)
+                    {this.state.choosen ? (  <a onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn fixpad">Start</a>)
                      :
                       (  <a className="bk-btn gt-left start-btn fixpad diabledstart">Start</a>)}
 
@@ -386,7 +391,7 @@ class Backup extends Component {
               </div>
             </div>
             <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-            <Wizard vmid={this.state.vmid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+            <JobWizard vmid={this.state.jobid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

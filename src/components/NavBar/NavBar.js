@@ -75,6 +75,8 @@ class NavBar extends Component {
 									<li><a href="#">Manage Credentials</a></li>
 									<li><a href="#">Authentication</a></li>
 									<li><a href="#">Language Settings</a></li>
+                  
+
 								</ul>
 							</div>
 							<div className="ic4"></div>
