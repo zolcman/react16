@@ -33,6 +33,11 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 .close-pop {
   cursor: pointer;
+  background: url('./img/Close.svg') no-repeat;
+  display: block;
+  height: 10px;
+  width: 10px;
+  margin-top: 7px;
 }
 .pop-up-h-title {
   font-weight: 600;

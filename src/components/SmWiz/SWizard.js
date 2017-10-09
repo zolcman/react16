@@ -60,11 +60,43 @@ class SWizard extends Component {
 
 
     componentDidUpdate() {
-      $("span.rct-icon-check").parents('.react-checkbox-tree > ol > li').addClass('green');
+        $("span.rct-icon-check").parents('.react-checkbox-tree > ol > li').addClass('green');
         $("span.rct-icon-uncheck").parents('.react-checkbox-tree > ol > li').removeClass('green');
         $("span.rct-icon-check").parents('.react-checkbox-tree > ol > li > ol > li').addClass('green');
-          $("span.rct-icon-uncheck").parents('.react-checkbox-tree > ol > li > ol > li').removeClass('green');
-    }
+        $("span.rct-icon-uncheck").parents('.react-checkbox-tree > ol > li > ol > li').removeClass('green');
+
+
+
+          $("body").click(function (el) {
+              setTimeout(function(){
+
+                var all = $("body").find(".rct-node");
+                var visible = $("body").find(".rct-node:odd");
+                all.removeClass ("green");
+                all.removeClass ("red");
+                all.removeClass ("white");
+                all.addClass("red");
+                visible.addClass("white");
+
+                var halfcheck = $("body").find(".rct-node span.rct-icon-half-check").parent().parent().parent().parent();
+                var selected = $("body").find(".rct-node span.rct-icon-check").parent().parent().parent().parent();
+                selected.removeClass ("red");
+                selected.removeClass ("white");
+                selected.addClass('green');
+                halfcheck.removeClass ("red");
+                halfcheck.removeClass ("white");
+                halfcheck.addClass('green');
+
+              }, 0);
+              }); 
+
+
+
+
+
+
+
+}
 
 
 reset () {
@@ -82,7 +114,7 @@ reset () {
                   <div className="pop-up-windowsmall">
                       <div className="pop-up-header">
                         <div className="gt-left pop-up-h-title">Add new</div>
-                        <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}>X</a></div>
+                        <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
                       </div>
                       <div className="body-popup3 gt-clear">
                         <div className="popup3-title">

@@ -4,7 +4,8 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import  SWizard from '../SmWiz/SWizard'
+import  SWizard from '../SmWiz/SWizard';
+import  ClockPicker  from 'react-clockpicker';
 
 class BackWiz extends Component {
     constructor(props) {
@@ -16,6 +17,9 @@ class BackWiz extends Component {
           page:'1',
           openWiz3:false,
           array:[],
+          hours: 12,
+          minutes: 20,
+          enabled: true
         }
     }
 
@@ -153,7 +157,7 @@ class BackWiz extends Component {
 	}
 
 	window4(){
-
+  
 		return(
 		<div>
 		<div className="zagname">Configure Shedule</div>
@@ -173,6 +177,7 @@ class BackWiz extends Component {
 
 		<input type="number" className="clock gt-left"/>
     <div className="gt-left width150px">
+
       <Select
 
                         name="form-field-name"
@@ -419,7 +424,7 @@ class BackWiz extends Component {
                   <div className="pop-up-window">
                     <div className="pop-up-header">
                       <div className="gt-left pop-up-h-title">Add new backup job for "Nutanix Cluster 1"</div>
-                      <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}>X</a></div>
+                      <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
 
                     </div>
                     <div className="body-popup gt-clear">

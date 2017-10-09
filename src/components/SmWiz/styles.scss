@@ -32,6 +32,11 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 }
 .close-pop {
   cursor: pointer;
+  background: url('./img/Close.svg') no-repeat;
+  display: block;
+  height: 10px;
+  width: 10px;
+  margin-top: 7px;
 }
 .pop-up-h-title {
   font-weight: 600;
@@ -85,7 +90,19 @@ padding: 8px 13px;
 }
 
 .react-checkbox-tree ol ol {
-  padding-left: 24px;
+//padding-left: 24px;
+}
+.react-checkbox-tree ol ol li {
+padding-left: 24px;
+}
+
+.react-checkbox-tree ol ol .rct-node-parent{
+margin-left: -24px;
+padding-left: 48px;
+}
+.react-checkbox-tree ol ol ol .rct-node-leaf{
+margin-left: -48px;
+padding-left: 96px;
 }
 
 .react-checkbox-tree button {
@@ -261,6 +278,9 @@ padding: 8px 13px;
 }
 
 .green {
-      background: rgb(214, 249, 214) !important;
+background: rgb(214, 249, 214) !important;
 }
+.red { background: #f9f9f9  !important; }
+
+.white { background: white !important; }
 }

@@ -274,7 +274,7 @@ class Wizard extends Component {
                         {this.state.finish ? ('VM store'): ('Full VM Restore Wizard') }
 
                       </div>
-                      <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}>X</a></div>
+                      <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
 
                     </div>
                     <div className={this.state.finish ? ('body-popup3 gt-clear') : ('body-popup2 gt-clear')}>

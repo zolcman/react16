@@ -66,9 +66,9 @@ class Protected extends Component {
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
                   <a className="gt-left res-btns">Restore VM</a>
-                  <a className="gt-left res-btns">Quick Backup</a>
-                  <a className="gt-left res-btns">Delete</a>
-                  <a className="gt-left res-btns">Refresh</a>
+                  <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
+                  <a className="gt-left res-btns dlt0icon">Delete</a>
+                  <a className="gt-left res-btns refrsh">Refresh</a>
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>

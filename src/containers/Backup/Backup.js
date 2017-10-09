@@ -6,7 +6,7 @@ import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
 import Wizard from '../../components/VmWiz/Wizard';
-
+import ClockPicker from 'react-clockpicker'
 
 class Backup extends Component {
     constructor(props) {
@@ -37,14 +37,7 @@ class Backup extends Component {
 
     }
 
-    componentDidUpdate () {
 
-      $('.table-content tr').click(function (event) {
-        $('.table-content tr').removeClass("selected-green");
-        $(this).addClass( "selected-green" );
-      });
-
-    }
 
     componentWillReceiveProps(nextProps) {
 
@@ -242,6 +235,20 @@ class Backup extends Component {
       this.setState({choosen:true,jobid:id})
     }
 
+
+    componentDidUpdate () {
+
+      $('.table-content tr').click(function (event) {
+        $('.table-content tr').removeClass("selected-green");
+        $(this).addClass( "selected-green" );
+      });
+
+
+
+
+
+    }
+
     render(){
 
 
@@ -250,6 +257,9 @@ class Backup extends Component {
 
         return (
           <div>
+
+
+
             <div className="filters">
               <div className="filter-wrapper gt-clear">
               <div className="breadcrumbs">

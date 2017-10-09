@@ -86,7 +86,7 @@
   margin:20px auto;
 }
 .res-btns {
-  background: url('./img/2.png') no-repeat 1px;
+  background: url('./img/restore.svg') no-repeat 1px;
   display: block;
     height: 32px;
     color: #4a4a4a;
@@ -96,7 +96,22 @@
     cursor: pointer;
     margin-right: 36px;
     position: relative;
+    background-size: 29px;
 }
+
+.qiuk-icon {
+  background: url('./img/backup.svg') no-repeat 1px;
+      background-size: 29px;
+}
+.dlt0icon {
+  background: url('./img/p_delete.svg') no-repeat 1px;
+      background-size: 29px;
+}
+.refrsh {
+  background: url('./img/p_refresh.svg') no-repeat 1px;
+      background-size: 29px;
+}
+
 .res-btns:after {
   content: "";
 display: block;
