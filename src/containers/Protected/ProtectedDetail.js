@@ -37,7 +37,7 @@ class ProtectedDetail extends Component {
   console.log(this.state.table)
 
         return (
-          <div>
+          <div className="protected">
             <div className="filters">
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
