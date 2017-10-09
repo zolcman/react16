@@ -204,6 +204,7 @@
     "opn": "^5.1.0",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-checkbox-tree": "^1.0.1",
     "react-clockpicker": "^0.1.1",
     "react-dom": "^15.6.1",

@@ -87,7 +87,7 @@ class BackupDetail extends Component {
   console.log(this.state.table)
 
         return (
-          <div>
+          <div className="backup-page">
             <div className="filters">
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
@@ -125,13 +125,13 @@ class BackupDetail extends Component {
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
-                  {this.state.choosen ? (  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns">Restore VM</a>)
+                  {this.state.choosen ? (  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns restore-icon  ">Restore VM</a>)
                   :
-                  (  <a  className="gt-left res-btns turnoff-btn">Restore VM</a>)
+                  (  <a  className="gt-left  turnoff-btn">Restore VM</a>)
                 }
 
-                  <a className="gt-left res-btns">Quick Backup</a>
-                  <a className="gt-left res-btns">Refresh</a>
+                  <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
+                  <a className="gt-left res-btns refrsh">Refresh</a>
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>

@@ -59,7 +59,7 @@ class NavBar extends Component {
                     <li><NavLink exact activeClassName="selected" to="/">Dashboard</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/backupjobs">Backup Jobs</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/protectedvms">Protected VM's</NavLink></li>
-                    <li><NavLink activeClassName="selected" to="/alert">Alert</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/alert">Events</NavLink></li>
                   </ul>
                 </div>
                 <div className="right-side-block gt-left">

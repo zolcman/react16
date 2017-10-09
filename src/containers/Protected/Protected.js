@@ -48,7 +48,7 @@ class Protected extends Component {
   console.log(this.state.table)
 
         return (
-          <div>
+          <div className="protected">
             <div className="filters">
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
@@ -65,7 +65,7 @@ class Protected extends Component {
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
-                  <a className="gt-left res-btns">Restore VM</a>
+                  <a className="gt-left res-btns restore-icon">Restore VM</a>
                   <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
                   <a className="gt-left res-btns dlt0icon">Delete</a>
                   <a className="gt-left res-btns refrsh">Refresh</a>

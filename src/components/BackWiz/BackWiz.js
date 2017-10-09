@@ -19,7 +19,8 @@ class BackWiz extends Component {
           array:[],
           hours: 12,
           minutes: 20,
-          enabled: true
+          enabled: true,
+          options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}]
         }
     }
 
@@ -100,7 +101,7 @@ class BackWiz extends Component {
 			<div className="removeic">Remove</div>
 			<div className="exclusionsic">Exclusions</div>
 			<div className="searchiccont">
-				<input placeholder="Search" type="text"/><input type="button"/>
+				<input placeholder="Search" type="text"/><input type="button" className="search-icon-jh"/>
 			</div>
 		</div>
 
@@ -157,7 +158,7 @@ class BackWiz extends Component {
 	}
 
 	window4(){
-  
+
 		return(
 		<div>
 		<div className="zagname">Configure Shedule</div>
@@ -335,7 +336,7 @@ class BackWiz extends Component {
   <dt>Retention</dt>
   <dd>5 restore points</dd>
 </dl>
-	<div><label><input type="checkbox" checked name="dva"/> Run backup job when i click add</label></div>
+	<div><label><input type="checkbox" unChecked name="dva"/> Run backup job when i click add</label></div>
 </div>
 		)
 	}

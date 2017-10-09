@@ -271,7 +271,7 @@ class Wizard extends Component {
                   <div className="pop-up-window">
                     <div className="pop-up-header">
                       <div className="gt-left pop-up-h-title">
-                        {this.state.finish ? ('VM store'): ('Full VM Restore Wizard') }
+                        {this.state.finish ? ('VM restore'): ('Full VM Restore Wizard') }
 
                       </div>
                       <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
