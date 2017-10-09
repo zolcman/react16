@@ -70,11 +70,11 @@ class NavBar extends Component {
 							<div className="ic2"></div>
 							<div className="ic3">
 								<ul className="ulic3">
-									<li><a href="#">Add Veam Server</a></li>
-									<li><a href="#">Add Veam Server</a></li>
-									<li><a href="#">Add Veam Server</a></li>
-									<li><a href="#">Add Veam Server</a></li>
-									<li><a href="#">Add Veam Server</a></li>
+									<li><a href="#">Add Veeam Server</a></li>
+									<li><a href="#">Add Nutanix Cluster</a></li>
+									<li><a href="#">Manage Credentials</a></li>
+									<li><a href="#">Authentication</a></li>
+									<li><a href="#">Language Settings</a></li>
 								</ul>
 							</div>
 							<div className="ic4"></div>
