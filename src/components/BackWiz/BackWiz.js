@@ -314,7 +314,14 @@ class BackWiz extends Component {
 	    </div>
 			)
 	}
-
+check5 () {
+  if( this.state.checked5) {
+    this.setState({checked5:false})
+  }
+  if( !this.state.checked5) {
+    this.setState({checked5:true})
+  }
+}
 
 	window5(){
 
@@ -337,7 +344,7 @@ class BackWiz extends Component {
   <dt>Retention</dt>
   <dd>5 restore points</dd>
 </dl>
-	<div><label><input type="checkbox" checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
+	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
 		)
 	}
