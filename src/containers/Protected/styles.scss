@@ -98,17 +98,36 @@
     position: relative;
     background-size: 29px;
 }
-
+.res-btns:hover {
+  background: url('./img/restore_active.svg') no-repeat 1px;
+	  background-size: 29px;
+	}
+	
+	
 .qiuk-icon {
   background: url('./img/backup.svg') no-repeat 1px;
       background-size: 29px;
 }
+.qiuk-icon:hover {
+background: url('./img/backup_active.svg') no-repeat 1px;
+	background-size: 29px;
+	
+	}
+	//7ed321
 .dlt0icon {
   background: url('./img/p_delete.svg') no-repeat 1px;
       background-size: 29px;
 }
+.dlt0icon:hover {
+	 background: url('./img/delete_active.svg') no-repeat 1px;
+      background-size: 29px;
+	}
 .refrsh {
   background: url('./img/p_refresh.svg') no-repeat 1px;
+      background-size: 29px;
+}
+.refrsh:active {
+  background: url('./img/refresh_active.svg') no-repeat 1px;
       background-size: 29px;
 }
 
@@ -205,5 +224,10 @@ top: 8px;
 .mar2px {
   margin-right: 2px;
 }
+	
+.qkbcicon {
+		  background: url('./img/p_delete.svg') no-repeat 1px;
+      background-size: 29px;
+	}
 
 }

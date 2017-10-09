@@ -202,6 +202,11 @@ padding: 8px 13px;
 	position: relative;
   cursor: pointer;
 	}
+	.removeic:hover {
+		background: url(img/remove_active.svg) no-repeat;
+		background-size: 30px;
+	}
+	
 	.removeic{
 	width:115px;
 	margin-left: 13px;
@@ -214,6 +219,10 @@ padding: 8px 13px;
 	background-size: 30px;
 	position: relative;
 	}
+	.removeic:hover {
+		background: url(img/remove_active.svg) no-repeat;
+		background-size: 30px;
+	}
 	.exclusionsic{
 	width: 123px;
 	margin-left: 14px;
@@ -225,6 +234,10 @@ padding: 8px 13px;
 	box-sizing: border-box;
 	background-size: 30px;
 	position: relative;
+	}
+	.exclusionsic:hover {
+		//background: url(img/exclusions active.eps) no-repeat;
+		background-size: 30px;
 	}
 	.searchiccont{
 	height:30px;
