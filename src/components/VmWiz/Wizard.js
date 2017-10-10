@@ -157,7 +157,7 @@ class Wizard extends Component {
 
     changewindow () {
       this.setState({finish:true});
-      this.setState({cancelSwitch:true});
+      this.setState({switcher:false})
 
       this.props.StartVMTask(this.props.vmid);
 
@@ -185,9 +185,6 @@ class Wizard extends Component {
 
       }
 
-      if (this.state.switcher) {
-        this.props.cleartask_info();
-      }
     }
 
     cancelTask () {
