@@ -6,6 +6,8 @@ export const GET_BACK_DETAIL = 'GET_BACK_DETAIL';
 export const GET_TREE = 'GET_TREE';
 export const GET_TASK_ID = 'GET_TASK_ID';
 export const GET_TASK_STATUS = 'GET_TASK_STATUS';
+export const GET_VM_ID = 'GET_VM_ID';
+
 
 
 
@@ -194,6 +196,54 @@ var accessToken = sessionStorage.getItem('accessToken');
    	 	//	 console.log(response.data);
     			dispatch(receiveData26(response.data));
 				//	dispatch(hideLoading())
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
+
+
+
+
+
+export function cleartaskvmid(json) {
+	return{
+
+		type: GET_VM_ID,
+		data: null
+
+	}
+};
+
+
+function receiveData27(json) {
+	return{
+
+		type: GET_VM_ID,
+		data: json
+
+	}
+};
+
+
+export function StartVMTask (id) {
+
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+
+			axios.post(apiUrl + `/api/v1/Vms/${ 'veeam1' }/restore/`,{body: {}},  headers
+   	 ).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+   	 		 //console.log(response.data + '1111111111111');
+    			dispatch(receiveData27(response.data));
+
   			})
    	 	.catch((error) => {
       			console.log(error);
