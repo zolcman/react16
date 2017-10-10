@@ -3,12 +3,16 @@ import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { updatestatus } from '../../containers/Backup/BackupAction'
+import { cleartaskid } from '../../containers/Backup/BackupAction'
+import { cleartask_info } from '../../containers/Backup/BackupAction'
+
 
 class JobWizard extends Component {
     constructor(props) {
         super(props)
 
-
+        this.switch2 = true;
         this.state = {
 
           page:'4',
@@ -31,14 +35,38 @@ class JobWizard extends Component {
 
 
     close() {
-      this.setState({page:4}) // binded when all ok change to 1
       this.props.close();
-
-
+      this.setState({switcher:false})
+      this.setState({propro:{width:'0' + '%'}})
+      this.props.cleartask_info();
     }
 
 
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.taskid != null) {
+        this.props.updatestatus(nextProps.taskid.Id);
+        console.log('brbrbrbr');
+        this.props.cleartaskid()
+      }
 
+      if (nextProps.task_info && !this.state.switcher) {
+        console.log( this.switch2 );
+       this.setState({timer:nextProps.task_info.progress})
+       var self = this;
+        this.setState({propro:{width:nextProps.task_info.progress + '%'}})
+        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 3000);
+        if (nextProps.task_info.progress == 100) {
+          console.log('ddddd')
+        //  this.props.cleartask_info()
+          this.setState({switcher:true})
+        }
+      }
+    }
+
+
+    timeout() {
+      console.log('time!!!!!!')
+    }
 
 
 
@@ -122,11 +150,11 @@ class JobWizard extends Component {
                           </div>
 
                           <div className="gt-left p_2">
-                            10%
+                          {this.state.timer} %
                           </div>
                         </div>
                         <div className="progress-bar">
-                          <div id="myBar"></div>
+                          <div style={this.state.propro} id="myBar"></div>
                         </div>
                       </div>
                       <div className="lvl-1 martop20">
@@ -213,7 +241,9 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-
+      updatestatus: (id) => dispatch(updatestatus(id)),
+      cleartaskid: () => dispatch(cleartaskid()),
+      cleartask_info: () => dispatch(cleartask_info()),
 
     }
 }
@@ -223,6 +253,8 @@ function mapStateToProps(state) {
 
     return {
 
+      taskid:state.toJS().BackupReducer.taskidtoupdate,
+      task_info:state.toJS().BackupReducer.task_status,
 
     }
 }
