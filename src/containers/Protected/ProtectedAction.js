@@ -5,11 +5,12 @@ export const GET_VM_LIST = 'GET_VM_LIST';
 export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
 
 
+
 const getURI = (key) => apiUrl + Urls[key]
 
 
 const headers = {
-	headers: {'Content-Type': 'application/json','User-Agent': 'webfrontend/1.0'}
+	headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0'}
 }
 
 function receiveData22(json) {

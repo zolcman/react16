@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
+import { StartJobTask } from './BackupAction'
 import JobWizard from '../../components/JobWiz/JobWizard';
-
+import { updatestatus } from './BackupAction'
 
 class Backup extends Component {
     constructor(props) {
@@ -203,7 +204,7 @@ class Backup extends Component {
     }
 
     openWiz2(id) {
-
+      this.props.updatestatus('backup-or-restore-task');
       this.setState({openWiz2:true})
       this.setState({jobid:id})
       this.setState({fromlist:true})
@@ -259,6 +260,7 @@ class Backup extends Component {
 
     openWiz234 () {
       this.setState({openWiz2:true})
+      this.props.StartJobTask(this.state.jobid);
     }
 
     render(){
@@ -401,7 +403,8 @@ const mapDispatchToProps = function(dispatch) {
 
 
       GetBackList: () => dispatch(GetBackList()),
-
+      StartJobTask: (id) => dispatch(StartJobTask(id)),
+      updatestatus: (id) => dispatch(updatestatus(id)),
 
     }
 }

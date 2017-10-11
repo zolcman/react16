@@ -20,6 +20,15 @@ const BackupReducer = function(state = initialUserState, action) {
         case 'GET_TREE':
            return Object.assign({}, state, { tree: action.data });
            break;
+           case 'GET_TASK_ID':
+              return Object.assign({}, state, { taskidtoupdate: action.data });
+              break;
+              case 'GET_TASK_STATUS':
+                 return Object.assign({}, state, { task_status: action.data });
+                 break;
+                 case 'GET_VM_ID':
+                    return Object.assign({}, state, { vmidtoupdate: action.data });
+                    break;
 
 
 
