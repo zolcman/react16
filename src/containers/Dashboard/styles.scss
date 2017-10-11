@@ -99,5 +99,26 @@ background: #fafafa;
     font-size: 38px;
     line-height: 16px;
 }
+.leftclmn .sqare:nth-child(1){
+		background: url(img/1.png);
+	background-position: bottom center;
+}
+.leftclmn .sqare:nth-child(2){
+		background: url(img/2.png);
+	background-position: bottom center;
+}
+.leftclmn .sqare:nth-child(3){
+		background: url(img/3.png);
+	background-position: bottom center;
+}
+.leftclmn .sqare:nth-child(4){
+		background: url(img/4.png);
+	background-position: bottom center;
+}
+	
+.leftclmn .sqarestats{
+		background: url(img/5.png);
+	background-position: bottom center;
+}
 
 }
