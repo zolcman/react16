@@ -25,6 +25,7 @@
       color:#4a4a4a;
       font-family: 'Open Sans', sans-serif;
           margin-bottom: 50px;
+          padding-bottom: 25px;
   }
   .pop-up-header {
     background: #F8F8F8;
@@ -208,6 +209,7 @@
   }
   .progress-bar {
     width: 100%;
+    float: none!important;
       height: 16px;
       border-radius: 10px;
       background: #ccc;

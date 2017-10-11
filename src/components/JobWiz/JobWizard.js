@@ -17,7 +17,7 @@ class JobWizard extends Component {
 
           page:'4',
           finish:false,
-          lister:[{time:'11',action:'ggg',duration:'22'},{time:'12',action:'gggdds',duration:'221'}]
+          lister:[{time:'9:58',action:'Job Started',duration:'22'},{time:'9:55',action:'Building',duration:'221'}]
 
         }
     }
@@ -169,19 +169,19 @@ class JobWizard extends Component {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Duration:00 00</td>
-                              <td>Processed:00 00</td>
-                              <td>Success</td>
+                              <td>Duration: 00 00</td>
+                              <td>Processed: 4,9 GB (99%)</td>
+                              <td>Success: 1</td>
                             </tr>
                               <tr>
-                                <td>Processing rate:00 00</td>
-                                <td>Read:00 00</td>
-                                <td>Warnings</td>
+                                <td>Processing rate: 320 MB/s</td>
+                                <td>Read: 4,9 GB</td>
+                                <td>Warnings: 0</td>
                               </tr>
                               <tr>
-                                <td>Bottlenecks :00 00</td>
-                                <td>Transfered:00 00</td>
-                                <td>Errors</td>
+                                <td>Bottlenecks: Source</td>
+                                <td>Transfered: 160,4 kb</td>
+                                <td>Errors: 0</td>
                               </tr>
 
                           </tbody>
@@ -194,7 +194,7 @@ class JobWizard extends Component {
                               <tr>
                               <th>Time</th>
                               <th>Action</th>
-                              <th>Duration</th>
+                              <th></th>
 
                               </tr>
                             </thead>
@@ -207,7 +207,7 @@ class JobWizard extends Component {
                                       {item.time}
                                 </td>
                                   <td>{item.action}</td>
-                                  <td>{item.duration}</td>
+                                  <td></td>
 
 
                                   </tr>

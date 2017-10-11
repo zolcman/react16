@@ -19,6 +19,7 @@ const Html = ({ store, htmlContent }: Props) => {
   return (
     <html {...rest} lang={lang || 'en'}>
       <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -26,9 +27,9 @@ const Html = ({ store, htmlContent }: Props) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css"></link>
-	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-	  
-      
+
+
+
         {head.title.toComponent()}
         {head.base.toComponent()}
         {head.meta.toComponent()}
