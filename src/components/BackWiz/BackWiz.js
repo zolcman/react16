@@ -108,9 +108,18 @@ class BackWiz extends Component {
 
 		<div className="consteptwo">
       <table>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Type</td>
+            <td>Size</td>
+          </tr>
+        </thead>
         <tbody>
           {this.state.array.map((item,index) => (
               <tr key={index}>
+                <td>{item}</td>
+                <td>{item}</td>
                 <td>{item}</td>
               </tr>
 

@@ -31,7 +31,7 @@ class SWizard extends Component {
 
     componentDidMount() {
 
-      this.props.Tree(1);
+     this.props.Tree(1);
 
 
     }
@@ -40,8 +40,17 @@ class SWizard extends Component {
 
       if (nextProps.tree) {
      this.setState({tree:nextProps.tree})
+
+
 }
      }
+
+
+
+
+
+
+
 
     close() {
       this.setState({page:1}) // binded when all ok change to 1
@@ -88,7 +97,7 @@ class SWizard extends Component {
                 halfcheck.addClass('green');
 
               }, 0);
-              }); 
+              });
 
 
 
@@ -97,6 +106,11 @@ class SWizard extends Component {
 
 
 }
+
+onCheck(checked) {
+//  console.log(checked)
+        this.setState({ checked });
+    }
 
 
 reset () {
@@ -122,10 +136,11 @@ reset () {
                         </div>
                         <div className="popup3-con">
                           <CheckboxTree
+                            nameAsArray={true}
                 nodes={this.state.tree}
                 checked={this.state.checked}
                 expanded={this.state.expanded}
-                onCheck={checked => this.setState({ checked })}
+                onCheck={this.onCheck.bind(this)}
                 onExpand={expanded => this.setState({ expanded })}
             />
                         </div>
