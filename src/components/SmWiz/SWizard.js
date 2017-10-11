@@ -31,7 +31,7 @@ class SWizard extends Component {
 
     componentDidMount() {
 
-     this.props.Tree(1);
+     this.props.Tree('test1');
 
 
     }
@@ -120,8 +120,7 @@ reset () {
 
 
     render(){
-      console.log(this.props.vmid)
-
+      
         return (
           <div>
               {this.props.open ? (<div className="freeze">

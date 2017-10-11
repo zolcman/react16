@@ -203,9 +203,10 @@ class Backup extends Component {
       this.setState({openWiz:false})
     }
 
-    openWiz2(id) {
+    openWiz2(id,name) {
       this.props.updatestatus('backup-or-restore-task');
       this.setState({openWiz2:true})
+      this.setState({jobname:name})
       this.setState({jobid:id})
       this.setState({fromlist:true})
     }
@@ -231,14 +232,14 @@ class Backup extends Component {
       })
     }
 
-    chooseitem(id,status) {
+    chooseitem(id,status,name) {
       if (status == 'Running') {
         console.log(id);
-        this.setState({choosen:false,jobid:id})
+        this.setState({choosen:false,jobid:id,jobname:name})
       }
       if (status != 'Running') {
         console.log(id);
-        this.setState({choosen:true,jobid:id})
+        this.setState({choosen:true,jobid:id,jobname:name})
 
       }
 
@@ -367,10 +368,10 @@ class Backup extends Component {
                   </thead>
                   <tbody>
                     {list.map((item,index) => (
-                        <tr onClick={this.chooseitem.bind(this,item.Id,item.status)} className="" key={index}>
+                        <tr onClick={this.chooseitem.bind(this,item.Id,item.status,item.name)} className="" key={index}>
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                         <td>{item.cluster}</td>
-                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id)} className="link-table">{item.status}</a>)
+                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name)} className="link-table">{item.status}</a>)
                         : (<span>{item.status}</span>)
 
 
@@ -393,7 +394,7 @@ class Backup extends Component {
               </div>
             </div>
             <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-            <JobWizard vmid={this.state.jobid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+            <JobWizard vmname={this.state.jobname} vmid={this.state.jobid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

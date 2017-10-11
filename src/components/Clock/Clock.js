@@ -17,17 +17,16 @@ class Clock extends Component {
         }
     }
 
-	
+
     componentDidMount() {
 
 		}
 	componentDidUpdate() {
-		
-		
-		
+    var self = this;
+
 	$('.clockpicker').clockpicker()
 	.find('input').change(function(){
-		console.log(this.value);
+	   self.props.time(this.value);
 	});
 var input = $('#single-input').clockpicker({
 	placement: 'bottom',
@@ -38,7 +37,7 @@ var input = $('#single-input').clockpicker({
 
 $('.clockpicker-with-callbacks').clockpicker({
 		donetext: 'Done',
-		init: function() { 
+		init: function() {
 			console.log("colorpicker initiated");
 		},
 		beforeShow: function() {
@@ -68,18 +67,18 @@ $('.clockpicker-with-callbacks').clockpicker({
 	})
 	.find('input').change(function(){
 		console.log(this.value);
-	});	
-		
+	});
+
 	}
 
 handleScriptCreate() {
   this.setState({ scriptLoaded: false })
 }
- 
+
 handleScriptError() {
   this.setState({ scriptError: true })
 }
- 
+
 handleScriptLoad() {
   this.setState({ scriptLoaded: true })
 }
@@ -94,13 +93,13 @@ handleScriptLoad() {
       onCreate={this.handleScriptCreate.bind(this)}
       onError={this.handleScriptError.bind(this)}
       onLoad={this.handleScriptLoad.bind(this)}
-	  
+
     />
-			
-			
-			
-			
-			
+
+
+
+
+
           <div className="form-group clockpickerc">
 		<div className="input-group clockpicker" data-placement="bottom" data-align="left" data-donetext="Done">
 			<input type="text" className="form-control" value="18:00"/>
@@ -108,7 +107,7 @@ handleScriptLoad() {
 				<span className="glyphicon glyphicon-time"></span>
 			</span>
 		</div>
-	
+
 	</div>
         </div>)
     }

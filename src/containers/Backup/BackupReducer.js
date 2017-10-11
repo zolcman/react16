@@ -20,6 +20,9 @@ const BackupReducer = function(state = initialUserState, action) {
         case 'GET_TREE':
            return Object.assign({}, state, { tree: action.data });
            break;
+           case 'GET_TREE_FLAT':
+              return Object.assign({}, state, { tree_flat: action.data });
+              break;
            case 'GET_TASK_ID':
               return Object.assign({}, state, { taskidtoupdate: action.data });
               break;
@@ -29,6 +32,9 @@ const BackupReducer = function(state = initialUserState, action) {
                  case 'GET_VM_ID':
                     return Object.assign({}, state, { vmidtoupdate: action.data });
                     break;
+                    case 'GET_REPOS':
+                       return Object.assign({}, state, { repos: action.data });
+                       break;
 
 
 

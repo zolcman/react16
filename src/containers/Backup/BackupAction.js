@@ -7,6 +7,9 @@ export const GET_TREE = 'GET_TREE';
 export const GET_TASK_ID = 'GET_TASK_ID';
 export const GET_TASK_STATUS = 'GET_TASK_STATUS';
 export const GET_VM_ID = 'GET_VM_ID';
+export const GET_TREE_FLAT = 'GET_TREE_FLAT';
+export const GET_REPOS = 'GET_REPOS';
+
 
 
 
@@ -106,6 +109,38 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 		 console.log(response.data);
     			dispatch(receiveData24(response.data));
+				//	dispatch(hideLoading())
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
+function TreeFlatGet(json) {
+	return{
+
+		type: GET_TREE_FLAT,
+		data: json
+
+	}
+};
+
+export function TreeFlat (id) {
+
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+
+			//dispatch(showLoading()),
+			axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=flatlist`,headers).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+   	 		 console.log(response.data);
+    			dispatch(TreeFlatGet(response.data));
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
@@ -254,13 +289,13 @@ export function StartVMTask (id) {
 }
 
 
-export function addJobSS () {
+export function addJobSS (id) {
 
 	return dispatch => {
 
 		return (
 
-			axios.post(getURI("jobs"),{body: {"name": "Demo Policy"}},  headers
+			axios.post(getURI("jobs"),{"name": "Demo Policy","@odata.type": "Policy"},  headers
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -274,6 +309,39 @@ export function addJobSS () {
 				 dispatch(GetBackList());
 			 }
 
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
+
+function receiveDataRepos(json) {
+	return{
+
+		type: GET_REPOS,
+		data: json
+
+	}
+};
+
+export function GetRepos (id) {
+
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+
+			//dispatch(showLoading()),
+			axios.get(apiUrl + `/api/v1/BackupServers/${ id }/repositories`,headers).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+   	 	//	 console.log(response.data);
+    			dispatch(receiveDataRepos(response.data));
+				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
       			console.log(error);

@@ -7,6 +7,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import  SWizard from '../SmWiz/SWizard';
 import  Clock from '../Clock/Clock';
 import { addJobSS } from '../../containers/Backup/BackupAction';
+import { TreeFlat } from '../../containers/Backup/BackupAction';
+import { GetRepos } from '../../containers/Backup/BackupAction';
 
 class BackWiz extends Component {
     constructor(props) {
@@ -23,13 +25,33 @@ class BackWiz extends Component {
           enabled: true,
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           checked5:false,
+          selected: {},
+          filteredItems: false,
+          filterval: '',
+          repos:[],
         }
     }
 
     componentDidMount() {
 
+      this.props.TreeFlat('test1')
+      this.props.GetRepos('veeamserver1')
 
     }
+
+    componentWillReceiveProps(nextProps) {
+
+      if (nextProps.tree_flat) {
+        this.setState({tree_flat:nextProps.tree_flat})
+
+      }
+      if (nextProps.repos) {
+        console.log(nextProps.repos)
+        let camlistpre = nextProps.repos.map((xf) => ({value:xf.Id,label:xf.name}));
+        this.setState({repos:camlistpre,reposselected:camlistpre[0].value})
+      }
+
+     }
 
 
 
@@ -71,9 +93,9 @@ class BackWiz extends Component {
     }
 
 
-	changeSelect2(val) {
+	chRepo(val) {
       //  this.props.toastrActions2();
-      this.setState({selectOP2:val})
+      this.setState({reposselected:val})
 
     }
 
@@ -91,7 +113,20 @@ class BackWiz extends Component {
 	)
 	}
 
+  filter(e) {
+    var value = e.target.value;
+    this.setState({filterval: value})
+    this.setState({
+      filteredItems: !value
+        ? false
+        : this.state.array.filter(function (item) {
+          return item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        })
+    })
+  }
+
 	window2(){
+    var filer = this.state.filteredItems || this.state.array
 	return(
 	<div>
 
@@ -100,10 +135,10 @@ class BackWiz extends Component {
 		<div className="pagetwoundertxt">Selected objects: 5</div>
 		<div className="iconboxtbsearch">
 			<div onClick={this.openWiz3.bind(this)} className="addic">Add</div>
-			<div className="removeic">Remove</div>
+			<div onClick={this.removeElem.bind(this)} className="removeic">Remove</div>
 			<div className="exclusionsic">Exclusions</div>
 			<div className="searchiccont">
-				<input placeholder="Search" type="text"/><input type="button" className="search-icon-jh"/>
+				<input value={this.state.filterval} onChange={this.filter.bind(this)} placeholder="Search" type="text"/><input type="button" className="search-icon-jh"/>
 			</div>
 		</div>
 
@@ -111,17 +146,17 @@ class BackWiz extends Component {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/>Name</th>
             <th>Type</th>
             <th>Size</th>
           </tr>
         </thead>
         <tbody>
-          {this.state.array.map((item,index) => (
+          {filer.map((item,index) => (
               <tr key={index}>
-                <td>{item}</td>
-                <td>{item}</td>
-                <td>{item}</td>
+                <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td>
+                <td>{item.type}</td>
+                <td>{item.size} GB</td>
               </tr>
 
           ))}
@@ -134,24 +169,85 @@ class BackWiz extends Component {
 	)
 
 	}
+
+  removeElem() {
+    var arrDelete = this.state.array;
+
+    for (var i = arrDelete.length - 1; i >= 0; i--) {
+
+    if(arrDelete[i].checked == true) {
+
+        arrDelete.splice(i, 1);
+
+
+    }
+
+    this.setState({array:arrDelete})
+}
+
+
+
+    if (this.state.bigcheck) {
+      this.setState({bigcheck:false})
+    }
+  }
+
+  bigcheck(state) {
+    if (state) {
+    let  positiveArr112 = this.state.array.map(function(name) {
+       return ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':false} );
+    });
+    this.setState({array:positiveArr112,bigcheck:false})
+    }
+    if (!state) {
+    let  positiveArr112 = this.state.array.map(function(name) {
+       return ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':true} );
+    });
+    this.setState({array:positiveArr112,bigcheck:true})
+    }
+  }
+
+  tblcheck(index,checked) {
+  let  positiveArr112 = this.state.array.map(function(name) {
+     return ( (name.Id == index) ? ( (checked == true) ?
+      ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':false})
+      :({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':true})
+
+     )
+      : ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':name.checked})
+    );
+  });
+
+
+  this.setState({array:positiveArr112})
+  }
+
+
+  sumofGB () {
+   var b = this.state.array.reduce(function(sum, current) {
+  return sum + current.size;
+}, 0);
+  return (b)
+  }
+
 	window3(){
 
 		return(
 	<div>
 
 		<div className="zagname">Backup Destination</div>
-		<div className="pagetwoundertxt">Selected VMs: 24</div>
-		<div className="pagetwoundertxt">Approximate Backup size: 954 GB</div>
+		<div className="pagetwoundertxt">Selected VMs: {this.state.array.length}</div>
+		<div className="pagetwoundertxt">Approximate Backup size: {this.sumofGB()} GB</div>
 
 		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
                       className="repo1"
 
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      value={this.state.reposselected}
+                      options={this.state.repos}
 					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
+                      onChange={this.chRepo.bind(this)}
         />
 		<div className="capacitycont">
 
@@ -178,6 +274,14 @@ class BackWiz extends Component {
     }
   }
 
+  changeSelect2 (val) {
+      this.setState({selectOP2:val})
+  }
+
+  getTime(val) {
+    console.log(val);
+  }
+
 	window4(){
 
 		return(
@@ -198,7 +302,7 @@ class BackWiz extends Component {
 <div className="tabs-con-panel">
     <TabPanel>
 <div className="withclock">
-		<Clock/>
+		<Clock time={this.getTime.bind(this)}/>
     <div className="gt-left width150px">
 
       <Select
@@ -448,12 +552,41 @@ check5 () {
     }
 
     uptable(array) {
-      console.log(array);
+
+      this.setState({bigcheck:false})
       this.setState({array:array})
+      let clearArr = this.clearArrFunc(array,this.state.tree_flat);
+      clearArr = clearArr.map(function(name) {
+        return ({'Id':name.Id,'size':name.sizeInGb,'name':name.name,'type':name['@odata.type'],'checked':false});
+     });
+      this.setState({array:clearArr})
+
     }
 
 
+    clearArrFunc(arr1,arr2) {
+      var arj = [];
+      var vbn = '';
+      for (var i = 0; i < arr1.length; i++) {
+
+        vbn = arr2.filter(function(number) {
+          return ( number.Id == arr1[i])
+        });
+      // arj.push({vbn})
+       arj = arj.concat(vbn);
+
+      }
+
+
+    return arj;
+
+  }
+
+
+
+
     render(){
+
 
         return (
           <div>
@@ -498,6 +631,9 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
       addJobSS: (id) => dispatch(addJobSS(id)),
+        TreeFlat: (id) => dispatch(TreeFlat(id)),
+        GetRepos: (id) => dispatch(GetRepos(id)),
+
 
     }
 }
@@ -507,6 +643,8 @@ function mapStateToProps(state) {
 
     return {
 
+      tree_flat:state.toJS().BackupReducer.tree_flat,
+      repos:state.toJS().BackupReducer.repos
 
     }
 }
