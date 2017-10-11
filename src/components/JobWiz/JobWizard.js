@@ -136,7 +136,7 @@ class JobWizard extends Component {
                   <div className="pop-up-window">
                     <div className="pop-up-header">
                       <div className="gt-left pop-up-h-title">
-                        {this.state.finish ? (this.props.vmid): (this.props.vmid) }
+                        {this.state.finish ? (this.props.vmname): (this.props.vmname) }
 
                       </div>
                       <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>

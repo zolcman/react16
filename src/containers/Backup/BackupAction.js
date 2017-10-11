@@ -147,6 +147,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
+			 	dispatch(GetBackList());
    	 		 //console.log(response.data + '1111111111111');
     			dispatch(receiveData25(response.data));
 
@@ -232,7 +233,7 @@ function receiveData27(json) {
 export function StartVMTask (id) {
 
 	return dispatch => {
-var accessToken = sessionStorage.getItem('accessToken');
+
 		return (
 
 			axios.post(apiUrl + `/api/v1/Vms/${ 'veeam1' }/restore/`,{body: {}},  headers
@@ -243,6 +244,35 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 		 //console.log(response.data + '1111111111111');
     			dispatch(receiveData27(response.data));
+
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
+
+export function addJobSS () {
+
+	return dispatch => {
+
+		return (
+
+			axios.post(getURI("jobs"),{body: {"name": "Demo Policy"}},  headers
+   	 ).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+			 if(id) {
+				 dispatch(StartJobTask(response.data.Id));
+
+			 }
+			 if(!id) {
+				 dispatch(GetBackList());
+			 }
 
   			})
    	 	.catch((error) => {

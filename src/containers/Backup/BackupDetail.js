@@ -62,9 +62,9 @@ class BackupDetail extends Component {
        this.setState({openWiz2:false})
      }
 
-     chooseitem(id) {
+     chooseitem(id,name) {
        console.log(id);
-       this.setState({choosen:true,vmid:id})
+       this.setState({choosen:true,vmid:id,vmname:name})
      }
 
 
@@ -155,7 +155,7 @@ class BackupDetail extends Component {
 
 
                       {list.map((item,index) => (
-                          <tr onClick={this.chooseitem.bind(this,item.Id)} key={index}>
+                          <tr onClick={this.chooseitem.bind(this,item.Id,item.name)} key={index}>
                           <td>{item.name}</td>
                           <td>{item.recoveryPoints}</td>
                           <td>{item.status}</td>
@@ -173,7 +173,7 @@ class BackupDetail extends Component {
               </div>
               </div>
               <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-              <Wizard vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+              <Wizard vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

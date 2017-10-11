@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import  SWizard from '../SmWiz/SWizard';
 import  Clock from '../Clock/Clock';
+import { addJobSS } from '../../containers/Backup/BackupAction';
 
 class BackWiz extends Component {
     constructor(props) {
@@ -110,9 +111,9 @@ class BackWiz extends Component {
       <table>
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Type</td>
-            <td>Size</td>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Size</th>
           </tr>
         </thead>
         <tbody>
@@ -145,7 +146,7 @@ class BackWiz extends Component {
 		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
                       className="repo1"
-					
+
                       name="form-field-name"
                       value={this.state.selectOP2}
                       options={this.state.options}
@@ -183,7 +184,7 @@ class BackWiz extends Component {
 		<div>
 		<div className="zagname">Configure Shedule</div>
 		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
-		<div><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> run the job automaticaly</label></div>
+		<div><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
 
 <div className="myown">
       <div className={this.state.checked41 ? ('disabled-block'):('')}></div>
@@ -273,7 +274,7 @@ class BackWiz extends Component {
                       onChange={this.changeSelect2.bind(this)}
         />
 
-		<Select       
+		<Select
 		              placeholder="Hours"
                       className="tabf2"
                       name="form-field-name"
@@ -433,7 +434,9 @@ check5 () {
     }
 
     add () {
-      console.log('addd')
+      let id = this.state.checked5;
+      this.props.addJobSS(id);
+      this.props.close();
     }
 
     openWiz3() {
@@ -494,7 +497,7 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-
+      addJobSS: (id) => dispatch(addJobSS(id)),
 
     }
 }
