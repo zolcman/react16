@@ -175,8 +175,8 @@ class BackWiz extends Component {
 	  <Tab>After this job:</Tab>
     </TabList>
 <div className="tabs-con-panel">
-    <TabPanel className="withclock">
-
+    <TabPanel>
+<div className="withclock">
 		<Clock/>
     <div className="gt-left width150px">
 
@@ -200,12 +200,13 @@ class BackWiz extends Component {
                         onChange={this.changeSelect2.bind(this)}
           />
     </div>
-
+</div>
 
 
 
     </TabPanel>
     <TabPanel>
+			  <div className="withclock">
       <Select
                       className="tabs1"
                       name="form-field-name"
@@ -241,8 +242,10 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 	<TabPanel>
+			<div className="withclock">
     <Select
                       className="tabf1"
                       name="form-field-name"
@@ -269,8 +272,10 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 	<TabPanel>
+			<div className="withclock">
       <Select
                       className="tabl1"
                       name="form-field-name"
@@ -279,6 +284,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 </div>
 
