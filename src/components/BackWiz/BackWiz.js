@@ -5,7 +5,7 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import  SWizard from '../SmWiz/SWizard';
-import  ClockPicker  from 'react-clockpicker';
+import  Clock from '../Clock/Clock';
 
 class BackWiz extends Component {
     constructor(props) {
@@ -175,9 +175,9 @@ class BackWiz extends Component {
 	  <Tab>After this job:</Tab>
     </TabList>
 <div className="tabs-con-panel">
-    <TabPanel>
+    <TabPanel className="withclock">
 
-		<input type="number" className="clock gt-left"/>
+		<Clock/>
     <div className="gt-left width150px">
 
       <Select
@@ -291,11 +291,11 @@ class BackWiz extends Component {
 			<div className="clear">
 			<div className="autoretryleft">
 			<div>Retry failed VMs processing:</div>
-			<div><input type="number"/></div>
+			<div><input type="number"/> times</div>
 			</div>
 			<div className="autoretryright">
 			<div>Wait before each retry attempt for </div>
-			<div><input type="number"/></div>
+			<div><input type="number"/> minutes</div>
 			</div>
 			</div>
 

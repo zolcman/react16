@@ -75,6 +75,8 @@ class NavBar extends Component {
 									<li><a href="#">Manage Credentials</a></li>
 									<li><a href="#">Authentication</a></li>
 									<li><a href="#">Language Settings</a></li>
+									<li><Link to={`/swagger/`} target="_blank">REST API</Link></li>
+			
                   
 
 								</ul>
