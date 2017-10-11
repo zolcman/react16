@@ -145,6 +145,7 @@ class BackWiz extends Component {
 		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
                       className="repo1"
+					
                       name="form-field-name"
                       value={this.state.selectOP2}
                       options={this.state.options}
@@ -200,7 +201,7 @@ class BackWiz extends Component {
     <div className="gt-left width150px">
 
       <Select
-
+  placeholder="On theese days"
                         name="form-field-name"
                         value={this.state.selectOP2}
                         options={this.state.options}
@@ -211,6 +212,7 @@ class BackWiz extends Component {
     </div>
     <div className="gt-left width150px">
       <Select
+	  					placeholder="Days"
 
                         name="form-field-name"
                         value={this.state.selectOP2}
@@ -226,16 +228,10 @@ class BackWiz extends Component {
     </TabPanel>
     <TabPanel>
 			  <div className="withclock">
-      <Select
-                      className="tabs1"
-                      name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
-					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
-        />
+      <Clock/>
 
 		<Select
+			  		  placeholder="Fourth"
                       className="tabs2"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -245,6 +241,7 @@ class BackWiz extends Component {
         />
 
 		<Select
+					  placeholder="Thursday"
                       className="tabs3"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -254,6 +251,7 @@ class BackWiz extends Component {
         />
 
 		<Select
+					  placeholder="Mounths"
                       className="tabs4"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -266,6 +264,7 @@ class BackWiz extends Component {
 	<TabPanel>
 			<div className="withclock">
     <Select
+			          placeholder="1"
                       className="tabf1"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -274,7 +273,8 @@ class BackWiz extends Component {
                       onChange={this.changeSelect2.bind(this)}
         />
 
-		<Select
+		<Select       
+		              placeholder="Hours"
                       className="tabf2"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -284,6 +284,7 @@ class BackWiz extends Component {
         />
 
 		<Select
+		              placeholder="Shedule"
                       className="tabf3"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -296,6 +297,7 @@ class BackWiz extends Component {
 	<TabPanel>
 			<div className="withclock">
       <Select
+					  placeholder="Backup Job 3"
                       className="tabl1"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -316,11 +318,11 @@ class BackWiz extends Component {
 			<div className="clear">
 			<div className="autoretryleft">
 			<div>Retry failed VMs processing:</div>
-			<div><input type="number"/> times</div>
+			<div><input value="10" type="number"/> times</div>
 			</div>
 			<div className="autoretryright">
 			<div>Wait before each retry attempt for </div>
-			<div><input type="number"/> minutes</div>
+			<div><input value="10" type="number"/> minutes</div>
 			</div>
 			</div>
 
