@@ -17,6 +17,7 @@ class Wizard extends Component {
 
           page:'4',
           finish:false,
+			jjj:true
 
         }
     }
@@ -65,20 +66,70 @@ class Wizard extends Component {
 
     renderPage () {
       if (this.state.page == 1) {
-        return (<div>1</div>)
+        return (<div>{this.windowsvm()}</div>)
       }
       if (this.state.page == 2) {
-        return (<div>2</div>)
+        return (<div>{this.windowsvm2()}</div>)
       }
       if (this.state.page == 3) {
-        return (<div>3</div>)
+        return (<div>{this.windowsvm3()}</div>)
       }
       if (this.state.page == 4) {
         return (<div>{this.windows5()}</div>)
       }
 
     }
+				
+	 windowsvm3 () {
+      return (
+	  <div>
+		 <div className="zagname">Reason</div>
+		  <div className="pagetwoundertxt marnvz">Type in reason for performing this restore operation. This information will be logged in the restore sessions history for later reference.</div>
+		  
+		  <div className="zagname somevizstep3">Restore reason</div>
+		  
+		  <textarea className="someviztextarea" placeholder="Text input"></textarea>
+		  
 
+  
+</div>
+	  )
+		}				
+				
+				
+		 windowsvm2 () {
+      return (
+	  <div>
+		 <div className="zagname">Restore Mode</div>
+		  <div className="pagetwoundertxt marnvz">Specify whether selected VMs should be restored back to the original location, or to a new location or with different settings.</div>
+		  
+		<div className="somevizcont">  
+		  <div className="checkboxstyling greenst"><label><input type="checkbox" checked name="dva"/> Restore to the original location</label></div>
+	<div className="pagetwoundertxt">Quickly initiate restore of selected VMs to the original location, and with original name and settings. This option minimizes the  chance of user input error.</div>
+      </div>
+</div>
+	  )
+		}		
+				
+ windowsvm () {
+      return (
+	  <div>
+		 <div className="zagname">Virtula Machines</div>
+		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
+	  <div className="iconboxtbsearch">
+		  <div className="addic">Add</div>
+			<div className="pointjob">Point</div>
+			<div className="removeic vmonwizzzr">Remove</div>
+	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" class="search-icon-jh" value=""/>
+		</div>
+		</div>
+		  
+		  
+      </div>
+
+	  )
+		}
+				
     windows5 () {
       return (
         <div>
@@ -92,7 +143,7 @@ class Wizard extends Component {
                 <dt>Proxy</dt>
                 <dd>definition for first item in list</dd>
                 <dt>Original VM name</dt>
-                <dd>{this.props.vmid}</dd>
+                <dd>{this.props.vmid} </dd>
                 <dt>Restore point</dt>
                 <dd>35</dd>
                 <dt>Target host</dt>
@@ -209,9 +260,9 @@ class Wizard extends Component {
           <div className="windows-list">
             <dl className="floated">
                 <dt>VM name</dt>
-                <dd>{this.props.vmid}</dd>
+                <dd>{this.props.vmid} StarWind Plugin WEB vSphere</dd>
                 <dt>Restore type</dt>
-                <dd>NTNXCL 1</dd>
+                <dd>Restore to the original location</dd>
                 <dt>Restore point</dt>
                 <dd>35</dd>
                 <dt>Initiated by</dt>
@@ -234,7 +285,7 @@ class Wizard extends Component {
                 <div>{this.firsttab()}</div>
               </TabPanel>
               <TabPanel>
-                <div>22</div>
+                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
               </TabPanel>
               </div>
             </Tabs>
@@ -274,12 +325,13 @@ class Wizard extends Component {
 
           <div className="windows-list">
           <dl className="floated">
+		  
               <dt>Object remaining</dt>
-              <dd>2222</dd>
+              <dd className="somefix">1 of 1</dd>
               <dt>Restore rate</dt>
-              <dd>NTNXCL 1</dd>
+              <dd>350 MB/s</dd>
               <dt>Time remaining</dt>
-              <dd>35</dd>
+              <dd>00:22:03</dd>
 
             </dl>
       </div>
@@ -293,7 +345,7 @@ class Wizard extends Component {
 
         return (
           <div>
-            {this.props.open ?
+            {this.state.jjj ?
               (
 
                 <div className="freeze">
