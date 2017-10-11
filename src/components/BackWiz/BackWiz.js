@@ -5,7 +5,7 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import  SWizard from '../SmWiz/SWizard';
-import  ClockPicker  from 'react-clockpicker';
+import  Clock from '../Clock/Clock';
 
 class BackWiz extends Component {
     constructor(props) {
@@ -185,8 +185,8 @@ class BackWiz extends Component {
     </TabList>
 <div className="tabs-con-panel">
     <TabPanel>
-
-		<input type="number" className="clock gt-left"/>
+<div className="withclock">
+		<Clock/>
     <div className="gt-left width150px">
 
       <Select
@@ -209,12 +209,13 @@ class BackWiz extends Component {
                         onChange={this.changeSelect2.bind(this)}
           />
     </div>
-
+</div>
 
 
 
     </TabPanel>
     <TabPanel>
+			  <div className="withclock">
       <Select
                       className="tabs1"
                       name="form-field-name"
@@ -250,8 +251,10 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 	<TabPanel>
+			<div className="withclock">
     <Select
                       className="tabf1"
                       name="form-field-name"
@@ -278,8 +281,10 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 	<TabPanel>
+			<div className="withclock">
       <Select
                       className="tabl1"
                       name="form-field-name"
@@ -288,6 +293,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
+		</div>
     </TabPanel>
 </div>
 
@@ -300,11 +306,11 @@ class BackWiz extends Component {
 			<div className="clear">
 			<div className="autoretryleft">
 			<div>Retry failed VMs processing:</div>
-			<div><input type="number"/></div>
+			<div><input type="number"/> times</div>
 			</div>
 			<div className="autoretryright">
 			<div>Wait before each retry attempt for </div>
-			<div><input type="number"/></div>
+			<div><input type="number"/> minutes</div>
 			</div>
 			</div>
 
