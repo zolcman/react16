@@ -79,38 +79,38 @@ class Wizard extends Component {
       }
 
     }
-				
+
 	 windowsvm3 () {
       return (
 	  <div>
 		 <div className="zagname">Reason</div>
 		  <div className="pagetwoundertxt marnvz">Type in reason for performing this restore operation. This information will be logged in the restore sessions history for later reference.</div>
-		  
-		  <div className="zagname somevizstep3">Restore reason</div>
-		  
-		  <textarea className="someviztextarea" placeholder="Text input"></textarea>
-		  
 
-  
+		  <div className="zagname somevizstep3">Restore reason</div>
+
+		  <textarea className="someviztextarea" placeholder="Text input"></textarea>
+
+
+
 </div>
 	  )
-		}				
-				
-				
+		}
+
+
 		 windowsvm2 () {
       return (
 	  <div>
 		 <div className="zagname">Restore Mode</div>
 		  <div className="pagetwoundertxt marnvz">Specify whether selected VMs should be restored back to the original location, or to a new location or with different settings.</div>
-		  
-		<div className="somevizcont">  
+
+		<div className="somevizcont">
 		  <div className="checkboxstyling greenst"><label><input type="checkbox" checked name="dva"/> Restore to the original location</label></div>
 	<div className="pagetwoundertxt">Quickly initiate restore of selected VMs to the original location, and with original name and settings. This option minimizes the  chance of user input error.</div>
       </div>
 </div>
 	  )
-		}		
-				
+		}
+
  windowsvm () {
       return (
 	  <div>
@@ -123,13 +123,13 @@ class Wizard extends Component {
 	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" class="search-icon-jh" value=""/>
 		</div>
 		</div>
-		  
-		  
+
+
       </div>
 
 	  )
 		}
-				
+
     windows5 () {
       return (
         <div>
@@ -325,7 +325,7 @@ class Wizard extends Component {
 
           <div className="windows-list">
           <dl className="floated">
-		  
+
               <dt>Object remaining</dt>
               <dd className="somefix">1 of 1</dd>
               <dt>Restore rate</dt>
@@ -345,7 +345,7 @@ class Wizard extends Component {
 
         return (
           <div>
-            {this.state.jjj ?
+            {this.props.open ?
               (
 
                 <div className="freeze">
