@@ -114,13 +114,13 @@ class Wizard extends Component {
  windowsvm () {
       return (
 	  <div>
-		 <div className="zagname">Virtula Machines</div>
+		 <div className="zagname">Virtual Machines</div>
 		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
 	  <div className="iconboxtbsearch">
 		  <div className="addic">Add</div>
 			<div className="pointjob">Point</div>
 			<div className="removeic vmonwizzzr">Remove</div>
-	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" class="search-icon-jh" value=""/>
+	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
 		</div>
 		</div>
 
