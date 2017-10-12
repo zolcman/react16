@@ -10,6 +10,7 @@ export const GET_VM_ID = 'GET_VM_ID';
 export const GET_TREE_FLAT = 'GET_TREE_FLAT';
 export const GET_REPOS = 'GET_REPOS';
 export const RUN_AUTO_JOB = 'RUN_AUTO_JOB';
+export const STOP_TIMER = 'STOP_TIMER';
 
 
 
@@ -179,10 +180,9 @@ var accessToken = sessionStorage.getItem('accessToken');
 
 			axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
    	 ).then(function (response) {
-			 if(response.data.code>200){
-					// dispatch(toastrActions.add('error', '',response.data.message))
-					 return
-			 }
+
+
+
 			 	dispatch(GetBackList());
    	 		 //console.log(response.data + '1111111111111');
     			dispatch(receiveData25(response.data));
@@ -190,6 +190,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
       			console.log(error);
+						dispatch(cleartask_info());
     		})
 			)
 	}
@@ -288,6 +289,27 @@ export function StartVMTask (id) {
 			)
 	}
 }
+
+export function stopTimer() {
+	return{
+
+		type: STOP_TIMER,
+		data: 'stop',
+
+	}
+};
+
+
+
+export function clear_auto() {
+	return{
+
+		type: RUN_AUTO_JOB,
+		data: null
+
+	}
+};
+
 
 export function openAuto (id) {
 	if (id) {

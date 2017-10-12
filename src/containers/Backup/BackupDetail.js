@@ -5,7 +5,7 @@ import styles from './styles.scss';
 import { GetBackDetail } from './BackupAction'
 import BackWiz from '../../components/BackWiz/BackWiz';
 import Wizard from '../../components/VmWiz/Wizard';
-
+import { cleartask_info } from './BackupAction'
 
 class BackupDetail extends Component {
     constructor(props) {
@@ -22,11 +22,12 @@ class BackupDetail extends Component {
 }
     componentDidMount() {
 
-
       this.props.GetBackDetail(this.props.match.params.id);
 
+    }
 
-
+    componentWillMount () {
+      this.props.cleartask_info()
     }
 
     componentDidUpdate () {
@@ -183,7 +184,7 @@ const mapDispatchToProps = function(dispatch) {
 
 
       GetBackDetail: (id) => dispatch(GetBackDetail(id)),
-
+      cleartask_info: () => dispatch(cleartask_info()),
 
     }
 }

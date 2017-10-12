@@ -38,6 +38,9 @@ const BackupReducer = function(state = initialUserState, action) {
                        case 'RUN_AUTO_JOB':
                           return Object.assign({}, state, { run_auto_job: action.data });
                           break;
+                          case 'STOP_TIMER':
+                             return Object.assign({}, state, { stopTimers: action.data });
+                             break;
 
 
 

@@ -8,7 +8,8 @@ import { GetBackList } from './BackupAction'
 import { StartJobTask } from './BackupAction'
 import JobWizard from '../../components/JobWiz/JobWizard';
 import { updatestatus } from './BackupAction'
-
+import { clear_auto } from './BackupAction'
+import { cleartask_info } from './BackupAction'
 class Backup extends Component {
     constructor(props) {
         super(props)
@@ -37,13 +38,16 @@ class Backup extends Component {
         this.props.GetBackList();
 
     }
-
+    componentWillMount () {
+      this.props.cleartask_info()
+    }
 
 
     componentWillReceiveProps(nextProps) {
 
       if (nextProps.run_auto_job) {
           this.setState({openWiz2:true})
+          this.props.clear_auto();
       }
 
       if (nextProps.backup) {
@@ -410,7 +414,8 @@ const mapDispatchToProps = function(dispatch) {
       GetBackList: () => dispatch(GetBackList()),
       StartJobTask: (id) => dispatch(StartJobTask(id)),
       updatestatus: (id) => dispatch(updatestatus(id)),
-
+      clear_auto: () => dispatch(clear_auto()),
+      cleartask_info: () => dispatch(cleartask_info()),
     }
 }
 

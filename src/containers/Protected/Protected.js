@@ -21,6 +21,9 @@ class Protected extends Component {
         this.props.GetVmList();
     }
 
+
+    
+
     componentWillReceiveProps(nextProps) {
 
       if (nextProps.vms) {
@@ -120,6 +123,7 @@ const mapDispatchToProps = function(dispatch) {
 
 
       GetVmList: () => dispatch(GetVmList()),
+      cleartask_info: () => dispatch(cleartask_info()),
 
 
     }

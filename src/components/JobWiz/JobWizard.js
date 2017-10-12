@@ -6,12 +6,14 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { updatestatus } from '../../containers/Backup/BackupAction'
 import { cleartaskid } from '../../containers/Backup/BackupAction'
 import { cleartask_info } from '../../containers/Backup/BackupAction'
+import { stopTimer } from '../../containers/Backup/BackupAction'
 
 
 class JobWizard extends Component {
     constructor(props) {
         super(props)
-
+        this.timer;
+        this.bla;
         this.switch2 = true;
         this.state = {
 
@@ -29,7 +31,6 @@ class JobWizard extends Component {
 
       }
 
-
     }
 
 
@@ -38,10 +39,14 @@ class JobWizard extends Component {
       var selfer = this;
       this.props.close();
       this.setState({bull:true})
+      this.bla = true;
+    //  this.setState({turnoff:true})
       this.setState({switcher:false})
       this.setState({propro:{width:'0' + '%'}})
-      setTimeout(function() {selfer.props.cleartask_info()}, 3500);
-      
+      this.props.cleartask_info();
+    //  setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+      //this.props.stopTimer();
+
     }
 
 
@@ -50,22 +55,47 @@ class JobWizard extends Component {
 
       if (nextProps.taskid != null) {
         this.props.updatestatus(nextProps.taskid.Id);
-        console.log('brbrbrbr');
-        this.props.cleartaskid()
+        this.props.cleartaskid();
+        this.bla = false;
+      //  this.setState({turnoff:false})
+        console.log('first condtition');
       }
 
       if (nextProps.task_info && !this.state.switcher) {
-        console.log( this.switch2 );
+
+        console.log( 'second condtition' );
+
        this.setState({timer:nextProps.task_info.progress})
        var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
-        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
+         this.timer = setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
+
         if (nextProps.task_info.progress == 100) {
-          console.log('ddddd')
+        clearTimeout(this.timer);
           var selfer = this;
-        setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+          console.log( '3333' );
+          this.props.cleartask_info();
+      //  setTimeout(function() {selfer.props.cleartask_info()}, 3500);
           this.setState({switcher:true})
+        //  this.setState({turnoff:false})
+          this.bla = false;
         }
+        if (this.bla) {
+          console.log(this.state.turnoff)
+          clearTimeout(this.timer);
+          var selfer = this;
+          selfer.props.cleartask_info();
+          this.setState({timer:'0'})
+          this.setState({propro:{width:'0' + '%'}});
+          this.bla = false;
+        //  this.setState({turnoff:false})
+        //setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+        }
+
+
+
+
+
 
       }
     }
@@ -251,6 +281,7 @@ const mapDispatchToProps = function(dispatch) {
       updatestatus: (id) => dispatch(updatestatus(id)),
       cleartaskid: () => dispatch(cleartaskid()),
       cleartask_info: () => dispatch(cleartask_info()),
+      stopTimer: () => dispatch(stopTimer()),
 
     }
 }
@@ -262,7 +293,7 @@ function mapStateToProps(state) {
 
       taskid:state.toJS().BackupReducer.taskidtoupdate,
       task_info:state.toJS().BackupReducer.task_status,
-
+      stopTimer:state.toJS().BackupReducer.stopTimers,
 
     }
 }

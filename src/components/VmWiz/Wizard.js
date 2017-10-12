@@ -274,7 +274,8 @@ class Wizard extends Component {
 
       if (nextProps.task_info && nextProps.task_info.progress == 100) {
         console.log('ddddd')
-       this.props.cleartask_info()
+        var self = this;
+         setTimeout(function() {self.props.cleartask_info()}, 3500);
         this.setState({switcher:true})
       }
 
@@ -283,7 +284,7 @@ class Wizard extends Component {
        this.setState({timer:nextProps.task_info.progress})
        var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
-        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 3000);
+        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
 
       }
 
@@ -292,11 +293,13 @@ class Wizard extends Component {
     cancelTask () {
 
         this.props.close();
-        this.setState({finish:false,page:4})
+        this.setState({finish:false,page:1})
         this.setState({switcher:true})
         this.setState({timer:0})
         this.setState({propro:{width:'0' + '%'}})
-        this.props.cleartask_info();
+
+        var selfer = this;
+      setTimeout(function() {selfer.props.cleartask_info()}, 3500);
     }
 
     close() {
