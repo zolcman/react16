@@ -577,6 +577,54 @@ font-size: 13px;
 		width: 100px;
 		margin-right: 5px;
 	}
+	
+	
+	//experiment checkbox start
+	
+input[type="checkbox"]{
+  display:block;
+  position:relative;
+  width:22px;
+  height:22px;
+  -webkit-appearance: none;
+  appearance: none;
+  outline:none!important;
+  cursor:pointer;
+background: url(img/ch_b.svg);
+	background-size: 22px;
+	border: 0px solid black;
+	    float: left;
+    margin-top: -1px;
+    margin-right: 10px;
+}
+input[type="checkbox"]:after{
+  display:block;
+  content:'';
+  position:relative;
+  width:22px;
+  height:22px;
+  appearance: none;
+  outline:none;
+ cursor:pointer;
+	background-size: 22px;
+}
+input[type="checkbox"]:checked {
+	background: url(img/ch_b_active.svg);
+	appearance: none;
+    outline:none;
+	cursor:pointer;
+	background-size: 22px;
+
+}
+	
+.go-btn-global:hover {
+
+text-decoration: none;
+color: #7ED321;
+
+}
+
+	
 
 
 }
