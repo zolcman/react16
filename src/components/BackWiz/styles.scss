@@ -675,5 +675,15 @@ border-bottom: 1px solid #ccc;
 	.runthehob{
 		    margin-top: 15px;
 	}
+	.consteptwo {
+		height: 400px;
+	}
+	input[type="number"]{ overflow:visible;}
+	input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
 
 }
