@@ -7,6 +7,9 @@ import { StartVMTask } from '../../containers/Backup/BackupAction'
 import { cleartaskvmid } from '../../containers/Backup/BackupAction'
 import { updatestatus } from '../../containers/Backup/BackupAction'
 import { cleartask_info } from '../../containers/Backup/BackupAction'
+import  SWizardPro from '../SmWizPro/SWizardPro';
+import  SWizardAlert from '../SmWizAlert/SWizardAlert';
+
 
 class Wizard extends Component {
     constructor(props) {
@@ -15,9 +18,10 @@ class Wizard extends Component {
 
         this.state = {
 
-          page:'4',
+          page:'1',
           finish:false,
-			jjj:true
+			jjj:true,
+          emu:[{name:'sss',size:'10 GB',point:'20 aug 2017' },{name:'vfg',size:'20 GB',point:'45 aug 2017' }]
 
         }
     }
@@ -44,7 +48,8 @@ class Wizard extends Component {
         this.setState({page:3})
       }
       if (this.state.page == 3) {
-        this.setState({page:4})
+        this.setState({openAlert:true})
+      //  this.setState({page:4})
       }
 
 
@@ -75,9 +80,14 @@ class Wizard extends Component {
         return (<div>{this.windowsvm3()}</div>)
       }
       if (this.state.page == 4) {
-        return (<div>{this.windows5()}</div>)
+
+       return (<div>{this.windows5()}</div>)
       }
 
+    }
+
+    handleTEXT (event) {
+       this.setState({HANDLETEXT: event.target.value});
     }
 
 	 windowsvm3 () {
@@ -88,7 +98,7 @@ class Wizard extends Component {
 
 		  <div className="zagname somevizstep3">Restore reason</div>
 
-		  <textarea className="someviztextarea" placeholder="Text input"></textarea>
+		  <textarea value={this.state.HANDLETEXT} onChange={this.handleTEXT.bind(this)} className="someviztextarea" placeholder="Text input"></textarea>
 
 
 
@@ -111,24 +121,55 @@ class Wizard extends Component {
 	  )
 		}
 
+    updatefirsttable(item) {
+      console.log(item)
+      this.setState({emu:item})
+    }
+
+
  windowsvm () {
       return (
 	  <div>
 		 <div className="zagname">Virtual Machines</div>
 		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
-	  <div className="iconboxtbsearch">
-		  <div className="addic">Add</div>
+	  <div className="iconboxtbsearch gt-clear">
+		  <div onClick={()=> this.setState({closeWizPRO:true})} className="addic">Add</div>
 			<div className="pointjob">Point</div>
 			<div className="removeic vmonwizzzr">Remove</div>
 	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
 		</div>
-		</div>
 
+		</div>
+    <div className="tbls1 clear-gt">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Restore Point</th>
+          </tr>
+        </thead>
+        <tbody>
+
+              <tr >
+                <td>{this.state.emu.id}</td>
+                <td>{this.state.emu.last}</td>
+                <td>Restore Point</td>
+              </tr>
+
+
+        </tbody>
+      </table>
+    </div>
 
       </div>
 
 	  )
 		}
+
+    closeWizPRO() {
+      this.setState({closeWizPRO:false})
+    }
 
     windows5 () {
       return (
@@ -164,7 +205,17 @@ class Wizard extends Component {
 
 
     switch (param) {
-      this.setState({page:param})
+      if (param == 4) {
+      this.setState({openAlert:true})
+      }
+      else {
+        this.setState({page:param})
+      }
+
+    }
+
+    gopage4() {
+      this.setState({page:4})
     }
 
     renderBubbles() {
@@ -285,7 +336,7 @@ class Wizard extends Component {
                 <div>{this.firsttab()}</div>
               </TabPanel>
               <TabPanel>
-                <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                <div> {this.state.HANDLETEXT}</div>
               </TabPanel>
               </div>
             </Tabs>
@@ -308,7 +359,6 @@ class Wizard extends Component {
         }
     }
 }
-
 
 
     firsttab() {
@@ -340,11 +390,17 @@ class Wizard extends Component {
       )
     }
 
+    closeAlert() {
+      this.setState({openAlert:false})
+    }
+
+
+
     render(){
       console.log(this.props.vmid)
 
         return (
-          <div>
+          <div className="VmVizViz">
             {this.props.open ?
               (
 
@@ -412,6 +468,8 @@ class Wizard extends Component {
 
               ):
               (null)}
+              <SWizardPro array={this.updatefirsttable.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)}/>
+              <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.emu.id} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               </div>
 
         )

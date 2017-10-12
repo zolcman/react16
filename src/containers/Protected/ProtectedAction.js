@@ -56,7 +56,7 @@ function receiveData23(json) {
 };
 
 export function GetVmListDetail (id) {
-
+	console.log(id)
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
