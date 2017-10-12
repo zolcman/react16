@@ -577,10 +577,10 @@ font-size: 13px;
 		width: 100px;
 		margin-right: 5px;
 	}
-	
-	
+
+
 	//experiment checkbox start
-	
+
 input[type="checkbox"]{
   display:block;
   position:relative;
@@ -616,7 +616,7 @@ input[type="checkbox"]:checked {
 	background-size: 22px;
 
 }
-	
+
 .go-btn-global:hover {
 
 text-decoration: none;
@@ -624,7 +624,54 @@ color: #7ED321;
 
 }
 
-	
+ul.react-tabs__tab-list {
+  list-style-type: none;
+  clear:both;
+  height:45px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+
+.react-tabs__tab {
+  float: left;
+  width: 155px;
+  height: 44px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 10px;
+  font-size: 15px;
+  margin-right: 3px;
+  border:0px solid #ccc;
+border-bottom: 1px solid #ccc;
+  cursor: pointer;
+  background: #F8F8F8;
+}
+
+.react-tabs__tab--selected {
+  float: left;
+  width: 155px;
+  height: 44px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-top: 10px;
+  font-size: 15px;
+  margin-right: 3px;
+  border:1px solid #ccc;
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
+  background: none!important;
+  z-index: 2;
+}
+.tabs-con-panel {
+  border: 1px solid #ccc;
+  margin-top: -2px;
+  min-height: 100px;
+  padding: 30px;
+}
+
+
 
 
 }
