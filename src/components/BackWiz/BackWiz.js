@@ -288,7 +288,7 @@ class BackWiz extends Component {
 		<div>
 		<div className="zagname">Configure Shedule</div>
 		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
-		<div><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
+		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
 
 <div className="myown">
       <div className={this.state.checked41 ? ('disabled-block'):('')}></div>
