@@ -671,9 +671,27 @@ border-bottom: 1px solid #ccc;
   padding: 30px;
 }
 
+	.bubblegreen:hover{
+		text-decoration: none;
+		color: white;
+	}
+	.bubble:hover{
+		text-decoration: none;
+		color: black;
+	} 
 
 	.runthehob{
 		    margin-top: 15px;
 	}
+	.consteptwo {
+		height: 400px;
+	}
+	input[type="number"]{ overflow:visible;}
+	input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button {  
+
+   opacity: 1;
+
+}
 
 }
