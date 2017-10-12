@@ -678,7 +678,11 @@ border-bottom: 1px solid #ccc;
 	.bubble:hover{
 		text-decoration: none;
 		color: black;
-	} 
+	}
+
+  .bubblegreen:hover {
+    color:white;
+  }
 
 	.runthehob{
 		    margin-top: 15px;
@@ -687,8 +691,8 @@ border-bottom: 1px solid #ccc;
 		height: 400px;
 	}
 	input[type="number"]{ overflow:visible;}
-	input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button {  
+	input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
 
    opacity: 1;
 

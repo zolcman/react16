@@ -100,12 +100,13 @@ class BackWiz extends Component {
     }
 
 
+
 	window1(){
 	return(
 	<div>
 		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
-		<input className="jobname" type="text" />
+		<input value={this.state.nameToServer} onChange={(e)=> this.setState({nameToServer:e.targetvalue})} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
 		<textarea className="firstscreent"></textarea>
 
@@ -539,8 +540,10 @@ check5 () {
 
     add () {
       let id = this.state.checked5;
+      let nameToServer = this.state.nameToServer // ИМЯ ДЛЯ ОТПРАВКИ НА СЕРВЕР
       this.props.addJobSS(id);
       this.props.close();
+      this.setState({page:1})
     }
 
     openWiz3() {

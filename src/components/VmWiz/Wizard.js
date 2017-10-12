@@ -14,7 +14,7 @@ import  SWizardAlert from '../SmWizAlert/SWizardAlert';
 class Wizard extends Component {
     constructor(props) {
         super(props)
-
+        this.timer
 
         this.state = {
 
@@ -275,7 +275,7 @@ class Wizard extends Component {
       if (nextProps.task_info && nextProps.task_info.progress == 100) {
         console.log('ddddd')
         var self = this;
-         setTimeout(function() {self.props.cleartask_info()}, 3500);
+        this.timer =  setTimeout(function() {self.props.cleartask_info()}, 3500);
         this.setState({switcher:true})
       }
 
@@ -289,9 +289,12 @@ class Wizard extends Component {
       }
 
     }
+    componentDidUpdate () {
+      this.props.cleartask_info()
+    }
 
     cancelTask () {
-
+        clearTimeout(this.timer);
         this.props.close();
         this.setState({finish:false,page:1})
         this.setState({switcher:true})
@@ -303,7 +306,7 @@ class Wizard extends Component {
     }
 
     close() {
-
+      clearTimeout(this.timer);
       this.props.close();
 
     }

@@ -36,16 +36,28 @@ class JobWizard extends Component {
 
 
     close() {
+      clearTimeout(this.timer);
       var selfer = this;
       this.props.close();
       this.setState({bull:true})
       this.bla = true;
+      this.bla2 = false;
     //  this.setState({turnoff:true})
-      this.setState({switcher:false})
+      this.setState({switcher:true})
       this.setState({propro:{width:'0' + '%'}})
-      this.props.cleartask_info();
-    //  setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+    //  this.props.cleartask_info();
+    // setTimeout(function() {selfer.props.cleartask_info()}, 3000);
       //this.props.stopTimer();
+
+    }
+
+    componentDidUpdate () {
+      this.bla2 = true;
+      if (this.state.timer < 100) {
+        this.props.cleartask_info();
+      }
+
+
 
     }
 
@@ -57,11 +69,13 @@ class JobWizard extends Component {
         this.props.updatestatus(nextProps.taskid.Id);
         this.props.cleartaskid();
         this.bla = false;
+
+
       //  this.setState({turnoff:false})
         console.log('first condtition');
       }
 
-      if (nextProps.task_info && !this.state.switcher) {
+      if (nextProps.task_info && this.bla2 ) {
 
         console.log( 'second condtition' );
 
@@ -70,24 +84,19 @@ class JobWizard extends Component {
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
          this.timer = setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
 
-        if (nextProps.task_info.progress == 100) {
-        clearTimeout(this.timer);
-          var selfer = this;
-          console.log( '3333' );
-          this.props.cleartask_info();
-      //  setTimeout(function() {selfer.props.cleartask_info()}, 3500);
-          this.setState({switcher:true})
-        //  this.setState({turnoff:false})
-          this.bla = false;
-        }
+         if (nextProps.task_info.progress == '100') {
+           clearTimeout(this.timer);
+           var selfer = this;
+          // setTimeout(function() {selfer.props.cleartask_info()}, 3000);
+         }
         if (this.bla) {
-          console.log(this.state.turnoff)
-          clearTimeout(this.timer);
+          console.log( 'third condtition' );
           var selfer = this;
           selfer.props.cleartask_info();
           this.setState({timer:'0'})
           this.setState({propro:{width:'0' + '%'}});
           this.bla = false;
+          this.bla2 = true;
         //  this.setState({turnoff:false})
         //setTimeout(function() {selfer.props.cleartask_info()}, 3500);
         }
@@ -99,14 +108,6 @@ class JobWizard extends Component {
 
       }
     }
-
-
-    timeout() {
-      console.log('time!!!!!!')
-    }
-
-
-
 
 
 
