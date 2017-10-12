@@ -35,6 +35,9 @@ const BackupReducer = function(state = initialUserState, action) {
                     case 'GET_REPOS':
                        return Object.assign({}, state, { repos: action.data });
                        break;
+                       case 'RUN_AUTO_JOB':
+                          return Object.assign({}, state, { run_auto_job: action.data });
+                          break;
 
 
 

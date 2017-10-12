@@ -9,6 +9,7 @@ export const GET_TASK_STATUS = 'GET_TASK_STATUS';
 export const GET_VM_ID = 'GET_VM_ID';
 export const GET_TREE_FLAT = 'GET_TREE_FLAT';
 export const GET_REPOS = 'GET_REPOS';
+export const RUN_AUTO_JOB = 'RUN_AUTO_JOB';
 
 
 
@@ -288,6 +289,27 @@ export function StartVMTask (id) {
 	}
 }
 
+export function openAuto (id) {
+	if (id) {
+		return{
+
+			type: RUN_AUTO_JOB,
+			data: true
+
+		}
+	}
+
+	if (!id) {
+		return{
+
+			type: RUN_AUTO_JOB,
+			data: false
+
+		}
+	}
+
+}
+
 
 export function addJobSS (id) {
 
@@ -303,10 +325,11 @@ export function addJobSS (id) {
 			 }
 			 if(id) {
 				 dispatch(StartJobTask(response.data.Id));
-
+				 dispatch(openAuto(true));
 			 }
 			 if(!id) {
 				 dispatch(GetBackList());
+				 dispatch(openAuto(false));
 			 }
 
   			})

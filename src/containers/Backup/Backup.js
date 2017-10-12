@@ -42,6 +42,10 @@ class Backup extends Component {
 
     componentWillReceiveProps(nextProps) {
 
+      if (nextProps.run_auto_job) {
+          this.setState({openWiz2:true})
+      }
+
       if (nextProps.backup) {
      this.setState({table:nextProps.backup})
      this.setState({tablebackup:nextProps.backup})
@@ -416,6 +420,7 @@ function mapStateToProps(state) {
     return {
 
       backup:state.toJS().BackupReducer.backups,
+      run_auto_job:state.toJS().BackupReducer.run_auto_job,
 
     }
 }

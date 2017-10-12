@@ -35,14 +35,19 @@ class JobWizard extends Component {
 
 
     close() {
+      var selfer = this;
       this.props.close();
+      this.setState({bull:true})
       this.setState({switcher:false})
       this.setState({propro:{width:'0' + '%'}})
-      this.props.cleartask_info();
+      setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+      
     }
 
 
     componentWillReceiveProps(nextProps) {
+
+
       if (nextProps.taskid != null) {
         this.props.updatestatus(nextProps.taskid.Id);
         console.log('brbrbrbr');
@@ -54,12 +59,14 @@ class JobWizard extends Component {
        this.setState({timer:nextProps.task_info.progress})
        var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
-        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 3000);
+        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
         if (nextProps.task_info.progress == 100) {
           console.log('ddddd')
-        //  this.props.cleartask_info()
+          var selfer = this;
+        setTimeout(function() {selfer.props.cleartask_info()}, 3500);
           this.setState({switcher:true})
         }
+
       }
     }
 
@@ -255,6 +262,7 @@ function mapStateToProps(state) {
 
       taskid:state.toJS().BackupReducer.taskidtoupdate,
       task_info:state.toJS().BackupReducer.task_status,
+
 
     }
 }
