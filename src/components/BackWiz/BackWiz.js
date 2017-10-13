@@ -539,6 +539,7 @@ check5 () {
     }
 
     add () {
+      let list = this.state.array;
       let id = this.state.checked5;
       let nameToServer = this.state.nameToServer // ИМЯ ДЛЯ ОТПРАВКИ НА СЕРВЕР
       this.props.addJobSS(id);

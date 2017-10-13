@@ -231,7 +231,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 	//	 console.log(response.data);
+   	 		 console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
     			dispatch(receiveData26(response.data));
 				//	dispatch(hideLoading())
   			})
