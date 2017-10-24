@@ -233,6 +233,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					 return
 			 }
    	 		 console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+				 console.log(response.data);
     			dispatch(receiveData26(response.data));
 				//	dispatch(hideLoading())
   			})
@@ -334,7 +335,7 @@ export function openAuto (id) {
 }
 
 
-export function addJobSS (id) {
+export function addJobSS (id,runner) {
 
 	return dispatch => {
 
@@ -347,11 +348,11 @@ export function addJobSS (id) {
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-			 if(id) {
+			 if(runner) {
 				 dispatch(StartJobTask(response.data.Id));
 				 dispatch(openAuto(true));
 			 }
-			 if(!id) {
+			 if(!runner) {
 				 dispatch(GetBackList());
 				 dispatch(openAuto(false));
 			 }

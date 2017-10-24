@@ -542,13 +542,13 @@ check5 () {
 
     createPolicyObject() {
       let policyObj = new Object();
-	  
+
 	  let schedulerSettingsObj = new Object();
 	  schedulerSettingsObj["@odata.type"] = "SchedulerBackupJobSettings";
 	  schedulerSettingsObj.toRunEvery = 1;
 	  schedulerSettingsObj.toRunEveryTimeInterval = "Days";
 	  schedulerSettingsObj.atTime = this.state.selectedStartTime;
-      
+
       policyObj["@odata.type"] = "PolicyCreationSettings";
       policyObj.name = this.state.nameToServer;
       policyObj.vmsUids = Array.from(
@@ -558,15 +558,16 @@ check5 () {
         }
       );
       policyObj.repositoryUid = this.state.reposselected;
-	  
+
 	  policyObj.scheduleSettings = [schedulerSettingsObj];
-	  
+
       return policyObj;
     }
 
     add () {
       let policyObj = this.createPolicyObject();
-      this.props.addJobSS(policyObj);
+      let runner = this.state.checked5;
+      this.props.addJobSS(policyObj,runner);
       this.props.close();
       this.setState({page:1})
     }
@@ -658,7 +659,7 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-      addJobSS: (id) => dispatch(addJobSS(id)),
+      addJobSS: (id,runner) => dispatch(addJobSS(id,runner)),
         TreeFlat: (id) => dispatch(TreeFlat(id)),
         GetRepos: (id) => dispatch(GetRepos(id)),
 

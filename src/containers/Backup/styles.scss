@@ -3,6 +3,17 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
+
+
+.disabled {
+  opacity: 0.3;
+cursor: default!important;
+}
+.disabled:hover {
+  text-decoration: none!important;
+}
+
+
 .backup-page {
   .container {
     background: white;

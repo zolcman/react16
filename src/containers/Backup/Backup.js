@@ -231,6 +231,7 @@ class Backup extends Component {
     filter(e) {
       var value = e.target.value;
       this.setState({filterval: value})
+      console.log(this.state.table)
       this.setState({
         filteredItems: !value
           ? false
@@ -347,9 +348,9 @@ class Backup extends Component {
 
                       <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
-                      <a className="bk-btn gt-left edit-btn fixpad">Edit</a>
-                      <a className="bk-btn gt-left delete-btn fixpad">Delete</a>
-                      <a className="bk-btn gt-left refresh-btn fixpad">Refresh</a>
+                      <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>
+                      <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>
+                      <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a>
                   </div>
                   <div className="search-panel gt-right fixer91">
                     <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
