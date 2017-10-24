@@ -79,7 +79,7 @@ class JobWizard extends Component {
 
         console.log( 'second condtition' );
 
-       this.setState({timer:nextProps.task_info.progress})
+       this.setState({timer:nextProps.task_info.progress}) // Here we can register updated values
        var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
          this.timer = setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
@@ -207,7 +207,7 @@ class JobWizard extends Component {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Duration: 00 00</td>
+                              <td>Duration: 00 00</td> // {this.state.duration}
                               <td>Processed: 4,9 GB (99%)</td>
                               <td>Success: 1</td>
                             </tr>

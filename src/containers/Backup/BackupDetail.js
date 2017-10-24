@@ -5,7 +5,8 @@ import styles from './styles.scss';
 import { GetBackDetail } from './BackupAction'
 import BackWiz from '../../components/BackWiz/BackWiz';
 import Wizard from '../../components/VmWiz/Wizard';
-import { cleartask_info } from './BackupAction'
+import { cleartask_info } from './BackupAction';
+import { GetVmListDetail } from '../Protected/ProtectedAction';
 
 class BackupDetail extends Component {
     constructor(props) {
@@ -65,6 +66,7 @@ class BackupDetail extends Component {
 
      chooseitem(id,name) {
        console.log(id);
+	   this.props.GetVmListDetail(id);
        this.setState({choosen:true,vmid:id,vmname:name})
      }
 
@@ -185,6 +187,7 @@ const mapDispatchToProps = function(dispatch) {
 
       GetBackDetail: (id) => dispatch(GetBackDetail(id)),
       cleartask_info: () => dispatch(cleartask_info()),
+	  GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
 
     }
 }

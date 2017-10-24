@@ -102,7 +102,7 @@ handleScriptLoad() {
 
           <div className="form-group clockpickerc">
 		<div className="input-group clockpicker" data-placement="bottom" data-align="left" data-donetext="Done">
-			<input type="text" className="form-control" value="18:00"/>
+			<input type="text" className="form-control" value={this.props.currentTime}/>
 			<span className="input-group-addon">
 				<span className="glyphicon glyphicon-time"></span>
 			</span>

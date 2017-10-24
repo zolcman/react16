@@ -26,18 +26,25 @@ class SWizardPro extends Component {
                 checked: [],
             expanded: [],
 
+			
+			//currentSelectedVmId: undefined
         }
     }
 
     componentDidMount() {
 
-     this.props.GetVmListDetail('veeam1');
+     //this.props.GetVmListDetail(this.props.selectedVmId);
 
 
     }
 
     componentWillReceiveProps(nextProps) {
 
+		//if(this.props.selectedVmId)
+		//{
+		//	this.props.GetVmListDetail(this.props.selectedVmId);
+		//}
+	
       if (nextProps.vmsdetail) {
      this.setState({array:nextProps.vmsdetail})
 
@@ -70,6 +77,13 @@ class SWizardPro extends Component {
 
     componentDidUpdate () {
 
+	//if(this.state.currentSelectedVmId !== this.props.selectedVmId)
+	//{
+	//	this.props.GetVmListDetail(this.props.selectedVmId);
+	//	this.setState({currentSelectedVmId:this.props.selectedVmId})
+	//}
+	
+	
       $('.tbls12 tr').click(function (event) {
         $('.tbls12 tr').removeClass("selected-green");
         $(this).addClass( "selected-green" );

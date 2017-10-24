@@ -178,7 +178,8 @@ export function StartJobTask (id) {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
-			axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
+			//axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
+			axios.post(apiUrl + `/api/v1/Policies/${ id }/startbackup`,{body: {}},  headers
    	 ).then(function (response) {
 
 
@@ -273,7 +274,7 @@ export function StartVMTask (id) {
 
 		return (
 
-			axios.post(apiUrl + `/api/v1/Vms/${ 'veeam1' }/restore/`,{body: {}},  headers
+			axios.post(apiUrl + `/api/v1/Vms/${id}/restore/`,{body: {}},  headers
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -339,7 +340,8 @@ export function addJobSS (id) {
 
 		return (
 
-			axios.post(getURI("jobs"),{"name": "Demo Policy","@odata.type": "Policy"},  headers
+			//axios.post(getURI("jobs"),{"name": "Demo Policy","@odata.type": "Policy"},  headers
+			axios.post(getURI("jobs"), id,  headers
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))

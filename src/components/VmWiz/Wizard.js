@@ -474,7 +474,7 @@ class Wizard extends Component {
 
               ):
               (null)}
-              <SWizardPro array={this.updatefirsttable.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)}/>
+              <SWizardPro array={this.updatefirsttable.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
               <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.emu.id} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               </div>
 

@@ -29,6 +29,7 @@ class BackWiz extends Component {
           filteredItems: false,
           filterval: '',
           repos:[],
+		  selectedStartTime: '18:00'
         }
     }
 
@@ -106,7 +107,7 @@ class BackWiz extends Component {
 	<div>
 		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
-		<input value={this.state.nameToServer} onChange={(e)=> this.setState({nameToServer:e.targetvalue})} className="jobname" type="text" />
+		<input value={this.state.nameToServer} onChange={(e)=> this.setState({nameToServer:e.target.value})} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
 		<textarea className="firstscreent"></textarea>
 
@@ -247,7 +248,7 @@ class BackWiz extends Component {
                       name="form-field-name"
                       value={this.state.reposselected}
                       options={this.state.repos}
-					  searchable={false}
+                      searchable={false}
                       onChange={this.chRepo.bind(this)}
         />
 		<div className="capacitycont">
@@ -281,6 +282,7 @@ class BackWiz extends Component {
 
   getTime(val) {
     console.log(val);
+	this.setState({selectedStartTime:val});
   }
 
 	window4(){
@@ -303,7 +305,7 @@ class BackWiz extends Component {
 <div className="tabs-con-panel">
     <TabPanel>
 <div className="withclock">
-		<Clock time={this.getTime.bind(this)}/>
+		<Clock time={this.getTime.bind(this)} currentTime={this.state.selectedStartTime}/>
     <div className="gt-left width150px">
 
       <Select
@@ -463,7 +465,7 @@ check5 () {
   <div className="zagname">Review Summary</div>
 			<dl className="floated">
   <dt>Name</dt>
-  <dd>definition for first item in list</dd>
+  <dd>{this.state.nameToServer}</dd>
   <dt>Source Cluster</dt>
   <dd>NTNXCL 1</dd>
   <dt>VMs</dt>
@@ -538,11 +540,33 @@ check5 () {
       )
     }
 
+    createPolicyObject() {
+      let policyObj = new Object();
+	  
+	  let schedulerSettingsObj = new Object();
+	  schedulerSettingsObj["@odata.type"] = "SchedulerBackupJobSettings";
+	  schedulerSettingsObj.toRunEvery = 1;
+	  schedulerSettingsObj.toRunEveryTimeInterval = "Days";
+	  schedulerSettingsObj.atTime = this.state.selectedStartTime;
+      
+      policyObj["@odata.type"] = "PolicyCreationSettings";
+      policyObj.name = this.state.nameToServer;
+      policyObj.vmsUids = Array.from(
+        this.state.filteredItems || this.state.array,
+        function(el){
+          return el.Id
+        }
+      );
+      policyObj.repositoryUid = this.state.reposselected;
+	  
+	  policyObj.scheduleSettings = [schedulerSettingsObj];
+	  
+      return policyObj;
+    }
+
     add () {
-      let list = this.state.array;
-      let id = this.state.checked5;
-      let nameToServer = this.state.nameToServer // ИМЯ ДЛЯ ОТПРАВКИ НА СЕРВЕР
-      this.props.addJobSS(id);
+      let policyObj = this.createPolicyObject();
+      this.props.addJobSS(policyObj);
       this.props.close();
       this.setState({page:1})
     }
