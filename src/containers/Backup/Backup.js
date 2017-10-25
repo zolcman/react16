@@ -10,6 +10,8 @@ import JobWizard from '../../components/JobWiz/JobWizard';
 import { updatestatus } from './BackupAction'
 import { clear_auto } from './BackupAction'
 import { cleartask_info } from './BackupAction'
+import { DeleteBackupJob } from './BackupAction'
+
 class Backup extends Component {
     constructor(props) {
         super(props)
@@ -272,6 +274,13 @@ class Backup extends Component {
       this.setState({openWiz2:true})
       this.props.StartJobTask(this.state.jobid);
     }
+	
+	deleteJob () {
+      this.setState({choosen:false,jobname:''});
+      this.props.DeleteBackupJob(this.state.jobid);
+	  this.setState({jobid:undefined});	  
+	  this.props.GetBackList();	  
+    }
 
     render(){
 
@@ -349,8 +358,12 @@ class Backup extends Component {
                       <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
                       <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>
-                      <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>
-                      <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a>
+					  
+                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
+                     :
+                      (  <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>)}
+					  
+					  <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a>
                   </div>
                   <div className="search-panel gt-right fixer91">
                     <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
@@ -417,6 +430,7 @@ const mapDispatchToProps = function(dispatch) {
       updatestatus: (id) => dispatch(updatestatus(id)),
       clear_auto: () => dispatch(clear_auto()),
       cleartask_info: () => dispatch(cleartask_info()),
+	  DeleteBackupJob: (id) => dispatch(DeleteBackupJob(id))
     }
 }
 

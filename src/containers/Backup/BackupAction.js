@@ -87,6 +87,26 @@ var accessToken = sessionStorage.getItem('accessToken');
 	}
 }
 
+export function DeleteBackupJob (id) {
+
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+			//dispatch(showLoading()),
+			axios.delete(apiUrl + `/api/v1/Policies/${ id }`,headers).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+				//	dispatch(hideLoading())
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
 
 function receiveData24(json) {
 	return{
