@@ -13,6 +13,7 @@ class JobWizard extends Component {
     constructor(props) {
         super(props)
         this.timer;
+		this.task_info;
         this.bla;
         this.switch2 = true;
         this.state = {
@@ -80,7 +81,10 @@ class JobWizard extends Component {
         console.log( 'second condtition' );
 
        this.setState({timer:nextProps.task_info.progress}) // Here we can register updated values
-       var self = this;
+	   
+	   this.setState({task_info:nextProps.task_info}) // Here we register all updated values in 'task_info'
+       
+	   var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
          this.timer = setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
 
@@ -207,19 +211,19 @@ class JobWizard extends Component {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Duration: 00 00</td> // {this.state.duration}
-                              <td>Processed: 4,9 GB (99%)</td>
-                              <td>Success: 1</td>
+                              <td>Duration: {this.state.task_info.duration}</td>
+                              <td>Processed: {this.state.task_info.statistic.processedBytes} GB ({this.state.task_info.statistic.progress}%)</td>
+                              <td>Success: {this.state.task_info.statistic.success}</td>
                             </tr>
                               <tr>
-                                <td>Processing rate: 320 MB/s</td>
-                                <td>Read: 4,9 GB</td>
-                                <td>Warnings: 0</td>
+                                <td>Processing rate: {this.state.task_info.statistic.processingRate} MB/s</td>
+                                <td>Read: {this.state.task_info.statistic.processedBytes} GB</td>
+                                <td>Warnings: {this.state.task_info.statistic.warnings}</td>
                               </tr>
                               <tr>
                                 <td>Bottlenecks: Source</td>
-                                <td>Transfered: 160,4 kb</td>
-                                <td>Errors: 0</td>
+                                <td>Transfered: {this.state.task_info.statistic.transferedBytesPerSecond} kb</td>
+                                <td>Errors: {this.state.task_info.statistic.errors}</td>
                               </tr>
 
                           </tbody>

@@ -133,8 +133,8 @@ class Wizard extends Component {
 		 <div className="zagname">Virtual Machines</div>
 		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
 	  <div className="iconboxtbsearch gt-clear">
-		  <div onClick={()=> this.setState({closeWizPRO:true})} className="addic">Add</div>
-			<div className="pointjob">Point</div>
+		    <div className="addic disabled">Add</div>
+			<div onClick={()=> this.setState({closeWizPRO:true})} className="pointjob">Point</div>
 			<div className="removeic vmonwizzzr">Remove</div>
 	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
 		</div>
