@@ -62,12 +62,12 @@ class Backup extends Component {
      let camlistpre2 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.status}));
      var camlistpre3 = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.lastRunResult}));
 
-    let change1 =  this.distinct(camlistpre) ;
-    let change2 =  this.distinct(camlistpre2) ;
-    let change3 =  this.distinct(camlistpre3) ;
+     let change1 = this.distinct(camlistpre);
+     let change2 = this.distinct(camlistpre2);
+     let change3 = this.distinct(camlistpre3);
 
      this.setState({options:change1});
-      this.setState({options2:change2});
+     this.setState({options2:change2});
      this.setState({options3:change3});
 
 
@@ -132,7 +132,7 @@ class Backup extends Component {
 
       }
 
-    filters(claster,cur,status) {
+      filters(claster,cur,status) {
 
       if (status && claster && cur) {
         var clear = this.state.tablebackup.filter(function(item) {
@@ -213,8 +213,8 @@ class Backup extends Component {
       this.setState({openWiz:false})
     }
 
-    openWiz2(id,name) {
-      this.props.updatestatus('backup-or-restore-task');
+    openWiz2(id,name,asyncTaskId) {
+      this.props.updatestatus(asyncTaskId);
       this.setState({openWiz2:true})
       this.setState({jobname:name})
       this.setState({jobid:id})
@@ -393,7 +393,7 @@ class Backup extends Component {
                         <tr onClick={this.chooseitem.bind(this,item.Id,item.status,item.name)} className="" key={index}>
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                         <td>{item.cluster}</td>
-                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name)} className="link-table">{item.status}</a>)
+                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name,item.asyncTaskId)} className="link-table">{item.status}</a>)
                         : (<span>{item.status}</span>)
 
 

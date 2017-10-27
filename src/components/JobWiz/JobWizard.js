@@ -137,9 +137,9 @@ class JobWizard extends Component {
         this.props.close();
 
 
-      if (this.props.fromlist) {
-        this.props.refreshtablelist();
-        this.setState({finish:true,page:4}) // обновляем страницу если нажали cancel
+      if (this.props.fromlist) { // TODO: Comments ONLY in English
+        this.props.refreshtablelist(); // обновляем страницу если нажали cancel
+        this.setState({finish:true,page:4})
       }
       else {
         this.setState({finish:false,page:4})

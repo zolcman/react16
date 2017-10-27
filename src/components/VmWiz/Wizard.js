@@ -281,7 +281,10 @@ class Wizard extends Component {
 
       if (nextProps.task_info && !this.state.switcher  ) {
 
-       this.setState({timer:nextProps.task_info.progress})
+       this.setState({timer:nextProps.task_info.progress}) // TODO: Egor, why we set Timer to value of progress?
+
+       this.setState({task_info:nextProps.task_info});
+
        var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
         setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
@@ -317,7 +320,7 @@ class Wizard extends Component {
           <div className="windows-list">
             <dl className="floated">
                 <dt>VM name</dt>
-                <dd>{this.props.vmid} StarWind Plugin WEB vSphere</dd>
+                <dd>ID={this.props.vmid}</dd>
                 <dt>Restore type</dt>
                 <dd>Restore to the original location</dd>
                 <dt>Restore point</dt>
@@ -327,7 +330,7 @@ class Wizard extends Component {
                 <dt>Status</dt>
                 <dd>C:\Backup\</dd>
                 <dt>Start time</dt>
-                <dd>Daily at 10:00 PM</dd>
+                <dd>{this.state.task_info.startTime}</dd>
               </dl>
           </div>
           <div className="tabs">
@@ -385,7 +388,7 @@ class Wizard extends Component {
               <dt>Object remaining</dt>
               <dd className="somefix">1 of 1</dd>
               <dt>Restore rate</dt>
-              <dd>350 MB/s</dd>
+              <dd>{this.state.task_info.statistic.processingRate} MB/s</dd>
               <dt>Time remaining</dt>
               <dd>00:22:03</dd>
 

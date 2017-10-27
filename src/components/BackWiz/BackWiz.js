@@ -294,7 +294,7 @@ class BackWiz extends Component {
 		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
 
 <div className="myown">
-      <div className={this.state.checked41 ? ('disabled-block'):('')}></div>
+      <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
 			<Tabs>
     <TabList>
       <Tab>Daily at this time:</Tab>
@@ -559,7 +559,9 @@ check5 () {
       );
       policyObj.repositoryUid = this.state.reposselected;
 
-	  policyObj.scheduleSettings = [schedulerSettingsObj];
+      policyObj.scheduleSettings = [schedulerSettingsObj];
+    
+      policyObj.schedulerEnabled = this.state.checked41;
 
       return policyObj;
     }
