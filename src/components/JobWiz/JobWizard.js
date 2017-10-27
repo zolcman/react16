@@ -8,6 +8,7 @@ import { cleartaskid } from '../../containers/Backup/BackupAction'
 import { cleartask_info } from '../../containers/Backup/BackupAction'
 import { stopTimer } from '../../containers/Backup/BackupAction'
 
+var bytes = require('bytes');
 
 class JobWizard extends Component {
     constructor(props) {
@@ -169,6 +170,25 @@ class JobWizard extends Component {
     render(){
       console.log(this.props.vmid)
 
+      let duration = '';
+      let processedBytes = '';
+      let processingRateBytesPerSecond = '';
+      let readBytes = '';
+      let transferedBytes = '';
+
+      if(this.state.task_info != undefined)
+      {
+        duration = this.state.task_info.duration;
+
+        if(this.state.task_info.statistic != undefined)
+        {
+          processedBytes = bytes(this.state.task_info.statistic.processedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
+          processingRateBytesPerSecond = bytes(this.state.task_info.statistic.processingRateBytesPerSecond, {unitSeparator: ' ', thousandsSeparator: ' '});
+          readBytes = bytes(this.state.task_info.statistic.processedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
+          transferedBytes = bytes(this.state.task_info.statistic.transferedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
+        }
+      }
+
         return (
           <div className="jobwiz">
             {this.props.open ?
@@ -211,18 +231,18 @@ class JobWizard extends Component {
                           </thead>
                           <tbody>
                             <tr>
-                              <td>Duration: {this.state.task_info.duration}</td>
-                              <td>Processed: {this.state.task_info.statistic.processedBytes} GB ({this.state.task_info.statistic.progress}%)</td>
+                              <td>Duration: {duration}</td>
+                              <td>Processed: {processedBytes} ({this.state.task_info.statistic.progress}%)</td>
                               <td>Success: {this.state.task_info.statistic.success}</td>
                             </tr>
                               <tr>
-                                <td>Processing rate: {this.state.task_info.statistic.processingRate} MB/s</td>
-                                <td>Read: {this.state.task_info.statistic.processedBytes} GB</td>
+                                <td>Processing rate: {processingRateBytesPerSecond}/s</td>
+                                <td>Read: {readBytes}</td>
                                 <td>Warnings: {this.state.task_info.statistic.warnings}</td>
                               </tr>
                               <tr>
                                 <td>Bottlenecks: Source</td>
-                                <td>Transfered: {this.state.task_info.statistic.transferedBytesPerSecond} kb</td>
+                                <td>Transfered: {transferedBytes}</td>
                                 <td>Errors: {this.state.task_info.statistic.errors}</td>
                               </tr>
 
