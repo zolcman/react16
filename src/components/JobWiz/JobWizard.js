@@ -182,10 +182,10 @@ class JobWizard extends Component {
 
         if(this.state.task_info.statistic != undefined)
         {
-          processedBytes = bytes(this.state.task_info.statistic.processedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
-          processingRateBytesPerSecond = bytes(this.state.task_info.statistic.processingRateBytesPerSecond, {unitSeparator: ' ', thousandsSeparator: ' '});
-          readBytes = bytes(this.state.task_info.statistic.processedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
-          transferedBytes = bytes(this.state.task_info.statistic.transferedBytes, {unitSeparator: ' ', thousandsSeparator: ' '});
+          processedBytes = bytes(this.state.task_info.statistic.processed.amount, {unitSeparator: ' ', thousandsSeparator: ' '});
+          processingRateBytesPerSecond = bytes(this.state.task_info.statistic.processingRate, {unitSeparator: ' ', thousandsSeparator: ' '});
+          readBytes = bytes(this.state.task_info.statistic.read.amount, {unitSeparator: ' ', thousandsSeparator: ' '});
+          transferedBytes = bytes(this.state.task_info.statistic.transferred.amount, {unitSeparator: ' ', thousandsSeparator: ' '});
         }
       }
 
@@ -232,8 +232,8 @@ class JobWizard extends Component {
                           <tbody>
                             <tr>
                               <td>Duration: {duration}</td>
-                              <td>Processed: {processedBytes} ({this.state.task_info.statistic.progress}%)</td>
-                              <td>Success: {this.state.task_info.statistic.success}</td>
+                              <td>Processed: {processedBytes} {/* ({this.state.task_info.statistic.processed.percent}%) */}</td>
+                              <td>Success: {this.state.task_info.statistic.completed}</td>
                             </tr>
                               <tr>
                                 <td>Processing rate: {processingRateBytesPerSecond}/s</td>
@@ -241,9 +241,9 @@ class JobWizard extends Component {
                                 <td>Warnings: {this.state.task_info.statistic.warnings}</td>
                               </tr>
                               <tr>
-                                <td>Bottlenecks: Source</td>
+                                <td>Bottleneck: {this.state.task_info.statistic.bottleneck}</td>
                                 <td>Transfered: {transferedBytes}</td>
-                                <td>Errors: {this.state.task_info.statistic.errors}</td>
+                                <td>Errors: {this.state.task_info.statistic.failed}</td>
                               </tr>
 
                           </tbody>

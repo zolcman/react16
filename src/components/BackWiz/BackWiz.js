@@ -24,12 +24,49 @@ class BackWiz extends Component {
           minutes: 20,
           enabled: true,
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
+          dailyBasisDaysPresetOptions: [
+            {label:'On week days',value:'WeekDays'},
+            {label:'Everyday',value:'Everyday'},
+            {label:'On this days',value:'ThisDays'}
+          ],
+          dailyBasisThisDaysOptions: [
+            {label:'Sunday',value:'Sunday'},
+            {label:'Monday',value:'Monday'},
+            {label:'Tuesday',value:'Tuesday'},
+            {label:'Wednesday',value:'Wednesday'},
+            {label:'Thursday',value:'Thursday'},
+            {label:'Friday',value:'Friday'},
+            {label:'Saturday',value:'Saturday'}
+          ],
           checked5:false,
           selected: {},
           filteredItems: false,
           filterval: '',
           repos:[],
-		  selectedStartTime: '18:00'
+          //selectedStartTime: '18:00',
+          
+
+          schedulerSettings: {
+            "@odata.type": "SchedulerSettings",
+            scheduleBasis: "Daily", // [Daily | Monthly | Periodic]
+            dailyBasis: {
+              startTime: "12:00",
+              daysPreset: "WeekDays", // [WeekDays | Everyday | ThisDays]
+              thisDays: ["Sunday"]
+             },
+            monthlyBasis:  {
+              startTime: "12:00",
+              weekNumberOrSpecifiedDay:"DayOfMonth", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
+              dayOfWeek: "Monday",
+              dayOfMonth: 10,
+              months: ["January", "July"]
+            },
+            periodicBasis: {
+              timeOffset : 0,
+              mode: "EveryHour", // [EveryHour | EveryMinute | Continuously]
+              specificTimeIntervals: [[]]
+            }
+          }
         }
     }
 
@@ -276,21 +313,37 @@ class BackWiz extends Component {
     }
   }
 
+
   changeSelect2 (val) {
       this.setState({selectOP2:val})
   }
 
   getTime(val) {
     console.log(val);
-	this.setState({selectedStartTime:val});
+    let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { startTime: val } );
+    let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
+	  this.setState({schedulerSettings:newSchedulerSettings});
+  }
+
+  changeDailyBasisDaysPreset (val) {
+    let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { daysPreset: val.value } );
+    let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
+	  this.setState({schedulerSettings:newSchedulerSettings});
+  }
+
+  changeDailyBasisThisDays (val) {
+    //let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { thisDays: val.value } );
+    let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { thisDays: ["Monday"] } );
+    let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
+	  this.setState({schedulerSettings:newSchedulerSettings});
   }
 
 	window4(){
 
 		return(
 		<div>
-		<div className="zagname">Configure Shedule</div>
-		<div>Specify the job shrduling option. If you do not set shedule, <br/> the job will need to be controlled manualy</div>
+		<div className="zagname">Configure Schedule</div>
+		<div>Specify the job scheduling option. If you do not set schedule, <br/> the job will need to be controlled manualy</div>
 		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
 
 <div className="myown">
@@ -305,28 +358,32 @@ class BackWiz extends Component {
 <div className="tabs-con-panel">
     <TabPanel>
 <div className="withclock">
-		<Clock time={this.getTime.bind(this)} currentTime={this.state.selectedStartTime}/>
+		<Clock time={this.getTime.bind(this)} currentTime={this.state.schedulerSettings.dailyBasis.startTime}/>
     <div className="gt-left width150px">
 
       <Select
-  placeholder="On theese days"
-                        name="form-field-name"
-                        value={this.state.selectOP2}
-                        options={this.state.options}
-  					  searchable={false}
-                        onChange={this.changeSelect2.bind(this)}
-          />
+        placeholder="On theese days"
+        name="form-field-name"
+        value={this.state.schedulerSettings.dailyBasis.daysPreset}
+        options={this.state.dailyBasisDaysPresetOptions}
+  			searchable={false}
+        onChange={this.changeDailyBasisDaysPreset.bind(this)}
+      />
 
     </div>
     <div className="gt-left width150px">
       <Select
+              multi={true}
+              closeOnSelect = {false}
+              removeSelected = {false}
+
 	  					placeholder="Days"
 
-                        name="form-field-name"
-                        value={this.state.selectOP2}
-                        options={this.state.options}
+              name="form-field-name"
+              value={this.state.schedulerSettings.dailyBasis.thisDays}
+              options={this.state.dailyBasisThisDaysOptions}
   					  searchable={false}
-                        onChange={this.changeSelect2.bind(this)}
+              onChange={this.changeDailyBasisThisDays.bind(this)}
           />
     </div>
 </div>
@@ -392,7 +449,7 @@ class BackWiz extends Component {
         />
 
 		<Select
-		              placeholder="Shedule"
+		              placeholder="Schedule"
                       className="tabf3"
                       name="form-field-name"
                       value={this.state.selectOP2}
@@ -474,7 +531,7 @@ check5 () {
   <dd>TestRepo1</dd>
   <dt>Target path</dt>
   <dd>C:\Backup\</dd>
-  <dt>Shedule</dt>
+  <dt>Schedule</dt>
   <dd>Daily at 10:00 PM</dd>
   <dt>Retention</dt>
   <dd>5 restore points</dd>
@@ -534,7 +591,7 @@ check5 () {
           <div className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? (' ') :('greyfixer34')}>General <br/> Settings</div>
           <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}> Assign <br/> VM's</div>
           <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')} >Backup <br/> Destination</div>
-          <div className={ this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')} >Configure <br/> Shedule</div>
+          <div className={ this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')} >Configure <br/> Schedule</div>
           <div className={  this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}>Review <br/> Summary</div>
         </div>
       )
@@ -543,11 +600,30 @@ check5 () {
     createPolicyObject() {
       let policyObj = new Object();
 
-	  let schedulerSettingsObj = new Object();
-	  schedulerSettingsObj["@odata.type"] = "SchedulerBackupJobSettings";
-	  schedulerSettingsObj.toRunEvery = 1;
-	  schedulerSettingsObj.toRunEveryTimeInterval = "Days";
-	  schedulerSettingsObj.atTime = this.state.selectedStartTime;
+      // let schedulerSettingsObj = new Object();
+      // schedulerSettingsObj["@odata.type"] = "SchedulerBackupJobSettings";      
+      // schedulerSettingsObj.scheduleBasis = "Daily", // [Daily | Monthly | Periodic]
+      
+      // schedulerSettingsObj.dailyBasis = new Object();
+      // schedulerSettingsObj.dailyBasis.startTime = this.state.selectedStartTime;
+      // schedulerSettingsObj.dailyBasis.daysPreset = "WeekDays"; // [WeekDays | Everyday | ThisDays]
+      // schedulerSettingsObj.dailyBasis.thisDays = ["Sunday", "Monday"];
+
+      // schedulerSettingsObj.monthlyBasis = new Object();
+      // schedulerSettingsObj.monthlyBasis.startTime = "12:00";
+      // schedulerSettingsObj.monthlyBasis.weekNumberOrSpecifiedDay = "DayOfMonth"; // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
+      // schedulerSettingsObj.monthlyBasis.dayOfWeek = "Monday",
+      // schedulerSettingsObj.monthlyBasis.dayOfMonth = 1;
+      // schedulerSettingsObj.monthlyBasis.months = ["January", "July"];
+      
+      // schedulerSettingsObj.periodicBasis = new Object();
+      // schedulerSettingsObj.periodicBasis.timeOffset = 0; // Hour number or minute number
+      // schedulerSettingsObj.periodicBasis.mode = "EveryHour"; // [EveryHour | EveryMinute | Continuously]
+      // schedulerSettingsObj.periodicBasis.specificTimeIntervals = [[]]; // TODO: Format TBD
+
+      //schedulerSettingsObj.toRunEvery = 1;
+      //schedulerSettingsObj.toRunEveryTimeInterval = "Days";
+      //schedulerSettingsObj.atTime = this.state.selectedStartTime;
 
       policyObj["@odata.type"] = "PolicyCreationSettings";
       policyObj.name = this.state.nameToServer;
@@ -557,9 +633,10 @@ check5 () {
           return el.Id
         }
       );
+
       policyObj.repositoryUid = this.state.reposselected;
 
-      policyObj.scheduleSettings = [schedulerSettingsObj];
+      policyObj.scheduleSettings = this.state.schedulerSettings; //schedulerSettingsObj;
     
       policyObj.schedulerEnabled = this.state.checked41;
 

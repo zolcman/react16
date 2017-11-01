@@ -10,6 +10,7 @@ import { cleartask_info } from '../../containers/Backup/BackupAction'
 import  SWizardPro from '../SmWizPro/SWizardPro';
 import  SWizardAlert from '../SmWizAlert/SWizardAlert';
 
+var bytes = require('bytes');
 
 class Wizard extends Component {
     constructor(props) {
@@ -372,6 +373,19 @@ class Wizard extends Component {
 
     firsttab() {
 
+      let duration = '';
+      let processingRateBytesPerSecond = '';
+
+      if(this.state.task_info != undefined)
+      {
+        duration = this.state.task_info.duration;
+
+        if(this.state.task_info.statistic != undefined)
+        {
+          processingRateBytesPerSecond = bytes(this.state.task_info.statistic.processingRate, {unitSeparator: ' ', thousandsSeparator: ' '});
+        }
+      }
+
       return (
         <div>
             <div className="progress-bar-titles">
@@ -388,9 +402,9 @@ class Wizard extends Component {
               <dt>Object remaining</dt>
               <dd className="somefix">1 of 1</dd>
               <dt>Restore rate</dt>
-              <dd>{this.state.task_info.statistic.processingRate} MB/s</dd>
+              <dd>{processingRateBytesPerSecond}/s</dd>
               <dt>Time remaining</dt>
-              <dd>00:22:03</dd>
+              <dd>N/A</dd>
 
             </dl>
       </div>
