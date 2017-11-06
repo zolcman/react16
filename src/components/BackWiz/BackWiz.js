@@ -38,11 +38,41 @@ class BackWiz extends Component {
             {label:'Friday',value:'Friday'},
             {label:'Saturday',value:'Saturday'}
           ],
+          MonthlyBasisDaysPresets: [
+            {label:'First Week',value:'FirstWeek'},
+            {label:'Second Week',value:'SecondWeek'},
+            {label:'Third Week',value:'ThirdWeek'},
+            {label:'Fourth week',value:'FourthWeek'},
+            {label:'Day Of Month',value:'DayOfMonth'},
+            {label:'Last Day',value:'LastDay'},
+            
+          ],
+          MonthPreset:[
+            {label:'January',value:'January'},
+            {label:'February',value:'February'},
+            {label:'March',value:'March'},
+            {label:'April',value:'April'},
+            {label:'May',value:'May'},
+            {label:'June',value:'June'},
+            {label:'July',value:'July'},
+            {label:'August',value:'August'},
+            {label:'September',value:'September'},
+            {label:'October',value:'October'},
+            {label:'November',value:'November'},
+            {label:'December',value:'December'},
+          ],
+
+          modePreset:[
+            {label:'Every Hour',value:'EveryHour'},
+            {label:'Every Minute',value:'EveryMinute'},
+            {label:'Continuously',value:'Continuously'},
+          ],
           checked5:false,
           selected: {},
           filteredItems: false,
           filterval: '',
           repos:[],
+          disableMultiDaysDaily:true,
           //selectedStartTime: '18:00',
           
 
@@ -56,7 +86,7 @@ class BackWiz extends Component {
              },
             monthlyBasis:  {
               startTime: "12:00",
-              weekNumberOrSpecifiedDay:"DayOfMonth", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
+              weekNumberOrSpecifiedDay:"FirstWeek", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
               dayOfWeek: "Monday",
               dayOfMonth: 10,
               months: ["January", "July"]
@@ -75,7 +105,26 @@ class BackWiz extends Component {
       this.props.TreeFlat('test1')
       this.props.GetRepos('veeamserver1')
 
+      var dayarray = [];
+      var minarray = [];
+      var hourarray = [];
+
+      for (var i=1; i <= 31;i++) {
+        dayarray.push({label:i,value:i})
+      }
+      this.setState({NumberDayList:dayarray})
+
+      for (var i=1; i <= 60;i++) {
+        minarray.push({label:i,value:i})
+      }
+      this.setState({minutesPreset:minarray})
+
+      for (var i=1; i <= 24;i++) {
+        hourarray.push({label:i,value:i})
+      }
+      this.setState({hoursPreset:hourarray})
     }
+    
 
     componentWillReceiveProps(nextProps) {
 
@@ -325,18 +374,111 @@ class BackWiz extends Component {
 	  this.setState({schedulerSettings:newSchedulerSettings});
   }
 
+  getTime2(val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.monthlyBasis.startTime = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
   changeDailyBasisDaysPreset (val) {
     let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { daysPreset: val.value } );
     let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
-	  this.setState({schedulerSettings:newSchedulerSettings});
+    this.setState({schedulerSettings:newSchedulerSettings});
+    
+    if (val.value == 'ThisDays') {
+      this.setState ({
+        disableMultiDaysDaily:false
+      })
+    }
+    if (val.value != 'ThisDays') {
+      this.setState ({
+        disableMultiDaysDaily:true
+      })
+    }
   }
 
   changeDailyBasisThisDays (val) {
-    //let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { thisDays: val.value } );
-    let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { thisDays: ["Monday"] } );
-    let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
-	  this.setState({schedulerSettings:newSchedulerSettings});
+
+    console.log(val)
+
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.dailyBasis.thisDays = val;                        //updating value
+    this.setState({schedulerSettings});
+
+    
   }
+
+  changeMonthlyBasisDays (val) {
+    if (val.value == 'DayOfMonth' ) {
+      this.setState({turnOnDaysSelector:true})
+    }
+    if (val.value != 'DayOfMonth' ) {
+      this.setState({turnOnDaysSelector:false})
+    }
+
+    //if (val.value == 'LastDay' ) {
+     // this.setState({disableWeekDays:true})
+    //}
+    //if (val.value != 'LastDay' ) {
+     // this.setState({disableWeekDays:false})
+    //}
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+  changeMonthlyDayOfWeek (val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.monthlyBasis.dayOfWeek = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+  changeMonthlyBasisMonth (val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.monthlyBasis.months = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+
+  changeNumberDayList(val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.monthlyBasis.dayOfMonth = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+  ChangeTimeMode(val) {
+
+    if (val.value == 'EveryHour') {
+      this.setState({displayHourSelector:true})
+    }
+    if (val.value != 'EveryHour') {
+      this.setState({displayHourSelector:false})
+    }
+    if (val.value == 'Continuously' ) {
+      this.setState({disabledWhenContiniusly:true})
+    }
+    if (val.value != 'Continuously' ) {
+      this.setState({disabledWhenContiniusly:false})
+    }
+
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.periodicBasis.mode = val; 
+    schedulerSettings.periodicBasis.timeOffset = {label:1,value:1};                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+  changeTimeOffset(val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.periodicBasis.timeOffset = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+
+  changeTimeOffset2(val) {
+    let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+    schedulerSettings.periodicBasis.timeOffset = val;                        //updating value
+    this.setState({schedulerSettings});
+  }
+  
 
 	window4(){
 
@@ -347,7 +489,7 @@ class BackWiz extends Component {
 		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
 
 <div className="myown">
-      <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
+      <div className={this.state.checked41 ? ('disabled-block') : ('')}></div>
 			<Tabs>
     <TabList>
       <Tab>Daily at this time:</Tab>
@@ -376,7 +518,7 @@ class BackWiz extends Component {
               multi={true}
               closeOnSelect = {false}
               removeSelected = {false}
-
+              disabled = {this.state.disableMultiDaysDaily}
 	  					placeholder="Days"
 
               name="form-field-name"
@@ -393,64 +535,101 @@ class BackWiz extends Component {
     </TabPanel>
     <TabPanel>
 			  <div className="withclock">
-      <Clock/>
+      <Clock time={this.getTime2.bind(this)} currentTime={this.state.schedulerSettings.monthlyBasis.startTime}/>
 
 		<Select
 			  		  placeholder="Fourth"
                       className="tabs2"
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      value={this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay}
+                      options={this.state.MonthlyBasisDaysPresets}
 					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
+                      onChange={this.changeMonthlyBasisDays.bind(this)}
         />
-
-		<Select
+      <div>
+       { (this.state.turnOnDaysSelector) ? (
+       <Select
 					  placeholder="Thursday"
                       className="tabs3"
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
-					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
-        />
+                      value={this.state.schedulerSettings.monthlyBasis.dayOfMonth}
+                      options={this.state.NumberDayList}
+                      searchable={false}
+                      disabled = {this.state.disableWeekDays}
+                      onChange={this.changeNumberDayList.bind(this)}
+        />):(
+          <Select
+          placeholder="Thursday"
+                    className="tabs3"
+                    name="form-field-name"
+                    disabled = {this.state.disableWeekDays}
+                    value={this.state.schedulerSettings.monthlyBasis.dayOfWeek}
+                    options={this.state.dailyBasisThisDaysOptions}
+          searchable={false}
+                    onChange={this.changeMonthlyDayOfWeek.bind(this)}
+      />
+        )}
+      
+      </div>
+		
 
 		<Select
 					  placeholder="Mounths"
+            multi={true}
                       className="tabs4"
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      value={this.state.schedulerSettings.monthlyBasis.months}
+                      options={this.state.MonthPreset}
 					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
+                      onChange={this.changeMonthlyBasisMonth.bind(this)}
         />
 		</div>
     </TabPanel>
 	<TabPanel>
 			<div className="withclock">
-    <Select
+        <div>
+       { (this.state.displayHourSelector) ? (
+          <Select
+			          placeholder="1"
+                      className="tabf1 hours"
+                      name="form-field-name"
+                      value={this.state.schedulerSettings.periodicBasis.timeOffset}
+                      options={this.state.hoursPreset}
+                      disabled= {this.state.disabledWhenContiniusly}
+					  searchable={false}
+                      onChange={this.changeTimeOffset.bind(this)}
+        />
+        )
+        :
+        (
+          <Select
 			          placeholder="1"
                       className="tabf1"
-                      name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      name="form-field-name minutes"
+                      value={this.state.schedulerSettings.periodicBasis.timeOffset}
+                      options={this.state.minutesPreset}
+                      disabled= {this.state.disabledWhenContiniusly}
 					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
+                      onChange={this.changeTimeOffset2.bind(this)}
         />
+        )}
+        </div>
+    
 
 		<Select
 		              placeholder="Hours"
                       className="tabf2"
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      value={this.state.schedulerSettings.periodicBasis.mode}
+                      options={this.state.modePreset}
 					  searchable={false}
-                      onChange={this.changeSelect2.bind(this)}
+                      onChange={this.ChangeTimeMode.bind(this)}
         />
 
 		<Select
 		              placeholder="Schedule"
                       className="tabf3"
+                      disabled= {!this.state.disabledWhenContiniusly}
                       name="form-field-name"
                       value={this.state.selectOP2}
                       options={this.state.options}
