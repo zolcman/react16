@@ -65,7 +65,7 @@ class BackWiz extends Component {
           modePreset:[
             {label:'Every Hour',value:'EveryHour'},
             {label:'Every Minute',value:'EveryMinute'},
-            {label:'Continuously',value:'Continuously'},
+           // {label:'Continuously',value:'Continuously'},
           ],
           checked5:false,
           selected: {},
@@ -82,17 +82,17 @@ class BackWiz extends Component {
             dailyBasis: {
               startTime: "12:00",
               daysPreset: "WeekDays", // [WeekDays | Everyday | ThisDays]
-              thisDays: ["Sunday"]
+              thisDays: []
              },
             monthlyBasis:  {
               startTime: "12:00",
               weekNumberOrSpecifiedDay:"FirstWeek", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
               dayOfWeek: "Monday",
               dayOfMonth: 10,
-              months: ["January", "July"]
+              months: []
             },
             periodicBasis: {
-              timeOffset : 0,
+              timeOffset : 1,
               mode: "EveryHour", // [EveryHour | EveryMinute | Continuously]
               specificTimeIntervals: [[]]
             }
@@ -514,7 +514,7 @@ class BackWiz extends Component {
 
     </div>
     <div className="gt-left width150px">
-      <Select
+      { (this.state.disableMultiDaysDaily) ? (''):(<Select
               multi={true}
               closeOnSelect = {false}
               removeSelected = {false}
@@ -526,7 +526,8 @@ class BackWiz extends Component {
               options={this.state.dailyBasisThisDaysOptions}
   					  searchable={false}
               onChange={this.changeDailyBasisThisDays.bind(this)}
-          />
+          />)}
+      
     </div>
 </div>
 
@@ -815,7 +816,14 @@ check5 () {
 
       policyObj.repositoryUid = this.state.reposselected;
 
+      let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
+      let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
+      //let timeOffSet = this.state.schedulerSettings.periodicBasis.timeOffset.map((xf) => (xf.value)) || [];
+
       policyObj.scheduleSettings = this.state.schedulerSettings; //schedulerSettingsObj;
+      policyObj.scheduleSettings.dailyBasis.thisDays = thisDays;
+      policyObj.scheduleSettings.monthlyBasis.months = months;
+      policyObj.scheduleSettings.periodicBasis.timeOffset = policyObj.scheduleSettings.periodicBasis.timeOffset.value;
     
       policyObj.schedulerEnabled = this.state.checked41;
 
