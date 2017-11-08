@@ -68,6 +68,7 @@ class BackWiz extends Component {
            // {label:'Continuously',value:'Continuously'},
           ],
           checked5:false,
+          checked41:false,
           selected: {},
           filteredItems: false,
           filterval: '',
@@ -195,7 +196,7 @@ class BackWiz extends Component {
 		<div className="upperlbl">Job Name:</div>
 		<input value={this.state.nameToServer} onChange={(e)=> this.setState({nameToServer:e.target.value})} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
-		<textarea className="firstscreent"></textarea>
+		<textarea onChange={(e)=> this.setState({DescToServer:e.target.value})} value={this.state.DescToServer} className="firstscreent"></textarea>
 
 	</div>
 	)
@@ -813,18 +814,23 @@ check5 () {
           return el.Id
         }
       );
-
-      policyObj.repositoryUid = this.state.reposselected;
+      policyObj.description = this.state.DescToServer || '';
+      policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected || '';
 
       let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
       let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
+      
       //let timeOffSet = this.state.schedulerSettings.periodicBasis.timeOffset.map((xf) => (xf.value)) || [];
 
-      policyObj.scheduleSettings = this.state.schedulerSettings; //schedulerSettingsObj;
-      policyObj.scheduleSettings.dailyBasis.thisDays = thisDays;
-      policyObj.scheduleSettings.monthlyBasis.months = months;
-      policyObj.scheduleSettings.periodicBasis.timeOffset = policyObj.scheduleSettings.periodicBasis.timeOffset.value;
-    
+      policyObj.schedulerSettings = this.state.schedulerSettings; //schedulerSettingsObj;
+      policyObj.schedulerSettings.dailyBasis.thisDays = thisDays;
+      policyObj.schedulerSettings.monthlyBasis.months = months;
+      
+      policyObj.schedulerSettings.monthlyBasis.months = policyObj.schedulerSettings.monthlyBasis.months.value || policyObj.schedulerSettings.monthlyBasis.months;
+      policyObj.schedulerSettings.periodicBasis.timeOffset = policyObj.schedulerSettings.periodicBasis.timeOffset.value || policyObj.schedulerSettings.periodicBasis.timeOffset;
+      policyObj.schedulerSettings.monthlyBasis.dayOfWeek = policyObj.schedulerSettings.monthlyBasis.dayOfWeek.value || policyObj.schedulerSettings.monthlyBasis.dayOfWeek;
+      policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value || policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay      
+      policyObj.schedulerSettings.periodicBasis.mode = policyObj.schedulerSettings.periodicBasis.mode.value || policyObj.schedulerSettings.periodicBasis.mode;
       policyObj.schedulerEnabled = this.state.checked41;
 
       return policyObj;
@@ -833,9 +839,11 @@ check5 () {
     add () {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
+      console.log(policyObj);
       this.props.addJobSS(policyObj,runner);
       this.props.close();
       this.setState({page:1})
+      this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
     }
 
     openWiz3() {

@@ -7,6 +7,7 @@ import { updatestatus } from '../../containers/Backup/BackupAction'
 import { cleartaskid } from '../../containers/Backup/BackupAction'
 import { cleartask_info } from '../../containers/Backup/BackupAction'
 import { stopTimer } from '../../containers/Backup/BackupAction'
+import { GetBackList } from '../../containers/Backup/BackupAction'
 
 var bytes = require('bytes');
 
@@ -44,13 +45,16 @@ class JobWizard extends Component {
       this.setState({bull:true})
       this.bla = true;
       this.bla2 = false;
+      
     //  this.setState({turnoff:true})
       this.setState({switcher:true})
+      this.setState({timer:'0'})
       this.setState({propro:{width:'0' + '%'}})
     //  this.props.cleartask_info();
     // setTimeout(function() {selfer.props.cleartask_info()}, 3000);
       //this.props.stopTimer();
-
+      this.props.cleartaskid();
+      this.props.GetBackList();
     }
 
     componentDidUpdate () {
@@ -88,6 +92,8 @@ class JobWizard extends Component {
 	   var self = this;
         this.setState({propro:{width:nextProps.task_info.progress + '%'}})
          this.timer = setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
+         //setTimeout(function() {clearTimeout(self.timer);}, 2001);
+
 
          if (nextProps.task_info.progress == '100') {
            clearTimeout(this.timer);
@@ -98,8 +104,8 @@ class JobWizard extends Component {
           console.log( 'third condtition' );
           var selfer = this;
           selfer.props.cleartask_info();
-          this.setState({timer:'0'})
-          this.setState({propro:{width:'0' + '%'}});
+         // this.setState({timer:'0'})
+         // this.setState({propro:{width:'0' + '%'}});
           this.bla = false;
           this.bla2 = true;
         //  this.setState({turnoff:false})
@@ -168,13 +174,16 @@ class JobWizard extends Component {
 
 
     render(){
-      console.log(this.props.vmid)
+     // console.log(this.props.vmid)
 
       let duration = '';
       let processedBytes = '';
       let processingRateBytesPerSecond = '';
       let readBytes = '';
       let transferedBytes = '';
+
+      let completed = this.state.task_info.statistic.completed || [];
+      let warnings = this.state.task_info.statistic.warnings || [];
 
       if(this.state.task_info != undefined)
       {
@@ -233,18 +242,18 @@ class JobWizard extends Component {
                             <tr>
                               <td>Duration: {duration}</td>
                               <td>Processed: {processedBytes} {/* ({this.state.task_info.statistic.processed.percent}%) */}</td>
-                              <td>Success: {this.state.task_info.statistic.completed}</td>
+              <td>Success:   {completed} </td>
                             </tr>
                               <tr>
                                 <td>Processing rate: {processingRateBytesPerSecond}/s</td>
                                 <td>Read: {readBytes}</td>
-                                <td>Warnings: {this.state.task_info.statistic.warnings}</td>
+                                <td>Warnings: {warnings}</td>
                               </tr>
-                              <tr>
+                            {/*  <tr>
                                 <td>Bottleneck: {this.state.task_info.statistic.bottleneck}</td>
                                 <td>Transfered: {transferedBytes}</td>
-                                <td>Errors: {this.state.task_info.statistic.failed}</td>
-                              </tr>
+                                <td>Errors: {this.state.task_info.statistic.failed}</td> 
+                              </tr> */}
 
                           </tbody>
                         </table>
@@ -307,7 +316,7 @@ const mapDispatchToProps = function(dispatch) {
       cleartaskid: () => dispatch(cleartaskid()),
       cleartask_info: () => dispatch(cleartask_info()),
       stopTimer: () => dispatch(stopTimer()),
-
+      GetBackList: () => dispatch(GetBackList()),
     }
 }
 

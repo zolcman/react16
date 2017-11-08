@@ -241,7 +241,8 @@ function receiveData26(json) {
 
 
 export function updatestatus (id) {
-
+	console.log(id);
+	console.log("UPDATESTATUS");
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
@@ -252,7 +253,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 		 console.log("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+   	 		 console.log("HHHHH");
 				 console.log(response.data);
     			dispatch(receiveData26(response.data));
 				//	dispatch(hideLoading())
