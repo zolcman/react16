@@ -14,6 +14,7 @@ class BackWiz extends Component {
     constructor(props) {
         super(props)
 
+          this.backupForSheduler = {};
 
         this.state = {
 
@@ -97,12 +98,17 @@ class BackWiz extends Component {
               mode: "EveryHour", // [EveryHour | EveryMinute | Continuously]
               specificTimeIntervals: [[]]
             }
-          }
+          },
+
+          
         }
     }
 
     componentDidMount() {
 
+     
+     
+  
       this.props.TreeFlat('test1')
       this.props.GetRepos('veeamserver1')
 
@@ -844,6 +850,25 @@ check5 () {
       this.props.close();
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
+      
+      let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    
+      schedulerSettings.scheduleBasis = 'Daily'; 
+      schedulerSettings.dailyBasis.startTime = "12:00";
+      schedulerSettings.dailyBasis.daysPreset = "WeekDays";
+      schedulerSettings.dailyBasis.thisDays = [];
+      schedulerSettings.monthlyBasis.startTime = '12:00';  
+      schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = "FirstWeek"; 
+      schedulerSettings.monthlyBasis.dayOfWeek = "Monday";
+      schedulerSettings.monthlyBasis.dayOfMonth = 10;
+      schedulerSettings.monthlyBasis.months = [];
+      schedulerSettings.periodicBasis.timeOffset = 1;
+      schedulerSettings.periodicBasis.mode = "EveryHour";
+      schedulerSettings.periodicBasis.specificTimeIntervals = [[]];
+                     
+      this.setState({schedulerSettings});
+      this.setState ({disableMultiDaysDaily:true})
+      this.setState({turnOnDaysSelector:false})
+      this.setState({displayHourSelector:true})
     }
 
     openWiz3() {

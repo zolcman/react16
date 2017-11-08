@@ -181,9 +181,14 @@ class JobWizard extends Component {
       let processingRateBytesPerSecond = '';
       let readBytes = '';
       let transferedBytes = '';
-
-      let completed = this.state.task_info.statistic.completed || [];
-      let warnings = this.state.task_info.statistic.warnings || [];
+      if (this.state.task_info) {
+        var completed = this.state.task_info.statistic.completed;
+        var warnings = this.state.task_info.statistic.warnings;
+        var bottleneck = this.state.task_info.statistic.bottleneck
+        var failed = this.state.task_info.statistic.failed
+      }
+      
+     
 
       if(this.state.task_info != undefined)
       {
@@ -242,18 +247,18 @@ class JobWizard extends Component {
                             <tr>
                               <td>Duration: {duration}</td>
                               <td>Processed: {processedBytes} {/* ({this.state.task_info.statistic.processed.percent}%) */}</td>
-              <td>Success:   {completed} </td>
+               <td>Success:   {completed} </td> 
                             </tr>
                               <tr>
                                 <td>Processing rate: {processingRateBytesPerSecond}/s</td>
                                 <td>Read: {readBytes}</td>
                                 <td>Warnings: {warnings}</td>
                               </tr>
-                            {/*  <tr>
-                                <td>Bottleneck: {this.state.task_info.statistic.bottleneck}</td>
+                              <tr>
+                                <td>Bottleneck: {bottleneck}</td>
                                 <td>Transfered: {transferedBytes}</td>
-                                <td>Errors: {this.state.task_info.statistic.failed}</td> 
-                              </tr> */}
+                                <td>Errors: {failed}</td> 
+                              </tr> 
 
                           </tbody>
                         </table>

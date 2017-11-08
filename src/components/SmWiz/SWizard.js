@@ -47,14 +47,11 @@ class SWizard extends Component {
 
 
 
-
-
-
-
-
     close() {
+        this.setState({checked:[]})
       this.setState({page:1}) // binded when all ok change to 1
       this.props.close();
+      
 
 
     }
@@ -63,8 +60,10 @@ class SWizard extends Component {
 
 
     add () {
+        this.setState({checked:[]})
       this.props.close();
       this.props.array(this.state.checked)
+      
     }
 
 
