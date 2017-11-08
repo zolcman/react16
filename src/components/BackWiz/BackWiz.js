@@ -227,7 +227,7 @@ class BackWiz extends Component {
 
 		<div className="zagname">Assign VMs</div>
 		<div className="pagetwoundertxt">Total VMs in cluster: 254</div>
-		<div className="pagetwoundertxt">Selected objects: 5</div>
+		<div className="pagetwoundertxt">Selected objects: {this.state.array.length}</div>
 		<div className="iconboxtbsearch">
 			<div onClick={this.openWiz3.bind(this)} className="addic">Add</div>
 			<div onClick={this.removeElem.bind(this)} className="removeic">Remove</div>
@@ -584,6 +584,7 @@ class BackWiz extends Component {
 		<Select
 					  placeholder="Mounths"
             multi={true}
+            closeOnSelect = {false}
                       className="tabs4"
                       name="form-field-name"
                       value={this.state.schedulerSettings.monthlyBasis.months}
@@ -851,21 +852,34 @@ check5 () {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
       
-      let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    
-      schedulerSettings.scheduleBasis = 'Daily'; 
-      schedulerSettings.dailyBasis.startTime = "12:00";
-      schedulerSettings.dailyBasis.daysPreset = "WeekDays";
-      schedulerSettings.dailyBasis.thisDays = [];
-      schedulerSettings.monthlyBasis.startTime = '12:00';  
-      schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = "FirstWeek"; 
-      schedulerSettings.monthlyBasis.dayOfWeek = "Monday";
-      schedulerSettings.monthlyBasis.dayOfMonth = 10;
-      schedulerSettings.monthlyBasis.months = [];
-      schedulerSettings.periodicBasis.timeOffset = 1;
-      schedulerSettings.periodicBasis.mode = "EveryHour";
-      schedulerSettings.periodicBasis.specificTimeIntervals = [[]];
-                     
-      this.setState({schedulerSettings});
+
+      const  schedulerSettings = {
+        "@odata.type": "SchedulerSettings",
+        scheduleBasis: "Daily", 
+        dailyBasis: {
+          startTime: "12:00",
+          daysPreset: "WeekDays", 
+          thisDays: []
+         },
+        monthlyBasis:  {
+          startTime: "12:00",
+          weekNumberOrSpecifiedDay:"FirstWeek",
+          dayOfWeek: "Monday",
+          dayOfMonth: 10,
+          months: []
+        },
+        periodicBasis: {
+          timeOffset : 1,
+          mode: "EveryHour",
+          specificTimeIntervals: [[]]
+        }
+      };
+      
+
+      console.log(schedulerSettings);
+
+      this.setState({schedulerSettings:schedulerSettings});
+
       this.setState ({disableMultiDaysDaily:true})
       this.setState({turnOnDaysSelector:false})
       this.setState({displayHourSelector:true})
