@@ -11,6 +11,9 @@ import { updatestatus } from './BackupAction'
 import { clear_auto } from './BackupAction'
 import { cleartask_info } from './BackupAction'
 import { DeleteBackupJob } from './BackupAction'
+import { EditJobInfo } from './BackupAction'
+
+
 
 class Backup extends Component {
     constructor(props) {
@@ -46,6 +49,8 @@ class Backup extends Component {
 
 
     componentWillReceiveProps(nextProps) {
+
+      
 
       if (nextProps.run_auto_job) {
           this.setState({openWiz2:true})
@@ -209,6 +214,11 @@ class Backup extends Component {
       this.setState({openWiz:true})
     }
 
+    openWizEdit() {
+      this.setState({openWiz:true})
+      this.props.EditJobInfo(this.state.jobid);
+    }
+
     closeWiz() {
       this.setState({openWiz:false})
     }
@@ -233,7 +243,7 @@ class Backup extends Component {
     filter(e) {
       var value = e.target.value;
       this.setState({filterval: value})
-      console.log(this.state.table)
+      
       this.setState({
         filteredItems: !value
           ? false
@@ -279,12 +289,12 @@ class Backup extends Component {
       this.setState({choosen:false,jobname:''});
       this.props.DeleteBackupJob(this.state.jobid);
 	  this.setState({jobid:undefined});	  
-	  this.props.GetBackList();	  
+	  
     }
 
     render(){
 
-
+      
 
         var list = this.state.filteredItems || this.state.table || []
 
@@ -357,7 +367,10 @@ class Backup extends Component {
 
                       <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
-                      <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>
+                      {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
+                     :
+                      (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
+                     
 					  
                     {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
                      :
@@ -430,7 +443,9 @@ const mapDispatchToProps = function(dispatch) {
       updatestatus: (id) => dispatch(updatestatus(id)),
       clear_auto: () => dispatch(clear_auto()),
       cleartask_info: () => dispatch(cleartask_info()),
-	  DeleteBackupJob: (id) => dispatch(DeleteBackupJob(id))
+    DeleteBackupJob: (id) => dispatch(DeleteBackupJob(id)),
+    EditJobInfo: (id) => dispatch(EditJobInfo(id)),
+    
     }
 }
 
@@ -441,6 +456,7 @@ function mapStateToProps(state) {
 
       backup:state.toJS().BackupReducer.backups,
       run_auto_job:state.toJS().BackupReducer.run_auto_job,
+      tabt:state.toJS().NavBarReducer.tabindex,
 
     }
 }

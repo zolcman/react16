@@ -9,6 +9,9 @@ import  Clock from '../Clock/Clock';
 import { addJobSS } from '../../containers/Backup/BackupAction';
 import { TreeFlat } from '../../containers/Backup/BackupAction';
 import { GetRepos } from '../../containers/Backup/BackupAction';
+import { clearJobEditInfo } from '../../containers/Backup/BackupAction';
+import { clearReposInRedux } from '../../containers/Backup/BackupAction';
+
 
 class BackWiz extends Component {
     constructor(props) {
@@ -27,7 +30,7 @@ class BackWiz extends Component {
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           dailyBasisDaysPresetOptions: [
             {label:'On week days',value:'WeekDays'},
-            {label:'Everyday',value:'Everyday'},
+            {label:'EveryDay',value:'EveryDay'},
             {label:'On this days',value:'ThisDays'}
           ],
           dailyBasisThisDaysOptions: [
@@ -75,11 +78,13 @@ class BackWiz extends Component {
           filterval: '',
           repos:[],
           disableMultiDaysDaily:true,
+          DescToServer:'',
           //selectedStartTime: '18:00',
           
 
           schedulerSettings: {
             "@odata.type": "SchedulerSettings",
+            schedulerEnabled:false,
             scheduleBasis: "Daily", // [Daily | Monthly | Periodic]
             dailyBasis: {
               startTime: "12:00",
@@ -99,6 +104,7 @@ class BackWiz extends Component {
               specificTimeIntervals: [[]]
             }
           },
+          editmode:false,
 
           
         }
@@ -143,6 +149,26 @@ class BackWiz extends Component {
         console.log(nextProps.repos)
         let camlistpre = nextProps.repos.map((xf) => ({value:xf.Id,label:xf.name}));
         this.setState({repos:camlistpre,reposselected:camlistpre[0].value})
+        this.props.clearReposInRedux();
+      }
+
+      if (nextProps.edit_info) {
+        console.log('222')
+        this.props.clearJobEditInfo();
+        this.setState({editmode:true})
+        this.setState({nameToServer:nextProps.edit_info.name,description:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
+        this.setState({schedulerSettings:nextProps.edit_info.schedulerSettings,checked41:nextProps.edit_info.schedulerSettings.schedulerEnabled})
+        if (nextProps.edit_info.schedulerSettings.dailyBasis.daysPreset == 'ThisDays') {
+          this.setState({disableMultiDaysDaily:false})
+        }
+        if (nextProps.edit_info.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay == 'DayOfMonth') {
+          this.setState({turnOnDaysSelector:true})
+        }
+        if (nextProps.edit_info.schedulerSettings.periodicBasis.mode == 'EveryMinute') {
+          this.setState({displayHourSelector:false})
+        }
+        this.uptable(nextProps.edit_info.vmsUids);
+
       }
 
      }
@@ -150,8 +176,8 @@ class BackWiz extends Component {
 
 
     close() {
-      this.setState({page:1})
       this.props.close();
+      this.resetData();
     }
 
     pagechange() {
@@ -821,8 +847,8 @@ check5 () {
           return el.Id
         }
       );
-      policyObj.description = this.state.DescToServer || '';
-      policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected || '';
+      policyObj.description = this.state.DescToServer;
+      policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected;
 
       let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
       let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
@@ -838,7 +864,7 @@ check5 () {
       policyObj.schedulerSettings.monthlyBasis.dayOfWeek = policyObj.schedulerSettings.monthlyBasis.dayOfWeek.value || policyObj.schedulerSettings.monthlyBasis.dayOfWeek;
       policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value || policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay      
       policyObj.schedulerSettings.periodicBasis.mode = policyObj.schedulerSettings.periodicBasis.mode.value || policyObj.schedulerSettings.periodicBasis.mode;
-      policyObj.schedulerEnabled = this.state.checked41;
+      policyObj.schedulerSettings.schedulerEnabled = this.state.checked41;
 
       return policyObj;
     }
@@ -846,15 +872,29 @@ check5 () {
     add () {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
-      console.log(policyObj);
+    //  console.log(policyObj);
       this.props.addJobSS(policyObj,runner);
       this.props.close();
+      this.resetData();
+    }
+
+    updateJob() {
+      let policyObj = this.createPolicyObject();
+      let runner = this.state.checked5;
+    //  console.log(policyObj);
+     // this.props.addJobSS(policyObj,runner);
+      this.props.close();
+      this.resetData();
+    }
+
+    resetData() {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
-      
+      this.setState({editmode:false})
 
       const  schedulerSettings = {
         "@odata.type": "SchedulerSettings",
+        schedulerEnabled:false,
         scheduleBasis: "Daily", 
         dailyBasis: {
           startTime: "12:00",
@@ -875,9 +915,6 @@ check5 () {
         }
       };
       
-
-      console.log(schedulerSettings);
-
       this.setState({schedulerSettings:schedulerSettings});
 
       this.setState ({disableMultiDaysDaily:true})
@@ -937,7 +974,7 @@ check5 () {
                 <div className="freeze">
                   <div className="pop-up-window">
                     <div className="pop-up-header">
-                      <div className="gt-left pop-up-h-title">Add new backup job for "Nutanix Cluster 1"</div>
+                      <div className="gt-left pop-up-h-title">{(this.state.editmode) ? ('Edit backup job for "Nutanix Cluster 1"'):('Add new backup job for "Nutanix Cluster 1"')}</div>
                       <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
 
                     </div>
@@ -952,7 +989,9 @@ check5 () {
                     </div>
                     </div>
                     <div className="btns-go-back gt-clear">
-                       {this.state.page == 5 ? (<a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>) : (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)}
+                       {this.state.page == 5 ?
+                        ((this.state.editmode) ?(<a onClick={this.updateJob.bind(this)} className="go-btn gt-right go-btn-global">Edit</a>):(<a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>)) 
+                       : (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)}
                       {this.state.page == 1 ? (null) : (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>)}
 
 
@@ -975,7 +1014,10 @@ const mapDispatchToProps = function(dispatch) {
       addJobSS: (id,runner) => dispatch(addJobSS(id,runner)),
         TreeFlat: (id) => dispatch(TreeFlat(id)),
         GetRepos: (id) => dispatch(GetRepos(id)),
-
+        clearJobEditInfo: () => dispatch(clearJobEditInfo()),
+        clearReposInRedux: () => dispatch(clearReposInRedux()),
+        
+        
 
     }
 }
@@ -986,7 +1028,8 @@ function mapStateToProps(state) {
     return {
 
       tree_flat:state.toJS().BackupReducer.tree_flat,
-      repos:state.toJS().BackupReducer.repos
+      repos:state.toJS().BackupReducer.repos,
+      edit_info:state.toJS().BackupReducer.job_info_for_edit,
 
     }
 }

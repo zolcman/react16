@@ -2,7 +2,7 @@ import React, { Component,  PropTypes} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
-
+import { changeTab } from './NavBarAction';
 
 class NavBar extends Component {
     constructor(props) {
@@ -43,7 +43,10 @@ class NavBar extends Component {
 
 
 
-
+changeTab(tab) {
+  console.log(tab)
+  this.props.changeTab(tab);
+}
 
     render(){
 
@@ -59,7 +62,9 @@ class NavBar extends Component {
                     <li><NavLink exact activeClassName="selected" to="/">Dashboard</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/backupjobs">Backup Jobs</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/protectedvms">Protected VM's</NavLink></li>
-                    <li><NavLink activeClassName="selected" to="/alert">Events</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/alert">Events</NavLink></li>   
+                    
+                    
                   </ul>
                 </div>
                 <div className="right-side-block gt-left">
@@ -70,11 +75,10 @@ class NavBar extends Component {
 							<div className="ic2"></div>
 							<div className="ic3">
 								<ul className="ulic3">
-									<li><a href="#">Add Veeam Server</a></li>
-									<li><a href="#">Add Nutanix Cluster</a></li>
-									<li><a href="#">Manage Credentials</a></li>
-									<li><a href="#">Authentication</a></li>
-									<li><a href="#">Language Settings</a></li>
+									<li onClick={this.changeTab.bind(this,0)}><Link  to="/settings" >Manage Veeam Servers</Link></li>
+									<li onClick={this.changeTab.bind(this,1)} ><Link to="/settings"  >Manage Nutanix Clusters</Link></li>
+									<li onClick={this.changeTab.bind(this,2)}> <Link  to={`/settings`} >Credentials</Link></li>
+                  <li onClick={this.changeTab.bind(this,3)}> <Link  to={`/settings`} >Appliance Settings</Link></li>
 									<li><Link to={`/swagger/`} target="_blank">REST API</Link></li>
 			
                   
@@ -95,7 +99,7 @@ class NavBar extends Component {
 const mapDispatchToProps = function(dispatch) {
 
     return {
-
+      changeTab: (tab) => dispatch(changeTab(tab)),
 
 
     }

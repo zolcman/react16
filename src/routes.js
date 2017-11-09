@@ -11,6 +11,8 @@ import Protected from './containers/Protected/Protected';
 import ProtectedDetail from './containers/Protected/ProtectedDetail';
 import BackupDetail from './containers/Backup/BackupDetail';
 import Alert from './containers/Alert/Alert';
+import Settings from './containers/Settings/Settings';
+
 
 export default [
   {
@@ -56,6 +58,12 @@ export default [
   {
     path: '/alert',
     component: Alert, // Add your route here
+
+  },
+
+  {
+    path: '/settings',
+    component: Settings, // Add your route here
 
   },
 

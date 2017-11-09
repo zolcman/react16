@@ -41,6 +41,9 @@ const BackupReducer = function(state = initialUserState, action) {
                           case 'STOP_TIMER':
                              return Object.assign({}, state, { stopTimers: action.data });
                              break;
+                             case 'GET_JOB_INFO_DATA':
+                             return Object.assign({}, state, { job_info_for_edit: action.data });
+                             break;
 
 
 

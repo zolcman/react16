@@ -4,19 +4,19 @@ import Immutable from 'immutable'
 const initialUserState =
 {
 
-
 }
 ;
-const NavBarReducer = function(state = initialUserState, action) {
+const SettingsReducer = function(state = initialUserState, action) {
    //console.log('actiondata in reducer:' + action.data + action.type);
 
   switch(action.type) {
 
-  case 'CHANGETAB':
-		 return Object.assign({}, state, { InTab: action.data });
+  case 'RUN':
+		 return Object.assign({}, state, { run: action.data });
  break;
 
-
+ 
+     
 
 
   default:
@@ -24,4 +24,4 @@ const NavBarReducer = function(state = initialUserState, action) {
   return state;
   }
 }
-export default NavBarReducer
+export default SettingsReducer

@@ -1,0 +1,269 @@
+:global {
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+.setttings {
+
+  .container {
+    background: white;
+  }
+  .gt-left {
+    float: left;
+  }
+  .gt-right {
+    float: right;
+  }
+  .wrap {
+    width: 1212px;
+    margin: 0 auto;
+    padding-top: 33px;
+  }
+
+  .gt-clear {
+    clear: both;
+  }
+
+  .filters {
+    height: 129px;
+    background: #f8f8f8;
+    border-bottom: 1px solid #ccc;
+    font-family: 'Open Sans', sans-serif;
+  }
+  .filter-wrapper {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 28px;
+    height: 100px;
+  }
+  .setttings-wrapper {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+    height: 100px;
+  }
+
+  .tabs-settings {
+    float: right;
+    margin-top: -39px;
+  }
+
+
+  .react-tabs__tab {
+    float: left;
+    padding: 0;
+    height: 44px;
+    width:auto;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 10px;
+    font-size: 15px;
+    margin-right: 3px;
+    font-weight: 600;
+    color:black;
+    border:0px solid #ccc;
+  border-bottom: 0px solid #7ed321;
+    cursor: pointer;
+    background: #F8F8F8;
+  }
+
+  .react-tabs__tab--selected {
+    float: left;
+    width:auto;
+    height: 67px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 10px;
+    font-size: 15px;
+    margin-right: 3px;
+    border:0px solid #ccc;
+    border-bottom: 3px solid #7ed321;
+    cursor: pointer;
+    background: none!important;
+    z-index: 2;
+  }
+
+  .separator {
+    float: left;
+    width: 1px;
+    height: 19px;
+    background: #dcdcdc;
+    margin: 0 10px;
+    z-index: 30;
+    margin-top: 13px;
+  }
+
+
+  .breadcrumbs {
+    color:#ccc;
+    font-size: 13px;
+  }
+
+  .breadcrumbs a {
+    color:#408209;
+    font-size: 13px;
+    text-decoration: none;
+  }
+
+  .vm-counter {
+    font-size: 21px;
+    color:#4a4a4a;
+    margin-right: 40px;
+    margin-top: 20px;
+  }
+
+
+
+  .label-view {
+    height: 128px;
+      background: #F0F0F0;
+      width: 200px;
+      margin-top: -28px;
+  }
+  .label-view-status {
+    color:#7ed321;
+    font-size:14px;
+    text-align: center;
+      margin-top: 26px;
+  }
+
+  .label-view-counter {
+    text-align: center;
+      margin-top: 26px;
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #4a4a4a;
+  }
+
+  .clear-wrapper {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .mar2020 {
+    margin:20px auto;
+  }
+  .res-btns {
+    background: url('./img/restore.svg') no-repeat 1px;
+    display: block;
+      height: 32px;
+      color: #4a4a4a;
+      box-sizing: border-box;
+      padding-left: 42px;
+      padding-top: 6px;
+      cursor: pointer;
+      margin-right: 36px;
+      position: relative;
+      background-size: 29px;
+  }
+ 
+
+
+  .res-btns:after {
+    content: "";
+  display: block;
+  height: 17px;
+  width: 1px;
+  position: absolute;
+  right: -19px;
+  background: #ccc;
+  top: 8px;
+  }
+  .he36 {
+    height: 36px;
+    margin-top: 4px;
+  }
+  .res-btns:last-child:after {
+    display: none;
+  }
+
+  .srch-comp {
+    border: 0;
+      border-bottom: 1px solid #ccc;
+      font-size: 13px;
+      width: 301px;
+      outline: 0;
+      margin-top: 9px;
+      background: url('./img/search.png') no-repeat 280px 2px;
+      color: #4a4a4a;
+  }
+
+
+  .table-wrapper {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    min-height: 50px;
+    margin-top: 20px;
+    padding: 15px;
+        box-sizing: border-box;
+  }
+  .bk-table th {
+    position: relative;
+    height: 34px;
+    text-align: center;
+  }
+  .bk-table th:after {
+    content: "";
+  display: block;
+  height: 17px;
+  width: 1px;
+  position: absolute;
+  right: 0px;
+  background: #ccc;
+  top: 8px;
+  }
+  .bk-table th:last-child:after {
+    display: none;
+  }
+
+  .bk-table thead {
+
+    height: 35px;
+  }
+
+
+  .bk-table {
+    width: 100%;
+    color:#4a4a4a;
+    border-spacing:0px;
+    font-size: 14px;
+  }
+  .bk-table td {
+    text-align: center;
+    height: 35px;
+    border-top: 1px solid #ccc;
+    width: 10%;
+    box-sizing: border-box;
+  }
+
+  .bk-table tr:nth-child(2n) {
+    background: #f8f8f8;
+  }
+  .link-table {
+    color: #408209;
+    text-decoration: underline;
+  }
+
+  .width16 {
+    width: 16%;
+  }
+  .width11 {
+    width: 11%!important;
+  }
+  .mar2px {
+    margin-right: 2px;
+  }
+
+  .qkbcicon {
+  		  background: url('./img/p_delete.svg') no-repeat 1px;
+        background-size: 29px;
+  	}
+}
+
+
+}

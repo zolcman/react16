@@ -11,6 +11,8 @@ export const GET_TREE_FLAT = 'GET_TREE_FLAT';
 export const GET_REPOS = 'GET_REPOS';
 export const RUN_AUTO_JOB = 'RUN_AUTO_JOB';
 export const STOP_TIMER = 'STOP_TIMER';
+export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
+
 
 
 
@@ -98,7 +100,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-				//	dispatch(hideLoading())
+			 dispatch(GetBackList());
   			})
    	 	.catch((error) => {
       			console.log(error);
@@ -357,7 +359,7 @@ export function openAuto (id) {
 
 
 export function addJobSS (id,runner) {
-
+	
 	return dispatch => {
 
 		return (
@@ -370,6 +372,7 @@ export function addJobSS (id,runner) {
 					 return
 			 }
 			 if(runner) {
+				
 				 dispatch(StartJobTask(response.data.Id));
 				 dispatch(openAuto(true));
 			 }
@@ -386,6 +389,17 @@ export function addJobSS (id,runner) {
 	}
 }
 
+
+
+
+export function clearReposInRedux() {
+	return{
+
+		type: GET_REPOS,
+		data: null
+
+	}
+};
 
 function receiveDataRepos(json) {
 	return{
@@ -418,3 +432,47 @@ var accessToken = sessionStorage.getItem('accessToken');
 			)
 	}
 }
+
+
+
+export function clearJobEditInfo() {
+	return{
+
+		type: GET_JOB_INFO_DATA,
+		data: null
+
+	}
+};
+
+function receiveDataJobInfo(json) {
+	return{
+
+		type: GET_JOB_INFO_DATA,
+		data: json
+
+	}
+};
+
+
+export function EditJobInfo (id) {
+	
+		return dispatch => {
+	var accessToken = sessionStorage.getItem('accessToken');
+			return (
+	
+				//dispatch(showLoading()),
+				axios.get(apiUrl + `/api/v1/Policies/${ id }`,headers).then(function (response) {
+				 if(response.data.code>200){
+						// dispatch(toastrActions.add('error', '',response.data.message))
+						 return
+				 }
+				//	 console.log(response.data);
+					dispatch(receiveDataJobInfo(response.data));
+					//	dispatch(hideLoading())
+				  })
+				.catch((error) => {
+					  console.log(error);
+				})
+				)
+		}
+	}
