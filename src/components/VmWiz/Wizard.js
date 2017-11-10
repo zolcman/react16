@@ -145,17 +145,17 @@ class Wizard extends Component {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th>Date</th>
             <th>Size</th>
-            <th>Restore Point</th>
+            <th>Type</th>
           </tr>
         </thead>
         <tbody>
 
               <tr >
-                <td>{this.state.emu.id}</td>
-                <td>{this.state.emu.last}</td>
-                <td>Restore Point</td>
+                <td>{this.state.emu.date}</td>
+                <td>{bytes(this.state.emu.size, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
+                <td>{this.state.emu.type}</td>
               </tr>
 
 
@@ -261,8 +261,8 @@ class Wizard extends Component {
     changewindow () {
       this.setState({finish:true});
       this.setState({switcher:false})
-
-      this.props.StartVMTask(this.props.vmid);
+     // console.log(this.state.emu.id)
+      this.props.StartVMTask(this.props.vmid,this.state.emu.id);
 
     }
 
@@ -331,7 +331,7 @@ class Wizard extends Component {
                 <dt>Status</dt>
                 <dd>C:\Backup\</dd>
                 <dt>Start time</dt>
-                <dd>{this.state.task_info.startTime}</dd>
+                <dd>Daily at 10:00 PM</dd>
               </dl>
           </div>
           <div className="tabs">
@@ -502,7 +502,7 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-      StartVMTask: (id) => dispatch(StartVMTask(id)),
+      StartVMTask: (id,restorePointId) => dispatch(StartVMTask(id,restorePointId)),
       cleartaskvmid: (id) => dispatch(cleartaskvmid(id)),
       updatestatus: (id) => dispatch(updatestatus(id)),
       cleartask_info: () => dispatch(cleartask_info()),

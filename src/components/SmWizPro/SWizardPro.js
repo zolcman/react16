@@ -5,7 +5,7 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CheckboxTree from 'react-checkbox-tree';
 import { GetVmListDetail } from '../../containers/Protected/ProtectedAction';
-
+var bytes = require('bytes');
 class SWizardPro extends Component {
     constructor(props) {
         super(props)
@@ -92,8 +92,8 @@ class SWizardPro extends Component {
     }
 
 
-    choosen(id,last) {
-      this.setState({choosen:{id:id,last:last}})
+    choosen(id,date,type,size) {
+      this.setState({choosen:{id:id,date:date,type:type,size:size}})
     }
 
 
@@ -118,19 +118,19 @@ class SWizardPro extends Component {
                             <table>
                               <thead>
                                 <tr>
-                                  <th>Job Name</th>
-                                  <th>Last Restore point</th>
-                                  <th>VM count</th>
-                                  <th>Restore points</th>
+                                  <th>Date</th>
+                                  <th>Type</th>
+                                  <th>Size</th>
+                                 
                                 </tr>
                               </thead>
                               <tbody>
                                 {elemns.map((item,index) => (
-                                    <tr onClick={this.choosen.bind(this,item.Id,item.lastSuccess)} key={index}>
-                                      <td>{item.Id}</td>
-                                      <td>{item.lastSuccess}</td>
-                                      <td>{item.point} GB</td>
-                                      <td>{item.point} GB</td>
+                                    <tr onClick={this.choosen.bind(this,item.Id,item.date,item.type,item.backupSizeBytes)} key={index}>
+                                      <td>{item.date}</td>
+                                      <td>{item.type}</td>
+                                      <td>{bytes(item.backupSizeBytes, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
+                                     
                                     </tr>
 
                                 ))}

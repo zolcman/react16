@@ -19,6 +19,11 @@
     margin: 0 auto;
     padding-top: 33px;
   }
+  .wrapper-settings {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
 
   .gt-clear {
     clear: both;
@@ -45,10 +50,63 @@
   }
 
   .tabs-settings {
+    
     float: right;
     margin-top: -39px;
   }
 
+
+  a.bk-btn {
+    width: 100px;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-position: 7px 7px;
+    padding-top: 7px;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: #4a4a4a;
+    padding-left: 36px;
+    cursor:pointer;
+    margin-right: 20px;
+  }
+
+  a.removewidth {
+    width: 100%;
+    width: auto;
+    padding-right: 11px;
+    font-size: 13px;
+  }
+  .mrrcl {
+    margin-right: 0!important;
+  }
+  .add-btn {
+    background: url(./img/J_add.svg)no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+  .edit-btn {
+    background: url('./img/edit.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+  .delete-btn {
+    background: url('./img/delete.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+
+  .width20th {
+    width: 20%;
+  }
+  .border-bottom-100 {
+    height: 1px;
+    width: 100%;
+    background: #ccc;
+  }
+
+  .tab-s-wrap {
+    max-width: 1140px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
   .react-tabs__tab {
     float: left;
@@ -67,6 +125,46 @@
     cursor: pointer;
     background: #F8F8F8;
   }
+  .he38 {
+    height: 38px;
+  }
+  .border0 {
+    border: 0px;
+  }
+  .floated {
+    color:black;
+  }
+
+  .innerTab2wrapper {
+    margin-top: 50px;
+  }
+  .width165px {
+    width: 165px;
+    margin-top: 2px;
+  }
+
+    .innerTab2-checkbox {
+      margin-left: 165px;
+      margin-bottom: 30px;
+    }
+
+    .innerTab2-checkbox label {
+      color:#7ed321;
+    }
+  
+    .row-label-input {
+      height: 46px;
+      color:black;
+      font-weight: 600;
+    }
+
+    .row-label-input input {
+      border:1px solid #ccc;
+      height: 28px;
+      color:#ccc;
+      font-weight: 400;
+      padding-left: 5px;
+    }
 
   .react-tabs__tab--selected {
     float: left;
@@ -83,6 +181,50 @@
     background: none!important;
     z-index: 2;
   }
+
+  .wrapper-settings .react-tabs__tab {
+    float: left;
+    padding: 0;
+    height: 44px;
+    width:auto;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 10px;
+    font-size: 15px;
+    margin-right: 3px;
+    font-weight: 600;
+    color:black;
+    border:0px solid #ccc;
+  border-bottom: 0px solid #7ed321;
+    cursor: pointer;
+    background: #F8F8F8;
+  }
+
+  .inner-tabs {
+    float: left;
+    padding: 0 20px;
+    text-align: center;
+    color:black;
+    height: 60px;
+    box-sizing: border-box;
+    padding-top: 18px;
+    cursor: pointer;
+  }
+  .inner-tabs__active {
+    background: #f8f8f8;
+    border-left:1px solid #ccc;
+    border-right: 1px solid #ccc;
+    font-weight: 600;
+    color:#00b204;
+  }
+  .tablist-inner {
+    list-style-type: none;
+    margin: 0;
+    height: 60px;
+    margin-top: -16px;
+  }
+
+
 
   .separator {
     float: left;
@@ -145,32 +287,9 @@
   .mar2020 {
     margin:20px auto;
   }
-  .res-btns {
-    background: url('./img/restore.svg') no-repeat 1px;
-    display: block;
-      height: 32px;
-      color: #4a4a4a;
-      box-sizing: border-box;
-      padding-left: 42px;
-      padding-top: 6px;
-      cursor: pointer;
-      margin-right: 36px;
-      position: relative;
-      background-size: 29px;
-  }
- 
+  
 
 
-  .res-btns:after {
-    content: "";
-  display: block;
-  height: 17px;
-  width: 1px;
-  position: absolute;
-  right: -19px;
-  background: #ccc;
-  top: 8px;
-  }
   .he36 {
     height: 36px;
     margin-top: 4px;

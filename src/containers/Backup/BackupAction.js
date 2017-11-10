@@ -292,13 +292,13 @@ function receiveData27(json) {
 };
 
 
-export function StartVMTask (id) {
+export function StartVMTask (vmId, restorePointId) {
 
 	return dispatch => {
 
 		return (
 
-			axios.post(apiUrl + `/api/v1/Vms/${id}/restore/`,{body: {}},  headers
+			axios.post(apiUrl + `/api/v1/Vms/${vmId}/restore/`, `"${restorePointId}"`,  headers
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
