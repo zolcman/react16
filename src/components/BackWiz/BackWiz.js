@@ -81,6 +81,7 @@ class BackWiz extends Component {
           DescToServer:'',
           //selectedStartTime: '18:00',
           
+          retentionMaxRecoveryPoints: 5,
 
           schedulerSettings: {
             "@odata.type": "SchedulerSettings",
@@ -511,6 +512,10 @@ class BackWiz extends Component {
     schedulerSettings.periodicBasis.timeOffset = val;                        //updating value
     this.setState({schedulerSettings});
   }
+
+  changeRestorePoints(val) {
+    this.setState({retentionMaxRecoveryPoints:val.target.value});
+  }
   
 
 	window4(){
@@ -690,7 +695,7 @@ class BackWiz extends Component {
 
   </Tabs>
 </div>
-	<div>Restore Points to keep on disc:<input className="respoints" type="number"/></div>
+	<div>Restore Points to keep on disc:<input className="respoints" type="number" value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
 
 <div className="autoretry">
 			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
