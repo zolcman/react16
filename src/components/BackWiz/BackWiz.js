@@ -738,17 +738,17 @@ check5 () {
   <dt>Name</dt>
   <dd>{this.state.nameToServer}</dd>
   <dt>Source Cluster</dt>
-  <dd>NTNXCL 1</dd>
+  <dd>[ToDo]</dd>
   <dt>VMs</dt>
-  <dd>35</dd>
+  <dd>[ToDo]</dd>
   <dt>Target repository</dt>
-  <dd>TestRepo1</dd>
+  <dd>[ToDo]</dd>
   <dt>Target path</dt>
-  <dd>C:\Backup\</dd>
+  <dd>[ToDo]</dd>
   <dt>Schedule</dt>
-  <dd>Daily at 10:00 PM</dd>
+  <dd>[ToDo]</dd>
   <dt>Retention</dt>
-  <dd>5 restore points</dd>
+  <dd>[ToDo]</dd>
 </dl>
 	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
