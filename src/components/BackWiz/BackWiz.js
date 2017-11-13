@@ -850,6 +850,8 @@ check5 () {
       policyObj.description = this.state.DescToServer;
       policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected;
 
+      policyObj.retentionMaxRecoveryPoints = this.state.retentionMaxRecoveryPoints;
+
       let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
       let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
       
