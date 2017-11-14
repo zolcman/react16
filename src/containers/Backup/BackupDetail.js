@@ -6,7 +6,7 @@ import { GetBackDetail } from './BackupAction'
 import BackWiz from '../../components/BackWiz/BackWiz';
 import Wizard from '../../components/VmWiz/Wizard';
 import { cleartask_info } from './BackupAction';
-import { GetVmListDetail } from '../Protected/ProtectedAction';
+//import { GetVmListDetail } from '../Protected/ProtectedAction';
 
 class BackupDetail extends Component {
     constructor(props) {
@@ -83,6 +83,8 @@ class BackupDetail extends Component {
        })
      }
 
+     
+
     render(){
 
   var list = this.state.filteredItems || this.state.table || []
@@ -127,7 +129,7 @@ class BackupDetail extends Component {
                 </div>
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
-                <div className="gt-left">
+              {/*  <div className="gt-left">
                   {this.state.choosen ? (  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns restore-icon  ">Restore VM</a>)
                   :
                   (  <a  className="gt-left  turnoff-btn">Restore VM</a>)
@@ -135,7 +137,7 @@ class BackupDetail extends Component {
 
                   <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
                   <a className="gt-left res-btns refrsh">Refresh</a>
-                </div>
+                </div> */} 
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
                 </div>
@@ -159,7 +161,7 @@ class BackupDetail extends Component {
 
                       {list.map((item,index) => (
                           <tr onClick={this.chooseitem.bind(this,item.Id,item.name)} key={index}>
-                          <td>{item.name}</td>
+                          <td><Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link></td>
                           <td>{item.recoveryPoints}</td>
                           <td>{item.status}</td>
                           <td className="width11">{item.location}</td>
@@ -176,7 +178,7 @@ class BackupDetail extends Component {
               </div>
               </div>
               <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-              <Wizard vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+              <Wizard  vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }

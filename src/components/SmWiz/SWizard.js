@@ -98,12 +98,6 @@ class SWizard extends Component {
               }, 0);
               });
 
-
-
-
-
-
-
 }
 
 onCheck(checked) {

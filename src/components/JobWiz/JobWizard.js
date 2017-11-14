@@ -82,7 +82,7 @@ class JobWizard extends Component {
       }
 
       if (nextProps.task_info && this.bla2 ) {
-
+        
         console.log( 'second condtition' );
 
        this.setState({timer:nextProps.task_info.progress}) // Here we can register updated values
@@ -104,12 +104,9 @@ class JobWizard extends Component {
           console.log( 'third condtition' );
           var selfer = this;
           selfer.props.cleartask_info();
-         // this.setState({timer:'0'})
-         // this.setState({propro:{width:'0' + '%'}});
           this.bla = false;
           this.bla2 = true;
-        //  this.setState({turnoff:false})
-        //setTimeout(function() {selfer.props.cleartask_info()}, 3500);
+        
         }
 
 

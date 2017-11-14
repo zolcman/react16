@@ -3,6 +3,7 @@ import { apiUrl, Urls } from '../../middlewares/url'
 
 export const GET_VM_LIST = 'GET_VM_LIST';
 export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
+export const GET_LIST_FOR_ADD_BTN_WMS_WIZARD = 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD';
 
 
 
@@ -76,3 +77,37 @@ var accessToken = sessionStorage.getItem('accessToken');
 			)
 	}
 }
+
+
+
+function receiveData24(json) {
+	return{
+
+		type: GET_LIST_FOR_ADD_BTN_WMS_WIZARD,
+		data: json
+
+	}
+};
+
+export function GetListOfPoliciesForAddBtn () {
+	
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+			//dispatch(showLoading()),
+			axios.get(apiUrl + `/api/v1/Policies?format=treeview`,headers).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+   	 		 console.log(response.data);
+    			dispatch(receiveData24(response.data));
+				//	dispatch(hideLoading())
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+

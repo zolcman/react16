@@ -147,7 +147,29 @@
         background-size: 29px;
         color: #7ED321;
   }
+  .selected-green {
+    background-color: #E1ECCB!important;
+  }
 
+  a.bk-btn {
+    width: 100px;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-position: 7px 7px;
+    padding-top: 7px;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: #4a4a4a;
+    padding-left: 36px;
+    cursor:pointer;
+    margin-right: 20px;
+  }
+
+  .start-btn {
+    background: url('./img/start.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
 
 
   .res-btns:after {
@@ -251,7 +273,14 @@
   .qkbcicon {
   		  background: url('./img/p_delete.svg') no-repeat 1px;
         background-size: 29px;
-  	}
+    }
+    
+    .disabled {
+      opacity: 0.3;
+    cursor: default!important;
+    }
+
+
 }
 
 

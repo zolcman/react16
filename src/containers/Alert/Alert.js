@@ -1,7 +1,7 @@
 import React, { Component,  PropTypes} from 'react'
 
 import { connect} from 'react-redux';
-
+import Upload from "../../components/Upload/Upload"
 
 
 class Alert extends Component {
@@ -23,7 +23,7 @@ class Alert extends Component {
 
 
         return (
-          <div>Alert</div>
+          <div><Upload/></div>
         )
     }
 }

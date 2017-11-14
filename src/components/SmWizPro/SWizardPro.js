@@ -6,6 +6,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CheckboxTree from 'react-checkbox-tree';
 import { GetVmListDetail } from '../../containers/Protected/ProtectedAction';
 var bytes = require('bytes');
+
+
 class SWizardPro extends Component {
     constructor(props) {
         super(props)

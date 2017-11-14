@@ -3,7 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
 import { GetVmList } from './ProtectedAction'
+import Wizard from '../../components/VmWiz/Wizard';
+import VMProgressBar from '../../components/VMProgressBar/VMProgressBar';
+import { updatestatus } from '../Backup/BackupAction'
 
+import { GetVmListDetail } from '../Protected/ProtectedAction';
 class Protected extends Component {
     constructor(props) {
         super(props)
@@ -17,19 +21,68 @@ class Protected extends Component {
 }
     componentDidMount() {
 
-
+      var self= this;
         this.props.GetVmList();
+        $(document).click(function (e) {
+            
+             if(!$(e.target).is('.table-content tr td') && !$(e.target).is('#restore-btn') && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
+               $('.table-content tr').removeClass("selected-green");
+               self.setState({vmid:''})
+               console.log('eeeeee')
+              }
+            });
+      
     }
 
+    componentDidUpdate () {
 
+      
+      
+            $('.table-content tr').click(function (event) {
+              $('.table-content tr').removeClass("selected-green");
+              $(this).addClass( "selected-green" );
+            });
+            
+      
+          }
     
 
     componentWillReceiveProps(nextProps) {
 
+      if (nextProps.taskidlink) {
+        this.setState({linkToSeeUpdates:nextProps.taskidlink.Id})
+      }
+
       if (nextProps.vms) {
      this.setState({table:nextProps.vms})
+
+     if(nextProps.task_info) {
+      this.setState({blockRestoreBtn:true})
+      this.setState({linkToSeeUpdates:nextProps.task_info.Id})
+
+      if (nextProps.task_info.progress == '100') {
+        this.setState({blockRestoreBtn:false,linkToSeeUpdates:false})
+      }
+     }
+
+     
 }
      }
+
+     openWiz2() {
+      this.setState({openWiz2:true})
+    }
+
+    closeWiz2() {
+      this.setState({openWiz2:false})
+    }
+
+    chooseitem(id,name) {
+      console.log(id);
+    this.props.GetVmListDetail(id);
+      this.setState({vmid:id,vmname:name})
+    }
+
 
      filter(e) {
        var value = e.target.value;
@@ -42,6 +95,22 @@ class Protected extends Component {
            })
        })
      }
+
+     openVMProgressBar() {
+      this.setState({openWiz3:true})
+      this.setState({blockRestoreBtn:true})
+     }
+
+     openVMProgressBarWithStatus() {
+      this.setState({openWiz3:true})
+      this.props.updatestatus(this.state.linkToSeeUpdates);
+     }
+     
+     closeWiz3() {
+      this.setState({openWiz3:false})
+     }
+
+  
 
 
     render(){
@@ -62,16 +131,18 @@ class Protected extends Component {
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Restores in Progress</div>
-                  <div className="label-view-counter">NONE</div>
+                  <div className="label-view-counter">{(this.state.linkToSeeUpdates) ? (<a onClick={this.openVMProgressBarWithStatus.bind(this)}>Running</a>): ('null') }</div>
                 </div>
 
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
-                  <a className="gt-left res-btns restore-icon">Restore VM</a>
-                  <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
-                  <a className="gt-left res-btns dlt0icon">Delete</a>
-                  <a className="gt-left res-btns refrsh">Refresh</a>
+                {(this.state.blockRestoreBtn) ?
+                   (<a id="restore-btn" className="gt-left bk-btn start-btn disabled">Restore</a>)
+                   :
+                    (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn start-btn">Restore</a>)
+                    }  
+                  
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
@@ -95,7 +166,7 @@ class Protected extends Component {
 
 
                       {list.map((item,index) => (
-                          <tr className="" key={index}>
+                          <tr onClick={this.chooseitem.bind(this,item.Id,item.name)} key={index}>
                           <td>
                               <Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link>
                         </td>
@@ -114,6 +185,8 @@ class Protected extends Component {
                 </div>
               </div>
               </div>
+              <Wizard openVMProgressBar={this.openVMProgressBar.bind(this)} vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+              <VMProgressBar open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
           </div>
         )
     }
@@ -124,7 +197,8 @@ const mapDispatchToProps = function(dispatch) {
 
       GetVmList: () => dispatch(GetVmList()),
       cleartask_info: () => dispatch(cleartask_info()),
-
+      GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
+      updatestatus: (id) => dispatch(updatestatus(id)),
 
     }
 }
@@ -133,8 +207,9 @@ function mapStateToProps(state) {
 
 console.log(state.toJS().ProtectedReducer.vms);
     return {
-
+          taskidlink:state.toJS().BackupReducer.vmidtoupdate,
           vms:state.toJS().ProtectedReducer.vms,
+          task_info:state.toJS().BackupReducer.task_status,
 
     }
 }

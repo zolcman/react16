@@ -523,7 +523,7 @@ class BackWiz extends Component {
 
 <div className="myown">
       <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
-			<Tabs>
+			<Tabs defaultIndex={0} onSelect={index => this.setState({SelectedTab:index})}>
     <TabList>
       <Tab>Daily at this time:</Tab>
       <Tab>Monthly at this time:</Tab>
@@ -854,7 +854,7 @@ check5 () {
       let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
       
       //let timeOffSet = this.state.schedulerSettings.periodicBasis.timeOffset.map((xf) => (xf.value)) || [];
-
+      
       policyObj.schedulerSettings = this.state.schedulerSettings; //schedulerSettingsObj;
       policyObj.schedulerSettings.dailyBasis.thisDays = thisDays;
       policyObj.schedulerSettings.monthlyBasis.months = months;
@@ -866,13 +866,28 @@ check5 () {
       policyObj.schedulerSettings.periodicBasis.mode = policyObj.schedulerSettings.periodicBasis.mode.value || policyObj.schedulerSettings.periodicBasis.mode;
       policyObj.schedulerSettings.schedulerEnabled = this.state.checked41;
 
+      if(this.state.SelectedTab == 0) {
+        policyObj.schedulerSettings.scheduleBasis = "Daily"
+      }
+      if(this.state.SelectedTab == 1) {
+        policyObj.schedulerSettings.scheduleBasis = "Monthly"
+      }
+      if(this.state.SelectedTab == 2) {
+        policyObj.schedulerSettings.scheduleBasis = "Periodic"
+      }
+
+      if(this.state.SelectedTab == 3) {
+        policyObj.schedulerSettings.scheduleBasis = "Daily"
+      }
+      
+
       return policyObj;
     }
 
     add () {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
-    //  console.log(policyObj);
+    // console.log(policyObj);
       this.props.addJobSS(policyObj,runner);
       this.props.close();
       this.resetData();

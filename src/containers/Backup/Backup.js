@@ -40,6 +40,7 @@ class Backup extends Component {
 }
     componentDidMount() {
 
+      
         this.props.GetBackList();
 
     }

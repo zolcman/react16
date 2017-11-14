@@ -188,7 +188,7 @@ class Settings extends Component {
               {this.innerTab2()}
               </TabPanel>
               <TabPanel>
-                3
+              {this.innerTab3()}
               </TabPanel>
               <TabPanel>
               4
@@ -207,6 +207,61 @@ class Settings extends Component {
       if( !this.state.checkInnerTab2) {
         this.setState({checkInnerTab2:true})
       }
+    }
+
+    changeToggleSwitcher () {
+      if( this.state.toggleCheck) {
+        this.setState({toggleCheck:false})
+      }
+      if( !this.state.toggleCheck) {
+        this.setState({toggleCheck:true})
+      }
+    }
+
+    innerTab3() {
+      return (
+        <div className="wrapper-settings">
+          <div className="gt-clear h55 toggle-group">
+            <div className="gt-left enableSSH__label">Enable SSH Access</div>
+            <div className="gt-left">
+            <div className="toggle-switch">
+                  <label className="switch">
+                      <input type="checkbox" onChange={this.changeToggleSwitcher.bind(this)} value={this.state.toggleCheck} checked={this.state.toggleCheck}/>
+                      <span className="slider round"></span>
+                  </label>
+          </div>
+            </div>
+            <div className="gt-left off__label">Off</div>
+          </div>
+          
+          <div className="account-status">Administrator account</div>
+          <div className="gt-clear row-label-input">
+            <div className="gt-left width165px">
+            Login
+            </div>
+            <div className="gt-left">
+            <input/>
+            </div>
+          </div>
+          <div className="gt-clear row-label-input">
+            <div className="gt-left width165px">
+            Password
+            </div>
+            <div className="gt-left">
+            <input/>
+            </div>
+          </div>
+          <div className="gt-clear row-label-input marbtm20">
+            <div className="gt-left width165px">
+            Confirm Password
+            </div>
+            <div className="gt-left">
+            <input/>
+            </div>
+          </div>
+          <a className="apply-btn btn-left-mar">Apply</a>
+        </div>
+      )
     }
 
     innerTab2(){
@@ -239,7 +294,7 @@ class Settings extends Component {
             <input/>
             </div>
           </div>
-          <div className="gt-clear row-label-input">
+          <div className="gt-clear row-label-input marbtm20">
             <div className="gt-left width165px">
             Preffered DNS server
             </div>
@@ -247,7 +302,9 @@ class Settings extends Component {
             <input/>
             </div>
           </div>
+          <a className="apply-btn btn-left-mar">Apply</a>
         </div>
+        
       )
     }
 

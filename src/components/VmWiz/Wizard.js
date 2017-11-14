@@ -4,11 +4,11 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { StartVMTask } from '../../containers/Backup/BackupAction'
-import { cleartaskvmid } from '../../containers/Backup/BackupAction'
-import { updatestatus } from '../../containers/Backup/BackupAction'
-import { cleartask_info } from '../../containers/Backup/BackupAction'
+
 import  SWizardPro from '../SmWizPro/SWizardPro';
 import  SWizardAlert from '../SmWizAlert/SWizardAlert';
+import  AddBtnWmWizard from '../AddBtnWmWizard/AddBtnWmWizard';
+
 
 var bytes = require('bytes');
 
@@ -21,8 +21,9 @@ class Wizard extends Component {
 
           page:'1',
           finish:false,
-			jjj:true,
-          emu:[{name:'sss',size:'10 GB',point:'20 aug 2017' },{name:'vfg',size:'20 GB',point:'45 aug 2017' }]
+      jjj:true,
+      disableAddbtn:true,
+          emu:[]
 
         }
     }
@@ -123,7 +124,19 @@ class Wizard extends Component {
 		}
 
     updatefirsttable(item) {
-      console.log(item)
+      
+      if (item.length > 0) {
+        this.setState({disableAddbtn:false})
+      }
+      if (item.length == 0) {
+        this.setState({disableAddbtn:true})
+      }
+      let splitter = item[0];
+      let resultsplited = splitter.split(';')
+      let backupId = resultsplited[0];
+      let vmId = resultsplited[1];
+      console.log(vmId)
+      this.setState({forEmulation:vmId}) // remove this when we will have correct request and response from server
       this.setState({emu:item})
     }
 
@@ -134,7 +147,7 @@ class Wizard extends Component {
 		 <div className="zagname">Virtual Machines</div>
 		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
 	  <div className="iconboxtbsearch gt-clear">
-		    <div className="addic disabled">Add</div>
+		    <div onClick={()=> this.setState({closeAddBtnWmWizard:true})}  className="addic">Add</div>
 			<div onClick={()=> this.setState({closeWizPRO:true})} className="pointjob">Point</div>
 			<div className="removeic vmonwizzzr">Remove</div>
 	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
@@ -153,7 +166,7 @@ class Wizard extends Component {
         <tbody>
 
               <tr >
-                <td>{this.state.emu.date}</td>
+                <td>{this.state.forEmulation}</td>
                 <td>{bytes(this.state.emu.size, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
                 <td>{this.state.emu.type}</td>
               </tr>
@@ -170,6 +183,11 @@ class Wizard extends Component {
 
     closeWizPRO() {
       this.setState({closeWizPRO:false})
+    }
+
+    closeAddBtnWmWizard() {
+      this.setState({closeAddBtnWmWizard:false})
+      
     }
 
     windows5 () {
@@ -206,12 +224,18 @@ class Wizard extends Component {
 
 
     switch (param) {
-      if (param == 4) {
-      this.setState({openAlert:true})
+      if(this.state.emu.length == 0) {
+        this.setState({page:1})
       }
       else {
-        this.setState({page:param})
+        if (param == 4) {
+          this.setState({openAlert:true})
+          }
+          else {
+            this.setState({page:param})
+          }
       }
+      
 
     }
 
@@ -259,43 +283,19 @@ class Wizard extends Component {
     }
 
     changewindow () {
-      this.setState({finish:true});
+
+     // this.setState({finish:false});
       this.setState({switcher:false})
-     // console.log(this.state.emu.id)
+      console.log(this.props.vmid)
       this.props.StartVMTask(this.props.vmid,this.state.emu.id);
+      this.setState({page:1})
+      this.props.openVMProgressBar();
+      this.props.close();
+     // this.props.openVMProgressBar();
 
     }
 
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.taskid != null) {
-        this.props.updatestatus(nextProps.taskid.Id);
-        console.log('brbrbrbr');
-        this.props.cleartaskvmid()
-      }
-
-      if (nextProps.task_info && nextProps.task_info.progress == 100) {
-        console.log('ddddd')
-        var self = this;
-        this.timer =  setTimeout(function() {self.props.cleartask_info()}, 3500);
-        this.setState({switcher:true})
-      }
-
-      if (nextProps.task_info && !this.state.switcher  ) {
-
-       this.setState({timer:nextProps.task_info.progress}) // TODO: Egor, why we set Timer to value of progress?
-
-       this.setState({task_info:nextProps.task_info});
-
-       var self = this;
-        this.setState({propro:{width:nextProps.task_info.progress + '%'}})
-        setTimeout(function() {self.props.updatestatus(nextProps.task_info.Id)}, 2000);
-
-      }
-
-    }
-    componentDidUpdate () {
-      this.props.cleartask_info()
-    }
+    
 
     cancelTask () {
         clearTimeout(this.timer);
@@ -315,46 +315,9 @@ class Wizard extends Component {
 
     }
 
-    renderFinish() {
-      return (
-        <div>
-          <div className="windows-list">
-            <dl className="floated">
-                <dt>VM name</dt>
-                <dd>ID={this.props.vmid}</dd>
-                <dt>Restore type</dt>
-                <dd>Restore to the original location</dd>
-                <dt>Restore point</dt>
-                <dd>35</dd>
-                <dt>Initiated by</dt>
-                <dd>TestRepo1</dd>
-                <dt>Status</dt>
-                <dd>C:\Backup\</dd>
-                <dt>Start time</dt>
-                <dd>Daily at 10:00 PM</dd>
-              </dl>
-          </div>
-          <div className="tabs">
-            <Tabs>
+    
 
-              <TabList>
-                <Tab>Statistic</Tab>
-                <Tab>Reason</Tab>
-              </TabList>
-              <div className="tabs-con-panel">
-              <TabPanel>
-                <div>{this.firsttab()}</div>
-              </TabPanel>
-              <TabPanel>
-                <div> {this.state.HANDLETEXT}</div>
-              </TabPanel>
-              </div>
-            </Tabs>
-
-          </div>
-        </div>
-      )
-    }
+   
 
    move() {
     var elem = document.getElementById("myBar");
@@ -371,47 +334,7 @@ class Wizard extends Component {
 }
 
 
-    firsttab() {
-
-      let duration = '';
-      let processingRateBytesPerSecond = '';
-
-      if(this.state.task_info != undefined)
-      {
-        duration = this.state.task_info.duration;
-
-        if(this.state.task_info.statistic != undefined)
-        {
-          processingRateBytesPerSecond = bytes(this.state.task_info.statistic.processingRate, {unitSeparator: ' ', thousandsSeparator: ' '});
-        }
-      }
-
-      return (
-        <div>
-            <div className="progress-bar-titles">
-              <div className="gt-left">Restore started</div>
-              <div className="gt-right">{this.state.timer} %</div>
-            </div>
-          <div className="progress-bar">
-            <div style={this.state.propro} id="myBar"></div>
-          </div>
-
-          <div className="windows-list">
-          <dl className="floated">
-
-              <dt>Object remaining</dt>
-              <dd className="somefix">1 of 1</dd>
-              <dt>Restore rate</dt>
-              <dd>{processingRateBytesPerSecond}/s</dd>
-              <dt>Time remaining</dt>
-              <dd>N/A</dd>
-
-            </dl>
-      </div>
-        </div>
-
-      )
-    }
+  
 
     closeAlert() {
       this.setState({openAlert:false})
@@ -420,7 +343,7 @@ class Wizard extends Component {
 
 
     render(){
-      console.log(this.props.vmid)
+      console.log(this.props.vmid);
 
         return (
           <div className="VmVizViz">
@@ -428,7 +351,7 @@ class Wizard extends Component {
               (
 
                 <div className="freeze">
-                  <div className="pop-up-window">
+                  <div className="pop-up-window unclear">
                     <div className="pop-up-header">
                       <div className="gt-left pop-up-h-title">
                         {this.state.finish ? ('VM restore'): ('Full VM Restore Wizard') }
@@ -455,33 +378,30 @@ class Wizard extends Component {
 
                     </div>
                     <div className="btns-go-back gt-clear">
-                      {this.state.finish ? (<div>
-                        <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
-                        <a onClick={this.cancelTask.bind(this)} className="go-btn gt-right go-btn-global mar11px">Cancel restore task</a>
-
-
-                      </div>) : (
-
+                    <div>
+                    {this.state.page == 4 ?
+                      (
                         <div>
-                          {this.state.page == 4 ?
-                            (
-                              <div>
-                                <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global">Cancel</a>
-                                 <a onClick={this.changewindow.bind(this)} className="go-btn gt-right go-btn-global mar11px">Finish</a>
+                          <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global">Cancel</a>
+                           <a onClick={this.changewindow.bind(this)} className="go-btn gt-right go-btn-global mar11px">Finish</a>
 
-                              </div>
-
-                            )
-                             :
-                             (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)
-                           }
-                         {this.state.page == 1 ? (null)
-                            :
-                             (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>
-                           )}
                         </div>
 
-                      )}
+                      )
+                       :
+                       (<div>
+                          {this.state.disableAddbtn ? (<a  className="go-btn gt-right go-btn-global disabled">Next</a>)
+                          :
+                          (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)}
+                       </div>
+                      
+                      )
+                     }
+                   {this.state.page == 1 ? (null)
+                      :
+                       (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>
+                     )}
+                  </div>
 
 
 
@@ -492,6 +412,7 @@ class Wizard extends Component {
               ):
               (null)}
               <SWizardPro array={this.updatefirsttable.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
+              <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
               <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.emu.id} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               </div>
 
@@ -503,9 +424,9 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
       StartVMTask: (id,restorePointId) => dispatch(StartVMTask(id,restorePointId)),
-      cleartaskvmid: (id) => dispatch(cleartaskvmid(id)),
-      updatestatus: (id) => dispatch(updatestatus(id)),
-      cleartask_info: () => dispatch(cleartask_info()),
+    //  cleartaskvmid: (id) => dispatch(cleartaskvmid(id)),
+    //  updatestatus: (id) => dispatch(updatestatus(id)),
+    //  cleartask_info: () => dispatch(cleartask_info()),
 
     }
 }
@@ -515,8 +436,8 @@ function mapStateToProps(state) {
 
     return {
 
-      taskid:state.toJS().BackupReducer.vmidtoupdate,
-      task_info:state.toJS().BackupReducer.task_status,
+   //   taskid:state.toJS().BackupReducer.vmidtoupdate,
+    //  task_info:state.toJS().BackupReducer.task_status,
 
     }
 }
