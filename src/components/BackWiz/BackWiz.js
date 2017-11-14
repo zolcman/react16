@@ -81,6 +81,7 @@ class BackWiz extends Component {
           DescToServer:'',
           //selectedStartTime: '18:00',
           
+          retentionMaxRecoveryPoints: 5,
 
           schedulerSettings: {
             "@odata.type": "SchedulerSettings",
@@ -511,6 +512,10 @@ class BackWiz extends Component {
     schedulerSettings.periodicBasis.timeOffset = val;                        //updating value
     this.setState({schedulerSettings});
   }
+
+  changeRestorePoints(val) {
+    this.setState({retentionMaxRecoveryPoints:val.target.value});
+  }
   
 
 	window4(){
@@ -690,7 +695,7 @@ class BackWiz extends Component {
 
   </Tabs>
 </div>
-	<div>Restore Points to keep on disc:<input className="respoints" type="number"/></div>
+	<div>Restore Points to keep on disc:<input className="respoints" type="number" value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
 
 <div className="autoretry">
 			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
@@ -738,17 +743,17 @@ check5 () {
   <dt>Name</dt>
   <dd>{this.state.nameToServer}</dd>
   <dt>Source Cluster</dt>
-  <dd>NTNXCL 1</dd>
+  <dd>[ToDo]</dd>
   <dt>VMs</dt>
-  <dd>35</dd>
+  <dd>[ToDo]</dd>
   <dt>Target repository</dt>
-  <dd>TestRepo1</dd>
+  <dd>[ToDo]</dd>
   <dt>Target path</dt>
-  <dd>C:\Backup\</dd>
+  <dd>[ToDo]</dd>
   <dt>Schedule</dt>
-  <dd>Daily at 10:00 PM</dd>
+  <dd>[ToDo]</dd>
   <dt>Retention</dt>
-  <dd>5 restore points</dd>
+  <dd>[ToDo]</dd>
 </dl>
 	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
@@ -849,6 +854,8 @@ check5 () {
       );
       policyObj.description = this.state.DescToServer;
       policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected;
+
+      policyObj.retentionMaxRecoveryPoints = this.state.retentionMaxRecoveryPoints;
 
       let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
       let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];

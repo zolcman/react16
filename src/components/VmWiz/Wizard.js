@@ -201,21 +201,21 @@ class Wizard extends Component {
           <div className="windows-list">
             <dl className="floated">
                 <dt>Proxy</dt>
-                <dd>definition for first item in list</dd>
+                <dd>[ToDo]</dd>
                 <dt>Original VM name</dt>
                 <dd>{this.props.vmid} </dd>
                 <dt>Restore point</dt>
-                <dd>35</dd>
+                <dd>[ToDo]</dd>
                 <dt>Target host</dt>
-                <dd>TestRepo1</dd>
+                <dd>[ToDo]</dd>
                 <dt>Target resource pool</dt>
-                <dd>C:\Backup\</dd>
+                <dd>[ToDo]</dd>
                 <dt>Target VM folder</dt>
-                <dd>Daily at 10:00 PM</dd>
+                <dd>[ToDo]</dd>
                 <dt>Target data store</dt>
-                <dd>5 restore points</dd>
+                <dd>[ToDo]</dd>
                 <dt>Network mapping</dt>
-                <dd>5 restore points</dd>
+                <dd>[ToDo]</dd>
               </dl>
           </div>
         </div>
@@ -315,7 +315,6 @@ class Wizard extends Component {
 
     }
 
-    
 
    
 
