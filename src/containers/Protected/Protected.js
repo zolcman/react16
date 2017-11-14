@@ -103,7 +103,7 @@ class Protected extends Component {
 
      openVMProgressBarWithStatus() {
       this.setState({openWiz3:true})
-      this.props.updatestatus(this.state.linkToSeeUpdates);
+     // this.props.updatestatus(this.state.linkToSeeUpdates);
      }
      
      closeWiz3() {
