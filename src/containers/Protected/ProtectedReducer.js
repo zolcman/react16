@@ -21,6 +21,9 @@ const ProtectedReducer = function(state = initialUserState, action) {
                            case 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD':
                                return Object.assign({}, state, { listAddBtnWmsWizard: action.data });
                            break;
+                           case 'GET_POINTS':
+                           return Object.assign({}, state, { points: action.data });
+                       break;
 
 
 

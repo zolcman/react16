@@ -4,7 +4,7 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { StartVMTask } from '../../containers/Backup/BackupAction'
-
+import  { GetPointList } from '../../containers/Protected/ProtectedAction'
 import  SWizardPro from '../SmWizPro/SWizardPro';
 import  SWizardAlert from '../SmWizAlert/SWizardAlert';
 import  AddBtnWmWizard from '../AddBtnWmWizard/AddBtnWmWizard';
@@ -23,7 +23,10 @@ class Wizard extends Component {
           finish:false,
       jjj:true,
       disableAddbtn:true,
-          emu:[]
+      disableRecoveryBtn:true,
+      BlockBubble:true,
+          emu:[],
+          ObjFromFirstSreen: {},
 
         }
     }
@@ -126,20 +129,124 @@ class Wizard extends Component {
     updatefirsttable(item) {
       
       if (item.length > 0) {
-        this.setState({disableAddbtn:false})
+        this.setState({disableAddbtn:false,disableRecoveryBtn:false})
+        let splitter = item[0];
+        let resultsplited = splitter.split(';')
+        let backupId = resultsplited[0];
+        let vmId = resultsplited[1];
+  
+        let arrayVmsToFilter = this.props.vmsList;
+  
+        arrayVmsToFilter = arrayVmsToFilter.filter(function(item) {
+          return ( item.Id == vmId )
+          });
+        
+          const ObjConsturctor = {
+            VmName:arrayVmsToFilter[0].name,
+            vmUid:vmId,
+            size:arrayVmsToFilter[0].sizeInGb,
+            point:"Last Recovery Point",
+            recoveryPointUid:null,
+            policyUid:backupId
+          }
+  
+        
+  
+        console.log(arrayVmsToFilter[0])
+  
+  
+        this.setState({ObjFromFirstSreen:ObjConsturctor}) 
+        this.setState({BlockBubble:false})
+
       }
       if (item.length == 0) {
-        this.setState({disableAddbtn:true})
+        this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true})
       }
-      let splitter = item[0];
-      let resultsplited = splitter.split(';')
-      let backupId = resultsplited[0];
-      let vmId = resultsplited[1];
-      console.log(vmId)
-      this.setState({forEmulation:vmId}) // remove this when we will have correct request and response from server
-      this.setState({emu:item})
+      
     }
 
+
+    updatefirsttable2(item) {
+
+      console.log(item);
+
+      const ObjConsturctor = {
+        VmName:this.state.ObjFromFirstSreen.VmName,
+        vmUid:this.state.ObjFromFirstSreen.vmUid,
+        size:item.size,
+        point:item.date,
+        recoveryPointUid:item.id,
+        policyUid:this.state.ObjFromFirstSreen.policyUid
+      }
+      this.setState({ObjFromFirstSreen:ObjConsturctor})
+    }
+
+
+    switch (param) {
+      if(this.state.BlockBubble) {
+        this.setState({page:1})
+      }
+      else {
+        if (param == 4) {
+          this.setState({openAlert:true})
+          }
+          else {
+            this.setState({page:param})
+          }
+      }
+      
+
+    }
+
+
+
+    componentWillReceiveProps(nextProps) {
+      if (nextProps.vmid ) {
+        
+        let Id = nextProps.vmid
+        let arrayVmsToFilter = nextProps.vmsList;
+        
+        if (Object.keys(nextProps.vmid).length != 0) {
+         
+          arrayVmsToFilter = arrayVmsToFilter.filter(function(item) {
+            return ( item.Id == Id )
+            });
+  
+         console.log(arrayVmsToFilter)
+  
+            const ObjConsturctor = {
+              VmName:arrayVmsToFilter[0].name,
+              vmUid:arrayVmsToFilter[0].Id,
+              size:arrayVmsToFilter[0].sizeInGb,
+              point:"Last Recovery Point",
+              recoveryPointUid:null,
+              policyUid:null
+            }  
+            this.setState({ObjFromFirstSreen:ObjConsturctor})
+            this.setState({disableAddbtn:false,disableRecoveryBtn:false,BlockBubble:false})
+
+
+         }
+
+         else {
+          this.setState({ObjFromFirstSreen:{},disableAddbtn:true,disableRecoveryBtn:true,BlockBubble:true})
+         }
+
+
+         
+        
+      }
+     }
+
+removeTable () {
+  this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true})
+}
+
+pointClick () {
+  console.log(this.state.ObjFromFirstSreen)
+  this.setState({closeWizPRO:true});
+  this.props.GetPointList(this.state.ObjFromFirstSreen)
+}
 
  windowsvm () {
       return (
@@ -148,8 +255,19 @@ class Wizard extends Component {
 		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
 	  <div className="iconboxtbsearch gt-clear">
 		    <div onClick={()=> this.setState({closeAddBtnWmWizard:true})}  className="addic">Add</div>
-			<div onClick={()=> this.setState({closeWizPRO:true})} className="pointjob">Point</div>
-			<div className="removeic vmonwizzzr">Remove</div>
+        {
+          (this.state.disableRecoveryBtn) ? (<div  className="pointjob disabled">Point</div>)
+        :
+        (<div onClick={this.pointClick.bind(this)} className="pointjob">Point</div>)
+        }
+
+          {
+          (Object.keys(this.state.ObjFromFirstSreen).length != 0) ? (<div onClick={this.removeTable.bind(this)} className="removeic vmonwizzzr">Remove</div>)
+        :
+        (<div  className="removeic vmonwizzzr disabled-remove">Remove</div>)
+        }
+			
+			
 	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
 		</div>
 
@@ -158,17 +276,17 @@ class Wizard extends Component {
       <table>
         <thead>
           <tr>
-            <th>Date</th>
+            <th>Name</th>
             <th>Size</th>
-            <th>Type</th>
+            <th className="width30"></th>
           </tr>
         </thead>
         <tbody>
 
               <tr >
-                <td>{this.state.forEmulation}</td>
-                <td>{bytes(this.state.emu.size, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
-                <td>{this.state.emu.type}</td>
+                <td>{this.state.ObjFromFirstSreen.VmName}</td>
+                <td>{bytes(this.state.ObjFromFirstSreen.size, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
+                <td>{this.state.ObjFromFirstSreen.point}</td>
               </tr>
 
 
@@ -203,7 +321,7 @@ class Wizard extends Component {
                 <dt>Proxy</dt>
                 <dd>[ToDo]</dd>
                 <dt>Original VM name</dt>
-                <dd>{this.props.vmid} </dd>
+                <dd>{this.state.ObjFromFirstSreen.VmName} </dd>
                 <dt>Restore point</dt>
                 <dd>[ToDo]</dd>
                 <dt>Target host</dt>
@@ -223,21 +341,7 @@ class Wizard extends Component {
     }
 
 
-    switch (param) {
-      if(this.state.emu.length == 0) {
-        this.setState({page:1})
-      }
-      else {
-        if (param == 4) {
-          this.setState({openAlert:true})
-          }
-          else {
-            this.setState({page:param})
-          }
-      }
-      
-
-    }
+    
 
     gopage4() {
       this.setState({page:4})
@@ -286,8 +390,8 @@ class Wizard extends Component {
 
      // this.setState({finish:false});
       this.setState({switcher:false})
-      console.log(this.props.vmid)
-      this.props.StartVMTask(this.props.vmid,this.state.emu.id);
+     // console.log(this.state.ObjFromFirstSreen)
+      this.props.StartVMTask(this.state.ObjFromFirstSreen);
       this.setState({page:1})
       this.props.openVMProgressBar();
       this.props.close();
@@ -296,44 +400,13 @@ class Wizard extends Component {
     }
 
     
-
-    cancelTask () {
-        clearTimeout(this.timer);
-        this.props.close();
-        this.setState({finish:false,page:1})
-        this.setState({switcher:true})
-        this.setState({timer:0})
-        this.setState({propro:{width:'0' + '%'}})
-
-        var selfer = this;
-      setTimeout(function() {selfer.props.cleartask_info()}, 3500);
-    }
-
     close() {
-      clearTimeout(this.timer);
+      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1})
       this.props.close();
 
     }
 
 
-   
-
-   move() {
-    var elem = document.getElementById("myBar");
-    var width = 1;
-    var id = setInterval(frame, 10);
-    function frame() {
-        if (width >= 100) {
-            clearInterval(id);
-        } else {
-            width++;
-            elem.style.width = width + '%';
-        }
-    }
-}
-
-
-  
 
     closeAlert() {
       this.setState({openAlert:false})
@@ -342,7 +415,7 @@ class Wizard extends Component {
 
 
     render(){
-      console.log(this.props.vmid);
+     // console.log(this.props.vmid);
 
         return (
           <div className="VmVizViz">
@@ -410,9 +483,9 @@ class Wizard extends Component {
 
               ):
               (null)}
-              <SWizardPro array={this.updatefirsttable.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
+              <SWizardPro array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
               <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
-              <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.emu.id} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
+              <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.ObjFromFirstSreen.VmName} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               </div>
 
         )
@@ -422,8 +495,8 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-      StartVMTask: (id,restorePointId) => dispatch(StartVMTask(id,restorePointId)),
-    //  cleartaskvmid: (id) => dispatch(cleartaskvmid(id)),
+      StartVMTask: (param) => dispatch(StartVMTask(param)),
+      GetPointList: (id) => dispatch(GetPointList(id)),
     //  updatestatus: (id) => dispatch(updatestatus(id)),
     //  cleartask_info: () => dispatch(cleartask_info()),
 
@@ -434,7 +507,7 @@ function mapStateToProps(state) {
 
 
     return {
-
+        vmsList:state.toJS().ProtectedReducer.vms,
    //   taskid:state.toJS().BackupReducer.vmidtoupdate,
     //  task_info:state.toJS().BackupReducer.task_status,
 

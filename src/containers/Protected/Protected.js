@@ -27,7 +27,7 @@ class Protected extends Component {
             
              if(!$(e.target).is('.table-content tr td') && !$(e.target).is('#restore-btn') && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
                $('.table-content tr').removeClass("selected-green");
-               self.setState({vmid:''})
+               self.setState({vmid:{}})
                console.log('eeeeee')
               }
             });
@@ -78,7 +78,7 @@ class Protected extends Component {
     }
 
     chooseitem(id,name) {
-      console.log(id);
+     // console.log(id);
     this.props.GetVmListDetail(id);
       this.setState({vmid:id,vmname:name})
     }
@@ -117,7 +117,7 @@ class Protected extends Component {
 
   var list = this.state.filteredItems || this.state.table || []
 
-  console.log(this.state.table)
+  //console.log(this.state.table)
 
         return (
           <div className="protected">
@@ -205,7 +205,7 @@ const mapDispatchToProps = function(dispatch) {
 
 function mapStateToProps(state) {
 
-console.log(state.toJS().ProtectedReducer.vms);
+//console.log(state.toJS().ProtectedReducer.vms);
     return {
           taskidlink:state.toJS().BackupReducer.vmidtoupdate,
           vms:state.toJS().ProtectedReducer.vms,

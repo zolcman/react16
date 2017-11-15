@@ -79,7 +79,7 @@ class AddBtnWmWizard extends Component {
 
       if(nextProps.AddBtnList) {
         this.setState({array:nextProps.AddBtnList});
-        console.log(nextProps.AddBtnList)
+      //  console.log(nextProps.AddBtnList)
       }
 		
      }
@@ -94,7 +94,7 @@ class AddBtnWmWizard extends Component {
     close() {
       this.setState({page:1}) // binded when all ok change to 1
       this.props.close();
-
+      this.setState({checked:[]});
 
     }
 
@@ -103,7 +103,8 @@ class AddBtnWmWizard extends Component {
 
     add () {
       this.props.close();
-      this.props.array(this.state.checked)
+      this.props.array(this.state.checked);
+      this.setState({checked:[]});
     }
 
 
@@ -154,7 +155,7 @@ class AddBtnWmWizard extends Component {
                                   expanded={this.state.expanded}
                                   onCheck={this.onCheck.bind(this)}
                                    onExpand={expanded => this.setState({ expanded })}
-            />
+                                />
                           {/*     <div>
                               {elemns.map((item,index) => (
                                     <div>

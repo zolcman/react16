@@ -4,6 +4,7 @@ import { apiUrl, Urls } from '../../middlewares/url'
 export const GET_VM_LIST = 'GET_VM_LIST';
 export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
 export const GET_LIST_FOR_ADD_BTN_WMS_WIZARD = 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD';
+export const GET_POINTS = 'GET_POINTS';
 
 
 
@@ -57,7 +58,7 @@ function receiveData23(json) {
 };
 
 export function GetVmListDetail (id) {
-	console.log(id)
+//	console.log(id)
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
@@ -67,7 +68,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 		 console.log(response.data);
+   	 	//	 console.log(response.data);
     			dispatch(receiveData23(response.data));
 				//	dispatch(hideLoading())
   			})
@@ -102,6 +103,38 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 		 console.log(response.data);
     			dispatch(receiveData24(response.data));
+				//	dispatch(hideLoading())
+  			})
+   	 	.catch((error) => {
+      			console.log(error);
+    		})
+			)
+	}
+}
+
+function receiveData25(json) {
+	return{
+
+		type: GET_POINTS,
+		data: json
+
+	}
+};
+
+export function GetPointList (id) {
+	
+	return dispatch => {
+var accessToken = sessionStorage.getItem('accessToken');
+		return (
+			console.log(apiUrl + `api/v1/Vms/${ id.vmUid }/backups?policyuid=${ id.policyUid }`),
+
+			axios.get(apiUrl + `/api/v1/Vms/${ id.vmUid }/backups?policyuid=${ id.policyUid }`,headers).then(function (response) {
+			 if(response.data.code>200){
+					// dispatch(toastrActions.add('error', '',response.data.message))
+					 return
+			 }
+   	 		 console.log(response.data);
+    			dispatch(receiveData25(response.data));
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {

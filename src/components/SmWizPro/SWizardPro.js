@@ -47,8 +47,8 @@ class SWizardPro extends Component {
 		//	this.props.GetVmListDetail(this.props.selectedVmId);
 		//}
 	
-      if (nextProps.vmsdetail) {
-     this.setState({array:nextProps.vmsdetail})
+      if (nextProps.points) {
+     this.setState({array:nextProps.points})
 
 
     }
@@ -94,11 +94,16 @@ class SWizardPro extends Component {
     }
 
 
-    choosen(id,date,type,size) {
-      this.setState({choosen:{id:id,date:date,type:type,size:size}})
+    choosen(date,id,size) {
+      this.setState({choosen:{date:date,id:id,size:size}})
     }
 
-
+    onCheck(checked) {
+      
+      let difference = checked.filter(x => this.state.checked.indexOf(x) == -1);
+      this.setState({checked:difference});
+               
+           }
 
 
     render(){
@@ -108,35 +113,35 @@ class SWizardPro extends Component {
               {this.props.open ? (<div className="freeze">
                   <div className="pop-up-windowsmall">
                       <div className="pop-up-header">
-                        <div className="gt-left pop-up-h-title">Backups Browser</div>
+                        <div className="gt-left pop-up-h-title">Restore Points</div>
                         <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
                       </div>
                       <div className="body-popup3 gt-clear">
                         <div className="popup3-title">
-                          Select virtual machine:
+                          Available restore points for StarWind Plugin WEB vShere (SWMA)
                         </div>
                         <div className="popup3-con">
                           <div className="tbls12 clear-gt">
                             <table>
                               <thead>
-                                <tr>
-                                  <th>Date</th>
+                                <tr >
+                                  <th>Job</th>
                                   <th>Type</th>
-                                  <th>Size</th>
+                                  
                                  
                                 </tr>
                               </thead>
                               <tbody>
                                 {elemns.map((item,index) => (
-                                    <tr onClick={this.choosen.bind(this,item.Id,item.date,item.type,item.backupSizeBytes)} key={index}>
-                                      <td>{item.date}</td>
+                                    <tr onClick={this.choosen.bind(this,item.date,item.Id,item.backupSizeBytes)} key={index}>
+                                      <td>{item.job}</td>
                                       <td>{item.type}</td>
-                                      <td>{bytes(item.backupSizeBytes, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
-                                     
+                                    
+                                      
                                     </tr>
 
                                 ))}
-                              </tbody>
+                              </tbody> 
                             </table>
                           </div>
                         </div>
@@ -170,7 +175,7 @@ function mapStateToProps(state) {
 
     return {
 
-       vmsdetail:state.toJS().ProtectedReducer.vmsdetail,
+      points:state.toJS().ProtectedReducer.points,
 
     }
 }
