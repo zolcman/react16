@@ -5,6 +5,8 @@ import styles from './styles.scss';
 import { GetVmList } from './ProtectedAction'
 import Wizard from '../../components/VmWiz/Wizard';
 import VMProgressBar from '../../components/VMProgressBar/VMProgressBar';
+import DiskRestoreWiz from '../../components/DiskRestoreWiz/DiskRestoreWiz';
+
 import { updatestatus } from '../Backup/BackupAction'
 
 import { GetVmListDetail } from '../Protected/ProtectedAction';
@@ -73,6 +75,10 @@ class Protected extends Component {
       this.setState({openWiz2:true})
     }
 
+    openWiz4() {
+      this.setState({openWiz4:true})
+    }
+
     closeWiz2() {
       this.setState({openWiz2:false})
     }
@@ -110,6 +116,10 @@ class Protected extends Component {
       this.setState({openWiz3:false})
      }
 
+     closeWiz4() {
+      this.setState({openWiz4:false})
+     }
+
   
 
 
@@ -142,7 +152,7 @@ class Protected extends Component {
                    :
                     (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn start-btn">Restore</a>)
                     }  
-                  
+                  <a id="restore-btn"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn start-btn width135px">Disk Restore</a>
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
@@ -187,6 +197,8 @@ class Protected extends Component {
               </div>
               <Wizard openVMProgressBar={this.openVMProgressBar.bind(this)} vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
               <VMProgressBar open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
+              <DiskRestoreWiz open={this.state.openWiz4} close={this.closeWiz4.bind(this)}/>
+              
           </div>
         )
     }

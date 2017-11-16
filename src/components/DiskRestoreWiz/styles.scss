@@ -3,6 +3,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
+.diskRestoreWizard {
 
 .freeze {
   width: 100%;
@@ -194,7 +195,7 @@ padding: 8px 13px;
 	}
 	.pagetwoundertxt{
 	font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
 	}
 	.addic {
 	width:80px;
@@ -695,6 +696,118 @@ border-bottom: 1px solid #ccc;
     input[type=number]::-webkit-outer-spin-button {
 
    opacity: 1;
+
+}
+
+.mar56px {
+	margin-top: 56px;
+}
+
+.window1line3 {
+	margin-top: 5px;
+	font-weight: 600;
+}
+.martop30px {
+	margin-top: 30px;
+}
+.width50 {
+	width: 50%;
+}
+.width30 {
+	width: 30%
+}
+.width70 {
+	width: 70%
+}
+.cliptext {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.width105 {
+	width: 105px;
+}
+.heigth25px {
+	height: 25px;
+}
+.font600w {
+	font-weight: 600;
+}
+.heigth75 {
+	height: 75px;
+}
+.heigth45 {
+	height: 45px;
+}
+.virtualMachineLabel {
+	margin-top: 33px;
+	margin-bottom: 5px;
+}
+
+.virtualMachineInput {
+	width: 57%;
+	height: 32px!important;
+}
+.btns-browser-change {
+	display: block;
+	padding: 5px 20px;
+	background: #e5e5e5;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: #ccc;
+	cursor: pointer;
+}
+.btns-modifyers {
+	margin: 0 20px;
+}
+.restored_disk_type_label {
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+.chwithlbl label {
+	color: #80d325;
+}
+.martop20px {
+	margin-top: 20px;
+}
+.heigth270 {
+	height: 270px;
+}
+
+.window4 .someviztextarea {
+	width: 100%;
+	height: 450px;
+	resize: none;
+	border: 1px solid #dddddd;
+	border-radius: 2px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 5px;
+}
+
+ .onltextbtn2 {
+	width: 132px;
+	height: 31px;
+	line-height: 28px;
+	border: 1px solid #7ed321;
+	font-size: 13px;
+	text-align: center;
+	border-radius: 50px;
+	display: block;
+	
+	color: #7ed321;
+	text-decoration: none;
+}
+
+.dtmodificator {
+	padding-left: 112px!important;
+	font-weight: 600;
+}
+
+.dtmodificator2 {
+	padding-left: 100px!important;
+	font-weight: 600;
+}
 
 }
 

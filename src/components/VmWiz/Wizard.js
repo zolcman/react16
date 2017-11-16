@@ -146,7 +146,7 @@ class Wizard extends Component {
             vmUid:vmId,
             size:arrayVmsToFilter[0].sizeInGb,
             point:"Last Recovery Point",
-            recoveryPointUid:null,
+            recoveryPointUid:"",
             policyUid:backupId
           }
   
@@ -219,8 +219,8 @@ class Wizard extends Component {
               vmUid:arrayVmsToFilter[0].Id,
               size:arrayVmsToFilter[0].sizeInGb,
               point:"Last Recovery Point",
-              recoveryPointUid:null,
-              policyUid:null
+              recoveryPointUid:"",
+              policyUid:""
             }  
             this.setState({ObjFromFirstSreen:ObjConsturctor})
             this.setState({disableAddbtn:false,disableRecoveryBtn:false,BlockBubble:false})

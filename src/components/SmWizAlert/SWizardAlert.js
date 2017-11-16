@@ -85,7 +85,7 @@ class SWizardAlert extends Component {
                             <table>
                               <thead>
                                 <tr>
-                                  <th>Job Name</th>
+                                  <th>VM Name</th>
 
                                 </tr>
                               </thead>

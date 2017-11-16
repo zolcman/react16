@@ -18,7 +18,7 @@ class BackWiz extends Component {
         super(props)
 
           this.backupForSheduler = {};
-
+         // this.filtered = [];
         this.state = {
 
           page:'1',
@@ -106,6 +106,7 @@ class BackWiz extends Component {
             }
           },
           editmode:false,
+          blockNext:true,
 
           
         }
@@ -181,9 +182,26 @@ class BackWiz extends Component {
       this.resetData();
     }
 
+    
+
     pagechange() {
       if (this.state.page == 1) {
-        this.setState({page:2})
+        
+        let filter = this.Checkname();
+
+        if (filter.length > 0) {
+          alert('name exist! please enter another name')
+          this.setState({page:1,blockNext:true})
+        }
+        else {
+          if(this.state.array.length > 0) {
+            this.setState({page:2,blockNext:false})
+          }
+          if(this.state.array.length == 0) {
+            this.setState({page:2,blockNext:true})
+          }
+          
+        }
       }
       if (this.state.page == 2) {
         this.setState({page:3})
@@ -208,7 +226,7 @@ class BackWiz extends Component {
         this.setState({page:2})
       }
       if (this.state.page == 2) {
-        this.setState({page:1})
+        this.setState({page:1,blockNext:false})
       }
 
     }
@@ -221,13 +239,22 @@ class BackWiz extends Component {
     }
 
 
+    nameToServer(e){
+      this.setState({nameToServer:e.target.value})
+      if (e.target.value.length == 0) {
+        this.setState({blockNext:true})
+      } 
+      if (e.target.value.length > 0) {
+        this.setState({blockNext:false})
+      } 
+    }
 
 	window1(){
 	return(
 	<div>
 		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
-		<input value={this.state.nameToServer} onChange={(e)=> this.setState({nameToServer:e.target.value})} className="jobname" type="text" />
+		<input value={this.state.nameToServer} onChange={this.nameToServer.bind(this)} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
 		<textarea onChange={(e)=> this.setState({DescToServer:e.target.value})} value={this.state.DescToServer} className="firstscreent"></textarea>
 
@@ -302,6 +329,9 @@ class BackWiz extends Component {
         arrDelete.splice(i, 1);
 
 
+    }
+    if(arrDelete.length == 0) {
+      this.setState({blockNext:true})
     }
 
     this.setState({array:arrDelete})
@@ -779,8 +809,62 @@ check5 () {
         return (<div className="wizzard1">{this.window5()}</div>)
       }
     }
+
+    Checkname() {
+      let value = this.state.nameToServer
+      let filter = this.props.backup.filter(function(number) {
+        return number.name == value;
+      });
+
+      return filter;
+    }
+
     switch (param) {
-      this.setState({page:param})
+      
+      if (param != 1 && !this.state.nameToServer) {
+        this.setState({page:1})
+        console.log('1111')
+      }
+      if (param != 2 && param == 1 && this.state.array.length == 0) {
+        this.setState({page:1})
+        console.log('2222')
+        this.setState({blockNext:false})
+      }
+      if (param == 2  && this.state.array.length == 0 && this.state.nameToServer) {
+        //this.setState({page:2})
+        console.log('333')
+        let filter = this.Checkname();
+
+        if(filter.length > 0) {
+          this.setState({page:1})
+          alert('name exist! please enter another name')
+        }
+        if(filter.length == 0) {
+          this.setState({page:2})
+        }
+        this.setState({blockNext:true})
+      }
+      if (this.state.array.length != 0 && this.state.nameToServer) {
+
+        let filter = this.Checkname();
+
+        if(filter.length > 0) {
+          this.setState({page:1})
+          alert('name exist! please enter another name')
+          this.setState({blockNext:false})
+        }
+        if(filter.length == 0) {
+          this.setState({page:param})
+          this.setState({blockNext:false})
+          console.log('444444')
+        }
+
+
+
+        
+      }
+      
+      
     }
 
     renderBubbles() {
@@ -953,6 +1037,9 @@ check5 () {
     }
 
     uptable(array) {
+      if (array.length > 0) {
+        this.setState({blockNext:false})
+      }
 
       this.setState({bigcheck:false})
       this.setState({array:array})
@@ -1013,7 +1100,17 @@ check5 () {
                     <div className="btns-go-back gt-clear">
                        {this.state.page == 5 ?
                         ((this.state.editmode) ?(<a onClick={this.updateJob.bind(this)} className="go-btn gt-right go-btn-global">Edit</a>):(<a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>)) 
-                       : (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)}
+                       :
+                        (
+                          (this.state.blockNext) ? (<a className="go-btn gt-right go-btn-global disabled">Next</a>)
+                           :
+                            (<a onClick={this.pagechange.bind(this)} className="go-btn gt-right go-btn-global">Next</a>)
+                        
+
+                      )
+                        }
+
+
                       {this.state.page == 1 ? (null) : (<a onClick={this.pagechangeB.bind(this)} className="back-btn gt-right go-btn-global">Previous</a>)}
 
 
@@ -1049,6 +1146,7 @@ function mapStateToProps(state) {
 
     return {
 
+      backup:state.toJS().BackupReducer.backups,
       tree_flat:state.toJS().BackupReducer.tree_flat,
       repos:state.toJS().BackupReducer.repos,
       edit_info:state.toJS().BackupReducer.job_info_for_edit,
