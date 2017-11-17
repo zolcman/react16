@@ -150,9 +150,10 @@ class Protected extends Component {
                 {(this.state.blockRestoreBtn) ?
                    (<a id="restore-btn" className="gt-left bk-btn start-btn disabled">Restore</a>)
                    :
-                    (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn start-btn">Restore</a>)
+                    (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn restore-btn">Restore</a>)
                     }  
-                  <a id="restore-btn"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn start-btn width135px">Disk Restore</a>
+                  <a id="restore-btn"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn disk_restore-btn width135px">Disk Restore</a>
+                  <a id="restore-btn2"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn red_delete-btn ">Delete</a>
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>

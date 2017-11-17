@@ -80,16 +80,35 @@
   .mrrcl {
     margin-right: 0!important;
   }
+
   .add-btn {
     background: url(./img/J_add.svg)no-repeat #f8f8f8;
     background-size: 20px;
   }
-  .edit-btn {
-    background: url('./img/edit.svg') no-repeat #f8f8f8;
+
+  .config_backup-btn {
+    background: url(./img/backup.svg)no-repeat #f8f8f8;
     background-size: 20px;
   }
-  .delete-btn {
-    background: url('./img/delete.svg') no-repeat #f8f8f8;
+  .reboot-btn {
+    background: url(./img/reboot.svg)no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+  .shutdown-btn {
+    background: url(./img/shutdown.svg)no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+  .bundle-btn {
+    background: url(./img/support_bundle.svg)no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+
+  .red_delete-btn {
+    background: url('./img/delete_red.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+  .edit-btn {
+    background: url('./img/edit.svg') no-repeat #f8f8f8;
     background-size: 20px;
   }
 

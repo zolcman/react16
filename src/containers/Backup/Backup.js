@@ -376,8 +376,8 @@ class Backup extends Component {
                     {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
                      :
                       (  <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>)}
-					  
-					  <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a>
+					  <a className="bk-btn gt-left activefull-btn fixpad disabled">Active Full</a>
+				{/* 	  <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a> */}
                   </div>
                   <div className="search-panel gt-right fixer91">
                     <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>

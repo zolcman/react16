@@ -55,9 +55,9 @@ class Settings extends Component {
         {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
              :
               (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
-             {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
+             {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad">Delete</a>)
              :
-              (  <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>)}
+              (  <a className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)}
         </div>
         <div className="search-panel gt-right">
           <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
@@ -313,10 +313,10 @@ class Settings extends Component {
         <div className="wrapper-settings ">
           <div className="gt-clear he38">
         <div className="btns-group gt-right">
-        <a  className="bk-btn gt-left add-btn fixpad removewidth">Config Backup</a>
-        <a  className="bk-btn gt-left add-btn fixpad removewidth">Reboot</a>
-        <a  className="bk-btn gt-left add-btn fixpad removewidth">Shutdown</a>
-        <a  className="bk-btn gt-left add-btn fixpad removewidth mrrcl">Support bundle</a>
+        <a  className="bk-btn gt-left config_backup-btn fixpad removewidth">Config Backup</a>
+        <a  className="bk-btn gt-left reboot-btn fixpad removewidth">Reboot</a>
+        <a  className="bk-btn gt-left shutdown-btn fixpad removewidth">Shutdown</a>
+        <a  className="bk-btn gt-left bundle-btn fixpad removewidth mrrcl">Support bundle</a>
         </div>
         </div>
 

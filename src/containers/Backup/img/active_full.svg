@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>active full</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="active-full">
+            <path d="M15,0 C6.729,0 0,6.729 0,15 C0,23.271 6.729,30 15,30 C23.271,30 30,23.271 30,15 C30,6.729 23.271,0 15,0 Z M15,29 C7.2805,29 1,22.7195 1,15 C1,7.2805 7.2805,1 15,1 C22.7195,1 29,7.2805 29,15 C29,22.7195 22.7195,29 15,29 Z" id="Shape" fill="#7ED321" fill-rule="nonzero"></path>
+            <g id="Group-2" transform="translate(7.000000, 7.000000)" stroke="#7ED321">
+                <path d="M11.7322027,3.97918277 L4.51289873,-0.943069956 C4.41215663,-1.01132519 4.28220916,-1.01887265 4.1745759,-0.962102667 C4.06727079,-0.905332685 4,-0.793761623 4,-0.672017906 L4,9.17248755 C4,9.29423127 4.06727079,9.40580233 4.17490405,9.46257231 C4.22281397,9.48816802 4.27564615,9.50063773 4.32815018,9.50063773 C4.39279577,9.50063773 4.45744135,9.48127687 4.51289873,9.4435396 L11.7322027,4.52128687 C11.8217877,4.46025094 11.8756044,4.35885253 11.8756044,4.25023482 C11.8756044,4.14161711 11.8217877,4.04021871 11.7322027,3.97918277 Z" id="Shape" fill-rule="nonzero" transform="translate(7.937802, 4.250319) rotate(90.000000) translate(-7.937802, -4.250319) "></path>
+                <g id="Group" transform="translate(0.000000, 11.000000)">
+                    <rect id="Rectangle-13" x="0.5" y="0.5" width="15" height="4.03979492"></rect>
+                    <path d="M3.5,2.5 L12.5553851,2.5" id="Line" stroke-linecap="square"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

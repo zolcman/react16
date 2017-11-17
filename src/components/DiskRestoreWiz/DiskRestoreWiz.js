@@ -4,6 +4,8 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Select from 'react-select';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import SelectVirtualMachineWiz from '../SelectVirtualMachineWiz/SelectVirtualMachineWiz';
+import VirtualDiskProperties from '../VirtualDiskProperties/VirtualDiskProperties';
 
 import  Clock from '../Clock/Clock';
 
@@ -246,8 +248,8 @@ class DiskRestoreWiz extends Component {
         <div className="font600w virtualMachineLabel">Virtual Machine</div>
         <div className="gt-clear heigth45">
             <input className="gt-left virtualMachineInput"/>
-            <a className="gt-left btns-browser-change btns-modifyers">Browse...</a>
-            <a className="gt-left btns-browser-change">Change...</a>
+            <a onClick={()=> {this.setState({closeWizPRO:true})}} className="gt-left btns-browser-change btns-modifyers">Browse...</a>
+            <a onClick={()=> {this.setState({closeWizPRO2:true})}} className="gt-left btns-browser-change">Change...</a>
         </div>
         <div className="consteptwo heigth270">
                  <table>
@@ -428,16 +430,19 @@ class DiskRestoreWiz extends Component {
       
     }
 
-    openWiz3() {
-      this.setState({openWiz3:true})
+    
+    closeWizPRO() {
+      this.setState({closeWizPRO:false})
     }
 
-    closeWiz3() {
-      this.setState({openWiz3:false})
+    closeWizPRO2() {
+      this.setState({closeWizPRO2:false})
     }
 
 
+    updatefirsttable2() {
 
+    }
 
 
 
@@ -478,7 +483,8 @@ class DiskRestoreWiz extends Component {
 
               ):
               (null)}
-              
+              <SelectVirtualMachineWiz array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)}/>
+              <VirtualDiskProperties array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO2} close={this.closeWizPRO2.bind(this)}/>
               </div>
 
         )

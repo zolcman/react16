@@ -166,10 +166,22 @@
     margin-right: 20px;
   }
 
-  .start-btn {
-    background: url('./img/start.svg') no-repeat #f8f8f8;
+  .restore-btn {
+    background: url('./img/restore.svg') no-repeat #f8f8f8;
     background-size: 20px;
   }
+
+  .disk_restore-btn {
+    background: url('./img/disk_restore.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+
+  .red_delete-btn {
+    background: url('./img/delete_red.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+  }
+    
+  
 
 
   .res-btns:after {

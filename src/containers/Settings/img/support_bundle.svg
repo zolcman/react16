@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="30px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>support bundle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="support-bundle" stroke="#7ED321">
+            <g id="Group" transform="translate(16.000000, 15.000000) rotate(45.000000) translate(-16.000000, -15.000000) translate(1.000000, 0.000000)">
+                <rect id="Rectangle-12" x="0.5" y="0.5" width="29" height="29" rx="14.5"></rect>
+                <rect id="Rectangle-12-Copy" x="4.5" y="4.5" width="21" height="21" rx="10.5"></rect>
+                <path d="M15,27 L15,29" id="Line" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M15,2 L15,4" id="Line-Copy" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M26,15 L28,15" id="Line-Copy-2" stroke-width="2" stroke-linecap="square"></path>
+                <path d="M2,15 L4,15" id="Line-Copy-3" stroke-width="2" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="31px" height="30px" viewBox="0 0 31 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>shutdown</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="z" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="shutdown" stroke="#D0021B">
+            <path d="M7.87887882,6.23588329 C4.92122958,8.42348739 3,11.9360527 3,15.8890645 C3,22.5061414 8.38338462,27.8890645 15,27.8890645 C21.6166154,27.8890645 27,22.5061414 27,15.8890645 C27,11.7907088 24.934894,8.16578354 21.7907222,6" id="Shape" fill-rule="nonzero"></path>
+            <path d="M15,3.5 L15,12.5553851" id="Line-14" stroke-width="2"></path>
+        </g>
+    </g>
+</svg>
