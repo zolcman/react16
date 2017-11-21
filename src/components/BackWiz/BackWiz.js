@@ -27,6 +27,7 @@ class BackWiz extends Component {
           hours: 12,
           minutes: 20,
           enabled: true,
+          ProtectedID:null,
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           dailyBasisDaysPresetOptions: [
             {label:'On week days',value:'WeekDays'},
@@ -305,7 +306,7 @@ class BackWiz extends Component {
               <tr key={index}>
                 <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td>
                 <td>{item.type}</td>
-                <td>{item.size} GB</td>
+                <td>{(item.size.length > 0) ? (item.size + ' ' + 'GB') :('-')}</td>
               </tr>
 
           ))}
@@ -388,8 +389,8 @@ class BackWiz extends Component {
 	<div>
 
 		<div className="zagname">Backup Destination</div>
-		<div className="pagetwoundertxt">Selected VMs: {this.state.array.length}</div>
-		<div className="pagetwoundertxt">Approximate Backup size: {this.sumofGB()} GB</div>
+		<div className="pagetwoundertxt">Selected VMs: {(this.state.ProtectedID) ? ('N/A'):(this.state.array.length)} </div>
+		<div className="pagetwoundertxt">Approximate Backup size: {(this.state.ProtectedID) ? ('N/A'):(this.sumofGB() + '' + 'GB')}</div>
 
 		<div className="pagetwoundertxt bckprpstr">Backup repository:</div>
 		<Select
@@ -903,30 +904,7 @@ check5 () {
     createPolicyObject() {
       let policyObj = new Object();
 
-      // let schedulerSettingsObj = new Object();
-      // schedulerSettingsObj["@odata.type"] = "SchedulerBackupJobSettings";      
-      // schedulerSettingsObj.scheduleBasis = "Daily", // [Daily | Monthly | Periodic]
       
-      // schedulerSettingsObj.dailyBasis = new Object();
-      // schedulerSettingsObj.dailyBasis.startTime = this.state.selectedStartTime;
-      // schedulerSettingsObj.dailyBasis.daysPreset = "WeekDays"; // [WeekDays | Everyday | ThisDays]
-      // schedulerSettingsObj.dailyBasis.thisDays = ["Sunday", "Monday"];
-
-      // schedulerSettingsObj.monthlyBasis = new Object();
-      // schedulerSettingsObj.monthlyBasis.startTime = "12:00";
-      // schedulerSettingsObj.monthlyBasis.weekNumberOrSpecifiedDay = "DayOfMonth"; // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
-      // schedulerSettingsObj.monthlyBasis.dayOfWeek = "Monday",
-      // schedulerSettingsObj.monthlyBasis.dayOfMonth = 1;
-      // schedulerSettingsObj.monthlyBasis.months = ["January", "July"];
-      
-      // schedulerSettingsObj.periodicBasis = new Object();
-      // schedulerSettingsObj.periodicBasis.timeOffset = 0; // Hour number or minute number
-      // schedulerSettingsObj.periodicBasis.mode = "EveryHour"; // [EveryHour | EveryMinute | Continuously]
-      // schedulerSettingsObj.periodicBasis.specificTimeIntervals = [[]]; // TODO: Format TBD
-
-      //schedulerSettingsObj.toRunEvery = 1;
-      //schedulerSettingsObj.toRunEveryTimeInterval = "Days";
-      //schedulerSettingsObj.atTime = this.state.selectedStartTime;
 
       policyObj["@odata.type"] = "PolicyCreationSettings";
       policyObj.name = this.state.nameToServer;
@@ -936,6 +914,7 @@ check5 () {
           return el.Id
         }
       );
+      policyObj.PDs = [this.state.ProtectedID];
       policyObj.description = this.state.DescToServer;
       policyObj.repositoryUid = this.state.reposselected.value || this.state.reposselected;
 
@@ -1048,7 +1027,20 @@ check5 () {
         return ({'Id':name.Id,'size':name.sizeInGb,'name':name.name,'type':name['@odata.type'],'checked':false});
      });
       this.setState({array:clearArr})
+      this.setState({ProtectedID:null})
 
+    }
+
+    uptableprotected(array) {
+      if (array.length > 0) {
+        this.setState({blockNext:false})
+      }
+     // console.log(array)
+      this.setState({bigcheck:false})
+      let newArray = [{'Id':array[0].value,'size':'','name':array[0].label,'type':'Protected Domain','checked':false}]
+      console.log(newArray);
+      this.setState({ProtectedID:array[0].value})
+      this.setState({array:newArray})
     }
 
 
@@ -1120,7 +1112,7 @@ check5 () {
 
               ):
               (null)}
-              <SWizard array={this.uptable.bind(this)} open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
+              <SWizard arrayProtected={this.uptableprotected.bind(this)} array={this.uptable.bind(this)} open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
               </div>
 
         )

@@ -5,6 +5,8 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CheckboxTree from 'react-checkbox-tree';
 import { Tree } from '../../containers/Backup/BackupAction';
+import { TreeProtected } from '../../containers/Backup/BackupAction';
+
 
 class SWizard extends Component {
     constructor(props) {
@@ -41,6 +43,7 @@ class SWizard extends Component {
       if (nextProps.tree) {
      this.setState({tree:nextProps.tree})
 
+    
 
 }
      }
@@ -62,7 +65,26 @@ class SWizard extends Component {
     add () {
         this.setState({checked:[]})
       this.props.close();
-      this.props.array(this.state.checked)
+      if(this.state.checked41) {
+
+     var result33 = this.state.checked[0].toString();
+     let result2 = this.state.tree.map(item => ({
+         ...item,
+         children: item.children
+            .filter(child => child.value.includes(result33.toLowerCase()))
+       }))
+        .filter(item => item.children.length > 0)
+
+       console.log(result2[0].children);
+
+       
+        this.props.arrayProtected(result2[0].children)
+      }
+      if(!this.state.checked41) {
+        
+        this.props.array(this.state.checked)
+      }
+      
       
     }
 
@@ -102,7 +124,16 @@ class SWizard extends Component {
 
 onCheck(checked) {
 //  console.log(checked)
-        this.setState({ checked });
+       
+
+if(this.state.checked41) {
+    let difference = checked.filter(x => this.state.checked.indexOf(x) == -1);
+    this.setState({checked:difference});
+}
+if (!this.state.checked41) {
+    this.setState({ checked });
+}
+
     }
 
 
@@ -110,6 +141,18 @@ reset () {
   this.setState({checked:[]})
 }
 
+check41 () {
+    if( this.state.checked41) {
+      this.setState({checked41:false});
+      this.setState({checked:[]})
+      this.props.Tree('test1');
+    }
+    if( !this.state.checked41) {
+        this.setState({checked:[]})
+      this.setState({checked41:true})
+      this.props.TreeProtected('test1');
+    }
+  }
 
 
     render(){
@@ -135,6 +178,7 @@ reset () {
                 onCheck={this.onCheck.bind(this)}
                 onExpand={expanded => this.setState({ expanded })}
             />
+
                         </div>
                         <div className="btns-group">
 
@@ -142,6 +186,7 @@ reset () {
                           <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
                           <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Add</a>
                           <a onClick={this.reset.bind(this)} className="go-btn gt-right go-btn-global mr10r">Reset</a>
+                          <div className="gt-right dynamicMode"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Dynamic mode</label></div>
                         </div>
                       </div>
                   </div>
@@ -157,7 +202,8 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
       Tree: (id) => dispatch(Tree(id)),
-
+      TreeProtected: (id) => dispatch(TreeProtected(id)),
+      
     }
 }
 

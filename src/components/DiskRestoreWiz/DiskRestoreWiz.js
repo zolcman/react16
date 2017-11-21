@@ -27,7 +27,61 @@ class DiskRestoreWiz extends Component {
           enabled: true,
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           restored_disk_types:[{label:'Same as source',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
-        
+          
+          nodes:[
+            {
+            label:"Egor1",
+            value:"Egor1",
+            restorePoint:"25/10/2017 10:00:29 PM",
+            vmcount:"2",
+            restorePointsCount:"",
+            children:[
+              {label:"disk111111111111111",
+              value:"disk1",
+              restorePoint:"3 days ago",
+              vmcount:"",
+              restorePointsCount:"11",
+            },
+            {label:"disk22222222222222",
+            value:"disk2",
+            name:"jobname2",
+            restorePoint:"4 days ago",
+            vmcount:"",
+            restorePointsCount:"11"},
+            {label:"disk555",
+            value:"disk552",
+            name:"jobnam555e2",
+            restorePoint:"4 days ago",
+            vmcount:"",
+            restorePointsCount:"11"}
+          ]}
+          ,
+
+          {
+            label:"Egor12",
+            value:"Egor12",
+            restorePoint:"25/10/2017 10:00:29 PM",
+            vmcount:"22",
+            restorePointsCount:"",
+            children:[
+              {label:"disk111111111111111",
+              value:"egorka",
+              restorePoint:"2 days ago",
+              vmcount:"",
+              restorePointsCount:"12",
+            },
+            {label:"disk22222222222222",
+            value:"oleg",
+            name:"jobname2",
+            restorePoint:"restorepoint4",
+            vmcount:"",
+            restorePointsCount:"12",}
+          ]},
+
+         
+          ],
+
+
           checked5:false,
           checked41:false,
           selected: {},
@@ -39,15 +93,11 @@ class DiskRestoreWiz extends Component {
         }
     }
 
-    componentDidMount() {
-
-     
-   
-     
-    }
+    
 
     componentWillReceiveProps(nextProps) {
 
+     
 
      }
 
@@ -90,10 +140,26 @@ class DiskRestoreWiz extends Component {
 
     }
 
+componentDidUpdate() {
 
+ 
+  $('.childtable').on('click', function(){
+    $('.childtable').removeClass('selected-green-for-table');
+    $(this).addClass('selected-green-for-table')
+
+  
+    });
+
+}
+
+componentDidMount() {
+
+       
+      }
 
 
 	window1(){
+    let loopArray =this.state.filteredItems || this.state.nodes ||  [];
 	return(
 	<div>
 		<div className="zagname">Virtual Machine</div>
@@ -105,7 +171,7 @@ class DiskRestoreWiz extends Component {
 			</div>
 		</div>
         <div className="consteptwo">
-        <table>
+        <table className="standart-table">
         <thead>
           <tr>
             <th>Job name</th>
@@ -114,21 +180,108 @@ class DiskRestoreWiz extends Component {
             <th>Restore Points Count</th>
           </tr>
         </thead>
+        
       </table>
+      <div className="looper">
+          
+          {loopArray.map((item,index) => (
+            <div className="loop-lvl1 gt-clear">
+                   <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
+                    <div className="col-4 back_upicon">{item.label}</div>
+                    <div className="col-4">{item.restorePoint}</div>
+                    <div className="col-4">{item.vmcount}</div>
+                    <div className="col-4">{item.restorePointsCount}</div>
+                   
+                   </div>
+                  {
+                     (item.expand) ?
+                      (<div className="loop-lvl2 ">
+                   {item.children.map((child,index) => (
+
+                      <div onClick={this.saveId.bind(this,child.label)} className="gt-clear childtable text-alignCenter">
+                        <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
+                        <div className="gt-left col-4">{child.restorePoint}</div>
+                        <div className="gt-left col-4">{child.vmcount}</div>
+                        <div className="gt-left col-4">{child.restorePointsCount}</div>
+                      </div>
+
+                      ))}
+                   </div>)
+                   :
+                   (null)
+                   }
+                   
+            </div>
+            ))}
+          
+      </div>
+
         </div>
 	</div>
 	)
-	}
+  }
+
+  saveId(val) {
+    console.log(val);
+  }
+
+  hideOrShow(value,checked) {
+
+    
+  
+    
+
+    if (this.state.filteredItems) {
+
+      let  positiveArr112 = this.state.filteredItems.map(function(item) {
+        return ( (item.value == value) ? ( (checked == true) ?
+         ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
+         :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+   
+        )
+         : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+       );
+     });
+      this.setState({filteredItems:positiveArr112})
+    }
+    if (!this.state.filteredItems) {
+
+      let  positiveArr112 = this.state.nodes.map(function(item) {
+        return ( (item.value == value) ? ( (checked == true) ?
+         ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
+         :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+   
+        )
+         : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+       );
+     });
+      
+
+      this.setState({nodes:positiveArr112})
+    }
+  
+  
+    
+    }
 
   filter(e) {
     var value = e.target.value;
+  //  if (!value) {
+  //    let  positiveArr112 = this.state.nodes.map(function(item) {
+    //    return ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':false});
+    //  });
+    //  this.setState({nodes:positiveArr112});
+  //  }
     this.setState({filterval: value})
     this.setState({
       filteredItems: !value
         ? false
-        : this.state.array.filter(function (item) {
-          return item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-        })
+        : this.state.nodes.map(item => ({
+          ...item,
+          children: item.children
+            .filter(child => child.value.includes(value.toLowerCase()))
+        }))
+        .filter(item => item.children.length > 0)
     })
   }
 
@@ -448,6 +601,7 @@ class DiskRestoreWiz extends Component {
 
     render(){
 
+      console.log(this.state.filteredItems)
 
         return (
           <div className="diskRestoreWizard">

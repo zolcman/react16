@@ -809,6 +809,91 @@ border-bottom: 1px solid #ccc;
 	font-weight: 600;
 }
 
+
+.standart-table tr th {
+	width: 25%;
+	font-size: 13px;
+}
+.col-4 {
+	width:25%;
+}
+.text-alignCenter {
+	text-align: center;
+}
+
+.cliptext {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-left: 63px;
+	text-align: left;
+}
+.childtable > div {
+	height: 24px;
+	box-sizing: border-box;
+	padding-top: 3px;
+}
+.childtable {
+	height: 24px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+.looper {
+	font-size: 12px;
+}
+.hider div {
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	white-space: nowrap;
+}
+
+.red2 {
+	background:red;
+}
+
+.white2 {
+	background:white;
+}
+
+.looper {
+	background-image: repeating-linear-gradient(
+	transparent,
+	transparent 24px,
+#f3f3f3 24px,
+#f3f3f3 48px);
+
+padding-top:24px;
+
+}
+.hider {
+	height: 24px;
+	box-sizing: border-box;
+	padding-top: 3px;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+
+ .selected-green-for-table {
+	background-color: #E1ECCB !important;
+}
+.minus {
+	background: url('./img/minus.png') no-repeat;
+	background-position: 8px 10px;
+}
+.plus {
+	background: url('./img/plus.png') no-repeat;
+	background-position: 8px 8px;
+}
+.back_upicon {
+	background: url('./img/backup_job.svg') no-repeat;
+	background-position: 25px 0px;
+}
+.vm-icon {
+	background: url('./img/VM.svg') no-repeat;
+	background-position:42px 4px;
+}
+
 }
 
 }

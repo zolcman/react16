@@ -119,6 +119,29 @@ function receiveData24(json) {
 	}
 };
 
+export function TreeProtected (id) {
+	
+		return dispatch => {
+	var accessToken = sessionStorage.getItem('accessToken');
+			return (
+	
+				//dispatch(showLoading()),
+				axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=protdomainstreeview`,headers).then(function (response) {
+				 if(response.data.code>200){
+						// dispatch(toastrActions.add('error', '',response.data.message))
+						 return
+				 }
+					 console.log(response.data);
+					dispatch(receiveData24(response.data));
+					//	dispatch(hideLoading())
+				  })
+				.catch((error) => {
+					  console.log(error);
+				})
+				)
+		}
+	}
+
 export function Tree (id) {
 
 	return dispatch => {
