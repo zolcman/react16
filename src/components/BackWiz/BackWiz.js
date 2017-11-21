@@ -1037,7 +1037,7 @@ check5 () {
       }
      // console.log(array)
       this.setState({bigcheck:false})
-      let newArray = [{'Id':array[0].value,'size':'','name':array[0].label,'type':'Protected Domain','checked':false}]
+      let newArray = [{'Id':array[0].value,'size':'','name':array[0].label,'type':'Protection Domain','checked':false}]
       console.log(newArray);
       this.setState({ProtectedID:array[0].value})
       this.setState({array:newArray})
