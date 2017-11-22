@@ -48,6 +48,12 @@ changeTab(tab) {
   this.props.changeTab(tab);
 }
 
+unLogin() {
+  console.log('click')
+ localStorage.removeItem('login');
+  window.location.replace('./');
+}
+
     render(){
 
         return (
@@ -85,7 +91,7 @@ changeTab(tab) {
 
 								</ul>
 							</div>
-							<div className="ic4"></div>
+							<div onClick={this.unLogin.bind(this)} className="ic4"></div>
 						</div>
 
                 </div>

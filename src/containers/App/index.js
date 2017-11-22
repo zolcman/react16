@@ -1,19 +1,31 @@
 /* @flow */
 
-import React from 'react';
+import React, { Component,  PropTypes} from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import _ from 'lodash';
 import NavBar from '../../components/NavBar/NavBar'
+import Login from '../../containers/Login/Login'
 import config from '../../config';
 import routes from '../../routes';
 // Import your global styles here
 import '../../theme/normalize.css';
 import styles from './styles.scss';
 
-export default () => {
-  // Use it when sub routes are added to any route it'll work
-  const routeWithSubRoutes = route => (
+
+
+class App extends Component {
+  constructor(props) {
+      super(props)
+     
+      this.routeWithSubRoutes = this.routeWithSubRoutes.bind(this);
+      this.state = {
+        isLogin:false
+    }
+}
+
+ routeWithSubRoutes(route) {
+  return (
     <Route
       key={_.uniqueId()}
       exact={route.exact || false}
@@ -24,14 +36,61 @@ export default () => {
       )}
     />
   );
+ } 
 
-  return (
-    <div className={styles.App}>
+ login() {
+   
+  // this.loginvar = localStorage.getItem('login');
+  // console.log("loginprops")
+
+
+   this.setState({isLogin:localStorage.getItem('login')});
+
+ }
+
+ componentDidMount() {
+
+  
+  //  this.loginvar = localStorage.getItem('login');
+   // console.log(this.loginvar);
+    this.setState({isLogin:localStorage.getItem('login')});
+   
+ }
+ 
+
+
+ render () {
+  
+
+
+  if(this.state.isLogin) {
+    console.log("UNLOGIN");
+    return (
+      <div className={styles.App}>
       <Helmet {...config.app} />
       <NavBar />
       <Switch>
-        {routes.map(route => routeWithSubRoutes(route))}
+      {routes.map(route => this.routeWithSubRoutes(route))}
       </Switch>
-    </div>
-  );
-};
+      </div>
+    )
+  }
+
+  if (!this.state.isLogin) {
+
+    console.log(this.loginvar);
+    return (
+      <Login login={this.login.bind(this)}/>
+    )
+  }
+
+  
+ }
+
+
+
+}
+
+export default App;
+
+
