@@ -71,11 +71,11 @@ class SWizard extends Component {
      let result2 = this.state.tree.map(item => ({
          ...item,
          children: item.children
-            .filter(child => child.value.includes(result33.toLowerCase()))
+            .filter(child => child.value.includes(result33))
        }))
         .filter(item => item.children.length > 0)
 
-       console.log(result2[0].children);
+       //console.log(result2[0].children);
 
        
         this.props.arrayProtected(result2[0].children)
