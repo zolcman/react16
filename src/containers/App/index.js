@@ -44,7 +44,7 @@ class App extends Component {
   // console.log("loginprops")
 
 
-   this.setState({isLogin:localStorage.getItem('login')});
+   this.setState({isLogin:localStorage.getItem('AuthToken')});
 
  }
 
@@ -53,7 +53,7 @@ class App extends Component {
   
   //  this.loginvar = localStorage.getItem('login');
    // console.log(this.loginvar);
-    this.setState({isLogin:localStorage.getItem('login')});
+    this.setState({isLogin:localStorage.getItem('AuthToken')});
    
  }
  
@@ -64,7 +64,7 @@ class App extends Component {
 
 
   if(this.state.isLogin) {
-    console.log("UNLOGIN");
+   
     return (
       <div className={styles.App}>
       <Helmet {...config.app} />
@@ -78,7 +78,7 @@ class App extends Component {
 
   if (!this.state.isLogin) {
 
-    console.log(this.loginvar);
+    
     return (
       <Login login={this.login.bind(this)}/>
     )

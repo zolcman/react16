@@ -159,6 +159,8 @@ class BackWiz extends Component {
         console.log('222')
         this.props.clearJobEditInfo();
         this.setState({editmode:true})
+        this.setState({blockNext:false})
+        this.setState({backUpNameForEdit:nextProps.edit_info.name})
         this.setState({nameToServer:nextProps.edit_info.name,description:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
         this.setState({schedulerSettings:nextProps.edit_info.schedulerSettings,checked41:nextProps.edit_info.schedulerSettings.schedulerEnabled})
         if (nextProps.edit_info.schedulerSettings.dailyBasis.daysPreset == 'ThisDays') {
@@ -187,10 +189,13 @@ class BackWiz extends Component {
 
     pagechange() {
       if (this.state.page == 1) {
+
+        
         
         let filter = this.Checkname();
+        console.log(filter);
 
-        if (filter.length > 0) {
+        if (filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
           alert('name exist! please enter another name')
           this.setState({page:1,blockNext:true})
         }
@@ -726,7 +731,7 @@ class BackWiz extends Component {
 
   </Tabs>
 </div>
-	<div>Restore Points to keep on disc:<input className="respoints" type="number" value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
+	<div>Restore Points to keep on disk:<input className="respoints" type="number" value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
 
 <div className="autoretry">
 			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>

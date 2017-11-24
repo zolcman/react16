@@ -24,12 +24,13 @@ class Login extends Component {
     componentWillReceiveProps(nextProps) {
 
         if (nextProps.loginId) {
-            localStorage.setItem('login', 'red');
+            localStorage.setItem('AuthToken', nextProps.loginId);
             this.props.login();
         }
       
 
      }
+
 
    login() {
         this.props.LoginInServer();

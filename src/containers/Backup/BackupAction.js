@@ -21,9 +21,21 @@ export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
 const getURI = (key) => apiUrl + Urls[key]
 
 
+const getHeader = () => {
+
+	const headers = {
+		headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0','AuthToken':localStorage.getItem('AuthToken')}
+	}
+	console.log(headers);
+}
+
 const headers = {
 	headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0'}
 }
+
+
+
+
 
 function receiveData22(json) {
 	return{
@@ -39,7 +51,10 @@ function receiveData22(json) {
 export function GetBackList (params) {
 
 	return dispatch => {
-var accessToken = sessionStorage.getItem('accessToken');
+	
+		const AuthToken = localStorage.getItem('AuthToken');
+	//	console.log(headers);
+
 		return (
 			//dispatch(showLoading()),
 			axios.get(getURI("jobs"),headers).then(function (response) {

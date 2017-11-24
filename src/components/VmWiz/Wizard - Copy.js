@@ -19,12 +19,12 @@ class Wizard extends Component {
 
         this.state = {
           checkOriginalLocaiton:true,
-          page:'2', 
-          finish:true,
+          page:'2', // change when done
+          finish:false,
       jjj:true,
-      disableAddbtn:true, 
+      disableAddbtn:false, // change when done
       disableRecoveryBtn:true,
-      BlockBubble:true, 
+      BlockBubble:false, // change when done
           emu:[],
           ObjFromFirstSreen: {},
 
@@ -53,35 +53,14 @@ class Wizard extends Component {
         this.setState({page:3})
       }
       if (this.state.page == 3) {
-        if (!this.state.checkNewLocaiton) {
-          this.setState({openAlert:true})
-          console.log('ssss')
-        }
-        else {
-          this.setState({page:4})
-        }
-        
+        this.setState({openAlert:true})
       //  this.setState({page:4})
-      }
-
-      if (this.state.page == 4) {
-        this.setState({page:5})
-      }
-      if (this.state.page == 5) {
-       // this.setState({page:6})
-       this.setState({openAlert:true})
       }
 
 
     }
 
     pagechangeB() {
-      if (this.state.page == 6) {
-        this.setState({page:5})
-      }
-      if (this.state.page == 5) {
-        this.setState({page:4})
-      }
 
       if (this.state.page == 4) {
         this.setState({page:3})
@@ -103,32 +82,11 @@ class Wizard extends Component {
         return (<div>{this.windowsvm2()}</div>)
       }
       if (this.state.page == 3) {
-        if (!this.state.checkNewLocaiton) {
-          return (<div>{this.windowsvm3()}</div>)
-        }
-        else {
-          return (<div>{this.windowsvm31()}</div>)
-        }
-       
+        return (<div>{this.windowsvm3()}</div>)
       }
       if (this.state.page == 4) {
 
-        if  (!this.state.checkNewLocaiton) {
-          return (<div>{this.windows5()}</div>)
-         }
-         else {
-          return (<div>{this.windowsvm41()}</div>)
-         }
-
-      
-      }
-
-      if (this.state.page == 5) {
-        return (<div>{this.windowsvm3()}</div>)
-      }
-
-      if (this.state.page == 6) {
-        return (<div>{this.windows5()}</div>)
+       return (<div>{this.windows5()}</div>)
       }
 
     }
@@ -261,13 +219,9 @@ class Wizard extends Component {
         this.setState({page:1})
       }
       else {
-        if (param == 4 && !this.state.checkNewLocaiton) {
+        if (param == 4) {
           this.setState({openAlert:true})
           }
-          if (param == 6 && this.state.checkNewLocaiton) {
-            this.setState({openAlert:true})
-            }
-      
           else {
             this.setState({page:param})
           }
@@ -422,13 +376,7 @@ pointClick () {
     
 
     gopage4() {
-      if (!this.state.checkNewLocaiton) {
-        this.setState({page:4})
-      }
-      if (this.state.checkNewLocaiton) {
-        this.setState({page:6})
-      }
-      
+      this.setState({page:4})
     }
 
     renderBubbles() {
@@ -440,44 +388,13 @@ pointClick () {
           <a onClick={this.switch.bind(this,2)} className={this.state.page == 2 || this.state.page == 3 || this.state.page == 4   ? ('bubble bubblegreen') :('bubble')}>2</a>
           <div className={ this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('line-x bubblegreen') :('line-x')}></div>
 
-          
-
           <a onClick={this.switch.bind(this,3)} className={this.state.page == 3 || this.state.page == 4  ? ('bubble bubblegreen') :('bubble')}>3</a>
           <div className={ this.state.page == 4 || this.state.page == 5 ? ('line-x bubblegreen') :('line-x')}></div>
 
           <a onClick={this.switch.bind(this,4)} className={this.state.page == 4   ? ('bubble bubblegreen') :('bubble')}>4</a>
 
-        </div>
-      )
-    }
 
-    renderBubbles2() {
-      return (
-        <div className="width40px gt-left">
-          
-          <a onClick={this.switch.bind(this,1)} className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6 ? ('bubble bubblegreen') :('bubble')}>1</a>
-         
-          <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('line-x bubblegreen') :('line-x')}></div>
 
-          <a onClick={this.switch.bind(this,2)} className={this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('bubble bubblegreen') :('bubble')}>2</a>
-         
-          <div className={ this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('line-x bubblegreen') :('line-x')}></div>
-
-          
-
-          <a onClick={this.switch.bind(this,3)} className={this.state.page == 3 || this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('bubble bubblegreen') :('bubble')}>3</a>
-
-          <div className={ this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('line-x bubblegreen') :('line-x')}></div>
-
-          <a onClick={this.switch.bind(this,4)} className={this.state.page == 4 || this.state.page == 5 || this.state.page == 6  ? ('bubble bubblegreen') :('bubble')}>4</a>
-
-          <div className={  this.state.page == 5 || this.state.page == 6 ? ('line-x bubblegreen') :('line-x')}></div>
-
-          <a onClick={this.switch.bind(this,5)} className={this.state.page == 5 || this.state.page == 6 ? ('bubble bubblegreen') :('bubble')}>5</a>
-
-          <div className={  this.state.page == 6 ? ('line-x bubblegreen') :('line-x')}></div>
-
-          <a onClick={this.switch.bind(this,6)} className={this.state.page == 6  ? ('bubble bubblegreen') :('bubble')}>6</a>
         </div>
       )
     }
@@ -488,25 +405,8 @@ pointClick () {
 
           <div className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? (' ') :('greyfixer34')}>Virtual <br/> Machines</div>
           <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar69px') :('mar69px greyfixer34')}> Restore <br/> Mode</div>
-          <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('martop78') :('martop78 greyfixer34')} >Reason</div>
-          <div className={ this.state.page == 4  ? ('martop78') :('martop78 greyfixer34')} >Summary</div>
-
-        </div>
-
-
-      )
-    }
-
-    renderbublenames2() {
-      return (
-        <div className="titles-settings gt-left">
-
-          <div className={this.state.page == 1 || this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ||  this.state.page == 6 ? (' ') :('greyfixer34')}>Virtual <br/> Machines</div>
-          <div className={ this.state.page == 2 || this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ||  this.state.page == 6 ? ('mar69px') :('mar69px greyfixer34')}> Restore <br/> Mode</div>
-          <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ||  this.state.page == 6 ? ('martop78') :('martop78 greyfixer34')} >VM name</div>
-          <div className={ this.state.page == 4 || this.state.page == 5 || this.state.page == 6 ? ('martop76') :('martop76 greyfixer34')} >Select <br/> Container</div>
-          <div className={  this.state.page == 5 || this.state.page == 6 ? ('martop78') :('martop78 greyfixer34')} >Reason</div>
-          <div className={ this.state.page == 6  ? ('martop78') :('martop78 greyfixer34')} >Summary</div>
+          <div className={  this.state.page == 3 || this.state.page == 4 || this.state.page == 5 ? ('mar79px') :('mar69px greyfixer34')} >Reason</div>
+          <div className={ this.state.page == 4  ? ('mar85px') :('mar85px greyfixer34')} >Summary</div>
 
         </div>
 
@@ -568,18 +468,8 @@ pointClick () {
                       {this.state.finish ? (<div>{this.renderFinish()}</div>) :(
                         <div>
                         <div className="pagination-buble gt-left">
-                          {this.state.checkNewLocaiton ? (
-                            <div>
-                            {this.renderBubbles2()}
-                           {this.renderbublenames2()}
-                       </div>
-                          ):(
-                            <div>
-                                 {this.renderBubbles()}
-                                {this.renderbublenames()}
-                            </div>
-                          )}
-                         
+                        {this.renderBubbles()}
+                        {this.renderbublenames()}
 
                         </div>
                         <div className="view-change gt-left">
@@ -593,7 +483,7 @@ pointClick () {
                     </div>
                     <div className="btns-go-back gt-clear">
                     <div>
-                    {this.state.page == 4 && !this.state.checkNewLocaiton || this.state.page == 6 ?
+                    {this.state.page == 4 ?
                       (
                         <div>
                           <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global">Cancel</a>

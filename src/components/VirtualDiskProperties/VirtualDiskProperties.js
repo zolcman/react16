@@ -5,6 +5,7 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CheckboxTree from 'react-checkbox-tree';
 import { GetVmListDetail } from '../../containers/Protected/ProtectedAction';
+import SelectContainerWiz from '../SelectContainerWiz/SelectContainerWiz';
 var bytes = require('bytes');
 import Select from 'react-select';
 
@@ -16,55 +17,26 @@ class VirtualDiskProperties extends Component {
 
         this.state = {
 
-          page:'1',
-          finish:false,
-          tree:[{
-              value: 'mars',
-              label: 'Mars',
-                  children: [
-                    { value: 'phobos', label: 'Phobos' },
-                    { value: 'deimos', label: 'Deimos' },
-                        ],
-                }],
-                checked: [],
-            expanded: [],
-            nodes:[{label:'Same as source',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
+         
+          closeWizPRO:false,
+         
 
-			
-			//currentSelectedVmId: undefined
         }
     }
 
     componentDidMount() {
-
-     //this.props.GetVmListDetail(this.props.selectedVmId);
 
 
     }
 
     componentWillReceiveProps(nextProps) {
 
-		//if(this.props.selectedVmId)
-		//{
-		//	this.props.GetVmListDetail(this.props.selectedVmId);
-		//}
-	
-      if (nextProps.points) {
-     this.setState({array:nextProps.points})
-
-
-    }
+		
      }
 
 
-
-
-
-
-
-
     close() {
-      this.setState({page:1}) // binded when all ok change to 1
+     
       this.props.close();
 
 
@@ -75,37 +47,24 @@ class VirtualDiskProperties extends Component {
 
     add () {
       this.props.close();
-      this.props.array(this.state.choosen)
     }
 
 
     componentDidUpdate () {
 
-	//if(this.state.currentSelectedVmId !== this.props.selectedVmId)
-	//{
-	//	this.props.GetVmListDetail(this.props.selectedVmId);
-	//	this.setState({currentSelectedVmId:this.props.selectedVmId})
-	//}
 	
-	
-      $('.tbls12 tr').click(function (event) {
-        $('.tbls12 tr').removeClass("selected-green");
-        $(this).addClass( "selected-green" );
-      });
+    }
 
+    closeWizPRO() {
+      this.setState({closeWizPRO:false})
+    }
+
+    openWiz() {
+      this.setState({closeWizPRO:true})
     }
 
 
-    choosen(date,id,size) {
-      this.setState({choosen:{date:date,id:id,size:size}})
-    }
-
-    onCheck(checked) {
-      
-      let difference = checked.filter(x => this.state.checked.indexOf(x) == -1);
-      this.setState({checked:difference});
-               
-           }
+ 
 
    chNode(val) {
 
@@ -128,60 +87,108 @@ class VirtualDiskProperties extends Component {
                         
                         <div className="popup3-con-VirtualDiskProperties">
                           <div className="q-1">
-                            Datastore:
+                          Container:
                           </div>
-                          <div className="gt-clear heigth50px">
+                          <div className="gt-clear heigth43px">
                           <input className="gt-left virtualMachineInput w-1"/>
-                           <a  className="gt-right btns-browser-change ">Choose...</a>
+                           <a onClick={this.openWiz.bind(this)}  className="gt-right btns-browser-change ">Choose...</a>
                           </div>
                           <div className="grey-panel">
-                            <span className="w-2">Datastore info:</span>
+                            <span className="w-2">Container info:</span>
                             <span className="w-3">Capacity:</span>
                             <span className="w-4">10.9 GB</span>
                             <span className="w-3">Free space:</span>
                             <span className="w-6">8.1 TB</span>
                           </div>
-                          <div className="q-2">
-                            Virtual device node
-                          </div>
-                          <Select
-                      className="repo1"
+                          <div className="gt-clearnew width100">
+                            <div className="gt-left md-1">
+                                 <div className="q-2">
+                                   Disk Address
+                                 </div>
+                                 
+                            </div>
+                            <div className="gt-left md-2">
+                            <Select
+                                         className="repo1"
 
-                      name="form-field-name"
-                      value={this.state.node}
-                      options={this.state.nodes}
-                      searchable={false}
-                      onChange={this.chNode.bind(this)}
-                      />
-                      <div className="grey-panel margintop23px">
+                                           name="form-field-name"
+                                           value={this.state.node}
+                                           options={this.state.nodes}
+                                           searchable={false}
+                                          onChange={this.chNode.bind(this)}
+                                    />
+                            </div>
+                          </div>
+                          
+                         
+                      <div className="grey-panel margintop6px">
                         <table className="tblMod-0">
                           <tbody>
                             <tr>
-                              <td className="tblMod-1">Device statistics</td>
+                              <td className="tblMod-1">Existing Device Properties:</td>
                               <td></td>
                             </tr>
                             <tr>
-                              <td>Virtual device node:</td>
+                              <td>Address:</td>
                               <td>SCSI 0:0 (hard disk 1)</td>
                             </tr>
                             <tr>
-                              <td>Disk file:</td>
+                              <td>UID:</td>
                               <td>[SATA HDD (RAID 0) ESXi-01] StarWind</td>
                             </tr>
                             <tr>
                               <td>Capacity:</td>
                               <td>10.0 GB</td>
                             </tr>
+                            <tr>
+                              <td>Container:</td>
+                              <td>TestContainer</td>
+                            </tr>
                           </tbody>
                         </table>
                         
                       </div>
-                      <div className="q-2">
+                      <div className="gt-clearnew marbtm8px">
+                        <div className="gt-left">
+                        <div className="q-6">
                           Virtual disk restore result:
                         </div>
+                        </div>
+                        <div className="gt-left">
                         <div className="q-4">
                           Existing virtual disk will be replaced
                         </div>
+                        </div>
+                      </div>
+                      <div className="grey-panel margintop23px">
+                        <table className="tblMod-0">
+                          <tbody>
+                            <tr>
+                              <td className="tblMod-1">New Device Properties:</td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td>Address:</td>
+                              <td>SCSI 0:0 (hard disk 1)</td>
+                            </tr>
+                            <tr>
+                              <td>UID:</td>
+                              <td>[SATA HDD (RAID 0) ESXi-01] StarWind</td>
+                            </tr>
+                            <tr>
+                              <td>Capacity:</td>
+                              <td>10.0 GB</td>
+                            </tr>
+                            <tr>
+                              <td>Container:</td>
+                              <td>TestContainer</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        
+                      </div>
+                      
+                        
 
                         </div>
                         <div className="btns-group">
@@ -193,6 +200,7 @@ class VirtualDiskProperties extends Component {
                         </div>
                       </div>
                   </div>
+                  <SelectContainerWiz open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)}/>
               </div>) : (null) }
 
               </div>

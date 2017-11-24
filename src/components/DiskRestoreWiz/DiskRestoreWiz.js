@@ -259,9 +259,6 @@ componentDidMount() {
 
       this.setState({nodes:positiveArr112})
     }
-  
-  
-    
     }
 
   filter(e) {
@@ -399,12 +396,12 @@ componentDidMount() {
         <div className="zagname">Disk Mapping</div>
 		<div className="pagetwoundertxt">Map virtual disks from backup to virtual device nodes on target VM</div>
         <div className="font600w virtualMachineLabel">Virtual Machine</div>
-        <div className="gt-clear heigth45">
-            <input className="gt-left virtualMachineInput"/>
-            <a onClick={()=> {this.setState({closeWizPRO:true})}} className="gt-left btns-browser-change btns-modifyers">Browse...</a>
-            <a onClick={()=> {this.setState({closeWizPRO2:true})}} className="gt-left btns-browser-change">Change...</a>
-        </div>
-        <div className="consteptwo heigth270">
+        
+
+            <div className="gt-clear gt-clearnew">
+              <div className="gt-left width475px">
+              <input className=" virtualMachineInput marbtm12px"/>
+              <div className="consteptwo heigth270">
                  <table>
                     <thead>
                         <tr>
@@ -426,9 +423,19 @@ componentDidMount() {
         </tbody>
                  </table>
             </div>
+              </div>
+              <div className="gt-left marleft15px">
+              <a onClick={()=> {this.setState({closeWizPRO:true})}} className=" btns-browser-change marbtm12px">Browse..</a>
+            <a onClick={()=> {this.setState({closeWizPRO2:true})}} className=" btns-browser-change marbtm12px">Remap disk..</a>
+            <a className=" btns-browser-change">Exclude</a>
+
+              </div>
+            </div>
+
+
         <div className="font600w restored_disk_type_label">Restored Disk type:</div>
         <Select
-                      className="repo1"
+                      className="repo1sd1"
 
                       name="form-field-name"
                       value={this.state.restored_disk_type}

@@ -50,7 +50,7 @@ changeTab(tab) {
 
 unLogin() {
   console.log('click')
- localStorage.removeItem('login');
+ localStorage.removeItem('AuthToken');
   window.location.replace('./');
 }
 
