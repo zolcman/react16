@@ -10,6 +10,10 @@ class Login extends Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            login:"",
+            password:"",
+        }
         
 }
     componentDidMount() {
@@ -33,20 +37,49 @@ class Login extends Component {
 
 
    login() {
-        this.props.LoginInServer();
+
+    if (!this.state.login || !this.state.password) {
+        this.setState({showAlert:true})
+    }
+
+    if (this.state.login && this.state.password) {
+        this.setState({showAlert:false});
+          this.props.LoginInServer();
+    }
+    
+      
   //  localStorage.setItem('login', 'red');
    }
 
     render(){
 
-      
+      console.log(this.state.login)
 
       
 
         return (
           <div className="login-page">
+              
+              <div className="login-container">
 
-          <a onClick={this.login.bind(this)}>Login</a>
+                    <div className="logo-login-page"></div>
+                    <div className="login-input">
+                    <input onChange={(e)=>{this.setState({login:e.target.value})}} value={this.state.login} className="allinput" placeholder="Login" type="text"/>
+                    </div>
+                    <div className="password-input">
+                    <input onChange={(e)=>{this.setState({password:e.target.value})}} className="allinput martop10px password-input" placeholder="Password" type="password"/>
+                    </div>
+                    
+                    
+                     <a className="login-btn" onClick={this.login.bind(this)} >></a>
+                   {(this.state.showAlert) ? (<div className="login-alert">Please enter a username and password</div> )
+                   :
+                   (null)
+                   }  
+              </div>
+             
+              
+          
 
           </div>
         )

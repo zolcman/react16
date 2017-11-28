@@ -11,6 +11,8 @@ import { TreeFlat } from '../../containers/Backup/BackupAction';
 import { GetRepos } from '../../containers/Backup/BackupAction';
 import { clearJobEditInfo } from '../../containers/Backup/BackupAction';
 import { clearReposInRedux } from '../../containers/Backup/BackupAction';
+import { TreeProtected } from '../../containers/Backup/BackupAction';
+import { UpdateJob } from '../../containers/Backup/BackupAction';
 
 
 class BackWiz extends Component {
@@ -119,7 +121,8 @@ class BackWiz extends Component {
      
   
       this.props.TreeFlat('test1')
-      this.props.GetRepos('veeamserver1')
+      this.props.GetRepos('veeamserver1');
+      this.props.TreeProtected('test1',true);
 
       var dayarray = [];
       var minarray = [];
@@ -162,6 +165,7 @@ class BackWiz extends Component {
         this.setState({blockNext:false})
         this.setState({backUpNameForEdit:nextProps.edit_info.name})
         this.setState({nameToServer:nextProps.edit_info.name,description:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
+        this.setState({policyIdToUpdate:nextProps.edit_info.Id})
         this.setState({schedulerSettings:nextProps.edit_info.schedulerSettings,checked41:nextProps.edit_info.schedulerSettings.schedulerEnabled})
         if (nextProps.edit_info.schedulerSettings.dailyBasis.daysPreset == 'ThisDays') {
           this.setState({disableMultiDaysDaily:false})
@@ -172,10 +176,32 @@ class BackWiz extends Component {
         if (nextProps.edit_info.schedulerSettings.periodicBasis.mode == 'EveryMinute') {
           this.setState({displayHourSelector:false})
         }
-        this.uptable(nextProps.edit_info.vmsUids);
+        if (nextProps.edit_info.pDs[0]) {
+            console.log('uppper')
+
+            let returnedInfo = this.findDomain(nextProps.edit_info.pDs[0]);
+            console.log(returnedInfo)
+            this.uptableprotected(returnedInfo[0].children);
+
+        }
+        if (!nextProps.edit_info.pDs[0]) {
+          this.uptable(nextProps.edit_info.vmsUids);
+        }
+        
 
       }
 
+     }
+
+     findDomain (elem) {
+      
+      let result2 = this.props.tree.map(item => ({
+          ...item,
+          children: item.children
+             .filter(child => child.value.includes(elem))
+        }))
+         .filter(item => item.children.length > 0)
+      return result2;
      }
 
 
@@ -282,6 +308,7 @@ class BackWiz extends Component {
 
 	window2(){
     var filer = this.state.filteredItems || this.state.array
+    console.log(filer);
 	return(
 	<div>
 
@@ -311,7 +338,7 @@ class BackWiz extends Component {
               <tr key={index}>
                 <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td>
                 <td>{item.type}</td>
-                <td>{(item.size.length > 0) ? (item.size + ' ' + 'GB') :('-')}</td>
+                <td>{(item.size) ? (item.size + ' ' + 'GB') :('-')}</td>
               </tr>
 
           ))}
@@ -841,11 +868,11 @@ check5 () {
         console.log('333')
         let filter = this.Checkname();
 
-        if(filter.length > 0) {
+        if(filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
           this.setState({page:1})
           alert('name exist! please enter another name')
         }
-        if(filter.length == 0) {
+        if(filter.length == 0 ||  filter[0].name == this.state.backUpNameForEdit) {
           this.setState({page:2})
         }
         this.setState({blockNext:true})
@@ -854,12 +881,12 @@ check5 () {
 
         let filter = this.Checkname();
 
-        if(filter.length > 0) {
+        if(filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
           this.setState({page:1})
           alert('name exist! please enter another name')
           this.setState({blockNext:false})
         }
-        if(filter.length == 0) {
+        if(filter.length == 0 || filter[0].name == this.state.backUpNameForEdit) {
           this.setState({page:param})
           this.setState({blockNext:false})
           console.log('444444')
@@ -972,7 +999,7 @@ check5 () {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
     //  console.log(policyObj);
-     // this.props.addJobSS(policyObj,runner);
+      this.props.UpdateJob(this.state.policyIdToUpdate,policyObj,runner);
       this.props.close();
       this.resetData();
     }
@@ -1031,6 +1058,7 @@ check5 () {
       clearArr = clearArr.map(function(name) {
         return ({'Id':name.Id,'size':name.sizeInGb,'name':name.name,'type':name['@odata.type'],'checked':false});
      });
+     console.log(clearArr)
       this.setState({array:clearArr})
       this.setState({ProtectedID:null})
 
@@ -1132,6 +1160,8 @@ const mapDispatchToProps = function(dispatch) {
         GetRepos: (id) => dispatch(GetRepos(id)),
         clearJobEditInfo: () => dispatch(clearJobEditInfo()),
         clearReposInRedux: () => dispatch(clearReposInRedux()),
+        TreeProtected: (id,bool) => dispatch(TreeProtected(id,bool)),
+        UpdateJob: (id,obj,runner) => dispatch(UpdateJob(id,obj,runner)),
         
         
 
@@ -1147,6 +1177,7 @@ function mapStateToProps(state) {
       tree_flat:state.toJS().BackupReducer.tree_flat,
       repos:state.toJS().BackupReducer.repos,
       edit_info:state.toJS().BackupReducer.job_info_for_edit,
+      tree:state.toJS().BackupReducer.tree
 
     }
 }

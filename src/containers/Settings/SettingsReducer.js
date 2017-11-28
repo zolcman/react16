@@ -11,9 +11,19 @@ const SettingsReducer = function(state = initialUserState, action) {
 
   switch(action.type) {
 
-  case 'RUN':
-		 return Object.assign({}, state, { run: action.data });
+  case 'GET_BACKUP_SERVER_LIST':
+		 return Object.assign({}, state, { listbackups: action.data });
  break;
+ case 'GET_DETAILED_INFO_SERVER':
+ return Object.assign({}, state, { detailed_info: action.data });
+break;
+
+case 'GET_ClUSTER_LIST':
+return Object.assign({}, state, { cluster_list: action.data });
+break;
+case 'GET_DETAILED_INFO_CLUSTER':
+return Object.assign({}, state, { cluster_detail: action.data });
+break;
 
  
      

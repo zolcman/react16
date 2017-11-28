@@ -12,6 +12,7 @@ export const GET_REPOS = 'GET_REPOS';
 export const RUN_AUTO_JOB = 'RUN_AUTO_JOB';
 export const STOP_TIMER = 'STOP_TIMER';
 export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
+export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
 
 
 
@@ -134,7 +135,17 @@ function receiveData24(json) {
 	}
 };
 
-export function TreeProtected (id) {
+function treeProtected(json) {
+	return{
+
+		type: GET_TREE_PROTECTED,
+		data: json
+
+	}
+};
+
+
+export function TreeProtected (id,bool) {
 	
 		return dispatch => {
 	var accessToken = sessionStorage.getItem('accessToken');
@@ -147,7 +158,13 @@ export function TreeProtected (id) {
 						 return
 				 }
 					 console.log(response.data);
-					dispatch(receiveData24(response.data));
+					 if (bool) {
+						
+						dispatch(treeProtected(response.data));
+					 }
+					 if (!bool) {
+						dispatch(receiveData24(response.data));
+					 }
 					//	dispatch(hideLoading())
 				  })
 				.catch((error) => {
@@ -499,7 +516,7 @@ export function EditJobInfo (id) {
 			return (
 	
 				//dispatch(showLoading()),
-				axios.get(apiUrl + `/api/v1/Policies/${ id }`,headers).then(function (response) {
+				axios.get(apiUrl + `/api/v1/Policies/${ id }/settings`,headers).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
@@ -514,3 +531,37 @@ export function EditJobInfo (id) {
 				)
 		}
 	}
+
+	export function UpdateJob (id,obj,runner) {
+
+		console.log(id);
+		console.log(obj)
+		
+			return dispatch => {
+		var accessToken = sessionStorage.getItem('accessToken');
+				return (
+		
+					//dispatch(showLoading()),
+					axios.put(apiUrl + `/api/v1/Policies/${ id }/settings`,obj,headers).then(function (response) {
+					 if(response.data.code>200){
+							// dispatch(toastrActions.add('error', '',response.data.message))
+							 return
+					 }
+					 if(runner) {
+						
+						 dispatch(StartJobTask(response.data.Id));
+						 dispatch(openAuto(true));
+					 }
+					 if(!runner) {
+						 dispatch(GetBackList());
+						 dispatch(openAuto(false));
+					 }
+						 console.log(response.data);
+						
+					  })
+					.catch((error) => {
+						  console.log(error);
+					})
+					)
+			}
+		}

@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import  SettingsAddAHVCluster from '../../components/SettingsAddAHVCluster/SettingsAddAHVCluster';
+import  SettingsAddVeeamServerWiz from '../../components/SettingsAddVeeamServerWiz/SettingsAddVeeamServerWiz';
+
+import { GetBackupServers} from './SettingsAction'
+import { GetDetailServer} from './SettingsAction'
+import { GetDetailCluster} from './SettingsAction'
+
+import { GetClusters} from './SettingsAction'
 
 
 class Settings extends Component {
@@ -19,17 +27,38 @@ class Settings extends Component {
     }
 }
     componentDidMount() {
+        this.props.GetBackupServers();
+        this.props.GetClusters();
 
+        
     }
 
+
+    componentDidUpdate () {
+      
+            this.ddd = 'sss'
+            $( ".table-content tbody" ).on( "click", "tr", function() {
+              $('.table-content tbody tr').removeClass("selected-green");
+              $(this).addClass( "selected-green" );
+            });
+                  
+                  
+            
+                }
 
     
 
     componentWillReceiveProps(nextProps) {
-      console.log(nextProps.run)
-      if(nextProps.tabt) {
-        console.log(nextProps.tabt)
+
+      if(nextProps.listbackups) {
+        this.setState({listTab1:nextProps.listbackups})
       }
+
+      if(nextProps.cluster_list) {
+        this.setState({listTab2:nextProps.cluster_list})
+      }
+
+      
      }
 
      filter(e) {
@@ -44,15 +73,25 @@ class Settings extends Component {
        })
      }
 
+     openWizEdit() {
+       this.setState({openWiz:true,edit1:true})
+
+       this.props.GetDetailServer(this.state.choosen);
+     }
+
+     deleteJob() {
+
+     }
+
     firstTab() {
 
-      var list = this.state.filteredItems || this.state.table || []
+      var list = this.state.filteredItems || this.state.listTab1 || []
       return (
         <div>
         <div className="clear-wrapper gt-clear mar2020 he36">
         <div className="gt-left">
-        <a  className="bk-btn gt-left add-btn fixpad">Add</a>
-        {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
+        <a onClick={this.openWiz.bind(this)}  className="bk-btn gt-left add-btn fixpad">Add</a>
+        {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
              :
               (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
              {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad">Delete</a>)
@@ -82,13 +121,13 @@ class Settings extends Component {
 
 
               {list.map((item,index) => (
-                  <tr className="" key={index}>
+                  <tr onClick={()=>{this.setState({choosen:item.Id})}} className="" key={index}>
                   <td>
-                      <Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link>
+                      {item.name}
                 </td>
-                  <td>{item.snapshots}</td>
+                  <td>{item.ip}</td>
                   <td>{item.backups}</td>
-                  <td className="width11">{item.status}</td>
+                  <td className="width11">{item.ip}</td>
                   <td>{item.clusterName}</td>
                   <td>{item.lastProtection}</td>
 
@@ -100,25 +139,57 @@ class Settings extends Component {
           </table>
         </div>
       </div>
+      <SettingsAddVeeamServerWiz editable={this.state.edit1} open={this.state.openWiz} close={this.closeWiz.bind(this)}/> 
       </div>
       )
     }
 
+    closeWiz() {
+      this.setState({openWiz:false})
+    }
+    openWiz() {
+      this.setState({openWiz:true,edit1:false})
+    }
+
+
+
+
+
+    closeWiz2() {
+      this.setState({openWiz2:false})
+    }
+    openWiz2() {
+      this.setState({openWiz2:true,edit2:false})
+    }
+
+    openWizEdit2() {
+      this.setState({openWiz2:true,edit2:true})
+
+      this.props.GetDetailCluster(this.state.choosen2);
+    }
+
+    deleteJob2() {
+
+    }
+
 
     secondTab() {
+
       
-            var list = this.state.filteredItems || this.state.table || []
+      
+      
+            var list = this.state.filteredItems || this.state.listTab2 || []
             return (
               <div>
               <div className="clear-wrapper gt-clear mar2020 he36">
               <div className="gt-left">
-              <a  className="bk-btn gt-left add-btn fixpad">Add</a>
-              {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
+              <a onClick={this.openWiz2.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
+              {this.state.choosen2 ? (  <a onClick={this.openWizEdit2.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
                    :
                     (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
-                   {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
+                   {this.state.choosen2 ? (  <a onClick={this.deleteJob2.bind(this)} className="bk-btn gt-left red_delete-btn fixpad">Delete</a>)
                    :
-                    (  <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>)}
+                    (  <a className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)}
               </div>
               <div className="search-panel gt-right">
                 <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
@@ -130,7 +201,7 @@ class Settings extends Component {
               <div className="table-content">
                 <table className="bk-table">
                   <thead>
-                    <tr>
+                    <tr >
                     <th className="width20th">Name</th>
                     <th>Protection Domains</th>
                     <th >Cluster IP</th>
@@ -143,9 +214,9 @@ class Settings extends Component {
       
       
                     {list.map((item,index) => (
-                        <tr className="" key={index}>
+                        <tr onClick={()=>{this.setState({choosen2:item.Id})}} key={index}>
                         <td>
-                            <Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link>
+                            {item.name}
                       </td>
                         <td>{item.snapshots}</td>
                         <td>{item.backups}</td>
@@ -160,6 +231,7 @@ class Settings extends Component {
                 </table>
               </div>
             </div>
+            <SettingsAddAHVCluster editable={this.state.edit2} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/> 
             </div>
             )
           }
@@ -332,6 +404,12 @@ class Settings extends Component {
         </div>
       )
     }
+    tabChanged(index) {
+      console.log(index)
+      
+        this.setState({tabSelected:index,choosen:false,choosen2:false})
+      
+    }
 
     render(){
       console.log(this.props.tabt)
@@ -352,7 +430,7 @@ class Settings extends Component {
 
               </div>
               <div className="">
-          <Tabs defaultIndex={this.props.tabt}> 
+          <Tabs defaultIndex={this.props.tabt} onSelect={this.tabChanged.bind(this)}> 
         {/*   <Tabs defaultIndex={this.state.tabts}> */}
               <div className="tab-s-wrap">
               <TabList>
@@ -387,7 +465,12 @@ const mapDispatchToProps = function(dispatch) {
     return {
 
 
-    //  Run: () => dispatch(Run()),
+      GetBackupServers: () => dispatch(GetBackupServers()),
+      GetDetailServer: (id) => dispatch(GetDetailServer(id)),
+      GetClusters: () => dispatch(GetClusters()),
+      GetDetailCluster: (id) => dispatch(GetDetailCluster(id)),
+      
+      
      // cleartask_info: () => dispatch(cleartask_info()),
 
 
@@ -401,8 +484,10 @@ console.log(state.toJS().BackupReducer.backups);
 
 
           tabt:state.toJS().NavBarReducer.InTab,
-          backup:state.toJS().BackupReducer.backups,
-          run:state.toJS().SettingsReducer.run,
+          
+          listbackups:state.toJS().SettingsReducer.listbackups,
+          cluster_list:state.toJS().SettingsReducer.cluster_list,
+          
 
     }
 }

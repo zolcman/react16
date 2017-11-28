@@ -79,6 +79,8 @@ class SWizard extends Component {
 
        
         this.props.arrayProtected(result2[0].children)
+        this.setState({checked41:false})
+        this.props.Tree('test1');
       }
       if(!this.state.checked41) {
         

@@ -9,9 +9,163 @@
 
 
 .login-page {
-  width: 1100px;
+  height: 100%;
+  background: rgb(0, 0, 0);
+  position: absolute;
+  width: 100%;
+  display: -webkit-flex; /* Safari */
+  -webkit-align-items: center; /* Safari 7.0+ */
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+.login-container {
+  
+  width: 300px;
+  height: 300px;
+}
+.logo-login-page {
+  background: url('./img/logo.png') no-repeat;
+  height:38px;
+  width: 200px;
   margin: 0 auto;
-  background: #ccc;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 5s;
+  animation-fill-mode:forwards;
+  margin-bottom: 50px;
+}
+
+.allinput {
+  width: 100%;
+  height: 46px;
+  border: 0px;
+  border-radius: 4px;
+  background: #4a4a4a;
+  box-sizing: border-box;
+  padding-left: 15px;
+  font-size: 17px;
+  color:white;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 5s;
+  animation-fill-mode:forwards;
+  outline: 0;
+}
+.martop10px {
+  margin-top: 10px;
+}
+
+.allinput:focus {
+  background: white;
+  color:rgb(109, 109, 109);
+  -webkit-transition: background-color 1000ms ease;
+  -ms-transition: background-color 1000ms ease;
+  transition: background-color 1000ms ease;
+}
+
+.login-btn {
+  height: 28px;
+  width: 28px;
+  color:white;
+  text-decoration: none;
+  display: block;
+  border-radius: 50%;
+  background: #2ab52e;
+  text-align: center;
+  padding-top: 3px;
+  box-sizing: border-box;
+  margin-top: -37px;
+  position: relative;
+  margin-left: 254px;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 7s;
+  animation-fill-mode:forwards;
+  transition: all 50ms ease-in-out;
+  transform: scale(1);   
+  
+}
+.login-btn:hover {
+  text-decoration: none;
+  color:white;
+  cursor: pointer;
+}
+
+.login-input {
+  position: relative;
+  display: block;
+}
+
+.login-input:before {
+  content: "";
+  display: block;
+  width:20px;
+  height: 20px;
+  background: url('./img/user.svg') no-repeat;
+  position: absolute;
+  left: -31px;
+  top: 12px;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 7s;
+  animation-fill-mode:forwards;
+
+}
+
+.password-input {
+  position: relative;
+  display: block;
+}
+
+
+.password-input:before {
+  content: "";
+  display: block;
+  width:20px;
+  height: 20px;
+  background: url('./img/password.svg') no-repeat;
+  position: absolute;
+  left: -29px;
+  top: 12px;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 7s;
+  animation-fill-mode:forwards;
+
+}
+
+.login-alert {
+  margin-top: 26px;
+  text-align: center;
+  color: #ea3a51;
+  text-decoration: underline;
+  animation-name: fadeIn;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.5s;
+  animation-fill-mode:forwards;
+}
+
+.login-btn:active {
+  transform: scale(0.8);
+  background: rgb(174, 248, 0);
+  
+ 
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }
 
 

@@ -8,6 +8,7 @@ import  { GetPointList } from '../../containers/Protected/ProtectedAction'
 import  SWizardPro from '../SmWizPro/SWizardPro';
 import  SWizardAlert from '../SmWizAlert/SWizardAlert';
 import  AddBtnWmWizard from '../AddBtnWmWizard/AddBtnWmWizard';
+import  RenameVMWiz from '../RenameVMWiz/RenameVMWiz';
 
 
 var bytes = require('bytes');
@@ -18,15 +19,71 @@ class Wizard extends Component {
         this.timer
 
         this.state = {
-          checkOriginalLocaiton:true,
-          page:'2', 
-          finish:true,
+          checkOriginalLocaiton:true, //change to true
+          checkNewLocaiton:false,// change to false
+          page:'1', 
+          finish:false,
       jjj:true,
       disableAddbtn:true, 
       disableRecoveryBtn:true,
       BlockBubble:true, 
           emu:[],
           ObjFromFirstSreen: {},
+
+          nodes:[
+            {
+            label:"Egor1",
+            value:"Egor1",
+            restorePoint:"25/10/2017 10:00:29 PM",
+            vmcount:"2",
+            restorePointsCount:"",
+            children:[
+              {label:"disk111111111111111",
+              value:"disk1",
+              restorePoint:"3 days ago",
+              vmcount:"",
+              restorePointsCount:"11",
+            },
+            {label:"disk22222222222222",
+            value:"disk2",
+            name:"jobname2",
+            restorePoint:"4 days ago",
+            vmcount:"",
+            restorePointsCount:"11"},
+            {label:"disk555",
+            value:"disk552",
+            name:"jobnam555e2",
+            restorePoint:"4 days ago",
+            vmcount:"",
+            restorePointsCount:"11"}
+          ]}
+          ,
+
+          {
+            label:"Egor12",
+            value:"Egor12",
+            restorePoint:"25/10/2017 10:00:29 PM",
+            vmcount:"22",
+            restorePointsCount:"",
+            children:[
+              {label:"disk111111111111111",
+              value:"egorka",
+              restorePoint:"2 days ago",
+              vmcount:"",
+              restorePointsCount:"12",
+            },
+            {label:"disk22222222222222",
+            value:"oleg",
+            name:"jobname2",
+            restorePoint:"restorepoint4",
+            vmcount:"",
+            restorePointsCount:"12",}
+          ]},
+
+         
+          ],
+
+
 
         }
     }
@@ -137,15 +194,184 @@ class Wizard extends Component {
        this.setState({HANDLETEXT: event.target.value});
     }
 
+    closeRename() {
+      this.setState({closeRename:false})
+    }
+
+   
+
     windowsvm31() {
       return (
-        <div>Windows31</div>
+        <div>
+          <div className="zagname">Restore Mode</div>
+          <div className="pagetwoundertxt marnvz">Specify virtual machine name</div>
+          <a onClick={()=>{this.setState({closeRename:true})}} className="rename-vm-btn">Rename VM</a>
+          <div className="tbl1op">
+          <div className="tbls1 clear-gt">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>New Name</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+
+              <tr >
+                <td>1</td>
+                <td>1</td>
+                
+              </tr>
+              <tr >
+                <td>1</td>
+                <td>1</td>
+                
+              </tr>
+
+
+        </tbody>
+      </table>
+    </div>
+          </div>
+          
+        </div>
       )
     }
 
+
+    hideOrShow(value,checked) {
+      
+          
+        
+          
+      
+          if (this.state.filteredItems) {
+      
+            let  positiveArr112 = this.state.filteredItems.map(function(item) {
+              return ( (item.value == value) ? ( (checked == true) ?
+               ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
+               :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+         
+              )
+               : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+             );
+           });
+            this.setState({filteredItems:positiveArr112})
+          }
+          if (!this.state.filteredItems) {
+      
+            let  positiveArr112 = this.state.nodes.map(function(item) {
+              return ( (item.value == value) ? ( (checked == true) ?
+               ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
+               :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+         
+              )
+               : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+             );
+           });
+            
+      
+            this.setState({nodes:positiveArr112})
+          }
+          }
+
+
+          filter(e) {
+            var value = e.target.value;
+          
+            this.setState({filterval: value})
+            this.setState({
+              filteredItems: !value
+                ? false
+                : this.state.nodes.map(item => ({
+                  ...item,
+                  children: item.children
+                    .filter(child => child.value.includes(value.toLowerCase()))
+                }))
+                .filter(item => item.children.length > 0)
+            })
+          }
+
+          saveId(val) {
+            console.log(val);
+          }
+
     windowsvm41() {
+
+      let loopArray =this.state.filteredItems || this.state.nodes ||  [];
       return (
-        <div>444444441</div>
+        <div>
+
+<div>
+		<div className="zagname">Select container</div>
+		<div className="font13px">By default, original container and disk type are selected for each VM file. You can change them by selecting desired VM file, and clicking "
+      Container"
+      or "Disk types" buttons
+    </div>
+        <div className="iconboxtbsearch gt-clear">
+			<div className="gt-left window1line3 lp-5">File location:</div>
+			<div className="searchiccont">
+				<input value={this.state.filterval} onChange={this.filter.bind(this)} placeholder="Search" type="text"/><input type="button" className="search-icon-jh"/>
+			</div>
+		</div>
+        <div className="consteptwo">
+        <table className="standart-table">
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>Size</th>
+            <th>Container</th>
+            <th>Disk type</th>
+          </tr>
+        </thead>
+        
+      </table>
+      <div className="looper">
+          
+          {loopArray.map((item,index) => (
+            <div className="loop-lvl1 gt-clear">
+                   <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
+                    <div className="col-4 back_upicon">{item.label}</div>
+                    <div className="col-4">{item.restorePoint}</div>
+                    <div className="col-4">{item.vmcount}</div>
+                    <div className="col-4">{item.restorePointsCount}</div>
+                   
+                   </div>
+                  {
+                     (item.expand) ?
+                      (<div className="loop-lvl2 ">
+                   {item.children.map((child,index) => (
+
+                      <div onClick={this.saveId.bind(this,child.label)} className="gt-clear childtable text-alignCenter">
+                        <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
+                        <div className="gt-left col-4">{child.restorePoint}</div>
+                        <div className="gt-left col-4">{child.vmcount}</div>
+                        <div className="gt-left col-4">{child.restorePointsCount}</div>
+                      </div>
+
+                      ))}
+                   </div>)
+                   :
+                   (null)
+                   }
+                   
+            </div>
+            ))}
+          
+      </div>
+
+        </div>
+        <div className="gt-clear martop20px">
+        <div className="gt-right"><a  className=" btns-browser-change">Disk type..</a></div>
+          <div className="gt-right marr12px"> <a onClick={()=> {this.setState({closeWizPRO:true})}} className=" btns-browser-change ">Container..</a></div>
+          
+         
+            
+        </div>
+	</div>
+
+        </div>
       )
     }
 
@@ -524,7 +750,9 @@ pointClick () {
       this.setState({switcher:false})
      // console.log(this.state.ObjFromFirstSreen)
       this.props.StartVMTask(this.state.ObjFromFirstSreen);
-      this.setState({page:1})
+      this.setState({page:1});
+      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
+        checkNewLocaiton:false});
       this.props.openVMProgressBar();
       this.props.close();
      // this.props.openVMProgressBar();
@@ -533,7 +761,8 @@ pointClick () {
 
     
     close() {
-      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1})
+      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
+        checkNewLocaiton:false})
       this.props.close();
 
     }
@@ -544,6 +773,11 @@ pointClick () {
       this.setState({openAlert:false})
     }
 
+    renderFinish() {
+      return (
+        <div></div>
+      )
+    }
 
 
     render(){
@@ -628,6 +862,7 @@ pointClick () {
               <SWizardPro array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
               <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
               <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.ObjFromFirstSreen.VmName} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
+              <RenameVMWiz close={this.closeRename.bind(this)} open={this.state.closeRename}/>
               </div>
 
         )

@@ -502,7 +502,11 @@
   .qkbcicon {
   		  background: url('./img/p_delete.svg') no-repeat 1px;
         background-size: 29px;
-  	}
+    }
+    
+    .selected-green {
+      background-color: #E1ECCB!important;
+    }
 }
 
 

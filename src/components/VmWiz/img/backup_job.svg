@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="17px" viewBox="0 0 14 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>backup job</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="backup-job" stroke="#7ED321">
+            <rect id="Rectangle-8" x="0.5" y="12.5" width="12" height="2" rx="1"></rect>
+            <path d="M6.5,3.5 L6.5,10.5" id="Line-12" stroke-linecap="round"></path>
+            <polyline id="Line-13" stroke-linecap="round" stroke-linejoin="round" points="4 8 6.5 11 9 8"></polyline>
+        </g>
+    </g>
+</svg>
