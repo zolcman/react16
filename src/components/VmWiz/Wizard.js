@@ -9,6 +9,8 @@ import  SWizardPro from '../SmWizPro/SWizardPro';
 import  SWizardAlert from '../SmWizAlert/SWizardAlert';
 import  AddBtnWmWizard from '../AddBtnWmWizard/AddBtnWmWizard';
 import  RenameVMWiz from '../RenameVMWiz/RenameVMWiz';
+import  SelectContainerWiz2 from '../SelectContainerWiz2/SelectContainerWiz2';
+import  SWizardAlert2 from '../SmWizAlert2/SWizardAlert2';
 
 
 var bytes = require('bytes');
@@ -27,6 +29,8 @@ class Wizard extends Component {
       disableAddbtn:true, 
       disableRecoveryBtn:true,
       BlockBubble:true, 
+      tableWithDiff:true,
+      
           emu:[],
           ObjFromFirstSreen: {},
 
@@ -99,7 +103,28 @@ class Wizard extends Component {
     }
 
 
+runAlert() {
+  if (this.state.tableWithDiff) {
+    this.setState({OpenNotitficationRename:true});
+  }
 
+  if (!this.state.tableWithDiff) {
+    this.setState({page:4});
+  }
+}
+
+CloseNotitficationRename(val) {
+  if (val) {
+    this.setState({OpenNotitficationRename:false});
+    this.setState({page:4});
+  }
+
+  if (!val) {
+    this.setState({OpenNotitficationRename:false});
+    this.setState({page:3});
+  }
+  
+}
 
 
     pagechange() {
@@ -115,7 +140,8 @@ class Wizard extends Component {
           console.log('ssss')
         }
         else {
-          this.setState({page:4})
+          this.runAlert();
+         // this.setState({page:4})
         }
         
       //  this.setState({page:4})
@@ -297,6 +323,10 @@ class Wizard extends Component {
             console.log(val);
           }
 
+          selectContainer2() {
+            this.setState({selectContainer2:false})
+          }
+
     windowsvm41() {
 
       let loopArray =this.state.filteredItems || this.state.nodes ||  [];
@@ -364,7 +394,7 @@ class Wizard extends Component {
         </div>
         <div className="gt-clear martop20px">
         <div className="gt-right"><a  className=" btns-browser-change">Disk type..</a></div>
-          <div className="gt-right marr12px"> <a onClick={()=> {this.setState({closeWizPRO:true})}} className=" btns-browser-change ">Container..</a></div>
+          <div className="gt-right marr12px"> <a onClick={()=> {this.setState({selectContainer2:true})}} className=" btns-browser-change ">Container..</a></div>
           
          
             
@@ -490,6 +520,10 @@ class Wizard extends Component {
         if (param == 4 && !this.state.checkNewLocaiton) {
           this.setState({openAlert:true})
           }
+          if (param == 4 && this.state.checkNewLocaiton) {
+            this.runAlert();
+            return;
+            }
           if (param == 6 && this.state.checkNewLocaiton) {
             this.setState({openAlert:true})
             }
@@ -863,6 +897,8 @@ pointClick () {
               <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
               <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.ObjFromFirstSreen.VmName} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               <RenameVMWiz close={this.closeRename.bind(this)} open={this.state.closeRename}/>
+              <SelectContainerWiz2 open={this.state.selectContainer2} close={this.selectContainer2.bind(this)}  />
+              <SWizardAlert2 nameto={this.state.tableWithDiff} open={this.state.OpenNotitficationRename} close={this.CloseNotitficationRename.bind(this)}/>
               </div>
 
         )
