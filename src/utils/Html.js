@@ -27,7 +27,7 @@ const Html = ({ store, htmlContent }: Props) => {
         <link rel="shortcut icon" href="/favicon.ico" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css"></link>
-
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
         {head.title.toComponent()}

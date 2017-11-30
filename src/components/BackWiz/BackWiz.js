@@ -866,8 +866,70 @@ check5 () {
 	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
 		)
-	}
+  }
+  
 
+  
+
+  CreateShedule() {
+
+    let maped = this.state.schedulerSettings.dailyBasis.thisDays.map((item)=> {
+      return item = item.label
+    }) 
+    
+
+    let periodBasis;
+
+    switch (this.state.SelectedTab) {
+      case 0:
+      periodBasis = 'Daily' + ' ' + this.state.schedulerSettings.dailyBasis.startTime + ' ' + this.state.schedulerSettings.dailyBasis.daysPreset + maped
+        break;
+      case 1:
+        periodBasis = 'Monthly' + ' ' + this.state.schedulerSettings.monthlyBasis.startTime + ' ' + this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay + ' ' +
+        this.state.schedulerSettings.monthlyBasis.dayOfWeek + ' ' + this.state.schedulerSettings.monthlyBasis.dayOfMonth + 'th day of the month'
+          break;
+     case 2:
+        periodBasis = 'Periodic' + ' ' + this.state.schedulerSettings.periodicBasis.timeOffset + ' ' + this.state.schedulerSettings.periodicBasis.mode
+          break;   
+      case 3:
+        periodBasis = 'Daily'
+          break;
+      default:
+      periodBasis = 'Daily' + ' ' + this.state.schedulerSettings.dailyBasis.startTime + ' ' + this.state.schedulerSettings.dailyBasis.daysPreset + maped
+      
+      }
+
+
+  //    schedulerSettings: {
+      //  "@odata.type": "SchedulerSettings",
+      //  schedulerEnabled:false,
+     //   scheduleBasis: "Daily", // [Daily | Monthly | Periodic]
+    //    dailyBasis: {
+     //     startTime: "12:00",
+      //    daysPreset: "WeekDays", // [WeekDays | Everyday | ThisDays]
+       //   thisDays: []
+      //   },
+      //  monthlyBasis:  {
+      //    startTime: "12:00",
+       //   weekNumberOrSpecifiedDay:"FirstWeek", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
+       //   dayOfWeek: "Monday",
+       //   dayOfMonth: 10,
+       //   months: []
+      //  },
+      //  periodicBasis: {
+      //    timeOffset : 1,
+      //    mode: "EveryHour", // [EveryHour | EveryMinute | Continuously]
+      //    specificTimeIntervals: [[]]
+    //    }
+    //  },
+      
+
+   
+
+    return (
+      <div>{periodBasis}</div>
+    )
+  }
 
 
     renderPage () {

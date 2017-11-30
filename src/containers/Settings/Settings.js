@@ -90,7 +90,9 @@ class Settings extends Component {
         <div>
         <div className="clear-wrapper gt-clear mar2020 he36">
         <div className="gt-left">
-        <a onClick={this.openWiz.bind(this)}  className="bk-btn gt-left add-btn fixpad">Add</a>
+        {(list.length > 0) ? ( <a className="bk-btn gt-left add-btn fixpad disabled">Add</a>)
+              :
+              ( <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>)} 
         {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
              :
               (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
@@ -183,7 +185,12 @@ class Settings extends Component {
               <div>
               <div className="clear-wrapper gt-clear mar2020 he36">
               <div className="gt-left">
-              <a onClick={this.openWiz2.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
+             
+              {(list.length > 0) ? ( <a className="bk-btn gt-left add-btn fixpad disabled">Add</a>)
+              :
+              ( <a onClick={this.openWiz2.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>)} 
+
+
               {this.state.choosen2 ? (  <a onClick={this.openWizEdit2.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
                    :
                     (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}

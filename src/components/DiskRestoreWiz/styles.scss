@@ -9,7 +9,8 @@
   width: 100%;
   position: absolute;
   height: 100%;
-  top:0;
+	top:0;
+	overflow: hidden;
 }
 .pop-up-window {
   width: 800px;
@@ -32,6 +33,10 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   height: 50px;
   padding: 13px;
   box-sizing: border-box;
+}
+
+.mouseDown {
+	cursor: pointer!important;
 }
 
 
@@ -806,8 +811,11 @@ border-bottom: 1px solid #ccc;
 }
 
 .dtmodificator2 {
-	padding-left: 100px!important;
+	
 	font-weight: 600;
+	font-weight: 600;
+	text-align: right;
+	padding-right: 17px;
 }
 
 
@@ -912,7 +920,22 @@ padding-top:24px;
 .repo1sd1 {
 	width: 474px;
 }
+.warning-modificator {
+	background: url('./img/alert.png') no-repeat;
+	padding-left: 40px;
+	height: 30px;
+	padding-top: 5px;
+	font-weight: bold;
+	margin-left: 14px;
+	margin-right: 25px;
+}
+.marleft18px {
+	margin-left: 18px;
+}
 
+.padding0 {
+	padding: 0;
+}
 
 }
 

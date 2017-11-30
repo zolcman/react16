@@ -150,6 +150,29 @@ componentDidUpdate() {
   
     });
 
+ //   $( function() {
+  //    $( ".pop-up-window" ).draggable({
+   //     cancel: ".close-pop",
+    //    handle:'.pop-up-header'
+       
+   //   });
+   // } );
+
+  //  $(".pop-up-window").data({
+   //   'originalLeft': $(".pop-up-window").css('left'),
+    //  'origionalTop': $(".pop-up-window").css('top')
+ // });
+  
+//  $(".close-pop").click(function() {
+    //  $(".pop-up-window").css({
+      //    'left': $(".pop-up-window").data('originalLeft'),
+      //    'top': $(".pop-up-window").data('origionalTop')
+    //  });
+ // });
+
+  
+    
+
 }
 
 componentDidMount() {
@@ -293,7 +316,7 @@ componentDidMount() {
                 <div className="gt-left width50">
                     <div className="gt-clear heigth25px">
                         <div className="gt-left width30">VM Name:</div>
-                        <div className="gt-left width70 cliptext font600w">StarWind plugin WEB sphere(SWMA)_(ABykovskiy)</div>
+                        <div className="gt-left width70 cliptext font600w padding0">StarWind plugin WEB sphere(SWMA)_(ABykovskiy)</div>
                     </div>
                     <div className="gt-clear">
                         <div className="gt-left width30">VM Size:</div>
@@ -490,17 +513,27 @@ componentDidMount() {
                 <dd>[ToDo]</dd>
                 <dt>Target host:</dt>
                 <dd>[ToDo]</dd>
-                <dt>Restore Disks:</dt>
-                <dd>[ToDo]</dd>
-                <dt>Target VM folder:</dt>
-                <dd>[ToDo]</dd>
+                
                 <dt>Disk info:</dt>
                 <dd>[ToDo]</dd>
-                <dt className="dtmodificator">Source file:</dt>
+                <dt className="dtmodificator">Source disk:</dt>
                 <dd>[ToDo]</dd>
-                <dt className="dtmodificator2">Target store:</dt>
+                <dt className="dtmodificator2">Source container:</dt>
                 <dd>[ToDo]</dd>
+                <dt className="dtmodificator2">Target disk:</dt>
+                <dd>[ToDo]</dd>
+                <dt className="dtmodificator2">Target container:</dt>
+                <dd>[ToDo]</dd>
+                <dt className="dtmodificator2">Provisioning policy:</dt>
+                <dd>[ToDo]</dd>
+                
               </dl>
+          </div>
+          <div className="gt-clear">
+              <div className="gt-left warning-modificator">Warning</div>
+              <div className="gt-left">Specified target device will be replaced with source disk.<br/>
+              Consider taking a snapshot of target VM to avoid accidental <br/> data loss.
+              </div>
           </div>
           <div className="gt-clear">
             <div className="gt-left chwithlbl martop20px">
@@ -508,8 +541,8 @@ componentDidMount() {
             <label><input type="checkbox" onChange={this.QRollBack.bind(this)} checked={this.state.QRollBack} name="dva"/>Power on target VM after restoring</label>
             
             </div>
-            <div className="gt-right martop20px">
-            <a className=" onltextbtn2">Pick proxy to use</a>
+            <div className="gt-right martop20px marleft18px">
+    {/*   <a className=" onltextbtn2">Pick proxy to use</a> */}
             </div>
           </div>
         </div>

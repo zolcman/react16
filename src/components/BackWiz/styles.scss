@@ -37,6 +37,8 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
 			opacity: 0;
 			
 	}
+
+
 	100% {
 			opacity: 1;
 			
@@ -728,6 +730,10 @@ border-bottom: 1px solid #ccc;
 	white-space: nowrap;
 	margin-left: 211px;
 	margin-top: -1px;
+}
+
+.Select-menu-outer {
+	z-index: 12;
 }
 
 }
