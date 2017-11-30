@@ -11,7 +11,7 @@ import  AddBtnWmWizard from '../AddBtnWmWizard/AddBtnWmWizard';
 import  RenameVMWiz from '../RenameVMWiz/RenameVMWiz';
 import  SelectContainerWiz2 from '../SelectContainerWiz2/SelectContainerWiz2';
 import  SWizardAlert2 from '../SmWizAlert2/SWizardAlert2';
-
+import { TreeFlat } from '../../containers/Backup/BackupAction';
 
 var bytes = require('bytes');
 
@@ -29,7 +29,7 @@ class Wizard extends Component {
       disableAddbtn:true, 
       disableRecoveryBtn:true,
       BlockBubble:true, 
-      tableWithDiff:true,
+   //   tableWithDiff:true,
       
           emu:[],
           ObjFromFirstSreen: {},
@@ -93,6 +93,7 @@ class Wizard extends Component {
     }
 
     componentDidMount() {
+      this.props.TreeFlat('test1')
 
       if (this.props.fromlist) {
         this.setState({finish:true}) // сдесь будем сразу по id выполнять запрос на обновление прогрессбара
@@ -103,15 +104,7 @@ class Wizard extends Component {
     }
 
 
-runAlert() {
-  if (this.state.tableWithDiff) {
-    this.setState({OpenNotitficationRename:true});
-  }
 
-  if (!this.state.tableWithDiff) {
-    this.setState({page:4});
-  }
-}
 
 CloseNotitficationRename(val) {
   if (val) {
@@ -224,7 +217,39 @@ CloseNotitficationRename(val) {
       this.setState({closeRename:false})
     }
 
+    selectNameFor31popUp(selectedVM) {
+      this.setState({selectedVMFor31PopUp:selectedVM})
+      $('.trtr').addClass('selected-green')
+    }
+
+    updateRenamed(val) {
+      this.setState({renamedName:val})
+    }
    
+    runAlert() {
+      let emulatedArr = this.props.tree_flat;
+      console.log(emulatedArr)
+      let diffValue = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;
+      let finalValue = emulatedArr.filter(function(item) {
+        return item.name == diffValue;
+      });
+
+      if (finalValue.length > 0) {
+        this.setState({OpenNotitficationRename:true});
+        this.setState({tableWithDiff:finalValue})
+      }
+      if (finalValue.length == 0) {
+        this.setState({page:4});
+      }
+
+     // if (this.state.tableWithDiff) {
+    //    this.setState({OpenNotitficationRename:true});
+     // }
+    
+     // if (!this.state.tableWithDiff) {
+     //   this.setState({page:4});
+     // }
+    }
 
     windowsvm31() {
       return (
@@ -244,16 +269,12 @@ CloseNotitficationRename(val) {
         </thead>
         <tbody>
 
-              <tr >
-                <td>1</td>
-                <td>1</td>
+              <tr className="trtr" onClick={this.selectNameFor31popUp.bind(this,this.state.ObjFromFirstSreen.VmName)} >
+                <td>{this.state.ObjFromFirstSreen.VmName}</td>
+                <td>{this.state.renamedName ? (this.state.renamedName):(this.state.ObjFromFirstSreen.VmName)}</td>
                 
               </tr>
-              <tr >
-                <td>1</td>
-                <td>1</td>
-                
-              </tr>
+              
 
 
         </tbody>
@@ -782,11 +803,26 @@ pointClick () {
 
      // this.setState({finish:false});
       this.setState({switcher:false})
-     // console.log(this.state.ObjFromFirstSreen)
-      this.props.StartVMTask(this.state.ObjFromFirstSreen);
+     
+      let location = ''
+
+     if (this.state.checkOriginalLocaiton) {
+          location = 'RestoreToOriginalLocation'
+     }
+     if (!this.state.checkOriginalLocaiton) {
+      location = 'RestoreToNewLocation'
+ }
+
+     let ObjFromFirstSreen = Object.assign({}, this.state.ObjFromFirstSreen);    //creating copy of object
+     ObjFromFirstSreen.restoreMode = location;
+     ObjFromFirstSreen.newName = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;                       
+     this.setState({ObjFromFirstSreen});
+
+      this.props.StartVMTask(ObjFromFirstSreen);
       this.setState({page:1});
       this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
         checkNewLocaiton:false});
+        
       this.props.openVMProgressBar();
       this.props.close();
      // this.props.openVMProgressBar();
@@ -896,7 +932,7 @@ pointClick () {
               <SWizardPro array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
               <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
               <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.ObjFromFirstSreen.VmName} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
-              <RenameVMWiz close={this.closeRename.bind(this)} open={this.state.closeRename}/>
+              <RenameVMWiz getName={this.updateRenamed.bind(this)} name={this.state.selectedVMFor31PopUp} close={this.closeRename.bind(this)} open={this.state.closeRename}/>
               <SelectContainerWiz2 open={this.state.selectContainer2} close={this.selectContainer2.bind(this)}  />
               <SWizardAlert2 nameto={this.state.tableWithDiff} open={this.state.OpenNotitficationRename} close={this.CloseNotitficationRename.bind(this)}/>
               </div>
@@ -910,6 +946,7 @@ const mapDispatchToProps = function(dispatch) {
 
       StartVMTask: (param) => dispatch(StartVMTask(param)),
       GetPointList: (id) => dispatch(GetPointList(id)),
+      TreeFlat: (id) => dispatch(TreeFlat(id)),
     //  updatestatus: (id) => dispatch(updatestatus(id)),
     //  cleartask_info: () => dispatch(cleartask_info()),
 
@@ -921,6 +958,7 @@ function mapStateToProps(state) {
 
     return {
         vmsList:state.toJS().ProtectedReducer.vms,
+        tree_flat:state.toJS().BackupReducer.tree_flat,
    //   taskid:state.toJS().BackupReducer.vmidtoupdate,
     //  task_info:state.toJS().BackupReducer.task_status,
 

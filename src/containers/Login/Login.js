@@ -44,7 +44,14 @@ class Login extends Component {
 
     if (this.state.login && this.state.password) {
         this.setState({showAlert:false});
-          this.props.LoginInServer();
+        let id = {
+            "@odata.type": "LoginData",
+            Password: this.state.password,
+            Email: this.state.login
+          //  Password: "QwErTy123@",
+          //  Email: "root@starwind.com"
+        }
+          this.props.LoginInServer(id);
     }
     
       
@@ -53,7 +60,6 @@ class Login extends Component {
 
     render(){
 
-      console.log(this.state.login)
 
       
 
@@ -88,7 +94,7 @@ class Login extends Component {
 const mapDispatchToProps = function(dispatch) {
     return {
 
-        LoginInServer: () => dispatch(LoginInServer()),
+        LoginInServer: (id) => dispatch(LoginInServer(id)),
     
     
     }

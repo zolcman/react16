@@ -23,6 +23,11 @@
   .gt-clear {
     clear: both;
   }
+  .gt-clear:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
   .filters {
     height: 129px;

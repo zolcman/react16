@@ -61,7 +61,7 @@ class App extends Component {
 
  render () {
   
-
+  console.log(this.state.isLogin);
 
   if(this.state.isLogin) {
    

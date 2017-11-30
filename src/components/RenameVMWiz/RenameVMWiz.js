@@ -17,7 +17,8 @@ class RenameVMWiz extends Component {
 
           page:'1',
           finish:false,
-          
+          pre:'',
+          su:'',
 
 			
 			
@@ -27,13 +28,14 @@ class RenameVMWiz extends Component {
     componentDidMount() {
 
     
-
+    
 
     }
 
     componentWillReceiveProps(nextProps) {
 
-    
+     // this.setState({name:this.props.name})
+      
      }
 
 
@@ -43,7 +45,7 @@ class RenameVMWiz extends Component {
     close() {
       this.setState({page:1}) // binded when all ok change to 1
       this.props.close();
-
+      this.setState({name:'',pre:'',su:''})
 
     }
 
@@ -51,7 +53,9 @@ class RenameVMWiz extends Component {
 
     add () {
       this.props.close();
-    //  this.props.array(this.state.choosen)
+      let name = this.state.pre + this.state.name + this.state.su
+      this.props.getName(name)
+      this.setState({name:'',pre:'',su:''})
     }
 
 
@@ -82,11 +86,12 @@ class RenameVMWiz extends Component {
                         </div>
                         
                         <div className="renamevm-con">
-                          <input type="text"/>
+                        <div className="lp-2">Name:</div>
+                          <input placeholder="enter new name" onChange={(e)=> {this.setState({name:e.target.value})}} value={this.state.name} type="text"/>
                           <div className="lp-2">Add prefix</div>
-                          <input placeholder="_new" type="text"/>
+                          <input onChange={(e)=> {this.setState({pre:e.target.value})}} value={this.state.pre} placeholder="_new" type="text"/>
                           <div  className="lp-2" >Add sufix</div>
-                          <input placeholder="_restored" type="text"/>
+                          <input onChange={(e)=> {this.setState({su:e.target.value})}} value={this.state.su} placeholder="_restored" type="text"/>
                         </div>
                         <div className="btns-group">
 

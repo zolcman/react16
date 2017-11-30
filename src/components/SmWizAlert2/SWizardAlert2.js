@@ -28,6 +28,8 @@ class SWizardAlert2 extends Component {
 
     componentWillReceiveProps(nextProps) {
 
+        this.setState({namesToRename:this.props.nameto})
+
      }
 
 
@@ -54,7 +56,7 @@ class SWizardAlert2 extends Component {
 
 
     render(){
-       
+       var loop = this.props.nameto || [];
         return (
           <div className="modalWizPro12DC">
               {this.props.open ? (<div className="freeze">
@@ -69,7 +71,12 @@ class SWizardAlert2 extends Component {
                         </div>
                        
                         <div className="lp-6">One or more VMs with same names<br/> already exists. <strong>Overwrite them?</strong></div>   
-                        
+                        <div className="show-diff">
+                        {loop.map((item,index) => (
+                          <div key={index}>{item.name}</div>
+
+                      ))}
+                        </div>
                         <div className="btns-group">
 
                           <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global  ">Overwrite</a>

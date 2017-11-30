@@ -4,12 +4,23 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
 
 .VmVizViz {
+
+
+
+  
   .freeze {
     width: 100%;
     position: absolute;
     height: 100%;
     top:0;
+    
+    
+    
   }
+
+
+
+
   .pop-up-window {
     width: 800px;
 
@@ -25,7 +36,26 @@
       color:#4a4a4a;
       font-family: 'Open Sans', sans-serif;
           margin-bottom: 50px;
+          animation-name: fadeIn;
+          animation-iteration-count: 1;
+          animation-timing-function: ease-in;
+          animation-duration: 0.15s;
+          animation-fill-mode:forwards;
+         
+          
   }
+
+  @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+  }
+
+ 
   .pop-up-header {
     background: #F8F8F8;
     height: 50px;

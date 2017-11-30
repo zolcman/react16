@@ -25,7 +25,11 @@ class Protected extends Component {
 
       var self= this;
         this.props.GetVmList();
-        $(document).click(function (e) {
+
+        var heigh =  $( document ).height();
+        $('.protected').css("min-height",heigh - 81);
+
+        $('.protected').click(function (e) {
             
              if(!$(e.target).is('.table-content tr td') && !$(e.target).is('#restore-btn') && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
                $('.table-content tr').removeClass("selected-green");
@@ -38,7 +42,7 @@ class Protected extends Component {
 
     componentDidUpdate () {
 
-      
+            
       
             $('.table-content tr').click(function (event) {
               $('.table-content tr').removeClass("selected-green");

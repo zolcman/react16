@@ -154,7 +154,8 @@ class BackWiz extends Component {
       if (nextProps.repos) {
         console.log(nextProps.repos)
         let camlistpre = nextProps.repos.map((xf) => ({value:xf.Id,label:xf.name}));
-        this.setState({repos:camlistpre,reposselected:camlistpre[0].value})
+        this.setState({repos:camlistpre,reposselected:camlistpre[0]
+        })
         this.props.clearReposInRedux();
       }
 
@@ -576,9 +577,7 @@ class BackWiz extends Component {
     this.setState({schedulerSettings});
   }
 
-  changeRestorePoints(val) {
-    this.setState({retentionMaxRecoveryPoints:val.target.value});
-  }
+  
   
 
 	window4(){
@@ -758,7 +757,8 @@ class BackWiz extends Component {
 
   </Tabs>
 </div>
-	<div>Restore Points to keep on disk:<input className="respoints" type="number" value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
+	<div className="restorepointsinput">Restore Points to keep on disk:<input className="respoints" onBlur={this.onBlurRestore.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} pattern="[0-9]{10}" min="1" max="999" type="number"
+   value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
 
 <div className="autoretry">
 			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
@@ -787,7 +787,44 @@ class BackWiz extends Component {
 
 	    </div>
 			)
-	}
+  }
+
+  onBlurRestore() {
+    if (!this.state.retentionMaxRecoveryPoints) {
+      this.setState({retentionMaxRecoveryPoints:5});
+    }
+    
+  }
+
+  handleKeyPress(evt) {
+    evt = evt || window.event;
+    var charCode = evt.which || evt.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (charStr == "-") {
+        this.setState({retentionMaxRecoveryPoints:''});
+        console.log('ddddd')
+    }
+  }
+  
+  changeRestorePoints(e) {
+    let prop = e.target.value;
+    const re = /^[0-9\b]+$/;
+
+   
+   if (e.target.value == '' || re.test(e.target.value)) {
+     if (prop >= 1  && prop <= 999  || prop == '' ) {
+        this.setState({retentionMaxRecoveryPoints:prop});
+       
+      }
+      else {
+        return;
+      }
+ 
+   }
+    
+  
+  }
+
 check5 () {
   if( this.state.checked5) {
     this.setState({checked5:false})
@@ -808,15 +845,23 @@ check5 () {
   <dt>Source Cluster</dt>
   <dd>[ToDo]</dd>
   <dt>VMs</dt>
-  <dd>[ToDo]</dd>
+  <dd>
+    <div className="pl-1">
+  {this.state.array.map((item,index) => (
+              <span>{item.name}</span>
+
+          ))}
+  </div>
+  </dd>
+  
   <dt>Target repository</dt>
-  <dd>[ToDo]</dd>
+  <dd>{this.state.reposselected.label}</dd>
   <dt>Target path</dt>
   <dd>[ToDo]</dd>
   <dt>Schedule</dt>
   <dd>[ToDo]</dd>
   <dt>Retention</dt>
-  <dd>[ToDo]</dd>
+  <dd>{this.state.retentionMaxRecoveryPoints}</dd>
 </dl>
 	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
@@ -1100,6 +1145,7 @@ check5 () {
 
     render(){
 
+        console.log(this.state.retentionMaxRecoveryPoints)
 
         return (
           <div>

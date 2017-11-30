@@ -14,15 +14,37 @@ const headers = {
 	headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0'}
 }
 
-export function LoginInServer(json) {
+ function GetLoginInServer(json) {
 	
 	return{
 
 		type: GET_LOGIN,
-		data: "123456"
+		data: json
 
 	}
 };
+
+
+export function LoginInServer (id) {
+	
+		return dispatch => {
+	var accessToken = sessionStorage.getItem('accessToken');
+			return (
+	
+				//axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
+				axios.post(apiUrl + `/login`,id,  headers
+			).then(function (response) {
+	
+					dispatch(GetLoginInServer(response.data));
+	
+				  })
+				.catch((error) => {
+					  console.log(error);
+							
+				})
+				)
+		}
+	}
 
 
 

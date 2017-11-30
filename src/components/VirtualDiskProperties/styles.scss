@@ -24,7 +24,25 @@
       font-family: 'Open Sans', sans-serif;
           margin-bottom: 50px;
           padding-bottom: 25px;
+          animation-name: fadeIn;
+          animation-iteration-count: 1;
+          animation-timing-function: ease-in;
+          animation-duration: 0.15s;
+          animation-fill-mode:forwards;
   }
+
+  @keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+
+  }
+
+
+
   .pop-up-header {
     background: #F8F8F8;
     height: 50px;
