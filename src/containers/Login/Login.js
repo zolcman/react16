@@ -21,18 +21,27 @@ class Login extends Component {
     
        //  window.localStorage.getItem('login');
        //  this.props.login();    
-
+       this.setState({showIncorrectlogin:false})
     }
    
 
     componentWillReceiveProps(nextProps) {
 
+        if (nextProps.loginId == "ERROR") {
+            this.setState({showIncorrectlogin:true})
+            return
+         }
+
         if (nextProps.loginId) {
             localStorage.setItem('AuthToken', nextProps.loginId);
             this.props.login();
         }
-      
+        
 
+     }
+
+     componentWillUnmount() {
+        this.setState({showIncorrectlogin:false})
      }
 
 
@@ -82,6 +91,10 @@ class Login extends Component {
                    :
                    (null)
                    }  
+                   {(this.state.showIncorrectlogin) ? (<div className="login-alert">Incorrect login or password</div> )
+                   :
+                   (null)
+                   } 
               </div>
              
               

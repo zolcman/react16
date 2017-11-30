@@ -24,6 +24,17 @@ const headers = {
 	}
 };
 
+function SendError() {
+
+	console.log('ssss')
+
+	return{
+		
+				type: GET_LOGIN,
+				data: 'ERROR'
+		
+			}
+}
 
 export function LoginInServer (id) {
 	
@@ -32,15 +43,16 @@ export function LoginInServer (id) {
 			return (
 				
 				//axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
-				axios.post(apiUrl + `/login`,id,  headers
+				axios.post(apiUrl + `/api/v1/Account/login`,id,  headers
 			).then(function (response) {
 
 				if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					console.log(response.data.message)
+					dispatch(SendError())
 					 return
 			 }
-			 console.log(response.data.message)
+			 console.log(response)
 					dispatch(GetLoginInServer(response.data));
 	
 				  })
