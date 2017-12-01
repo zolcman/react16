@@ -4,6 +4,9 @@ import { connect} from 'react-redux';
 import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import { changeTab } from './NavBarAction';
 
+import {LogOutFromServer} from '../../containers/Login/LoginAction'
+import {MyName} from '../../containers/Login/LoginAction'
+
 class NavBar extends Component {
     constructor(props) {
         super(props)
@@ -18,6 +21,7 @@ class NavBar extends Component {
 
     componentDidMount() {
 
+      this.props.MyName();
 
 		$( document ).ready(function() {
 			$("body").children().find(".ulic3").hide();
@@ -50,8 +54,11 @@ changeTab(tab) {
 
 unLogin() {
   console.log('click')
- localStorage.removeItem('AuthToken');
-  window.location.replace('./');
+ //localStorage.removeItem('AuthToken');
+ // window.location.replace('./');
+
+this.props.LogOutFromServer()
+
 }
 
     render(){
@@ -106,7 +113,9 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
       changeTab: (tab) => dispatch(changeTab(tab)),
-
+      LogOutFromServer: () => dispatch(LogOutFromServer()),
+      MyName: () => dispatch(MyName()),
+      
 
     }
 }

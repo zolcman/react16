@@ -6,7 +6,7 @@ export const RUN = 'RUN';
 export const GET_DETAILED_INFO_SERVER = 'GET_DETAILED_INFO_SERVER';
 export const GET_ClUSTER_LIST = 'GET_ClUSTER_LIST';
 export const GET_DETAILED_INFO_CLUSTER = 'GET_DETAILED_INFO_CLUSTER';
-
+export const LOGOUT = 'LOGOUT';
 
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -25,7 +25,25 @@ function SaveList(json) {
 	}
 };
 
+const getHeader = (AuthToken) => {
+	return {
+		headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0','Authorization':localStorage.getItem('AuthToken')}
+	}
 
+}
+
+function LogOut () {
+	localStorage.removeItem('AuthToken');
+	window.location.replace('./');
+
+	return {
+
+		type: LOGOUT,
+		data: "LOGOUTED"
+
+
+	}
+}
 
 
 
@@ -35,7 +53,7 @@ export function GetBackupServers () {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/BackupServers`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/BackupServers`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -45,7 +63,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -68,7 +90,7 @@ export function GetClusters () {
 	var accessToken = sessionStorage.getItem('accessToken');
 			return (
 				//dispatch(showLoading()),
-				axios.get(apiUrl + `/api/v1/Clusters`,headers).then(function (response) {
+				axios.get(apiUrl + `/api/v1/Clusters`,getHeader()).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
@@ -79,6 +101,10 @@ export function GetClusters () {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
 				})
 				)
 		}
@@ -93,7 +119,7 @@ export function AddSettingsNewServer (objs) {
 	
 			return (
 	
-				axios.post(apiUrl + `/api/v1/BackupServers`, objs,  headers
+				axios.post(apiUrl + `/api/v1/BackupServers`, objs,  getHeader()
 			).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
@@ -105,6 +131,10 @@ export function AddSettingsNewServer (objs) {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
 				})
 				)
 		}
@@ -117,7 +147,7 @@ export function AddSettingsNewServer (objs) {
 		
 				return (
 		
-					axios.put(apiUrl + `/api/v1/BackupServers/${id}`, objs,  headers
+					axios.put(apiUrl + `/api/v1/BackupServers/${id}`, objs,  getHeader()
 				).then(function (response) {
 					 if(response.data.code>200){
 							// dispatch(toastrActions.add('error', '',response.data.message))
@@ -129,6 +159,10 @@ export function AddSettingsNewServer (objs) {
 					  })
 					.catch((error) => {
 						  console.log(error);
+						  if(error.response.status > 200){
+							dispatch(LogOut())
+							 return
+							 }	
 					})
 					)
 			}
@@ -160,7 +194,7 @@ export function AddSettingsNewServer (objs) {
 			var accessToken = sessionStorage.getItem('accessToken');
 					return (
 						//dispatch(showLoading()),
-						axios.get(apiUrl + `/api/v1/BackupServers/${id}`,headers).then(function (response) {
+						axios.get(apiUrl + `/api/v1/BackupServers/${id}`,getHeader()).then(function (response) {
 						 if(response.data.code>200){
 								// dispatch(toastrActions.add('error', '',response.data.message))
 								 return
@@ -171,6 +205,10 @@ export function AddSettingsNewServer (objs) {
 						  })
 						.catch((error) => {
 							  console.log(error);
+							  if(error.response.status > 200){
+								dispatch(LogOut())
+								 return
+								 }	
 						})
 						)
 				}
@@ -202,7 +240,7 @@ export function AddSettingsNewServer (objs) {
 					var accessToken = sessionStorage.getItem('accessToken');
 							return (
 								//dispatch(showLoading()),
-								axios.get(apiUrl + `/api/v1/Clusters/${id}`,headers).then(function (response) {
+								axios.get(apiUrl + `/api/v1/Clusters/${id}`,getHeader()).then(function (response) {
 								 if(response.data.code>200){
 										// dispatch(toastrActions.add('error', '',response.data.message))
 										 return
@@ -213,6 +251,10 @@ export function AddSettingsNewServer (objs) {
 								  })
 								.catch((error) => {
 									  console.log(error);
+									  if(error.response.status > 200){
+										dispatch(LogOut())
+										 return
+										 }	
 								})
 								)
 						}
@@ -224,7 +266,7 @@ export function AddSettingsNewServer (objs) {
 	
 			return (
 	
-				axios.post(apiUrl + `/api/v1/Clusters`, objs,  headers
+				axios.post(apiUrl + `/api/v1/Clusters`, objs,  getHeader()
 			).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
@@ -236,6 +278,10 @@ export function AddSettingsNewServer (objs) {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
 				})
 				)
 		}
@@ -247,7 +293,7 @@ export function AddSettingsNewServer (objs) {
 		
 				return (
 		
-					axios.put(apiUrl + `/api/v1/Clusters/${id}`, objs,  headers
+					axios.put(apiUrl + `/api/v1/Clusters/${id}`, objs,  getHeader()
 				).then(function (response) {
 					 if(response.data.code>200){
 							// dispatch(toastrActions.add('error', '',response.data.message))
@@ -259,6 +305,10 @@ export function AddSettingsNewServer (objs) {
 					  })
 					.catch((error) => {
 						  console.log(error);
+						  if(error.response.status > 200){
+							dispatch(LogOut())
+							 return
+							 }	
 					})
 					)
 			}

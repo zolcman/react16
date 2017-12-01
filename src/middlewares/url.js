@@ -8,7 +8,7 @@ if(process.env.NODE_ENV === 'development') {
 // 
 	apiUrl = 'http://localhost:8100'
 } else {
-    apiUrl = 'http://94.45.140.34:8100'
+    apiUrl = 'http://localhost:8100'
 }
 
 const Urls = {

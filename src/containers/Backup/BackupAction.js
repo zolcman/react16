@@ -13,7 +13,7 @@ export const RUN_AUTO_JOB = 'RUN_AUTO_JOB';
 export const STOP_TIMER = 'STOP_TIMER';
 export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
 export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
-
+export const LOGOUT = 'LOGOUT';
 
 
 
@@ -22,20 +22,33 @@ export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
 const getURI = (key) => apiUrl + Urls[key]
 
 
-const getHeader = () => {
-
-	const headers = {
-		headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0','AuthToken':localStorage.getItem('AuthToken')}
+const getHeader = (AuthToken) => {
+	return {
+		headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0','Authorization':localStorage.getItem('AuthToken')}
 	}
-	console.log(headers);
-}
 
-const headers = {
-	headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0'}
 }
 
 
+function LogOut () {
+	localStorage.removeItem('AuthToken');
+	window.location.replace('./');
 
+	return {
+
+		type: LOGOUT,
+		data: "LOGOUTED"
+
+
+	}
+}
+
+//const headers = {
+//	headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0'}
+//}
+
+
+//{ headers: {'Content-Type': 'application/json','UserAgentInternal': 'webfrontend/1.0','Authorization':AuthToken}}
 
 
 function receiveData22(json) {
@@ -58,7 +71,7 @@ export function GetBackList (params) {
 
 		return (
 			//dispatch(showLoading()),
-			axios.get(getURI("jobs"),headers).then(function (response) {
+			axios.get(getURI("jobs"),getHeader(AuthToken)).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -68,7 +81,11 @@ export function GetBackList (params) {
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -89,7 +106,7 @@ export function GetBackDetail (id) {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/Policies/${ id }/vms`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/Policies/${ id }/vms`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -99,7 +116,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -111,7 +132,7 @@ export function DeleteBackupJob (id) {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 			//dispatch(showLoading()),
-			axios.delete(apiUrl + `/api/v1/Policies/${ id }`,headers).then(function (response) {
+			axios.delete(apiUrl + `/api/v1/Policies/${ id }`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -119,7 +140,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 dispatch(GetBackList());
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -152,7 +177,7 @@ export function TreeProtected (id,bool) {
 			return (
 	
 				//dispatch(showLoading()),
-				axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=protdomainstreeview`,headers).then(function (response) {
+				axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=protdomainstreeview`,getHeader()).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
@@ -169,6 +194,10 @@ export function TreeProtected (id,bool) {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
 				})
 				)
 		}
@@ -181,7 +210,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -191,7 +220,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -213,7 +246,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=flatlist`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/Clusters/${ id }/vms?format=flatlist`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -223,7 +256,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -256,7 +293,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
 			//axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
-			axios.post(apiUrl + `/api/v1/Policies/${ id }/startbackup`,{body: {}},  headers
+			axios.post(apiUrl + `/api/v1/Policies/${ id }/startbackup`,{body: {}},  getHeader()
    	 ).then(function (response) {
 
 
@@ -268,7 +305,11 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
       			console.log(error);
-						dispatch(cleartask_info());
+					//	dispatch(cleartask_info());
+					if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
     		})
 			)
 	}
@@ -305,7 +346,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/Tasks/${ id }`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/Tasks/${ id }`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -316,7 +357,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -353,7 +398,7 @@ export function StartVMTask (param) {
 console.log(param)
 		return (
 
-			axios.post(apiUrl + `/api/v1/Vms/restore`, param,  headers
+			axios.post(apiUrl + `/api/v1/Vms/restore`, param,  getHeader()
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -364,7 +409,11 @@ console.log(param)
 
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -420,7 +469,7 @@ export function addJobSS (id,runner) {
 		return (
 
 			//axios.post(getURI("jobs"),{"name": "Demo Policy","@odata.type": "Policy"},  headers
-			axios.post(getURI("jobs"), id,  headers
+			axios.post(getURI("jobs"), id,  getHeader()
    	 ).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -438,7 +487,11 @@ export function addJobSS (id,runner) {
 
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -472,7 +525,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 		return (
 
 			//dispatch(showLoading()),
-			axios.get(apiUrl + `/api/v1/BackupServers/${ id }/repositories`,headers).then(function (response) {
+			axios.get(apiUrl + `/api/v1/BackupServers/${ id }/repositories`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
@@ -482,7 +535,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-      			console.log(error);
+				  console.log(error);
+				  if(error.response.status > 200){
+					dispatch(LogOut())
+					 return
+			 		}	
     		})
 			)
 	}
@@ -516,7 +573,7 @@ export function EditJobInfo (id) {
 			return (
 	
 				//dispatch(showLoading()),
-				axios.get(apiUrl + `/api/v1/Policies/${ id }/settings`,headers).then(function (response) {
+				axios.get(apiUrl + `/api/v1/Policies/${ id }/settings`,getHeader()).then(function (response) {
 				 if(response.data.code>200){
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
@@ -527,6 +584,10 @@ export function EditJobInfo (id) {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  if(error.response.status > 200){
+						dispatch(LogOut())
+						 return
+						 }	
 				})
 				)
 		}
@@ -542,7 +603,7 @@ export function EditJobInfo (id) {
 				return (
 		
 					//dispatch(showLoading()),
-					axios.put(apiUrl + `/api/v1/Policies/${ id }/settings`,obj,headers).then(function (response) {
+					axios.put(apiUrl + `/api/v1/Policies/${ id }/settings`,obj,getHeader()).then(function (response) {
 					 if(response.data.code>200){
 							// dispatch(toastrActions.add('error', '',response.data.message))
 							 return
@@ -561,6 +622,10 @@ export function EditJobInfo (id) {
 					  })
 					.catch((error) => {
 						  console.log(error);
+						  if(error.response.status > 200){
+							dispatch(LogOut())
+							 return
+							 }	
 					})
 					)
 			}
