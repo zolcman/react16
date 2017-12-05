@@ -152,7 +152,7 @@ class Protected extends Component {
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
                 {(this.state.blockRestoreBtn) ?
-                   (<a id="restore-btn" className="gt-left bk-btn start-btn disabled">Restore</a>)
+                   (<a id="restore-btn" className="gt-left bk-btn restore-btn disabled">Restore</a>)
                    :
                     (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn restore-btn">Restore</a>)
                     }  
@@ -202,7 +202,7 @@ class Protected extends Component {
               </div>
               <Wizard openVMProgressBar={this.openVMProgressBar.bind(this)} vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
               <VMProgressBar open={this.state.openWiz3} close={this.closeWiz3.bind(this)}/>
-              <DiskRestoreWiz open={this.state.openWiz4} close={this.closeWiz4.bind(this)}/>
+              <DiskRestoreWiz openVMProgressBar={this.openVMProgressBar.bind(this)} open={this.state.openWiz4} close={this.closeWiz4.bind(this)}/>
               
           </div>
         )

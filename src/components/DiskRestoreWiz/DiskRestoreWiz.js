@@ -8,7 +8,7 @@ import SelectVirtualMachineWiz from '../SelectVirtualMachineWiz/SelectVirtualMac
 import VirtualDiskProperties from '../VirtualDiskProperties/VirtualDiskProperties';
 import  { GetPointList } from '../../containers/Protected/ProtectedAction'
 import  Clock from '../Clock/Clock';
-
+import { StartVMTask } from '../../containers/Backup/BackupAction'
 
 
 class DiskRestoreWiz extends Component {
@@ -28,7 +28,7 @@ class DiskRestoreWiz extends Component {
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           restored_disk_types:[{label:'Same as source',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           
-         nodes:[],
+          nodes:[],
 
           checked5:false,
           checked41:false,
@@ -46,7 +46,7 @@ class DiskRestoreWiz extends Component {
     componentWillReceiveProps(nextProps) {
 
      if (nextProps.list && this.state.nodes.length == 0) {
-      this.setState({nodes:nextProps.list})
+     this.setState({nodes:nextProps.list})
       console.log("received")
      }
 
@@ -61,9 +61,7 @@ class DiskRestoreWiz extends Component {
     close() {
       this.props.close();
       this.resetData();
-      this.setState({nodes:[],points:[]})
-      this.setState({selectedOnFirstStage:false})
-      this.setState({disableAddbtn:true,checkedId:false})
+      
     }
 
     pagechange() {
@@ -71,7 +69,7 @@ class DiskRestoreWiz extends Component {
         if (!this.state.selectedOnFirstStage) {
           return
         }
-        this.setState({page:2})
+        this.setState({page:2,disableAddbtn:true})
       }
       if (this.state.page == 2) {
         this.setState({page:3})
@@ -169,7 +167,7 @@ componentDidMount() {
       <div className="looper">
           
           {loopArray.map((item,indexer) => (
-            <div className="loop-lvl1 gt-clear">
+            <div key={indexer} className="loop-lvl1 gt-clear">
                    <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
                     <div className="col-4 back_upicon">{item.label}</div>
                     <div className="col-4">{item.restorePoint}</div>
@@ -182,7 +180,7 @@ componentDidMount() {
                       (<div className="loop-lvl2 ">
                    {item.children.map((child,index) => (
 
-                      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer)} className={`${this.state.checkedId===index && this.state.indexer===indexer ?
+                      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ?
                        'selected-green gt-clear childtable text-alignCenter': 'gt-clear childtable text-alignCenter'}`}
                       >
                         <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
@@ -207,28 +205,35 @@ componentDidMount() {
 	)
   }
 
-  saveId(val,key,indexer) {
+  saveId(val,key,indexer,label) {
 
     if(this.state.checkedId===key){
       this.setState({
          checkedId: '',
-         indexer:''
+         indexer:'',
+         selectedOnFirstStage:false,
+         disableAddbtn:true,
+         labelFor3step:''
         });
       }else{
       this.setState({
          checkedId: key,
          indexer:indexer,
+         selectedOnFirstStage:true,
+         disableAddbtn:false,
+         labelFor3step:label
         });
       }
      
     console.log(val);
-    this.setState({selectedOnFirstStage:true})
-    this.setState({disableAddbtn:false})
+    //this.setState({selectedOnFirstStage:true})
+   // this.setState({disableAddbtn:false})
     
     let resultsplited = val.split(';')
     let backupId = resultsplited[0];
     let vmId = resultsplited[1];
     let idToSend = {vmUid:vmId,policyUid:backupId}
+    this.setState({vmUid:vmId})
     this.props.GetPointList(idToSend)
   }
 
@@ -283,7 +288,7 @@ componentDidMount() {
         : this.state.nodes.map(item => ({
           ...item,
           children: item.children
-            .filter(child => child.value.includes(value.toLowerCase()))
+            .filter(child => child.label.includes(value.toLowerCase()))
         }))
         .filter(item => item.children.length > 0)
     })
@@ -324,7 +329,7 @@ componentDidMount() {
                      <tbody>
                                 {elemns.map((item,index) => (
                                     <tr className={`${this.state.checkedIdPoint===index  ?  'selected-green cursorPointer': 'cursorPointer'}`}
-                                     onClick={this.selectPoint.bind(this,item.Id,index)} key={index}>
+                                     onClick={this.selectPoint.bind(this,item.Id,item.disks,index)} key={index}>
                                       <td>{item.date}</td>
                                       <td>{item.type}</td>
                                       
@@ -342,19 +347,24 @@ componentDidMount() {
 
   }
   
-  selectPoint (id,index) {
+  selectPoint (id,disks,index) {
   
     if(this.state.checkedIdPoint===index){
       this.setState({
         checkedIdPoint: '',
-        
+        disks:'',
+        pointId:'',
+        disableAddbtn:true,
         });
       }else{
       this.setState({
         checkedIdPoint: index,
-        
+        disks:disks,
+        pointId:id,
+        disableAddbtn:false,
         });
       }
+      
   //  this.props.getDiskInfo(id);
 
   }
@@ -425,7 +435,7 @@ componentDidMount() {
       }
 
 	window3(){
-        var filer = this.state.filteredItems || this.state.array || [];
+        var filer = this.state.disks  || [];
 		return(
 	<div>
         <div className="zagname">Disk Mapping</div>
@@ -435,12 +445,12 @@ componentDidMount() {
 
             <div className="gt-clear gt-clearnew">
               <div className="gt-left width475px">
-              <input className=" virtualMachineInput marbtm12px"/>
+              <input value={this.state.labelFor3step} readOnly className=" virtualMachineInput marbtm12px"/>
               <div className="consteptwo heigth270">
                  <table>
                     <thead>
                         <tr>
-                         <th ><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/>Virtual Disk</th>
+    {/*   <th ><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/>Virtual Disk</th>  */}
                           <th>Virtual Device Node</th>
                           <th>Datastore</th>
                           
@@ -449,9 +459,9 @@ componentDidMount() {
                      <tbody>
           {filer.map((item,index) => (
               <tr key={index}>
-                <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td>
-                <td>{item.type}</td>
-                <td>{item.size} GB</td>
+          {/*       <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td> */}
+                <td>{item.diskLabel}</td>
+                <td>{item.busType}</td>
               </tr>
 
           ))}
@@ -460,17 +470,19 @@ componentDidMount() {
             </div>
               </div>
               <div className="gt-left marleft15px">
-              <a onClick={()=> {this.setState({closeWizPRO:true})}} className=" btns-browser-change marbtm12px disabled">Browse..</a>
-            <a onClick={()=> {this.setState({closeWizPRO2:true})}} className=" btns-browser-change marbtm12px disabled">Remap disk..</a>
-            <a className=" btns-browser-change">Exclude</a>
+                   <a    className=" btns-browser-change marbtm12px disabled">Browse..</a>
+                   {/*<a  onClick={()=> {this.setState({closeWizPRO:true})}}  className=" btns-browser-change marbtm12px disabled">Browse..</a>*/}
+            <a  className=" btns-browser-change marbtm12px disabled">Remap disk..</a>
+        {/*<a onClick={ ()=> {this.setState({closeWizPRO2:true})}}  className=" btns-browser-change marbtm12px disabled">Remap disk..</a>*/}
+            <a className=" btns-browser-change disabled">Exclude</a>
 
               </div>
             </div>
 
 
-        <div className="font600w restored_disk_type_label ">Restored Disk type:</div>
+        <div className="font600w restored_disk_type_label disabled">Restored Disk type:</div>
         <Select
-                      className="repo1sd1"
+                      className="repo1sd1 disabled"
 
                       name="form-field-name"
                       value={this.state.restored_disk_type}
@@ -518,11 +530,11 @@ componentDidMount() {
           <div className="windows-list">
             <dl className="floated">
                 <dt>Original VM Name:</dt>
-                <dd>[ToDo]</dd>
+                <dd>{this.state.labelFor3step}</dd>
                 <dt>Restore point:</dt>
-                <dd>[ToDo] </dd>
+                <dd>{this.state.pointId} </dd>
                 <dt>Target VM Name:</dt>
-                <dd>[ToDo]</dd>
+                <dd>{this.state.labelFor3step}</dd>
                 <dt>Target host:</dt>
                 <dd>[ToDo]</dd>
                 
@@ -584,6 +596,9 @@ componentDidMount() {
       if (param == 2 && !this.state.selectedOnFirstStage) { 
           return
       }
+      if (param == 3 && !this.state.pointId) { 
+        return
+    }
       else  {
         this.setState({page:param})
       }
@@ -625,8 +640,24 @@ componentDidMount() {
 
     
     add () {
-     
+     let ObjectTosend = {}
+     ObjectTosend.restoreMode = 'RestoreVmDisksFromPoint';
+     ObjectTosend.disks = this.state.disks;
+     ObjectTosend.vmUid = this.state.vmUid;
+     ObjectTosend.recoveryPointUid = this.state.pointId;
+     ObjectTosend.policyUid = '';
+     ObjectTosend.newName = '';
+
+      console.log(ObjectTosend);
+     this.props.StartVMTask(ObjectTosend);
+     this.setState({page:1});
+     this.setState({disableAddbtn:true});
+     this.props.openVMProgressBar();
+     this.resetData();
+     this.props.close();
+
     }
+
 
     updateJob() {
       
@@ -635,9 +666,13 @@ componentDidMount() {
     resetData() {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
-     
+      this.setState({nodes:[],points:[]})
+      this.setState({selectedOnFirstStage:false})
+      this.setState({disableAddbtn:true,checkedId:false,checkedIdPoint: '', disks:'',pointId:'',})
 
+      
      
+      
       
     }
 
@@ -711,7 +746,7 @@ const mapDispatchToProps = function(dispatch) {
 
      
       GetPointList: (id) => dispatch(GetPointList(id)),
-        
+      StartVMTask: (param) => dispatch(StartVMTask(param)),  
 
     }
 }

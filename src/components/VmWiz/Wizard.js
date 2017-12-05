@@ -807,16 +807,21 @@ pointClick () {
       let location = ''
 
      if (this.state.checkOriginalLocaiton) {
-          location = 'RestoreToOriginalLocation'
+          location = 'RestoreVmFromLastPoint'
      }
      if (!this.state.checkOriginalLocaiton) {
-      location = 'RestoreToNewLocation'
- }
+      location = 'RestoreVmAsNewFromPoint'
+      }
+      if (this.state.ObjFromFirstSreen.recoveryPointUid !== '' ) {
+        location = 'RestoreVmFromPoint'
+      }
 
      let ObjFromFirstSreen = Object.assign({}, this.state.ObjFromFirstSreen);    //creating copy of object
      ObjFromFirstSreen.restoreMode = location;
      ObjFromFirstSreen.newName = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;                       
      this.setState({ObjFromFirstSreen});
+
+     console.log(ObjFromFirstSreen);
 
       this.props.StartVMTask(ObjFromFirstSreen);
       this.setState({page:1});
