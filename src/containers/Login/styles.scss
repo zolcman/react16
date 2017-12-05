@@ -75,7 +75,7 @@
   border-radius: 50%;
   background: #2ab52e;
   text-align: center;
-  padding-top: 3px;
+  padding-top: 1px;
   box-sizing: border-box;
   margin-top: -37px;
   position: relative;
@@ -87,6 +87,8 @@
   animation-fill-mode:forwards;
   transition: all 50ms ease-in-out;
   transform: scale(1);   
+  border: 0;
+  outline: 0;
   
 }
 .login-btn:hover {

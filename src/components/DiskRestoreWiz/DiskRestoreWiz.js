@@ -288,7 +288,11 @@ componentDidMount() {
         : this.state.nodes.map(item => ({
           ...item,
           children: item.children
-            .filter(child => child.label.includes(value.toLowerCase()))
+          .filter(child => child.label.toLowerCase().indexOf(value.toLowerCase()) !== -1)
+            
+         //   .filter(child => child.label.includes(value.toLowerCase()))
+
+          //  item.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
         }))
         .filter(item => item.children.length > 0)
     })

@@ -22,6 +22,13 @@ class Login extends Component {
        //  window.localStorage.getItem('login');
        //  this.props.login();    
        this.setState({showIncorrectlogin:false})
+
+       $('myForm').keydown(function(e) {
+           console.log('ssasa');
+        if (e.keyCode == 13) {
+            $('#myForm').submit();
+        }
+    });
     }
    
 
@@ -29,6 +36,7 @@ class Login extends Component {
 
         if (nextProps.loginId == "ERROR") {
             this.setState({showIncorrectlogin:true})
+            this.setState({showAlert:false})
             return
          }
 
@@ -45,10 +53,12 @@ class Login extends Component {
      }
 
 
-   login() {
-
+   login(e) {
+    e.preventDefault();
+   // $('#myForm').submit();
     if (!this.state.login || !this.state.password) {
         this.setState({showAlert:true})
+        this.setState({showIncorrectlogin:false})
     }
 
     if (this.state.login && this.state.password) {
@@ -74,7 +84,7 @@ class Login extends Component {
 
         return (
           <div className="login-page">
-              
+              <form id="myForm" onSubmit={this.login.bind(this)}>
               <div className="login-container">
 
                     <div className="logo-login-page"></div>
@@ -86,7 +96,8 @@ class Login extends Component {
                     </div>
                     
                     
-                     <a className="login-btn" onClick={this.login.bind(this)} >></a>
+                    <button className="login-btn" type="submit">></button>
+                    
                    {(this.state.showAlert) ? (<div className="login-alert">Please enter a username and password</div> )
                    :
                    (null)
@@ -96,7 +107,8 @@ class Login extends Component {
                    (null)
                    } 
               </div>
-             
+              
+              </form>
               
           
 
