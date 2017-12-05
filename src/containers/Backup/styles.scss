@@ -173,7 +173,11 @@ cursor: default!important;
   	background-size: 29px;
       color: #7ED321;
 
-  	}
+    }
+    .red_delete-btn {
+      background: url('./img/delete_red.svg') no-repeat #f8f8f8;
+      background-size: 20px;
+    }
   	//7ed321
     .refrsh {
       background: url('./img/p_refresh.svg') no-repeat 1px;

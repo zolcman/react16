@@ -410,33 +410,46 @@ componentDidMount() {
     
       bigcheck(state) {
         if (state) {
-        let  positiveArr112 = this.state.array.map(function(name) {
-           return ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':false} );
+        let  positiveArr112 = this.state.disks.map(function(name) {
+           return ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':false} );
         });
-        this.setState({array:positiveArr112,bigcheck:false})
+        this.setState({disks:positiveArr112,bigcheck:false})
         }
         if (!state) {
-        let  positiveArr112 = this.state.array.map(function(name) {
-           return ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':true} );
+        let  positiveArr112 = this.state.disks.map(function(name) {
+          return ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':true} );
         });
-        this.setState({array:positiveArr112,bigcheck:true})
+        this.setState({disks:positiveArr112,bigcheck:true})
         }
       }
     
       tblcheck(index,checked) {
-      let  positiveArr112 = this.state.array.map(function(name) {
+      let  positiveArr112 = this.state.disks.map(function(name) {
          return ( (name.Id == index) ? ( (checked == true) ?
-          ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':false})
-          :({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':true})
+         ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':false} )
+          :({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':true} )
     
          )
-          : ({'Id':name.Id,'size':name.size,'name':name.name,'type':name.type,'checked':name.checked})
+          : ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':name.checked} )
         );
       });
     
     
-      this.setState({array:positiveArr112})
+      this.setState({disks:positiveArr112})
       }
+
+
+     
+    //  @odata.id :"disk1vm10"
+    //   Id:"disk1vm10"
+    //  busType:"BUSTYPE1"
+    //  diskLabel:"SCSI 0:1"
+    //  index:1
+    //  isCdrom:false
+    //  size:1024000
+      
+
+
 
 	window3(){
         var filer = this.state.disks  || [];
@@ -450,11 +463,11 @@ componentDidMount() {
             <div className="gt-clear gt-clearnew">
               <div className="gt-left width475px">
               <input value={this.state.labelFor3step} readOnly className=" virtualMachineInput marbtm12px"/>
-              <div className="consteptwo heigth270">
+              <div className="consteptwo heigth270 heigth25fortd">
                  <table>
                     <thead>
                         <tr>
-    {/*   <th ><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/>Virtual Disk</th>  */}
+       <th ><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/></th>  
                           <th>Virtual Device Node</th>
                           <th>Datastore</th>
                           
@@ -462,8 +475,8 @@ componentDidMount() {
                      </thead>
                      <tbody>
           {filer.map((item,index) => (
-              <tr key={index}>
-          {/*       <td><input checked={item.checked}  onChange={this.tblcheck.bind(this,item.Id,item.checked)} type="checkbox"/>{item.name}</td> */}
+              <tr onClick={this.tblcheck.bind(this,item.Id,item.checked)} key={index}>
+                 <td><input checked={item.checked}   type="checkbox"/>{item.name}</td> 
                 <td>{item.diskLabel}</td>
                 <td>{item.busType}</td>
               </tr>
@@ -646,7 +659,12 @@ componentDidMount() {
     add () {
      let ObjectTosend = {}
      ObjectTosend.restoreMode = 'RestoreVmDisksFromPoint';
-     ObjectTosend.disks = this.state.disks;
+
+      let disks = this.state.disks.filter(function(item){
+        return item.checked == true;
+      })
+
+     ObjectTosend.disks = disks;
      ObjectTosend.vmUid = this.state.vmUid;
      ObjectTosend.recoveryPointUid = this.state.pointId;
      ObjectTosend.policyUid = '';

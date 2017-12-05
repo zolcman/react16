@@ -401,14 +401,14 @@ class Backup extends Component {
 
                      
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
-                      {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
+                      {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
                      :
                       (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
                      
 					  
-                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad 4444">Delete</a>)
+                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad 4444">Delete</a>)
                      :
-                      (  <a className="bk-btn gt-left delete-btn fixpad disabled 2222">Delete</a>)}
+                      (  <a className="bk-btn gt-left red_delete-btn fixpad disabled 2222">Delete</a>)}
 					  <a className="bk-btn gt-left activefull-btn fixpad disabled width125px">Active Full</a>
             
             
