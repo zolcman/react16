@@ -56,7 +56,7 @@ class Login extends Component {
         let id = {
             "@odata.type": "LoginData",
             Password: this.state.password,
-            Email: this.state.login
+            Username: this.state.login
           //  Password: "QwErTy123@",
           //  Email: "root@starwind.com"
         }

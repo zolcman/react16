@@ -125,7 +125,7 @@ class SWizardPro extends Component {
                             <table>
                               <thead>
                                 <tr >
-                                  <th>Job</th>
+                                <th>Date</th>
                                   <th>Type</th>
                                   
                                  
@@ -134,9 +134,9 @@ class SWizardPro extends Component {
                               <tbody>
                                 {elemns.map((item,index) => (
                                     <tr onClick={this.choosen.bind(this,item.date,item.Id,item.backupSizeBytes)} key={index}>
-                                      <td>{item.job}</td>
+                                      <td>{item.date}</td>
                                       <td>{item.type}</td>
-                                    
+                                      
                                       
                                     </tr>
 

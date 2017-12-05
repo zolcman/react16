@@ -74,7 +74,7 @@ this.props.LogOutFromServer()
                   <ul className="left-side-menu">
                     <li><NavLink exact activeClassName="selected" to="/">Dashboard</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/backupjobs">Backup Jobs</NavLink></li>
-                    <li><NavLink activeClassName="selected" to="/protectedvms">Protected VM's</NavLink></li>
+                    <li><NavLink activeClassName="selected" to="/protectedvms">Protected VMs</NavLink></li>
                     <li><NavLink activeClassName="selected" to="/alert">Events</NavLink></li>   
                     
                     

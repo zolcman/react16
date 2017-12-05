@@ -159,6 +159,15 @@ class BackWiz extends Component {
         this.props.clearReposInRedux();
       }
 
+
+      if (nextProps.backup) {
+       
+        let camlistpre = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.name}));
+        this.setState({backupjobssimple:camlistpre,backupjobssimpleselected:camlistpre[0]
+        })
+       
+      }
+
       if (nextProps.edit_info) {
         console.log('222')
         this.props.clearJobEditInfo();
@@ -746,8 +755,8 @@ class BackWiz extends Component {
 					  placeholder="Backup Job 3"
                       className="tabl1"
                       name="form-field-name"
-                      value={this.state.selectOP2}
-                      options={this.state.options}
+                      value={this.state.backupjobssimpleselected}
+                      options={this.state.backupjobssimple}
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
         />
@@ -760,7 +769,7 @@ class BackWiz extends Component {
 	<div className="restorepointsinput">Restore Points to keep on disk:<input className="respoints" onBlur={this.onBlurRestore.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} pattern="[0-9]{10}" min="1" max="999" type="number"
    value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
 
-<div className="autoretry">
+<div className="autoretry disabled">
 			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
 			<div className="clear">
 			<div className="autoretryleft">
@@ -775,12 +784,12 @@ class BackWiz extends Component {
 
 </div>
 
-			<div className="bckpchkbx"><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
-			<div className="bottomwith">
+			<div className="bckpchkbx disabled"><label><input type="checkbox" checked name="dva"/> Backup window</label></div>
+			<div className="bottomwith disabled">
 			<span>Terminate job of it exceeds allowed backup window<input className="windbtn" type="button" value="Window..."/></span>
 			</div>
 
-			<div className="bottomwithline">
+			<div className="bottomwithline ">
 			If the job does not complete within allocated backup window, it will be terminated to prevent snapshot commit during production hours
 			</div>
 

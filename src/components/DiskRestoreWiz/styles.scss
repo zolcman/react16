@@ -897,6 +897,8 @@ padding-top:24px;
 .back_upicon {
 	background: url('./img/backup_job.svg') no-repeat;
 	background-position: 25px 0px;
+	text-align: left!important;
+	padding-left: 46px;
 }
 .vm-icon {
 	background: url('./img/VM.svg') no-repeat;
@@ -935,6 +937,9 @@ padding-top:24px;
 
 .padding0 {
 	padding: 0;
+}
+.cursorPointer {
+	cursor: pointer;
 }
 
 }

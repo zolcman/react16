@@ -42,6 +42,20 @@ class Backup extends Component {
 
       
         this.props.GetBackList();
+        var self= this;
+
+        var heigh =  $( document ).height();
+        $('.backup-page').css("min-height",heigh - 81);
+
+        $('.backup-page').click(function (e) {
+          
+           if(!$(e.target).is('.table-content tr td') && !$(e.target).is('#start-btnid') && !$(e.target).is('.bk-btn')
+            && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
+             $('.table-content tr').removeClass("selected-green");
+             self.setState({choosen:false,jobid:'',jobname:''})
+             console.log('eeeeee')
+            }
+          });
 
     }
     componentWillMount () {
@@ -76,7 +90,8 @@ class Backup extends Component {
      this.setState({options2:change2});
      this.setState({options3:change3});
 
-
+     this.setState({stopbtn:false})
+     $('.table-content tr').removeClass("selected-green");
         }
      }
 
@@ -254,18 +269,7 @@ class Backup extends Component {
       })
     }
 
-    chooseitem(id,status,name) {
-      if (status == 'Running') {
-        console.log(id);
-        this.setState({choosen:false,jobid:id,jobname:name})
-      }
-      if (status != 'Running') {
-        console.log(id);
-        this.setState({choosen:true,jobid:id,jobname:name})
-
-      }
-
-    }
+   
 
 
     componentDidUpdate () {
@@ -284,13 +288,38 @@ class Backup extends Component {
     openWiz234 () {
       this.setState({openWiz2:true})
       this.props.StartJobTask(this.state.jobid);
+      console.log('ppppp')
     }
 	
 	deleteJob () {
+    let deletee = confirm('are you shore?')
+  //  var isAdmin = confirm("alertrr?");
+   // console.log('aaaaaaaaaaaaaaaaaaaaaa')
+   // alert("sssss");
+
+    if (deletee) {
       this.setState({choosen:false,jobname:''});
       this.props.DeleteBackupJob(this.state.jobid);
-	  this.setState({jobid:undefined});	  
+	  this.setState({jobid:undefined});
+    }
+    else {
+      return;
+    }
+      	  
 	  
+    }
+
+    chooseitem(id,status,name) {
+      if (status == 'Running') {
+        console.log(id);
+        this.setState({choosen:false,jobid:id,jobname:name,stopbtn:true})
+      }
+      if (status != 'Running') {
+        console.log(id);
+        this.setState({choosen:true,jobid:id,jobname:name,stopbtn:false})
+
+      }
+
     }
 
     render(){
@@ -362,21 +391,27 @@ class Backup extends Component {
             <div className="cntrl-btns gt-clear">
               <div className="btns-wrapper gt-clear">
                   <div className=" gt-left">
-                    {this.state.choosen ? (  <a onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn fixpad">Start</a>)
+                    {this.state.choosen ? (  <a id="start-btnid" onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn fixpad">Start</a>)
                      :
-                      (  <a className="bk-btn gt-left start-btn fixpad diabledstart">Start</a>)}
+                      (  <a id="start-btnid" className="bk-btn gt-left start-btn fixpad disabled">Start</a>)}
 
-                      <a className="bk-btn gt-left stop-btn fixpad">Stop</a>
+                      {this.state.stopbtn ? (   <a className="bk-btn gt-left stop-btn fixpad ">Stop</a>)
+                     :
+                      (   <a className="bk-btn gt-left stop-btn fixpad disabled">Stop</a>)}
+
+                     
                       <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
                       {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left start-btn fixpad">Edit</a>)
                      :
                       (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
                      
 					  
-                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad">Delete</a>)
+                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left delete-btn fixpad 4444">Delete</a>)
                      :
-                      (  <a className="bk-btn gt-left delete-btn fixpad disabled">Delete</a>)}
+                      (  <a className="bk-btn gt-left delete-btn fixpad disabled 2222">Delete</a>)}
 					  <a className="bk-btn gt-left activefull-btn fixpad disabled width125px">Active Full</a>
+            
+            
 				{/* 	  <a className="bk-btn gt-left refresh-btn fixpad disabled">Refresh</a> */}
                   </div>
                   <div className="search-panel gt-right fixer91">
@@ -398,7 +433,7 @@ class Backup extends Component {
                     <th>RPO</th>
                     <th>Start time</th>
                     <th>Last run</th>
-                    <th>VM's</th>
+                    <th>VMs</th>
                     <th>Description</th>
                     </tr>
                   </thead>

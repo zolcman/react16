@@ -42,7 +42,7 @@ class ProtectedDetail extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / <Link to='/protectedvms'>Protected VM's</Link> / {this.props.match.params.id}
+                    <Link to='/'>Home</Link> / <Link to='/protectedvms'>Protected VMs</Link> / {this.props.match.params.id}
                   </div>
                   <div className="vm-counter gt-left">Protected VM's (2)</div>
                 </div>

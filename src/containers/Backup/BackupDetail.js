@@ -33,8 +33,8 @@ class BackupDetail extends Component {
 
     componentDidUpdate () {
 
-      $('.table-content tr').click(function (event) {
-        $('.table-content tr').removeClass("selected-green");
+      $('.table-content tbody tr').click(function (event) {
+        $('.table-content tbody tr').removeClass("selected-green");
         $(this).addClass( "selected-green" );
       });
 
@@ -66,7 +66,7 @@ class BackupDetail extends Component {
 
      chooseitem(id,name) {
        console.log(id);
-	   this.props.GetVmListDetail(id);
+	  // this.props.GetVmListDetail(id);
        this.setState({choosen:true,vmid:id,vmname:name})
      }
 
@@ -99,7 +99,7 @@ class BackupDetail extends Component {
                   <div className="breadcrumbs">
                     <Link to='/'>Home</Link> / <Link to='/backupjobs'>Backup Jobs</Link> / {this.props.match.params.id}
                   </div>
-                  <div className="vm-counter gt-left">Protected VM's (2)</div>
+                  <div className="vm-counter gt-left">Protected VMs (2)</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Protection shedule</div>

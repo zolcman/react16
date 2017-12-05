@@ -139,9 +139,9 @@ class Protected extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / Protected VM's
+                    <Link to='/'>Home</Link> / Protected VMs
                   </div>
-                  <div className="vm-counter gt-left">Protected VM's (3)</div>
+                  <div className="vm-counter gt-left">Protected VMs (3)</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Restores in Progress</div>

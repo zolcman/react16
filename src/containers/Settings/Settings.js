@@ -96,7 +96,7 @@ class Settings extends Component {
         {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
              :
               (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
-             {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad">Delete</a>)
+             {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)
              :
               (  <a className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)}
         </div>
@@ -194,7 +194,7 @@ class Settings extends Component {
               {this.state.choosen2 ? (  <a onClick={this.openWizEdit2.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
                    :
                     (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
-                   {this.state.choosen2 ? (  <a onClick={this.deleteJob2.bind(this)} className="bk-btn gt-left red_delete-btn fixpad">Delete</a>)
+                   {this.state.choosen2 ? (  <a onClick={this.deleteJob2.bind(this)} className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)
                    :
                     (  <a className="bk-btn gt-left red_delete-btn fixpad disabled">Delete</a>)}
               </div>
@@ -310,7 +310,7 @@ class Settings extends Component {
                   </label>
           </div>
             </div>
-            <div className="gt-left off__label">Off</div>
+            <div className="gt-left off__label">{this.state.toggleCheck ? ("ON"):("OFF")}</div>
           </div>
           
           <div className="account-status">Administrator account</div>
@@ -327,7 +327,7 @@ class Settings extends Component {
             Password
             </div>
             <div className="gt-left">
-            <input/>
+            <input type="password"/>
             </div>
           </div>
           <div className="gt-clear row-label-input marbtm20">
@@ -335,7 +335,7 @@ class Settings extends Component {
             Confirm Password
             </div>
             <div className="gt-left">
-            <input/>
+            <input type="password" />
             </div>
           </div>
           <a className="apply-btn btn-left-mar">Apply</a>

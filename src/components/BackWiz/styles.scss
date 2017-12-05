@@ -428,18 +428,18 @@ font-size: 13px;
 }
 	.tabs2 {
 	float: left;
-	width: 140px;
+	width: 130px;
     margin-right: 10px;
 	margin-left: -30px;
 	}
 	.tabs3 {
 	float: left;
-	width: 140px;
+	width: 103px;
 	margin-right: 10px;
 	}
 	.tabs4 {
 	float: left;
-	width: 100px;
+	width: 145px;
 	}
 	.myown {
 		margin-bottom: 24px;
@@ -735,5 +735,15 @@ border-bottom: 1px solid #ccc;
 .Select-menu-outer {
 	z-index: 12;
 }
-
+.is-focused {
+	border: 0px solid #ccc!important;
+	outline: 0!important;
+	border-color:0!important;
+	box-shadow: 0!important;
+}
+.Select.is-focused:not(.is-open) > .Select-control {
+  border-color: #ccc!important;
+  box-shadow: 0!important;
+  background: #fff;
+}
 }

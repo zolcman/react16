@@ -159,7 +159,7 @@ class SettingsAddVeeamServerWiz extends Component {
                                     Password:
                             </div>
                             <div className="gt-right">
-                                 <input value={this.state.password}  onChange={(e)=>{this.setState({password:e.target.value},()=>{this.empty()})}}/>
+                                 <input type="password" value={this.state.password}  onChange={(e)=>{this.setState({password:e.target.value},()=>{this.empty()})}}/>
                             </div>
                     </div>
                     {this.state.disabledbtn ? (
