@@ -9,7 +9,7 @@ import VirtualDiskProperties from '../VirtualDiskProperties/VirtualDiskPropertie
 import  { GetPointList } from '../../containers/Protected/ProtectedAction'
 import  Clock from '../Clock/Clock';
 import { StartVMTask } from '../../containers/Backup/BackupAction'
-
+var bytes = require('bytes');
 
 class DiskRestoreWiz extends Component {
     constructor(props) {
@@ -450,7 +450,15 @@ componentDidMount() {
     //  size:1024000
       
 
-
+    bytesConvert(item) {
+      if (item !== undefined || item !== null) {
+        return bytes(item, {unitSeparator: ' ', thousandsSeparator: ' '});
+      }
+      else {
+        return 'N/A';
+      }
+      
+    }
 
 	window3(){
         var filer = this.state.disks  || [];
@@ -471,7 +479,7 @@ componentDidMount() {
        <th ><input checked={this.state.bigcheck}  onChange={this.bigcheck.bind(this,this.state.bigcheck)} type="checkbox"/></th>  
                           <th>Virtual Device Node</th>
                           <th>Datastore</th>
-                          
+                          <th>Size</th>
                          </tr>
                      </thead>
                      <tbody>
@@ -480,6 +488,7 @@ componentDidMount() {
                  <td><input checked={item.checked}   type="checkbox"/>{item.name}</td> 
                 <td>{item.diskLabel}</td>
                 <td>{item.busType}</td>
+                <td>{this.bytesConvert(item.size)}</td>
               </tr>
 
           ))}
