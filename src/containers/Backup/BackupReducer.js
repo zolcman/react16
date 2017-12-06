@@ -17,6 +17,9 @@ const BackupReducer = function(state = initialUserState, action) {
      case 'GET_BACK_DETAIL':
         return Object.assign({}, state, { backupdetail: action.data });
         break;
+        case 'GET_BACK_DETAIL2':
+        return Object.assign({}, state, { backupdetail2: action.data });
+        break;
         case 'GET_TREE':
            return Object.assign({}, state, { tree: action.data });
            break;

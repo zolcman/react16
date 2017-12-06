@@ -65,7 +65,7 @@ this.props.LogOutFromServer()
 
         return (
           <div className="gradient">
-            <div className="bigzindex"><LoadingBar/></div>
+            <div className="bigzindex"><LoadingBar style={{ backgroundColor: 'rgb(112, 234, 0)', height: '5px' }} /></div>
             <div className="gt-clear navbar">
             
               <div className="logo-wrap gt-left">
@@ -92,8 +92,8 @@ this.props.LogOutFromServer()
 								<ul className="ulic3">
 									<li onClick={this.changeTab.bind(this,0)}><Link  to="/settings" >Manage Veeam Servers</Link></li>
 									<li onClick={this.changeTab.bind(this,1)} ><Link to="/settings"  >Manage Nutanix Clusters</Link></li>
-									<li onClick={this.changeTab.bind(this,2)}> <Link  to={`/settings`} >Credentials</Link></li>
-                  <li onClick={this.changeTab.bind(this,3)}> <Link  to={`/settings`} >Appliance Settings</Link></li>
+        {/*	<li onClick={this.changeTab.bind(this,2)}> <Link  to={`/settings`} >Credentials</Link></li> */}
+                  <li onClick={this.changeTab.bind(this,2)}> <Link  to={`/settings`} >Appliance Settings</Link></li>
 									<li><Link to={`/swagger/`} target="_blank">REST API</Link></li>
 			
                   

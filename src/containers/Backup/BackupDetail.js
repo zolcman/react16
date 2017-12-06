@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
 import { GetBackDetail } from './BackupAction'
+import { GetBackDetail2 } from './BackupAction'
+
 import BackWiz from '../../components/BackWiz/BackWiz';
 import Wizard from '../../components/VmWiz/Wizard';
 import { cleartask_info } from './BackupAction';
@@ -24,6 +26,7 @@ class BackupDetail extends Component {
     componentDidMount() {
 
       this.props.GetBackDetail(this.props.match.params.id);
+      this.props.GetBackDetail2(this.props.match.params.id);
 
     }
 
@@ -45,6 +48,9 @@ class BackupDetail extends Component {
       if (nextProps.backdetail) {
      this.setState({table:nextProps.backdetail})
       }
+      if (nextProps.backdetail2) {
+       console.log(nextProps.backdetail2)
+         }
      }
 
 
@@ -97,9 +103,9 @@ class BackupDetail extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / <Link to='/backupjobs'>Backup Jobs</Link> / {this.props.match.params.id}
+                    <Link to='/'>Home</Link> / <Link to='/backupjobs'>Backup Jobs</Link> / {this.props.backdetail2.name}
                   </div>
-                  <div className="vm-counter gt-left">Protected VMs (2)</div>
+                  <div className="vm-counter gt-left">Protected VMs ({this.props.backdetail2.vmsCount})</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Protection shedule</div>
@@ -111,7 +117,7 @@ class BackupDetail extends Component {
                 </div>
                 <div className="gt-right label-view mar2px">
                   <div className="label-view-status ">Current Job Status</div>
-                  <div className="label-view-counter">NONE</div>
+                  <div className="label-view-counter">{this.props.backdetail2.status}</div>
                 </div>
 
               </div>
@@ -188,6 +194,7 @@ const mapDispatchToProps = function(dispatch) {
 
 
       GetBackDetail: (id) => dispatch(GetBackDetail(id)),
+      GetBackDetail2: (id) => dispatch(GetBackDetail2(id)),
       cleartask_info: () => dispatch(cleartask_info()),
 	  GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
 
@@ -200,6 +207,7 @@ function mapStateToProps(state) {
     return {
 
          backdetail:state.toJS().BackupReducer.backupdetail,
+         backdetail2:state.toJS().BackupReducer.backupdetail2,
 
     }
 }

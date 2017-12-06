@@ -435,7 +435,7 @@ class Settings extends Component {
                 <div className="tabs-settings">
                 <Tab>Manage Veeam B&R Servers </Tab><div className="separator"></div>
                 <Tab>Manage Nutanix Clusters</Tab> <div className="separator"></div>
-                <Tab>Credentials</Tab> <div className="separator"></div>
+              {/*  <Tab>Credentials</Tab> <div className="separator"></div> */}
                 <Tab>Appliance Settings</Tab>
                 </div>
               </TabList>
@@ -447,7 +447,7 @@ class Settings extends Component {
               <TabPanel>
               {this.secondTab()}
               </TabPanel>
-              <TabPanel></TabPanel>
+          {/*     <TabPanel></TabPanel> */}
               <TabPanel>
               {this.forthTab()}
               </TabPanel>

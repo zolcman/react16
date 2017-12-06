@@ -478,7 +478,7 @@ componentDidMount() {
           {filer.map((item,index) => (
               <tr onClick={this.tblcheck.bind(this,item.Id,item.checked)} key={index}>
                  <td><input checked={item.checked}   type="checkbox"/>{item.name}</td> 
-                <td>{item.Id}</td>
+                <td>{item.diskLabel}</td>
                 <td>{item.busType}</td>
               </tr>
 
