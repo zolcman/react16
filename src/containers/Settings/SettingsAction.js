@@ -64,7 +64,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -101,7 +101,7 @@ export function GetClusters () {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  if(error.response.status > 200){
+					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -131,7 +131,7 @@ export function AddSettingsNewServer (objs) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  if(error.response.status > 200){
+					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -159,7 +159,7 @@ export function AddSettingsNewServer (objs) {
 					  })
 					.catch((error) => {
 						  console.log(error);
-						  if(error.response.status > 200){
+						  if(error.response.status == 401){
 							dispatch(LogOut())
 							 return
 							 }	
@@ -205,7 +205,7 @@ export function AddSettingsNewServer (objs) {
 						  })
 						.catch((error) => {
 							  console.log(error);
-							  if(error.response.status > 200){
+							  if(error.response.status == 401){
 								dispatch(LogOut())
 								 return
 								 }	
@@ -251,7 +251,7 @@ export function AddSettingsNewServer (objs) {
 								  })
 								.catch((error) => {
 									  console.log(error);
-									  if(error.response.status > 200){
+									  if(error.response.status == 401){
 										dispatch(LogOut())
 										 return
 										 }	
@@ -278,7 +278,7 @@ export function AddSettingsNewServer (objs) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  if(error.response.status > 200){
+					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -305,7 +305,7 @@ export function AddSettingsNewServer (objs) {
 					  })
 					.catch((error) => {
 						  console.log(error);
-						  if(error.response.status > 200){
+						  if(error.response.status == 401){
 							dispatch(LogOut())
 							 return
 							 }	

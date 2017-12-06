@@ -13,7 +13,7 @@ class SettingsAddVeeamServerWiz extends Component {
 
         this.state = {
             disabledbtn:true,
-         
+            port:10006,
         }
     }
 
@@ -33,7 +33,8 @@ class SettingsAddVeeamServerWiz extends Component {
                 userName:nextProps.detailed_info.userName,
                 password:nextProps.detailed_info.password,
                 IdToUpdate:nextProps.detailed_info.Id,
-                description:nextProps.detailed_info.description})
+                description:nextProps.detailed_info.description,
+                disabledbtn:false})
                 this.props.clearDataFromServerDetail();
         }
         
@@ -44,7 +45,7 @@ class SettingsAddVeeamServerWiz extends Component {
 
 
     close() {
-       this.setState({ Ip:'',  port:'', userName:'', password:'', IdToUpdate:'',  description:''}) 
+       this.setState({ Ip:'',  port:'', userName:'', password:'', IdToUpdate:'',  description:'',disabledbtn:true}) 
       this.props.close();
 
 
@@ -97,12 +98,12 @@ class SettingsAddVeeamServerWiz extends Component {
     }
 
     empty () {
-        if (!this.state.Ip || !this.state.port || !this.state.description || !this.state.userName || !this.state.password) {
+        if (!this.state.Ip || !this.state.port  || !this.state.userName || !this.state.password) {
         this.setState({disabledbtn:true})
         console.log('first condidtion')
         }
 
-        if (this.state.Ip && this.state.port && this.state.description && this.state.userName && this.state.password) {
+        if (this.state.Ip && this.state.port  && this.state.userName && this.state.password) {
             this.setState({disabledbtn:false})
             console.log('second condidtion')
         }
@@ -132,10 +133,10 @@ class SettingsAddVeeamServerWiz extends Component {
                     </div>
                     <div className="gt-clear row-label-input2">
                              <div className="gt-left j-1">
-                                   Port
+                                   Port:
                             </div>
                             <div className="gt-right">
-                                 <input onChange={(e)=>{this.setState({port:e.target.value},()=>{this.empty()})}} value={this.state.port}/>
+                                 <input type="number" onChange={(e)=>{this.setState({port:e.target.value},()=>{this.empty()})}} value={this.state.port}/>
                             </div>
                     </div>
                     <div className="gt-clear row-label-input2">

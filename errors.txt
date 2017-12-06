@@ -1,0 +1,26 @@
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+error:
+
+**********************
+
+Warning: performUpdateIfNecessary: Unexpected batch number (current 2, pending 1)
+
+connectAdvanced.js?4805:241 Uncaught TypeError: Cannot read property 'default' of undefined
+Function.mapStateToProps [as mapToProps] (loading_bar.js?3859:250)
+
+**********************
+
+
+File:  node_modules\react-redux-loading-bar\build\loading_bar.js
+
+line: 250
+
+code: loading: state.loadingBar[ownProps.scope || _loading_bar_ducks.DEFAULT_SCOPE]
+
+change to this : state.toJS().loadingBar[ownProps.scope || _loading_bar_ducks.DEFAULT_SCOPE]
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////

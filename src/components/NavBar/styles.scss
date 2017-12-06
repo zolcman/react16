@@ -234,6 +234,11 @@ ul.left-side-menu li a:hover {
 		list-style: none;
 		margin-bottom: 28px;
 		display: block;
-	}
+  }
+  
+  .bigzindex {
+    position: relative;
+    z-index: 100000;
+  }
 
 }

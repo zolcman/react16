@@ -6,7 +6,7 @@ export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
 export const GET_LIST_FOR_ADD_BTN_WMS_WIZARD = 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD';
 export const GET_POINTS = 'GET_POINTS';
 export const LOGOUT = 'LOGOUT';
-
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const getURI = (key) => apiUrl + Urls[key]
 
@@ -64,7 +64,8 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
+			
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -99,7 +100,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -124,7 +125,7 @@ export function GetListOfPoliciesForAddBtn () {
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
-			//dispatch(showLoading()),
+			dispatch(showLoading()),
 			axios.get(apiUrl + `/api/v1/Policies?format=treeview`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -132,11 +133,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 		 console.log(response.data);
     			dispatch(receiveData24(response.data));
-				//	dispatch(hideLoading())
+					dispatch(hideLoading())
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -160,7 +161,7 @@ export function GetPointList (id) {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
 		
-
+		//	axios.get(apiUrl + `/api/v1/Vms/${ id.vmUid }/backups?policyuid=${ id.policyUid }`,getHeader()).then(function (response)
 			axios.get(apiUrl + `/api/v1/Vms/${ id.vmUid }/backups?policyuid=${ id.policyUid }`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -172,7 +173,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
 			 		}	

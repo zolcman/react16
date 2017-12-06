@@ -6,7 +6,7 @@ import { changeTab } from './NavBarAction';
 
 import {LogOutFromServer} from '../../containers/Login/LoginAction'
 import {MyName} from '../../containers/Login/LoginAction'
-
+import LoadingBar from 'react-redux-loading-bar'
 class NavBar extends Component {
     constructor(props) {
         super(props)
@@ -21,7 +21,7 @@ class NavBar extends Component {
 
     componentDidMount() {
 
-      this.props.MyName();
+    //  this.props.MyName();
 
 		$( document ).ready(function() {
 			$("body").children().find(".ulic3").hide();
@@ -65,7 +65,9 @@ this.props.LogOutFromServer()
 
         return (
           <div className="gradient">
+            <div className="bigzindex"><LoadingBar/></div>
             <div className="gt-clear navbar">
+            
               <div className="logo-wrap gt-left">
                 <div className="logo"></div>
               </div>

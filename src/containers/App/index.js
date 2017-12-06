@@ -69,6 +69,7 @@ class App extends Component {
       <div className={styles.App}>
       <Helmet {...config.app} />
       <NavBar />
+      
       <Switch>
       {routes.map(route => this.routeWithSubRoutes(route))}
       </Switch>

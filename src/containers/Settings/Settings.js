@@ -111,7 +111,7 @@ class Settings extends Component {
           <table className="bk-table">
             <thead>
               <tr>
-              <th>Name</th>
+              
               <th>IP Address</th>
               <th className="width20th">Backup Repositories</th>
               <th>Status</th>
@@ -124,14 +124,12 @@ class Settings extends Component {
 
               {list.map((item,index) => (
                   <tr onClick={()=>{this.setState({choosen:item.Id})}} className="" key={index}>
-                  <td>
-                      {item.name}
-                </td>
-                  <td>{item.ip}</td>
+                  
+                  <td>{item.ip}:{item.port}</td>
                   <td>{item.backups}</td>
                   <td className="width11">{item.ip}</td>
                   <td>{item.clusterName}</td>
-                  <td>{item.lastProtection}</td>
+                  <td>{item.description}</td>
 
                   </tr>
 
@@ -209,11 +207,9 @@ class Settings extends Component {
                 <table className="bk-table">
                   <thead>
                     <tr >
-                    <th className="width20th">Name</th>
-                    <th>Protection Domains</th>
-                    <th >Cluster IP</th>
-                    <th>Protected VMs</th>
-                    <th>Status</th>
+                    <th className="width20th">Cluster Address</th>
+
+                    <th>description</th>
                     
                     </tr>
                   </thead>
@@ -222,13 +218,8 @@ class Settings extends Component {
       
                     {list.map((item,index) => (
                         <tr onClick={()=>{this.setState({choosen2:item.Id})}} key={index}>
-                        <td>
-                            {item.name}
-                      </td>
-                        <td>{item.snapshots}</td>
-                        <td>{item.backups}</td>
-                        <td className="width11">{item.status}</td>
-                        <td>{item.clusterName}</td>
+                        <td> {item.ip}:{item.port} </td>                      
+                        <td>{item.description}</td>
       
                         </tr>
       

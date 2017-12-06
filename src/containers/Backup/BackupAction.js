@@ -15,7 +15,7 @@ export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
 export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
 export const LOGOUT = 'LOGOUT';
 
-
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 
 
@@ -70,7 +70,7 @@ export function GetBackList (params) {
 	//	console.log(headers);
 
 		return (
-			//dispatch(showLoading()),
+			dispatch(showLoading()),
 			axios.get(getURI("jobs"),getHeader(AuthToken)).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -78,11 +78,11 @@ export function GetBackList (params) {
 			 }
    	 		 console.log(response.data);
     			dispatch(receiveData22(response.data));
-				//	dispatch(hideLoading())
+					dispatch(hideLoading())
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -117,7 +117,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -141,7 +141,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -194,7 +194,7 @@ export function TreeProtected (id,bool) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  if(error.response.status > 200){
+					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -221,7 +221,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -257,7 +257,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -306,7 +306,7 @@ var accessToken = sessionStorage.getItem('accessToken');
    	 	.catch((error) => {
       			console.log(error);
 					//	dispatch(cleartask_info());
-					if(error.response.status > 200){
+					if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -358,7 +358,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -410,8 +410,8 @@ console.log(param)
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
-			//		dispatch(LogOut())
+				  if(error.response.status == 401){
+					dispatch(LogOut())
 					 return
 			 		}	
     		})
@@ -488,7 +488,7 @@ export function addJobSS (id,runner) {
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
+				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
 			 		}	
@@ -536,8 +536,8 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  if(error.response.status > 200){
-					dispatch(LogOut())
+				  if(error.response.status == 401){
+				dispatch(LogOut())
 					 return
 			 		}	
     		})
@@ -584,7 +584,7 @@ export function EditJobInfo (id) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  if(error.response.status > 200){
+					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
 						 }	
@@ -622,7 +622,7 @@ export function EditJobInfo (id) {
 					  })
 					.catch((error) => {
 						  console.log(error);
-						  if(error.response.status > 200){
+						  if(error.response.status == 401){
 							dispatch(LogOut())
 							 return
 							 }	

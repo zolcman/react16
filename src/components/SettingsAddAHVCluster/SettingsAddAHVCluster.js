@@ -13,6 +13,7 @@ class SettingsAddAHVCluster extends Component {
 
         this.state = {
             disabledbtn:true,
+            port:9443,
          
         }
     }
@@ -34,7 +35,9 @@ class SettingsAddAHVCluster extends Component {
                 userName:nextProps.cluster_detail.userName,
                 password:nextProps.cluster_detail.password,
                 IdToUpdate:nextProps.cluster_detail.Id,
-                description:nextProps.cluster_detail.description})
+                description:nextProps.cluster_detail.description,
+                disabledbtn:false
+                })
                 this.props.clearDataFromClusterDetail();  
         }
         
@@ -45,7 +48,7 @@ class SettingsAddAHVCluster extends Component {
 
 
     close() {
-        this.setState({ Ip:'',  port:'', userName:'', password:'', IdToUpdate:'',  description:''})
+        this.setState({ Ip:'',  port:'', userName:'', password:'', IdToUpdate:'',  description:'',disabledbtn:true})
       this.props.close();
       
 
@@ -98,12 +101,12 @@ class SettingsAddAHVCluster extends Component {
     }
 
     empty () {
-        if (!this.state.Ip || !this.state.port || !this.state.description || !this.state.userName || !this.state.password) {
+        if (!this.state.Ip || !this.state.port  || !this.state.userName || !this.state.password) {
         this.setState({disabledbtn:true})
         console.log('first condidtion')
         }
 
-        if (this.state.Ip && this.state.port && this.state.description && this.state.userName && this.state.password) {
+        if (this.state.Ip && this.state.port  && this.state.userName && this.state.password) {
             this.setState({disabledbtn:false})
             console.log('second condidtion')
         }
@@ -124,7 +127,7 @@ class SettingsAddAHVCluster extends Component {
                       <div className="body-popup3 gt-clear">
                       <div className="gt-clear row-label-input2">
                              <div className="gt-left j-1">
-                                   Cluster name or IP
+                                   Cluster name or IP:
                             </div>
                             <div className="gt-right">
                             <input onChange={(e)=>{this.setState({Ip:e.target.value},()=>{this.empty()})}} value={this.state.Ip}/>
@@ -132,10 +135,10 @@ class SettingsAddAHVCluster extends Component {
                     </div>
                     <div className="gt-clear row-label-input2">
                              <div className="gt-left j-1">
-                                   Port
+                                   Port:
                             </div>
                             <div className="gt-right">
-                                 <input onChange={(e)=>{this.setState({port:e.target.value},()=>{this.empty()})}} value={this.state.port}/>
+                                 <input type="number" onChange={(e)=>{this.setState({port:e.target.value},()=>{this.empty()})}} value={this.state.port}/>
                             </div>
                     </div>
                     <div className="gt-clear row-label-input2">

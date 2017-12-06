@@ -12,6 +12,7 @@ import {createLogger} from 'redux-logger'
 import { apiMiddleware } from 'redux-api-middleware'
 import { Iterable } from 'immutable';
 
+
 const stateTransformer = (state) => {
   if (Iterable.isIterable(state)) return state.toJS();
   else return state;
