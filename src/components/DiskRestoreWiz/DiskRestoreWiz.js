@@ -72,9 +72,12 @@ class DiskRestoreWiz extends Component {
         this.setState({page:2,disableAddbtn:true})
       }
       if (this.state.page == 2) {
-        this.setState({page:3})
+        this.setState({page:3,disableAddbtn:true})
       }
       if (this.state.page == 3) {
+        if (this.state.block4thstep) {
+          return
+        }
         this.setState({page:4})
       }
       if (this.state.page == 4) {
@@ -414,14 +417,15 @@ componentDidMount() {
         let  positiveArr112 = this.state.disks.map(function(name) {
            return ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':false} );
         });
-        this.setState({disks:positiveArr112,bigcheck:false})
+        this.setState({disks:positiveArr112,bigcheck:false,block4thstep:true,disableAddbtn:true})
         }
         if (!state) {
         let  positiveArr112 = this.state.disks.map(function(name) {
           return ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':true} );
         });
-        this.setState({disks:positiveArr112,bigcheck:true})
+        this.setState({disks:positiveArr112,bigcheck:true,block4thstep:false,disableAddbtn:false})
         }
+        
       }
     
       tblcheck(index,checked) {
@@ -434,6 +438,17 @@ componentDidMount() {
           : ({'Id':name.Id,'busType':name.busType,'diskLabel':name.diskLabel,'index':name.index,isCdrom:name.isCdrom,size:name.size,'checked':name.checked} )
         );
       });
+
+     let blocker = positiveArr112.filter(function(item){
+        return item.checked == true
+      })
+
+      if ( blocker.length == 0) {
+        this.setState({block4thstep:true,disableAddbtn:true})
+      }
+      if ( blocker.length != 0) {
+        this.setState({block4thstep:false,disableAddbtn:false})
+      }
     
     
       this.setState({disks:positiveArr112})
@@ -456,8 +471,7 @@ componentDidMount() {
       }
       else {
         return 'N/A';
-      }
-      
+      }      
     }
 
 	window3(){
@@ -507,7 +521,7 @@ componentDidMount() {
             </div>
 
 
-        <div className="font600w restored_disk_type_label disabled">Restored Disk type:</div>
+     {/*  <div className="font600w restored_disk_type_label disabled">Restored Disk type:</div>
         <Select
                       className="repo1sd1 disabled"
 
@@ -519,7 +533,7 @@ componentDidMount() {
         />
 		<div className="chwithlbl martop20px disabled">
             <label><input type="checkbox" onChange={this.QRollBack.bind(this)} checked={this.state.QRollBack} name="dva"/> Quick rollback(restore changed blocks only)</label>
-            </div>
+        </div> */}
 
 	</div>
 	)
@@ -562,11 +576,10 @@ componentDidMount() {
                 <dd>{this.state.pointId} </dd>
                 <dt>Target VM Name:</dt>
                 <dd>{this.state.labelFor3step}</dd>
-                <dt>Target host:</dt>
-                <dd>[ToDo]</dd>
+               
                 
                 <dt>Disk info:</dt>
-                <dd>[ToDo]</dd>
+                <dd></dd>
                 <dt className="dtmodificator">Source disk:</dt>
                 <dd>[ToDo]</dd>
                 <dt className="dtmodificator2">Source container:</dt>
@@ -626,7 +639,15 @@ componentDidMount() {
       if (param == 3 && !this.state.pointId) { 
         return
     }
-      else  {
+    if (param == 4 && this.state.block4thstep) { 
+      return
+  }
+
+    
+      else if (!this.state.selectedOnFirstStage || !this.state.pointId || this.state.block4thstep)  {
+        return
+        
+      } else {
         this.setState({page:param})
       }
       

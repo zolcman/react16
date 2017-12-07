@@ -675,25 +675,27 @@ pointClick () {
             Please review the restore setting before continuing. The restore process will begin will after you click Finish.
             Navigate to corresponding restore session under history node to monitor the progress
           </div>
-          <div className="windows-list">
-            <dl className="floated">
-                <dt>Proxy</dt>
-                <dd>[ToDo]</dd>
-                <dt>Original VM name</dt>
-                <dd>{this.state.ObjFromFirstSreen.VmName} </dd>
-                <dt>Restore point</dt>
-                <dd>[ToDo]</dd>
-                <dt>Target host</dt>
-                <dd>[ToDo]</dd>
-                <dt>Target resource pool</dt>
-                <dd>[ToDo]</dd>
-                <dt>Target VM folder</dt>
-                <dd>[ToDo]</dd>
-                <dt>Target data store</dt>
-                <dd>[ToDo]</dd>
-                <dt>Network mapping</dt>
-                <dd>[ToDo]</dd>
-              </dl>
+          <div className="windows-lister">
+          <table>
+              <thead>
+                <tr>
+                  <th>Original VM name</th>
+                  <th>{this.state.ObjFromFirstSreen.VmName}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>New VM name</td>
+                  <td>{this.state.renamedName ? (this.state.renamedName):(this.state.ObjFromFirstSreen.VmName)}</td>
+                </tr>
+                <tr>
+                  <td>Restore point</td>
+                  <td>{this.state.ObjFromFirstSreen.point}</td>
+                </tr>
+
+              </tbody>
+              </table>
+            
           </div>
         </div>
       )

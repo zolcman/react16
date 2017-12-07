@@ -5,6 +5,7 @@ import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import CheckboxTree from 'react-checkbox-tree';
 import { GetListOfPoliciesForAddBtn } from '../../containers/Protected/ProtectedAction';
+import Spinner from '../Spinner/Spinner'
 var bytes = require('bytes');
 
 class AddBtnWmWizard extends Component {
@@ -149,13 +150,18 @@ class AddBtnWmWizard extends Component {
                                   <th>Restore Points</th>
                                 </tr>
                               </thead>
-                              <CheckboxTree
+                              {elemns.length > 0 ? (<CheckboxTree
                                   nodes={elemns}
                                   checked={this.state.checked}
                                   expanded={this.state.expanded}
                                   onCheck={this.onCheck.bind(this)}
                                    onExpand={expanded => this.setState({ expanded })}
-                                />
+                                />)
+                                :
+                                (
+                                <Spinner center="34px"/>
+                                )}
+                              
                           {/*     <div>
                               {elemns.map((item,index) => (
                                     <div>

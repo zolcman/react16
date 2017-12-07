@@ -7,6 +7,7 @@ export const GET_DETAILED_INFO_SERVER = 'GET_DETAILED_INFO_SERVER';
 export const GET_ClUSTER_LIST = 'GET_ClUSTER_LIST';
 export const GET_DETAILED_INFO_CLUSTER = 'GET_DETAILED_INFO_CLUSTER';
 export const LOGOUT = 'LOGOUT';
+export const SVD_PASS = 'SVD_PASS';
 
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -147,7 +148,7 @@ export function AddSettingsNewServer (objs) {
 		
 				return (
 		
-					axios.put(apiUrl + `/api/v1/BackupServers/${id}`, objs,  getHeader()
+					axios.put(apiUrl + `/api/v1/BackupServers/${id}/settings`, objs,  getHeader()
 				).then(function (response) {
 					 if(response.data.code>200){
 							// dispatch(toastrActions.add('error', '',response.data.message))
@@ -194,7 +195,7 @@ export function AddSettingsNewServer (objs) {
 			var accessToken = sessionStorage.getItem('accessToken');
 					return (
 						//dispatch(showLoading()),
-						axios.get(apiUrl + `/api/v1/BackupServers/${id}`,getHeader()).then(function (response) {
+						axios.get(apiUrl + `/api/v1/BackupServers/${id}/settings`,getHeader()).then(function (response) {
 						 if(response.data.code>200){
 								// dispatch(toastrActions.add('error', '',response.data.message))
 								 return
@@ -240,7 +241,7 @@ export function AddSettingsNewServer (objs) {
 					var accessToken = sessionStorage.getItem('accessToken');
 							return (
 								//dispatch(showLoading()),
-								axios.get(apiUrl + `/api/v1/Clusters/${id}`,getHeader()).then(function (response) {
+								axios.get(apiUrl + `/api/v1/Clusters/${id}/settings`,getHeader()).then(function (response) {
 								 if(response.data.code>200){
 										// dispatch(toastrActions.add('error', '',response.data.message))
 										 return
@@ -293,7 +294,7 @@ export function AddSettingsNewServer (objs) {
 		
 				return (
 		
-					axios.put(apiUrl + `/api/v1/Clusters/${id}`, objs,  getHeader()
+					axios.put(apiUrl + `/api/v1/Clusters/${id}/settings`, objs,  getHeader()
 				).then(function (response) {
 					 if(response.data.code>200){
 							// dispatch(toastrActions.add('error', '',response.data.message))
@@ -313,3 +314,40 @@ export function AddSettingsNewServer (objs) {
 					)
 			}
 		}
+
+		function Savedpass () {
+			alert('Saved')
+			return {
+				
+						type: SVD_PASS,
+						data: null
+				
+					}
+		}
+
+		export function UpdatePassLogin (objs) {
+			console.log(objs)
+				return dispatch => {
+			
+					return (
+			
+						axios.post(apiUrl + `/api/v1/Account/changepassword`, objs,  getHeader()
+					).then(function (response) {
+						 if(response.data.code>200){
+								// dispatch(toastrActions.add('error', '',response.data.message))
+								 return
+						 }
+							 //console.log(response.data + '1111111111111');
+							dispatch(Savedpass());
+			
+						  })
+						.catch((error) => {
+							  console.log(error);
+							  if(error.response.status == 401){
+								dispatch(LogOut())
+								 return
+								 }	
+						})
+						)
+				}
+			}

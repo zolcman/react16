@@ -50,6 +50,7 @@ class BackupDetail extends Component {
       }
       if (nextProps.backdetail2) {
        console.log(nextProps.backdetail2)
+       this.setState({name:nextProps.backdetail2.name,vmsCount:nextProps.backdetail2.vmsCount,status:nextProps.backdetail2.status})
          }
      }
 
@@ -103,9 +104,9 @@ class BackupDetail extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / <Link to='/backupjobs'>Backup Jobs</Link> / {this.props.backdetail2.name}
+                    <Link to='/'>Home</Link> / <Link to='/backupjobs'>Backup Jobs</Link> / {this.state.name}
                   </div>
-                  <div className="vm-counter gt-left">Protected VMs ({this.props.backdetail2.vmsCount})</div>
+                  <div className="vm-counter gt-left">Protected VMs ({this.state.vmsCount})</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Protection shedule</div>
@@ -117,7 +118,7 @@ class BackupDetail extends Component {
                 </div>
                 <div className="gt-right label-view mar2px">
                   <div className="label-view-status ">Current Job Status</div>
-                  <div className="label-view-counter">{this.props.backdetail2.status}</div>
+                  <div className="label-view-counter">{this.state.status}</div>
                 </div>
 
               </div>

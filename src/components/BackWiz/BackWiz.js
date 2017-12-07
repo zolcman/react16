@@ -851,24 +851,21 @@ check5 () {
 			<dl className="floated">
   <dt>Name</dt>
   <dd>{this.state.nameToServer}</dd>
-  <dt>Source Cluster</dt>
-  <dd>[ToDo]</dd>
+ {/* <dt>Source Cluster</dt>
+  <dd>[ToDo]</dd> */}
   <dt>VMs</dt>
   <dd>
     <div className="pl-1">
-  {this.state.array.map((item,index) => (
-              <span>{item.name}</span>
-
-          ))}
+  {this.state.array.length}
   </div>
   </dd>
   
   <dt>Target repository</dt>
   <dd>{this.state.reposselected.label}</dd>
-  <dt>Target path</dt>
-  <dd>[ToDo]</dd>
+ {/* <dt>Target path</dt>
+  <dd>[ToDo]</dd> 
   <dt>Schedule</dt>
-  <dd>[ToDo]</dd>
+  <dd>[ToDo]</dd> */}
   <dt>Retention</dt>
   <dd>{this.state.retentionMaxRecoveryPoints}</dd>
 </dl>

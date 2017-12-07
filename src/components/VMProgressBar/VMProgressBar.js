@@ -175,17 +175,17 @@ class VMProgressBar extends Component {
                 <div className="windows-list">
         <dl className="floated">
             <dt>VM name</dt>
-            <dd>ToDo</dd>
+            <dd>{this.state.task_info.name || []}</dd>
             <dt>Restore type</dt>
             <dd>Restore to the original location</dd>
-            <dt>Restore point</dt>
-            <dd>ToDo</dd>
+        {/*  <dt>Restore point</dt>
+            <dd>ToDo</dd> */}
             <dt>Initiated by</dt>
-            <dd>ToDo</dd>
+            <dd>admin</dd>
             <dt>Status</dt>
-            <dd>ToDo</dd>
+            <dd>{this.state.task_info.status || []}</dd>
             <dt>Start time</dt>
-            <dd>ToDo</dd>
+            <dd>{this.state.task_info.startTime || []}</dd>
           </dl>
       </div>
       <div className="tabs">

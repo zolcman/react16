@@ -9,6 +9,7 @@ import  SettingsAddVeeamServerWiz from '../../components/SettingsAddVeeamServerW
 import { GetBackupServers} from './SettingsAction'
 import { GetDetailServer} from './SettingsAction'
 import { GetDetailCluster} from './SettingsAction'
+import { UpdatePassLogin} from './SettingsAction'
 
 import { GetClusters} from './SettingsAction'
 
@@ -126,9 +127,9 @@ class Settings extends Component {
                   <tr onClick={()=>{this.setState({choosen:item.Id})}} className="" key={index}>
                   
                   <td>{item.ip}:{item.port}</td>
-                  <td>{item.backups}</td>
-                  <td className="width11">{item.ip}</td>
-                  <td>{item.clusterName}</td>
+                  <td>{item.repositoriesCount}</td>
+                  <td className="width11">{item.status}</td>
+                  <td>{item.version}</td>
                   <td>{item.description}</td>
 
                   </tr>
@@ -209,8 +210,10 @@ class Settings extends Component {
                     <tr >
                     <th className="width20th">Cluster Address</th>
 
-                    <th>description</th>
                     
+                    <th>Status</th>
+                    <th>Version</th>
+                    <th>description</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -219,8 +222,10 @@ class Settings extends Component {
                     {list.map((item,index) => (
                         <tr onClick={()=>{this.setState({choosen2:item.Id})}} key={index}>
                         <td> {item.ip}:{item.port} </td>                      
+                        
+                        <td>{item.status}</td>
+                        <td>{item.version}</td>
                         <td>{item.description}</td>
-      
                         </tr>
       
                     ))}
@@ -281,10 +286,10 @@ class Settings extends Component {
 
     changeToggleSwitcher () {
       if( this.state.toggleCheck) {
-        this.setState({toggleCheck:false})
+      //  this.setState({toggleCheck:false})
       }
       if( !this.state.toggleCheck) {
-        this.setState({toggleCheck:true})
+      //  this.setState({toggleCheck:true})
       }
     }
 
@@ -296,7 +301,7 @@ class Settings extends Component {
             <div className="gt-left">
             <div className="toggle-switch">
                   <label className="switch">
-                      <input type="checkbox" onChange={this.changeToggleSwitcher.bind(this)} value={this.state.toggleCheck} checked={this.state.toggleCheck}/>
+                      <input type="checkbox" onChange={this.changeToggleSwitcher.bind(this)} value={this.state.toggleCheck} readOnly checked={false}/>
                       <span className="slider round"></span>
                   </label>
           </div>
@@ -310,7 +315,7 @@ class Settings extends Component {
             Login
             </div>
             <div className="gt-left">
-            <input/>
+            <input value="admin" readOnly/>
             </div>
           </div>
           <div className="gt-clear row-label-input">
@@ -318,7 +323,7 @@ class Settings extends Component {
             Password
             </div>
             <div className="gt-left">
-            <input type="password"/>
+            <input value={this.state.password} onChange={(e)=> {this.setState({password:e.target.value})}} type="password"/>
             </div>
           </div>
           <div className="gt-clear row-label-input marbtm20">
@@ -326,12 +331,25 @@ class Settings extends Component {
             Confirm Password
             </div>
             <div className="gt-left">
-            <input type="password" />
+            <input value={this.state.NewPassword} onChange={(e)=> {this.setState({NewPassword:e.target.value})}} type="password" />
             </div>
           </div>
-          <a className="apply-btn btn-left-mar">Apply</a>
+          <a onClick={this.SavePassword.bind(this)} className="apply-btn btn-left-mar">Apply</a>
         </div>
       )
+    }
+
+    SavePassword() {
+      
+      
+        const Obj = {
+         // login:'admin',
+          "@odata.type": "ChangePasswordData",
+          OldPassword:this.state.password,
+          NewPassword:this.state.NewPassword,
+        }
+        this.props.UpdatePassLogin(Obj);
+      
     }
 
     innerTab2(){
@@ -467,6 +485,7 @@ const mapDispatchToProps = function(dispatch) {
       GetDetailServer: (id) => dispatch(GetDetailServer(id)),
       GetClusters: () => dispatch(GetClusters()),
       GetDetailCluster: (id) => dispatch(GetDetailCluster(id)),
+      UpdatePassLogin: (obj) => dispatch(UpdatePassLogin(obj)),
       
       
      // cleartask_info: () => dispatch(cleartask_info()),
