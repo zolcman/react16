@@ -948,7 +948,26 @@ padding-top:24px;
 	height: 25px!important;
 	cursor: pointer;
 }
-
+.diskArray td:nth-child(odd) {
+	width: 34%;
+	text-align: right;
+	padding-right: 20px;
+	font-weight: bold;
+}
+.diskArray tr:nth-child(2n) {
+	background: #f9f9f9;
+}
+.diskArray td {
+	height: 40px;
+	border-top: 1px solid #ddd;
+}
+.diskArray table {
+	width: 100%;
+}
+.diskArray {
+	height: 160px;
+	overflow-y: scroll;
+}
 }
 
 }

@@ -565,6 +565,11 @@ componentDidMount() {
 
 	window5(){
 
+    let disks = this.state.disks.filter(function(item){
+      return item.checked == true;
+    })
+    console.log(disks)
+
 		return(
 		<div>
                 <div className="windows-title zagname">Summary</div>
@@ -580,7 +585,22 @@ componentDidMount() {
                 
                 <dt>Disk info:</dt>
                 <dd></dd>
-                <dt className="dtmodificator">Source disk:</dt>
+             
+                <div className="diskArray">
+                {disks.map((item,index) => (
+                      <table>
+                        <tr>
+                          <td>Source Disk:</td>
+                          <td>{item.Id}</td>
+                        </tr>
+                        <tr>
+                        <td>Target Disk:</td>
+                        <td>-</td>
+                      </tr>
+                      </table>
+                    ))}
+                </div>
+           {/*     <dt className="dtmodificator">Source disk:</dt>
                 <dd>[ToDo]</dd>
                 <dt className="dtmodificator2">Source container:</dt>
                 <dd>[ToDo]</dd>
@@ -590,7 +610,7 @@ componentDidMount() {
                 <dd>[ToDo]</dd>
                 <dt className="dtmodificator2">Provisioning policy:</dt>
                 <dd>[ToDo]</dd>
-                
+                */}
               </dl>
           </div>
           <div className="gt-clear">
@@ -600,9 +620,9 @@ componentDidMount() {
               </div>
           </div>
           <div className="gt-clear">
-            <div className="gt-left chwithlbl martop20px">
+            <div className="gt-left chwithlbl martop20px disabled">
             
-            <label><input type="checkbox" onChange={this.QRollBack.bind(this)} checked={this.state.QRollBack} name="dva"/>Power on target VM after restoring</label>
+            <label><input type="checkbox"  checked={false} name="dva"/>Power on target VM after restoring</label>
             
             </div>
             <div className="gt-right martop20px marleft18px">

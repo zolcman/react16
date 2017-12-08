@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { apiUrl, Urls } from '../../middlewares/url'
 
+import { push } from 'react-router-redux'
 export const GET_BACK_LIST = 'GET_BACK_LIST';
 export const GET_BACK_DETAIL = 'GET_BACK_DETAIL';
 export const GET_BACK_DETAIL2 = 'GET_BACK_DETAIL2';
@@ -15,6 +16,8 @@ export const STOP_TIMER = 'STOP_TIMER';
 export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
 export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
 export const LOGOUT = 'LOGOUT';
+export const GO_TO_BACK_LIST = 'GO_TO_BACK_LIST';
+
 
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
@@ -163,7 +166,15 @@ export function GetBackDetail2 (id) {
 		}
 	}
 
-export function DeleteBackupJob (id) {
+function GoToBackList () {
+	
+	return {
+		type:GO_TO_BACK_LIST,
+		data:"GO"
+	}
+}
+
+export function DeleteBackupJob (id,detail) {
 
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
@@ -174,7 +185,14 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-			 dispatch(GetBackList());
+			 if (!detail) {
+				dispatch(GetBackList());
+			 }
+
+			 if (detail) {
+				dispatch(push('/backupjobs'));
+			 }
+			
   			})
    	 	.catch((error) => {
 				  console.log(error);
@@ -647,14 +665,18 @@ export function EditJobInfo (id) {
 					 }
 					 if(runner) {
 						
-						 dispatch(StartJobTask(response.data.Id));
+						 dispatch(StartJobTask( id));
 						 dispatch(openAuto(true));
+						 dispatch( GetBackDetail ( id))
+						 dispatch( GetBackDetail2 ( id))
 					 }
 					 if(!runner) {
 						 dispatch(GetBackList());
 						 dispatch(openAuto(false));
+						 dispatch( GetBackDetail ( id))
+						 dispatch( GetBackDetail2 ( id))
 					 }
-						 console.log(response.data);
+						 console.log(response);
 						
 					  })
 					.catch((error) => {

@@ -299,7 +299,7 @@ class Backup extends Component {
 
     if (deletee) {
       this.setState({choosen:false,jobname:''});
-      this.props.DeleteBackupJob(this.state.jobid);
+      this.props.DeleteBackupJob(this.state.jobid,false);
 	  this.setState({jobid:undefined});
     }
     else {
@@ -391,24 +391,27 @@ class Backup extends Component {
             <div className="cntrl-btns gt-clear">
               <div className="btns-wrapper gt-clear">
                   <div className=" gt-left">
-                    {this.state.choosen ? (  <a id="start-btnid" onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn fixpad">Start</a>)
+                  <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
+                  {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
                      :
-                      (  <a id="start-btnid" className="bk-btn gt-left start-btn fixpad disabled">Start</a>)}
+                      (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
+                      {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad 4444">Delete</a>)
+                     :
+                      (  <a className="bk-btn gt-left red_delete-btn fixpad disabled 2222">Delete</a>)}
+                    {this.state.choosen ? (  <a id="start-btnid" onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn marLeft60px fixpad">Start</a>)
+                     :
+                      (  <a id="start-btnid" className="bk-btn gt-left start-btn fixpad marLeft60px disabled">Start</a>)}
 
                       {this.state.stopbtn ? (   <a className="bk-btn gt-left stop-btn fixpad ">Stop</a>)
                      :
                       (   <a className="bk-btn gt-left stop-btn fixpad disabled">Stop</a>)}
 
                      
-                      <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn fixpad">Add</a>
-                      {this.state.choosen ? (  <a onClick={this.openWizEdit.bind(this)} className="bk-btn gt-left edit-btn fixpad">Edit</a>)
-                     :
-                      (   <a className="bk-btn gt-left edit-btn fixpad disabled">Edit</a>)}
+                      
+                      
                      
 					  
-                    {this.state.choosen ? (  <a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn fixpad 4444">Delete</a>)
-                     :
-                      (  <a className="bk-btn gt-left red_delete-btn fixpad disabled 2222">Delete</a>)}
+                    
 					  <a className="bk-btn gt-left activefull-btn fixpad disabled width125px">Active Full</a>
             
             
@@ -479,7 +482,7 @@ const mapDispatchToProps = function(dispatch) {
       updatestatus: (id) => dispatch(updatestatus(id)),
       clear_auto: () => dispatch(clear_auto()),
       cleartask_info: () => dispatch(cleartask_info()),
-    DeleteBackupJob: (id) => dispatch(DeleteBackupJob(id)),
+    DeleteBackupJob: (id,detail) => dispatch(DeleteBackupJob(id,detail)),
     EditJobInfo: (id) => dispatch(EditJobInfo(id)),
     
     }

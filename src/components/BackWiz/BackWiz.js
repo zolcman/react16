@@ -110,6 +110,8 @@ class BackWiz extends Component {
           },
           editmode:false,
           blockNext:true,
+          auto_retry:5,
+          retry:5,
 
           
         }
@@ -766,19 +768,29 @@ class BackWiz extends Component {
 
   </Tabs>
 </div>
-	<div className="restorepointsinput">Restore Points to keep on disk:<input className="respoints" onBlur={this.onBlurRestore.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} pattern="[0-9]{10}" min="1" max="999" type="number"
-   value={this.state.retentionMaxRecoveryPoints} onChange={this.changeRestorePoints.bind(this)}/></div>
+	<div className="restorepointsinput">Restore Points to keep on disk:
+    <input className="respoints" onBlur={
+      this.onBlurRestore.bind(this)}
+       onKeyPress={this.handleKeyPress.bind(this)}
+        pattern="[0-9]{10}" min="1" max="999" type="number"
 
-<div className="autoretry disabled">
-			<div className="checkboxstyling"><label><input type="checkbox" checked name="dva"/> Automatic retry</label></div>
+   value={this.state.retentionMaxRecoveryPoints} 
+   onChange={this.changeRestorePoints.bind(this)}/></div>
+
+<div className="autoretry">
+			<div className="checkboxstyling"><label><input type="checkbox" onChange={this.autoRetry.bind(this)} value={this.state.autoRetry} name="dva"/> Automatic retry</label></div>
 			<div className="clear">
 			<div className="autoretryleft">
 			<div>Retry failed VMs processing:</div>
-			<div><input value="10" type="number"/> times</div>
+			<div><input value="10" onBlur={
+      this.onBlurRestore2.bind(this)} onChange={this.changeRestorePoints2.bind(this)} onKeyPress={this.handleKeyPress2.bind(this)} value={this.state.retry}  pattern="[0-9]{10}" min="1" max="999" type="number"/> times</div>
 			</div>
 			<div className="autoretryright">
 			<div>Wait before each retry attempt for </div>
-			<div><input value="10" type="number"/> minutes</div>
+			<div><input value="10" 
+      onBlur={
+      this.onBlurRestore3.bind(this)}
+       onKeyPress={this.handleKeyPress3.bind(this)} onChange={this.changeRestorePoints3.bind(this)} value={this.state.auto_retry}  pattern="[0-9]{10}" min="1" max="999" type="number"/> minutes</div>
 			</div>
 			</div>
 
@@ -798,9 +810,33 @@ class BackWiz extends Component {
 			)
   }
 
+ 
+
+  autoRetry () {
+    if( this.state.autoRetry) {
+      this.setState({autoRetry:false})
+    }
+    if( !this.state.autoRetry) {
+      this.setState({autoRetry:true})
+    }
+  }
+
   onBlurRestore() {
     if (!this.state.retentionMaxRecoveryPoints) {
       this.setState({retentionMaxRecoveryPoints:5});
+    }
+    
+  }
+  onBlurRestore2() {
+    if (!this.state.retry) {
+      this.setState({retry:5});
+    }
+    
+  }
+
+  onBlurRestore3() {
+    if (!this.state.auto_retry) {
+      this.setState({auto_retry:5});
     }
     
   }
@@ -814,12 +850,31 @@ class BackWiz extends Component {
         console.log('ddddd')
     }
   }
+
+  handleKeyPress2(evt) {
+    evt = evt || window.event;
+    var charCode = evt.which || evt.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (charStr == "-") {
+        this.setState({retry:''});
+        console.log('ddddd')
+    }
+  }
+
+  handleKeyPress3(evt) {
+    evt = evt || window.event;
+    var charCode = evt.which || evt.keyCode;
+    var charStr = String.fromCharCode(charCode);
+    if (charStr == "-") {
+        this.setState({auto_retry:''});
+        console.log('ddddd')
+    }
+  }
   
   changeRestorePoints(e) {
     let prop = e.target.value;
     const re = /^[0-9\b]+$/;
 
-   
    if (e.target.value == '' || re.test(e.target.value)) {
      if (prop >= 1  && prop <= 999  || prop == '' ) {
         this.setState({retentionMaxRecoveryPoints:prop});
@@ -830,8 +885,41 @@ class BackWiz extends Component {
       }
  
    }
-    
-  
+     
+  }
+
+  changeRestorePoints2(e) {
+    let prop = e.target.value;
+    const re = /^[0-9\b]+$/;
+
+   if (e.target.value == '' || re.test(e.target.value)) {
+     if (prop >= 1  && prop <= 999  || prop == '' ) {
+        this.setState({retry:prop});
+       
+      }
+      else {
+        return;
+      }
+ 
+   }
+     
+  }
+
+  changeRestorePoints3(e) {
+    let prop = e.target.value;
+    const re = /^[0-9\b]+$/;
+
+   if (e.target.value == '' || re.test(e.target.value)) {
+     if (prop >= 1  && prop <= 999  || prop == '' ) {
+        this.setState({auto_retry:prop});
+       
+      }
+      else {
+        return;
+      }
+ 
+   }
+     
   }
 
 check5 () {
@@ -906,28 +994,6 @@ check5 () {
       }
 
 
-  //    schedulerSettings: {
-      //  "@odata.type": "SchedulerSettings",
-      //  schedulerEnabled:false,
-     //   scheduleBasis: "Daily", // [Daily | Monthly | Periodic]
-    //    dailyBasis: {
-     //     startTime: "12:00",
-      //    daysPreset: "WeekDays", // [WeekDays | Everyday | ThisDays]
-       //   thisDays: []
-      //   },
-      //  monthlyBasis:  {
-      //    startTime: "12:00",
-       //   weekNumberOrSpecifiedDay:"FirstWeek", // [FirstWeek | ...  | FoursWeek | DayOfMonth | LastDay]
-       //   dayOfWeek: "Monday",
-       //   dayOfMonth: 10,
-       //   months: []
-      //  },
-      //  periodicBasis: {
-      //    timeOffset : 1,
-      //    mode: "EveryHour", // [EveryHour | EveryMinute | Continuously]
-      //    specificTimeIntervals: [[]]
-    //    }
-    //  },
       
 
    
@@ -1073,6 +1139,11 @@ check5 () {
       policyObj.schedulerSettings = this.state.schedulerSettings; //schedulerSettingsObj;
       policyObj.schedulerSettings.dailyBasis.thisDays = thisDays;
       policyObj.schedulerSettings.monthlyBasis.months = months;
+
+
+      policyObj.automaticRetry = this.state.autoRetry,
+      policyObj.retryCount = this.state.retry,
+      policyObj.retryTimeDelay = this.state.auto_retry,
       
       policyObj.schedulerSettings.monthlyBasis.months = policyObj.schedulerSettings.monthlyBasis.months.value || policyObj.schedulerSettings.monthlyBasis.months;
       policyObj.schedulerSettings.periodicBasis.timeOffset = policyObj.schedulerSettings.periodicBasis.timeOffset.value || policyObj.schedulerSettings.periodicBasis.timeOffset;

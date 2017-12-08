@@ -120,7 +120,7 @@ class SettingsAddAHVCluster extends Component {
               {this.props.open ? (<div className="freeze">
                   <div className="pop-up-windowsmall">
                       <div className="pop-up-header">
-                        <div className="gt-left pop-up-h-title">Restore Points</div>
+                       
                         {this.props.editable ? (<div className="gt-left pop-up-h-title">Edit AHV Cluster</div>):(<div className="gt-left pop-up-h-title">Add AHV Cluster</div>)}
                         <div className="gt-right"><a className="close-pop" onClick={this.close.bind(this)}></a></div>
                       </div>

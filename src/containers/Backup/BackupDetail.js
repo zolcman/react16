@@ -4,11 +4,17 @@ import { connect} from 'react-redux';
 import styles from './styles.scss';
 import { GetBackDetail } from './BackupAction'
 import { GetBackDetail2 } from './BackupAction'
-
+import { GetBackList } from './BackupAction'
 import BackWiz from '../../components/BackWiz/BackWiz';
 import Wizard from '../../components/VmWiz/Wizard';
 import { cleartask_info } from './BackupAction';
 //import { GetVmListDetail } from '../Protected/ProtectedAction';
+import { updatestatus } from './BackupAction'
+import { EditJobInfo } from './BackupAction'
+import { StartJobTask } from './BackupAction'
+import JobWizard from '../../components/JobWiz/JobWizard';
+import { clear_auto } from './BackupAction'
+import { DeleteBackupJob } from './BackupAction'
 
 class BackupDetail extends Component {
     constructor(props) {
@@ -27,6 +33,7 @@ class BackupDetail extends Component {
 
       this.props.GetBackDetail(this.props.match.params.id);
       this.props.GetBackDetail2(this.props.match.params.id);
+      this.props.GetBackList();
 
     }
 
@@ -45,31 +52,50 @@ class BackupDetail extends Component {
 
     componentWillReceiveProps(nextProps) {
 
+      if (nextProps.run_auto_job) {
+        this.setState({openWiz2:true})
+        this.props.clear_auto();
+    }
+
       if (nextProps.backdetail) {
      this.setState({table:nextProps.backdetail})
       }
       if (nextProps.backdetail2) {
        console.log(nextProps.backdetail2)
-       this.setState({name:nextProps.backdetail2.name,vmsCount:nextProps.backdetail2.vmsCount,status:nextProps.backdetail2.status})
+       this.setState({name:nextProps.backdetail2.name,vmsCount:nextProps.backdetail2.vmsCount,status:nextProps.backdetail2.status,Id:nextProps.backdetail2.Id})
+      this.setState({asynctaskId:nextProps.backdetail2.asyncTaskId})
+        if (nextProps.backdetail2.status == 'Running') {
+          this.setState({blockBtn:true})
+        }
+        if (nextProps.backdetail2.status != 'Running') {
+          this.setState({blockBtn:false})
+        }
+
          }
      }
 
 
      openWiz() {
        this.setState({openWiz:true})
+       this.props.EditJobInfo(this.props.match.params.id);
      }
 
      closeWiz() {
        this.setState({openWiz:false})
      }
 
-     openWiz2() {
-       this.setState({openWiz2:true})
-     }
-
      closeWiz2() {
-       this.setState({openWiz2:false})
-     }
+      this.setState({openWiz2:false})
+      this.props.GetBackDetail(this.props.match.params.id);
+      this.props.GetBackDetail2(this.props.match.params.id);
+    }
+
+    openWiz2() {
+      this.setState({openWiz2:true})
+      this.props.updatestatus(this.state.asynctaskId);
+    }
+
+    
 
      chooseitem(id,name) {
        console.log(id);
@@ -90,7 +116,23 @@ class BackupDetail extends Component {
        })
      }
 
+     openWiz234 () {
+      this.setState({openWiz2:true})
+      this.props.StartJobTask(this.props.match.params.id);
+      console.log('ppppp')
+    }
+
+
+    deleteJob() {
+      let deletee = confirm('are you shore?')
      
+      if (deletee) {
+        this.props.DeleteBackupJob(this.props.match.params.id,true);
+      }
+      else {
+        return;
+      }
+    }
 
     render(){
 
@@ -118,33 +160,30 @@ class BackupDetail extends Component {
                 </div>
                 <div className="gt-right label-view mar2px">
                   <div className="label-view-status ">Current Job Status</div>
-                  <div className="label-view-counter">{this.state.status}</div>
+                  <div className="label-view-counter">{(this.state.status == 'Running') ? 
+                  (<a className="running-btn" onClick={this.openWiz2.bind(this)}>{this.state.status}</a>):(this.state.status)}
+                  </div>
                 </div>
 
               </div>
               <div className="cntrl-btns gt-clear">
                 <div className="btns-wrapper gt-clear">
                     <div className=" gt-left">
-                        <a className="bk-btn gt-left start-btn">Start</a>
-                        <a className="bk-btn gt-left stop-btn">Stop</a>
-                        <a onClick={this.openWiz.bind(this)} className="bk-btn gt-left add-btn">Add</a>
-                        <a className="bk-btn gt-left edit-btn">Edit</a>
-                        <a className="bk-btn gt-left delete-btn">Delete</a>
-                        <a className="bk-btn gt-left refresh-btn">Refresh</a>
+                    {this.state.blockBtn ? (<a  className="bk-btn gt-left disabled edit-btn">Edit</a>):(<a onClick={this.openWiz.bind(this)} className="bk-btn gt-left edit-btn">Edit</a>)}
+                    {this.state.blockBtn ? (<a className="bk-btn gt-left red_delete-btn disabled">Delete</a>):(<a onClick={this.deleteJob.bind(this)} className="bk-btn gt-left red_delete-btn">Delete</a>)}
+                         
+                    {this.state.blockBtn ? (<a  className="bk-btn gt-left start-btn marLeft60px disabled">Start</a>):(<a onClick={this.openWiz234.bind(this)} className="bk-btn gt-left start-btn marLeft60px">Start</a>)}   
+                        <a className="bk-btn gt-left activefull-btn fixpad disabled width125px ">Active Full</a>
+                        <a className="bk-btn gt-left stop-btn disabled">Stop</a>
+                       
+                       
+                       {/* <a className="bk-btn gt-left refresh-btn">Refresh</a> */}
                     </div>
 
                 </div>
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
-              {/*  <div className="gt-left">
-                  {this.state.choosen ? (  <a onClick={this.openWiz2.bind(this)} className="gt-left res-btns restore-icon  ">Restore VM</a>)
-                  :
-                  (  <a  className="gt-left  turnoff-btn">Restore VM</a>)
-                }
-
-                  <a className="gt-left res-btns qiuk-icon">Quick Backup</a>
-                  <a className="gt-left res-btns refrsh">Refresh</a>
-                </div> */} 
+              
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)} className="srch-comp" placeholder="search"/>
                 </div>
@@ -185,7 +224,7 @@ class BackupDetail extends Component {
               </div>
               </div>
               <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
-              <Wizard  vmname={this.state.vmname} vmid={this.state.vmid}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
+              <JobWizard vmname={this.state.name}  open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>
         )
     }
@@ -196,9 +235,14 @@ const mapDispatchToProps = function(dispatch) {
 
       GetBackDetail: (id) => dispatch(GetBackDetail(id)),
       GetBackDetail2: (id) => dispatch(GetBackDetail2(id)),
+      GetBackList: () => dispatch(GetBackList()),
       cleartask_info: () => dispatch(cleartask_info()),
-	  GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
-
+	//  GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
+    EditJobInfo: (id) => dispatch(EditJobInfo(id)),
+    clear_auto: () => dispatch(clear_auto()),
+    StartJobTask: (id) => dispatch(StartJobTask(id)),
+    updatestatus: (id) => dispatch(updatestatus(id)),
+    DeleteBackupJob: (id,detail) => dispatch(DeleteBackupJob(id,detail)),
     }
 }
 
@@ -209,6 +253,7 @@ function mapStateToProps(state) {
 
          backdetail:state.toJS().BackupReducer.backupdetail,
          backdetail2:state.toJS().BackupReducer.backupdetail2,
+         run_auto_job:state.toJS().BackupReducer.run_auto_job,
 
     }
 }
