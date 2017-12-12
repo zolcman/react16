@@ -117,6 +117,9 @@ class BackWiz extends Component {
         }
     }
 
+
+    
+
     componentDidMount() {
 
      
@@ -154,7 +157,7 @@ class BackWiz extends Component {
 
       }
       if (nextProps.repos) {
-        console.log(nextProps.repos)
+      //  console.log(nextProps.repos)
         let camlistpre = nextProps.repos.map((xf) => ({value:xf.Id,label:xf.name}));
         this.setState({repos:camlistpre,reposselected:camlistpre[0]
         })
@@ -171,7 +174,7 @@ class BackWiz extends Component {
       }
 
       if (nextProps.edit_info) {
-        console.log('222')
+      //  console.log('222')
         this.props.clearJobEditInfo();
         this.setState({editmode:true})
         this.setState({blockNext:false})
@@ -189,10 +192,10 @@ class BackWiz extends Component {
           this.setState({displayHourSelector:false})
         }
         if (nextProps.edit_info.pDs[0]) {
-            console.log('uppper')
+        //    console.log('uppper')
 
             let returnedInfo = this.findDomain(nextProps.edit_info.pDs[0]);
-            console.log(returnedInfo)
+         //   console.log(returnedInfo)
             this.uptableprotected(returnedInfo[0].children);
 
         }
@@ -231,7 +234,7 @@ class BackWiz extends Component {
         
         
         let filter = this.Checkname();
-        console.log(filter);
+       // console.log(filter);
 
         if (filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
           alert('name exist! please enter another name')
@@ -320,7 +323,7 @@ class BackWiz extends Component {
 
 	window2(){
     var filer = this.state.filteredItems || this.state.array
-    console.log(filer);
+  
 	return(
 	<div>
 
@@ -477,7 +480,7 @@ class BackWiz extends Component {
   }
 
   getTime(val) {
-    console.log(val);
+   
     let newSchedulerSettingsDailyBasis = Object.assign({}, this.state.schedulerSettings.dailyBasis, { startTime: val } );
     let newSchedulerSettings = Object.assign({}, this.state.schedulerSettings, { dailyBasis: newSchedulerSettingsDailyBasis } );
 	  this.setState({schedulerSettings:newSchedulerSettings});
@@ -508,7 +511,7 @@ class BackWiz extends Component {
 
   changeDailyBasisThisDays (val) {
 
-    console.log(val)
+   
 
     let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
     schedulerSettings.dailyBasis.thisDays = val;                        //updating value
@@ -847,7 +850,7 @@ class BackWiz extends Component {
     var charStr = String.fromCharCode(charCode);
     if (charStr == "-") {
         this.setState({retentionMaxRecoveryPoints:''});
-        console.log('ddddd')
+        
     }
   }
 
@@ -857,7 +860,7 @@ class BackWiz extends Component {
     var charStr = String.fromCharCode(charCode);
     if (charStr == "-") {
         this.setState({retry:''});
-        console.log('ddddd')
+        
     }
   }
 
@@ -867,7 +870,7 @@ class BackWiz extends Component {
     var charStr = String.fromCharCode(charCode);
     if (charStr == "-") {
         this.setState({auto_retry:''});
-        console.log('ddddd')
+        
     }
   }
   
@@ -1035,16 +1038,16 @@ check5 () {
       
       if (param != 1 && !this.state.nameToServer) {
         this.setState({page:1})
-        console.log('1111')
+        
       }
       if (param != 2 && param == 1 && this.state.array.length == 0) {
         this.setState({page:1})
-        console.log('2222')
+        
         this.setState({blockNext:false})
       }
       if (param == 2  && this.state.array.length == 0 && this.state.nameToServer) {
         //this.setState({page:2})
-        console.log('333')
+        
         let filter = this.Checkname();
 
         if(filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
@@ -1068,7 +1071,7 @@ check5 () {
         if(filter.length == 0 || filter[0].name == this.state.backUpNameForEdit) {
           this.setState({page:param})
           this.setState({blockNext:false})
-          console.log('444444')
+          
         }
 
 
@@ -1242,7 +1245,7 @@ check5 () {
       clearArr = clearArr.map(function(name) {
         return ({'Id':name.Id,'size':name.sizeInGb,'name':name.name,'type':name['@odata.type'],'checked':false});
      });
-     console.log(clearArr)
+     
       this.setState({array:clearArr})
       this.setState({ProtectedID:null})
 
@@ -1255,7 +1258,7 @@ check5 () {
      // console.log(array)
       this.setState({bigcheck:false})
       let newArray = [{'Id':array[0].value,'size':'','name':array[0].label,'type':'Protection Domain','checked':false}]
-      console.log(newArray);
+      
       this.setState({ProtectedID:array[0].value})
       this.setState({array:newArray})
     }
@@ -1284,7 +1287,7 @@ check5 () {
 
     render(){
 
-        console.log(this.state.retentionMaxRecoveryPoints)
+        
 
         return (
           <div>

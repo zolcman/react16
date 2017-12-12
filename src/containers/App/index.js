@@ -11,7 +11,7 @@ import routes from '../../routes';
 // Import your global styles here
 import '../../theme/normalize.css';
 import styles from './styles.scss';
-
+import Alert from '../../components/Alert/Alert'
 
 
 class App extends Component {
@@ -69,7 +69,7 @@ class App extends Component {
       <div className={styles.App}>
       <Helmet {...config.app} />
       <NavBar />
-      
+      <Alert/>
       <Switch>
       {routes.map(route => this.routeWithSubRoutes(route))}
       </Switch>
@@ -81,7 +81,11 @@ class App extends Component {
 
     
     return (
-      <Login login={this.login.bind(this)}/>
+      <div>
+        <Alert/>
+        <Login login={this.login.bind(this)}/>
+      </div>
+      
     )
   }
 

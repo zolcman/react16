@@ -5,7 +5,7 @@ export const GET_LOGIN = 'GET_LOGIN';
 export const GET_MYNAME = 'GET_MYNAME';
 export const GET_LOGOUT = 'GET_LOGOUT';
 
-
+import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -63,13 +63,17 @@ export function LoginInServer (id) {
 				  })
 				.catch((error) => {
 					 // console.log(error);
-					  console.log(error.response.status)
-					  if(error.response.status > 200){
+					  console.log(error)
+					  if(error.response.status == 401){
 						
 					//	console.log(response.data.message)
 						dispatch(SendError())
 						 return
 				 }		
+				 else {
+					 
+					dispatch(ShowAlert('warning','oops! some problem with connection',true,true));
+				 }
 				})
 				)
 		}
@@ -105,12 +109,13 @@ export function LoginInServer (id) {
 		
 					  })
 					.catch((error) => {
-						 // console.log(error);
-						  console.log(error.response.status)
+						  console.log(error);
+						  
+					//	  console.log(error.response.status)
 						  if(error.response.status > 200){
 							
 						//	console.log(response.data.message)
-							dispatch(SendError())
+						dispatch(ShowAlert('warning','oops! some problem with connection',true,true));
 							 return
 					 }		
 					})

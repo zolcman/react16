@@ -7,6 +7,7 @@ import { changeTab } from './NavBarAction';
 import {LogOutFromServer} from '../../containers/Login/LoginAction'
 import {MyName} from '../../containers/Login/LoginAction'
 import LoadingBar from 'react-redux-loading-bar'
+
 class NavBar extends Component {
     constructor(props) {
         super(props)
@@ -66,6 +67,7 @@ this.props.LogOutFromServer()
         return (
           <div className="gradient">
             <div className="bigzindex"><LoadingBar style={{ backgroundColor: 'rgb(112, 234, 0)', height: '5px' }} /></div>
+            
             <div className="gt-clear navbar">
             
               <div className="logo-wrap gt-left">

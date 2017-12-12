@@ -21,7 +21,7 @@ export const GO_TO_BACK_LIST = 'GO_TO_BACK_LIST';
 
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
-
+import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 
 const getURI = (key) => apiUrl + Urls[key]
 
@@ -80,16 +80,22 @@ export function GetBackList (params) {
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 		 console.log(response.data);
+			 
     			dispatch(receiveData22(response.data));
 					dispatch(hideLoading())
+					
   			})
    	 	.catch((error) => {
 				  console.log(error);
+				  
 				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
-			 		}	
+					 }	
+				    if(error.response.status >= 500){
+					 dispatch(ShowAlert('warning','oops! some problem with connection',true,true));
+						 return
+					   }	
     		})
 			)
 	}
@@ -115,7 +121,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 		 console.log(response.data);
+   	 		
     			dispatch(receiveData23(response.data));
 				//	dispatch(hideLoading())
   			})
@@ -151,7 +157,7 @@ export function GetBackDetail2 (id) {
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
 				 }
-					 console.log(response.data);
+					 
 					dispatch(receiveBackDetail(response.data));
 					//	dispatch(hideLoading())
 				  })
@@ -237,7 +243,7 @@ export function TreeProtected (id,bool) {
 						// dispatch(toastrActions.add('error', '',response.data.message))
 						 return
 				 }
-					 console.log(response.data);
+					 
 					 if (bool) {
 						
 						dispatch(treeProtected(response.data));
@@ -271,7 +277,8 @@ var accessToken = sessionStorage.getItem('accessToken');
 					 return
 			 }
    	 		 console.log(response.data);
-    			dispatch(receiveData24(response.data));
+				dispatch(receiveData24(response.data));
+				
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
@@ -406,8 +413,8 @@ var accessToken = sessionStorage.getItem('accessToken');
 					// dispatch(toastrActions.add('error', '',response.data.message))
 					 return
 			 }
-   	 		 console.log("HHHHH");
-				 console.log(response.data);
+   	 		
+				
     			dispatch(receiveData26(response.data));
 				//	dispatch(hideLoading())
   			})
@@ -450,7 +457,7 @@ function receiveData27(json) {
 export function StartVMTask (param) {
 
 	return dispatch => {
-console.log(param)
+
 		return (
 
 			axios.post(apiUrl + `/api/v1/Vms/restore`, param,  getHeader()
@@ -650,8 +657,7 @@ export function EditJobInfo (id) {
 
 	export function UpdateJob (id,obj,runner) {
 
-		console.log(id);
-		console.log(obj)
+		
 		
 			return dispatch => {
 		var accessToken = sessionStorage.getItem('accessToken');
@@ -676,7 +682,7 @@ export function EditJobInfo (id) {
 						 dispatch( GetBackDetail ( id))
 						 dispatch( GetBackDetail2 ( id))
 					 }
-						 console.log(response);
+						 
 						
 					  })
 					.catch((error) => {

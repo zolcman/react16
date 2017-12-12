@@ -167,7 +167,18 @@ class JobWizard extends Component {
 }
 
 
-
+convertDate(date) {
+  var d = new Date(date);
+  let month = d.getMonth()+1  // 10
+  let day = d.getDate()     // 30
+  let year = d.getFullYear();
+  let hours = d.getHours();
+  let minutes = d.getMinutes();
+  minutes = minutes > 9 ? minutes : '0' + minutes;
+  let seconds = d.getSeconds();
+  let bestDate = year + '/' + month + '/' + day + ':' + hours + ':' +  minutes + ":" + seconds;
+  return bestDate;
+}
 
 
     render(){
@@ -183,6 +194,7 @@ class JobWizard extends Component {
         var warnings = this.state.task_info.statistic.warnings;
         var bottleneck = this.state.task_info.statistic.bottleneck
         var failed = this.state.task_info.statistic.failed
+        var log =  this.state.task_info.statistic.eventLog || []
       }
       
      
@@ -200,7 +212,11 @@ class JobWizard extends Component {
         }
       }
 
+     
+
         return (
+
+          
           <div className="jobwiz">
             {this.props.open ?
               (
@@ -240,6 +256,7 @@ class JobWizard extends Component {
                             </tr>
 
                           </thead>
+                          
                           <tbody>
                             <tr>
                               <td>Duration: {duration}</td>
@@ -258,36 +275,38 @@ class JobWizard extends Component {
                               </tr> 
 
                           </tbody>
+                         
                         </table>
                       </div>
                       <div className="lvl-1 martop20">
                         <div className="table-content">
-                          <table className="bk-table">
+                          <table className="bk-table log-modificator">
                             <thead>
                               <tr>
-                              <th>Time</th>
-                              <th>Action</th>
-                              <th></th>
+                              <th className="ut-1">Time</th>
+                              <th className="ut-2" >Action</th>
+                             
 
                               </tr>
                             </thead>
+                            
                             <tbody>
 
 
-                              {this.state.lister.map((item,index) => (
+                              {log.map((item,index) => (
                                   <tr className="" key={index}>
-                                  <td>
-                                      {item.time}
+                                  <td className="ut-3">
+                                      {this.convertDate(item.timeStamp)}
                                 </td>
-                                  <td>{item.action}</td>
-                                  <td></td>
+                                  <td className="ut-4" >{item.message}</td>
+
 
 
                                   </tr>
 
                               ))}
                             </tbody>
-
+                              
                           </table>
                         </div>
                       </div>

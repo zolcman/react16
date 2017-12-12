@@ -339,7 +339,7 @@ class Backup extends Component {
                 <Link to='/'>Home</Link> / Backup Jobs
               </div>
               <div className="filter-blocks gt-clear">
-                <div className="jobs-counter gt-left">Backup Jobs (3)</div>
+                <div className="jobs-counter gt-left">Backup Jobs ({list.length})</div>
                 <div className="filter-1 gt-left marr20">
                   <div className="gt-left filter-label">Nutanix cluster:</div>
                   <div className="gt-left filter-select">

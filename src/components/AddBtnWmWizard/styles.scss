@@ -309,4 +309,27 @@
   .white { background: white !important; }
 }
 
+.log-modificator thead {
+  display: table;
+  width: 100%;
+}
+.log-modificator tbody {
+  display: block;
+  overflow-y: scroll;
+  height: 134px;
+}
+.ut-1 {
+  width: 315px;
+}
+.ut-2 {
+  width: 300px;
+}
+.ut-3 {
+  width: 333px!important;
+}
+.ut-4 {
+  width: 300px!important;
+  padding-left: 34px;
+  text-align: left!important;
+}
 }

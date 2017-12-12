@@ -61,6 +61,12 @@ class Protected extends Component {
 
       if (nextProps.vms) {
      this.setState({table:nextProps.vms})
+        if (nextProps.vms.length == 0) {
+          this.setState({blockWhenEmpty:true})
+        }
+        if (nextProps.vms.length != 0) {
+          this.setState({blockWhenEmpty:false})
+        }
 
      if(nextProps.task_info) {
       this.setState({blockRestoreBtn:true})
@@ -151,13 +157,13 @@ class Protected extends Component {
               </div>
               <div className="clear-wrapper gt-clear mar2020 he36">
                 <div className="gt-left">
-                {(this.state.blockRestoreBtn) ?
+                {(this.state.blockRestoreBtn || this.state.blockWhenEmpty) ?
                    (<a id="restore-btn" className="gt-left bk-btn restore-btn disabled">Restore</a>)
                    :
                     (<a id="restore-btn"  onClick={this.openWiz2.bind(this)} className="gt-left bk-btn restore-btn">Restore</a>)
                     }  
                   <a id="restore-btn"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn disk_restore-btn width135px">Disk Restore</a>
-                  <a id="restore-btn2"  onClick={this.openWiz4.bind(this)} className="gt-left bk-btn red_delete-btn ">Delete</a>
+                  <a id="restore-btn2"  className="gt-left bk-btn red_delete-btn disabled">Delete</a>
                 </div>
                 <div className="search-panel gt-right">
                   <input value={this.state.filterval} onChange={this.filter.bind(this)}  className="srch-comp" placeholder="search"/>
