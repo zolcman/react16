@@ -14,6 +14,10 @@ class SettingsAddVeeamServerWiz extends Component {
         this.state = {
             disabledbtn:true,
             port:10006,
+            Ip:'',
+            userName:'',
+            password:'',
+            description:'',
         }
     }
 

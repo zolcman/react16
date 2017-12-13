@@ -183,7 +183,7 @@ convertDate(date) {
 
     render(){
      // console.log(this.props.vmid)
-
+       var log = []
       let duration = '';
       let processedBytes = '';
       let processingRateBytesPerSecond = '';
@@ -194,7 +194,10 @@ convertDate(date) {
         var warnings = this.state.task_info.statistic.warnings;
         var bottleneck = this.state.task_info.statistic.bottleneck
         var failed = this.state.task_info.statistic.failed
-        var log =  this.state.task_info.statistic.eventLog || []
+        if(this.state.task_info.statistic.eventLog != undefined) {
+         log =  this.state.task_info.statistic.eventLog 
+        }
+       
       }
       
      

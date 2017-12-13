@@ -1,7 +1,7 @@
-import React, { Component,  PropTypes} from 'react'
+import React, { Component} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
-import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
+//import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Script from 'react-load-script';
 
 
@@ -87,14 +87,14 @@ handleScriptLoad() {
     render(){
 
         return (
-			<div>
+			<div >
 			<Script
       url="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"
       onCreate={this.handleScriptCreate.bind(this)}
       onError={this.handleScriptError.bind(this)}
       onLoad={this.handleScriptLoad.bind(this)}
 
-    />
+    /> 
 
 
 
@@ -102,13 +102,14 @@ handleScriptLoad() {
 
           <div className="form-group clockpickerc">
 		<div className="input-group clockpicker" data-placement="bottom" data-align="left" data-donetext="Done">
-			<input type="text" className="form-control" value={this.props.currentTime}/>
+			<input type="text" className="form-control" onChange={(e)=>{this.setState({changef:e.target.value})}} value={this.props.currentTime}/>
 			<span className="input-group-addon">
 				<span className="glyphicon glyphicon-time"></span>
 			</span>
 		</div>
 
 	</div>
+	
         </div>)
     }
 }
@@ -129,4 +130,4 @@ function mapStateToProps(state) {
 
     }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Clock));
+export default connect(mapStateToProps, mapDispatchToProps)(Clock);

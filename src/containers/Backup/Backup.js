@@ -467,6 +467,7 @@ class Backup extends Component {
                 </table>
               </div>
             </div>
+            <div className="clockpicker"></div>
             <BackWiz open={this.state.openWiz} close={this.closeWiz.bind(this)}/>
             <JobWizard vmname={this.state.jobname} vmid={this.state.jobid} fromlist={this.state.fromlist} refreshtablelist={this.refreshlist.bind(this)} open={this.state.openWiz2} close={this.closeWiz2.bind(this)}/>
           </div>

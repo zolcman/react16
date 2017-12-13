@@ -157,6 +157,22 @@ class VMProgressBar extends Component {
 
 
     render(){
+      var name = '', startTime = '', status = '';
+
+      if (this.state.task_info) {
+      if (this.state.task_info.name != undefined) {
+        name = this.state.task_info.name;
+      }
+
+      if (this.state.task_info.startTime != undefined) {
+        startTime = this.state.task_info.startTime;
+      }
+
+      if (this.state.task_info.status != undefined) {
+        status = this.state.task_info.status;
+      }
+    
+    }
 
         return (
             <div>
@@ -175,7 +191,7 @@ class VMProgressBar extends Component {
                 <div className="windows-list">
         <dl className="floated">
             <dt>VM name</dt>
-            <dd>{(this.state.task_info.name == undefined) ? ('') : (this.state.task_info.name)}</dd>
+            <dd>{name}</dd>
             <dt>Restore type</dt>
             <dd>Restore to the original location</dd>
         {/*  <dt>Restore point</dt>
@@ -183,9 +199,9 @@ class VMProgressBar extends Component {
             <dt>Initiated by</dt>
             <dd>admin</dd>
             <dt>Status</dt>
-            <dd>{this.state.task_info.status || []}</dd>
+            <dd>{status}</dd>
             <dt>Start time</dt>
-            <dd>{this.state.task_info.startTime || []}</dd>
+            <dd>{startTime}</dd>
           </dl>
       </div>
       <div className="tabs">

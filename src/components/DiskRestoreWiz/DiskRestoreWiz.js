@@ -35,8 +35,9 @@ class DiskRestoreWiz extends Component {
           selected: {},
           filteredItems: false,
           filterval: '',
-         
-          disableAddbtn:true
+          block4thstep:true,
+          disableAddbtn:true,
+          emptyVal: ''
           
         }
     }
@@ -69,7 +70,12 @@ class DiskRestoreWiz extends Component {
         if (!this.state.selectedOnFirstStage) {
           return
         }
-        this.setState({page:2,disableAddbtn:true})
+        if (this.state.pointId) {
+          this.setState({page:2,disableAddbtn:false})
+        }
+        if (!this.state.pointId) {
+          this.setState({page:2,disableAddbtn:true})
+        }
       }
       if (this.state.page == 2) {
         this.setState({page:3,disableAddbtn:true})
@@ -93,11 +99,17 @@ class DiskRestoreWiz extends Component {
       if (this.state.page == 4) {
         this.setState({page:3})
       }
-      if (this.state.page == 3) {
-        this.setState({page:2})
+      if (this.state.page == 3 && this.state.pointId) {
+        this.setState({page:2,disableAddbtn:false})
       }
-      if (this.state.page == 2) {
-        this.setState({page:1})
+      if (this.state.page == 3 && !this.state.pointId) {
+        this.setState({page:2,disableAddbtn:true})
+      }
+      if (this.state.page == 2 && this.state.selectedOnFirstStage) {
+        this.setState({page:1,disableAddbtn:false})
+      }
+      if (this.state.page == 2 && !this.state.selectedOnFirstStage) {
+        this.setState({page:1,disableAddbtn:true})
       }
 
     }
@@ -499,7 +511,7 @@ componentDidMount() {
                      <tbody>
           {filer.map((item,index) => (
               <tr onClick={this.tblcheck.bind(this,item.Id,item.checked)} key={index}>
-                 <td><input checked={item.checked}   type="checkbox"/>{item.name}</td> 
+                 <td><input checked={item.checked}  value="Submit"   type="checkbox"/>{item.name}</td> 
                 <td>{item.diskLabel}</td>
                 <td>{item.busType}</td>
                 <td>{this.bytesConvert(item.size)}</td>
@@ -588,8 +600,9 @@ componentDidMount() {
              
                 <div className="diskArray">
                 {disks.map((item,index) => (
-                      <table>
-                        <tr>
+                      <table  key={index}>
+                        <tbody >
+                        <tr >
                           <td>Source Disk:</td>
                           <td>{item.Id}</td>
                         </tr>
@@ -597,6 +610,7 @@ componentDidMount() {
                         <td>Target Disk:</td>
                         <td>-</td>
                       </tr>
+                      </tbody>
                       </table>
                     ))}
                 </div>
@@ -652,22 +666,43 @@ componentDidMount() {
         return (<div className="wizzard1">{this.window5()}</div>)
       }
     }
+
     switch (param) {
-      if (param == 2 && !this.state.selectedOnFirstStage) { 
+      if (param == 2 && !this.state.selectedOnFirstStage && param > 2) { 
+        console.log('1')
           return
       }
       if (param == 3 && !this.state.pointId) { 
+        console.log('2')
         return
     }
     if (param == 4 && this.state.block4thstep) { 
+      console.log('3')
       return
   }
 
     
-      else if (!this.state.selectedOnFirstStage || !this.state.pointId || this.state.block4thstep)  {
+      else if (!this.state.selectedOnFirstStage && param >= 2 || !this.state.pointId && param >= 3 || this.state.block4thstep && param >= 4)  {
+        console.log(param)
         return
         
       } else {
+        console.log('else')
+        if (param == 2 && this.state.pointId) {
+          this.setState({disableAddbtn:false})
+          console.log('el222se')
+        }
+        if (param == 2 && !this.state.pointId) {
+          this.setState({disableAddbtn:true})
+          console.log('ffff')
+        }
+        if (param == 3 && this.state.block4thstep) {
+          this.setState({disableAddbtn:true})
+        }
+
+        if (param == 1 && this.state.selectedOnFirstStage) {
+          this.setState({disableAddbtn:false})
+        }
         this.setState({page:param})
       }
       

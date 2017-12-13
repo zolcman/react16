@@ -109,7 +109,18 @@ class Wizard extends Component {
 CloseNotitficationRename(val) {
   if (val) {
     this.setState({OpenNotitficationRename:false});
-    this.setState({page:4});
+    if (this.state.selectedOnFourthStage) {
+      this.setState({page:this.state.pageDop,disableAddbtn:false});
+      console.log(this.state.pageDop)
+    }
+    if (!this.state.selectedOnFourthStage) {
+      this.setState({page:4,disableAddbtn:true});
+      console.log(this.state.pageDop)
+    }
+    else {
+      return
+    }
+    
   }
 
   if (!val) {
@@ -133,7 +144,7 @@ CloseNotitficationRename(val) {
           console.log('ssss')
         }
         else {
-          this.runAlert();
+          this.runAlert(4);
          // this.setState({page:4})
         }
         
@@ -160,13 +171,13 @@ CloseNotitficationRename(val) {
       }
 
       if (this.state.page == 4) {
-        this.setState({page:3})
+        this.setState({page:3,disableAddbtn:false})
       }
       if (this.state.page == 3) {
-        this.setState({page:2})
+        this.setState({page:2,disableAddbtn:false})
       }
       if (this.state.page == 2) {
-        this.setState({page:1})
+        this.setState({page:1,disableAddbtn:false})
       }
 
     }
@@ -226,9 +237,10 @@ CloseNotitficationRename(val) {
       this.setState({renamedName:val})
     }
    
-    runAlert() {
+    runAlert(param) {
+      this.setState({pageDop:param})
       let emulatedArr = this.props.tree_flat;
-      console.log(emulatedArr)
+   //   console.log(emulatedArr)
       let diffValue = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;
       let finalValue = emulatedArr.filter(function(item) {
         return item.name == diffValue;
@@ -297,11 +309,11 @@ CloseNotitficationRename(val) {
       
             let  positiveArr112 = this.state.filteredItems.map(function(item) {
               return ( (item.value == value) ? ( (checked == true) ?
-               ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
-               :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+               ({...item,'expand':false})
+               :({...item,'expand':true})
          
               )
-               : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+               : ({...item,'expand':item.expand})
              );
            });
             this.setState({filteredItems:positiveArr112})
@@ -310,11 +322,11 @@ CloseNotitficationRename(val) {
       
             let  positiveArr112 = this.state.nodes.map(function(item) {
               return ( (item.value == value) ? ( (checked == true) ?
-               ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount, 'children':item.children,'expand':false})
-               :({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':true})
+               ({...item,'expand':false})
+               :({...item,'expand':true})
          
               )
-               : ({'label':item.label,'value':item.value,'restorePoint':item.restorePoint,'vmcount':item.vmcount,'restorePointsCount':item.restorePointsCount,'children':item.children,'expand':item.expand})
+               : ({...item,'expand':item.expand})
              );
            });
             
@@ -334,14 +346,31 @@ CloseNotitficationRename(val) {
                 : this.state.nodes.map(item => ({
                   ...item,
                   children: item.children
-                    .filter(child => child.value.includes(value.toLowerCase()))
+                  .filter(child => child.label.toLowerCase().indexOf(value.toLowerCase()) !== -1)
                 }))
                 .filter(item => item.children.length > 0)
             })
           }
 
-          saveId(val) {
-            console.log(val);
+          saveId(val,key,indexer,label) {
+            
+                if(this.state.checkedId===key){
+                  this.setState({
+                     checkedId: '',
+                     indexer:'',
+                     selectedOnFourthStage:false,
+                     disableAddbtn:true,
+                     labelFor3step:''
+                    });
+                  }else{
+                  this.setState({
+                     checkedId: key,
+                     indexer:indexer,
+                     selectedOnFourthStage:true,
+                     disableAddbtn:false,
+                     labelFor3step:label
+                    });
+                  }
           }
 
           selectContainer2() {
@@ -380,8 +409,8 @@ CloseNotitficationRename(val) {
       </table>
       <div className="looper">
           
-          {loopArray.map((item,index) => (
-            <div className="loop-lvl1 gt-clear">
+          {loopArray.map((item,indexer) => (
+            <div key={indexer} className="loop-lvl1 gt-clear">
                    <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
                     <div className="col-4 back_upicon">{item.label}</div>
                     <div className="col-4">{item.restorePoint}</div>
@@ -394,7 +423,8 @@ CloseNotitficationRename(val) {
                       (<div className="loop-lvl2 ">
                    {item.children.map((child,index) => (
 
-                      <div onClick={this.saveId.bind(this,child.label)} className="gt-clear childtable text-alignCenter">
+                      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ?
+                        'selected-green gt-clear childtable text-alignCenter': 'gt-clear childtable text-alignCenter'}`}>
                         <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
                         <div className="gt-left col-4">{child.restorePoint}</div>
                         <div className="gt-left col-4">{child.vmcount}</div>
@@ -503,7 +533,7 @@ CloseNotitficationRename(val) {
   
         
   
-        console.log(arrayVmsToFilter[0])
+    //    console.log(arrayVmsToFilter[0])
   
   
         this.setState({ObjFromFirstSreen:ObjConsturctor}) 
@@ -534,19 +564,45 @@ CloseNotitficationRename(val) {
 
 
     switch (param) {
+
+      
+
+      if (Object.keys(this.state.ObjFromFirstSreen).length == 0) {
+        return
+      }
+
       if(this.state.BlockBubble) {
         this.setState({page:1})
+      }
+      if (param == 1 || param == 2 || param == 3) {
+        this.setState ({ disableAddbtn:false})
+        this.setState({page:param})
       }
       else {
         if (param == 4 && !this.state.checkNewLocaiton) {
           this.setState({openAlert:true})
           }
-          if (param == 4 && this.state.checkNewLocaiton) {
-            this.runAlert();
+
+          if ((param == 4 || param == 5 || param == 6) && this.state.checkNewLocaiton && !this.state.selectedOnFourthStage  && (this.state.page == 3 || this.state.page == 2 || this.state.page == 1)) {
+            
+            if (param == 4) {
+              this.setState({disableAddbtn:true})
+              this.runAlert(param);
+            }
+             return; // test future delete this if go 4 page every time
+             }
+
+
+          if ((param == 4 || param == 5 || param == 6) && this.state.checkNewLocaiton  && (this.state.page == 3 || this.state.page == 2 || this.state.page == 1)) {
+            this.runAlert(param);
             return;
             }
-          if (param == 6 && this.state.checkNewLocaiton) {
+            
+          if ((param == 6 && this.state.checkNewLocaiton) && this.state.selectedOnFourthStage) {
             this.setState({openAlert:true})
+            }
+            if ((param == 5 || param == 6) && !this.state.selectedOnFourthStage) {
+              return;
             }
       
           else {
@@ -828,7 +884,8 @@ pointClick () {
       this.props.StartVMTask(ObjFromFirstSreen);
       this.setState({page:1});
       this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
-        checkNewLocaiton:false});
+        checkNewLocaiton:false,checkedId: '',  indexer:'',
+        selectedOnFourthStage:false});
         
       this.props.openVMProgressBar();
       this.props.close();
@@ -838,8 +895,8 @@ pointClick () {
 
     
     close() {
-      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
-        checkNewLocaiton:false})
+      this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, checkedId: '',
+      indexer:'',  selectedOnFourthStage:false,  checkNewLocaiton:false})
       this.props.close();
 
     }
