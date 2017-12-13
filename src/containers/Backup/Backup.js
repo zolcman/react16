@@ -2,6 +2,7 @@ import React, { Component,  PropTypes} from 'react'
 import styles from './styles.scss';
 import { connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+
 import Select from 'react-select';
 import BackWiz from '../../components/BackWiz/BackWiz';
 import { GetBackList } from './BackupAction'
@@ -25,8 +26,7 @@ class Backup extends Component {
             { value: 'two', label: 'Two' }
           ],
           table:[
-            {name:'test job1',cluster:'Ntnx1',cur_stat:'running',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'},
-            {name:'test job2',cluster:'Ntnx2',cur_stat:'failure',lst_run:'sucsess',linked:'test PD',pro:'every 2 HR',srt_time:'6:15 AM',last_run:'6:45 AM 10/10/1200',WMs:'35',desription:'ssss'}
+        
           ],
           openWiz:false,
           openWiz2:false,
@@ -423,7 +423,8 @@ class Backup extends Component {
               </div>
             </div>
             <div className="table-wrapper">
-
+         {/*   <Link className="link-table" to={`${this.props.match.url}/jobdetail`}>sssss</Link> */}
+             
               <div className="table-content">
                 <table className="bk-table">
                   <thead>
@@ -444,6 +445,7 @@ class Backup extends Component {
                     {list.map((item,index) => (
                         <tr onClick={this.chooseitem.bind(this,item.Id,item.status,item.name)} className="" key={index}>
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
+                    
                         <td>{item.cluster}</td>
                         <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name,item.asyncTaskId)} className="link-table">{item.status}</a>)
                         : (<span>{item.status}</span>)

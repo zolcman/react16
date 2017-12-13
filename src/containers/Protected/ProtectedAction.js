@@ -6,6 +6,10 @@ export const GET_VM_LIST_DETAIL = 'GET_VM_LIST_DETAIL';
 export const GET_LIST_FOR_ADD_BTN_WMS_WIZARD = 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD';
 export const GET_POINTS = 'GET_POINTS';
 export const LOGOUT = 'LOGOUT';
+export const GET_VM_LIST_DETAIL_FULL = 'GET_VM_LIST_DETAIL_FULL';
+
+
+
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -108,6 +112,43 @@ var accessToken = sessionStorage.getItem('accessToken');
 			)
 	}
 }
+
+
+function getFullDetail(json) {
+	return{
+
+		type: GET_VM_LIST_DETAIL_FULL,
+		data: json
+
+	}
+};
+
+
+export function GetVmListDetailFull (id) {
+	//	console.log(id)
+		return dispatch => {
+	var accessToken = sessionStorage.getItem('accessToken');
+			return (
+				//dispatch(showLoading()),
+				axios.get(apiUrl + `/api/v1/Vms/${ id }`,getHeader()).then(function (response) {
+				 if(response.data.code>200){
+						// dispatch(toastrActions.add('error', '',response.data.message))
+						 return
+				 }
+				//	 console.log(response.data);
+					dispatch(getFullDetail(response.data));
+					//	dispatch(hideLoading())
+				  })
+				.catch((error) => {
+					  console.log(error);
+					  if(error.response.status  == 401){
+						dispatch(LogOut())
+						 return
+						 }	
+				})
+				)
+		}
+	}
 
 
 

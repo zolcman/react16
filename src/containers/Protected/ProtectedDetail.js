@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import styles from './styles.scss';
 import { GetVmListDetail } from './ProtectedAction'
+import { GetVmListDetailFull } from './ProtectedAction'
 
 class ProtectedDetail extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ class ProtectedDetail extends Component {
 
 
       this.props.GetVmListDetail(this.props.match.params.id);
-
+      this.props.GetVmListDetailFull(this.props.match.params.id);
+      
     }
 
     componentWillReceiveProps(nextProps) {
@@ -25,6 +27,9 @@ class ProtectedDetail extends Component {
       if (nextProps.vmsdetail) {
      this.setState({table:nextProps.vmsdetail})
       }
+      if (nextProps.vmsdetailFull) {
+        this.setState({name:nextProps.vmsdetailFull.name})
+         }
      }
 
 
@@ -42,9 +47,9 @@ class ProtectedDetail extends Component {
               <div className="filter-wrapper gt-clear">
                 <div className="gt-left">
                   <div className="breadcrumbs">
-                    <Link to='/'>Home</Link> / <Link to='/protectedvms'>Protected VMs</Link> / {this.props.match.params.id}
+                    <Link to='/'>Home</Link> / <Link to='/protectedvms'>Protected VMs</Link> / {this.state.name}
                   </div>
-                  <div className="vm-counter gt-left">Protected VM's (2)</div>
+                  <div className="vm-counter gt-left">Restore Points ({list.length})</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Consistency group</div>
@@ -114,7 +119,8 @@ const mapDispatchToProps = function(dispatch) {
 
 
       GetVmListDetail: (id) => dispatch(GetVmListDetail(id)),
-
+      GetVmListDetailFull: (id) => dispatch(GetVmListDetailFull(id)),
+      
 
     }
 }
@@ -125,7 +131,7 @@ function mapStateToProps(state) {
     return {
 
          vmsdetail:state.toJS().ProtectedReducer.vmsdetail,
-
+         vmsdetailFull:state.toJS().ProtectedReducer.vmsdetailFull,
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProtectedDetail);

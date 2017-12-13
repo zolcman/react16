@@ -147,7 +147,7 @@ class Protected extends Component {
                   <div className="breadcrumbs">
                     <Link to='/'>Home</Link> / Protected VMs
                   </div>
-                  <div className="vm-counter gt-left">Protected VMs (3)</div>
+                  <div className="vm-counter gt-left">Protected VMs ({list.length})</div>
                 </div>
                 <div className="gt-right label-view">
                   <div className="label-view-status">Restores in Progress</div>

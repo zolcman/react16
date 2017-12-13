@@ -26,6 +26,7 @@ class App extends Component {
 
  routeWithSubRoutes(route) {
   return (
+    
     <Route
       key={_.uniqueId()}
       exact={route.exact || false}
