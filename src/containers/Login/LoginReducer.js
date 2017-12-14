@@ -14,6 +14,9 @@ const LoginReducer = function(state = initialUserState, action) {
   case 'GET_LOGIN':
 		 return Object.assign({}, state, { loginId: action.data });
         break;
+        case 'SHOW_SETUP':
+        return Object.assign({}, state, { showInstall: action.data });
+           break;
             
 
                           

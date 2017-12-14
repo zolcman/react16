@@ -52,7 +52,7 @@ class Backup extends Component {
            if(!$(e.target).is('.table-content tr td') && !$(e.target).is('#start-btnid') && !$(e.target).is('.bk-btn')
             && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
              $('.table-content tr').removeClass("selected-green");
-             self.setState({choosen:false,jobid:'',jobname:''})
+             self.setState({choosen:false,jobid:'',jobname:'',stopbtn:false})
              console.log('eeeeee')
             }
           });

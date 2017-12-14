@@ -6,6 +6,8 @@ import Helmet from 'react-helmet';
 import _ from 'lodash';
 import NavBar from '../../components/NavBar/NavBar'
 import Login from '../../containers/Login/Login'
+import {ShowSetup} from '../../containers/Login/LoginAction'
+
 import config from '../../config';
 import routes from '../../routes';
 // Import your global styles here
@@ -46,9 +48,10 @@ class App extends Component {
    
   // this.loginvar = localStorage.getItem('login');
   // console.log("loginprops")
-
+  this.props.ShowSetup()
 
    this.setState({isLogin:localStorage.getItem('AuthToken')});
+   
 
  }
 
@@ -103,7 +106,7 @@ class App extends Component {
 const mapDispatchToProps = function(dispatch) {
   return {
 
-
+    ShowSetup: () => dispatch(ShowSetup()),
   
   }
 }

@@ -23,13 +23,23 @@ class Dashboard extends Component {
     }
 
 
+	componentWillReceiveProps(nextProps) {
+		console.log(nextProps.showInstall)
+		if(nextProps.showInstall) {
+			this.setState({showInstall:true})
+		}
+		if(!nextProps.showInstall) {
+			this.setState({showInstall:false})
+		}
+	 }
+
 
     render(){
 
 
         return (
         <div className="container dashmrgn">
-		 
+			{(this.props.showInstall)? (<div></div>):(<div></div>)}
 			<div className="leftclmn">
 				<div className="sqare">
 				<div className="sqareheading">Protection Status</div>
@@ -84,6 +94,7 @@ function mapStateToProps(state) {
 //console.log(state.Reducer.emulate);
     return {
 
+		showInstall:state.toJS().LoginReducer.showInstall,
 
     }
 }
