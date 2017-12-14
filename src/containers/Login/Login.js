@@ -23,11 +23,14 @@ class Login extends Component {
        //  this.props.login();    
        this.setState({showIncorrectlogin:false})
 
-       $( "#shower" ).animate({
+       $( document ).ready(function() {
+        $( "#shower" ).animate({
+            
+            opacity: 1,
+          }, 1500 );
         
-        opacity: 1,
-      }, 1500 );
-    
+    });
+       
 
        $('myForm').keydown(function(e) {
            console.log('ssasa');

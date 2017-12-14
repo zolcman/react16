@@ -6,7 +6,7 @@ if(process.env.NODE_ENV === 'development') {
     //apiUrl = 'http://192.168.1.226:8100'
 //  sw-dev-pc11
 // http://192.168.0.82:8100/
-	apiUrl = 'http://localhost:8100'
+	apiUrl = 'https://192.168.0.181:8100'
 } else {
     apiUrl = 'http://localhost:8100'
 }
