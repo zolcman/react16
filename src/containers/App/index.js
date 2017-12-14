@@ -48,9 +48,9 @@ class App extends Component {
    
   // this.loginvar = localStorage.getItem('login');
   // console.log("loginprops")
-  //if (isLogin) {
+  if (isLogin) {
     this.props.ShowSetup()
-  //}
+  }
   
    this.setState({isLogin:localStorage.getItem('AuthToken')});
    
