@@ -116,6 +116,7 @@ export function LoginInServer (id) {
 							
 						//	console.log(response.data.message)
 						dispatch(ShowAlert('warning','oops! some problem with connection',true,true));
+						dispatch(LogOut())
 							 return
 					 }		
 					})

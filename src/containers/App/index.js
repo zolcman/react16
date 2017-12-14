@@ -1,7 +1,7 @@
 /* @flow */
 
 import React, { Component,  PropTypes} from 'react'
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch,Link,NavLink,withRouter,  BrowserRouter as Router } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import _ from 'lodash';
 import NavBar from '../../components/NavBar/NavBar'
@@ -12,6 +12,8 @@ import routes from '../../routes';
 import '../../theme/normalize.css';
 import styles from './styles.scss';
 import Alert from '../../components/Alert/Alert'
+import { connect} from 'react-redux';
+
 
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
 }
 
  routeWithSubRoutes(route) {
+   console.log(route.routes)
   return (
     
     <Route
@@ -33,7 +36,7 @@ class App extends Component {
       path={route.path}
       render={props => (
         // Pass the sub-routes down to keep nesting
-        <route.component {...props} routes={route.routes || null} />
+        <route.component   {...props} routes={route.routes || null} />
       )}
     />
   );
@@ -97,6 +100,22 @@ class App extends Component {
 
 }
 
-export default App;
+const mapDispatchToProps = function(dispatch) {
+  return {
+
+
+  
+  }
+}
+
+function mapStateToProps(state) {
+
+  return {
+
+   
+  }
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
 
 

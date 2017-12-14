@@ -29,16 +29,10 @@ export default [
   },
 
   {
-    
+    exact:true,
     path: '/backupjobs',
     component: Backup, // Add your route here
-  //  routes: [
-    //  { 
-     
-     //   path: '/backupjobs/jobdetail',
-     //   component: Alert
-    //  }
-   // ]
+    
   },
 
   {

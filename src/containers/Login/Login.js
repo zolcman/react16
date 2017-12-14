@@ -23,12 +23,20 @@ class Login extends Component {
        //  this.props.login();    
        this.setState({showIncorrectlogin:false})
 
+       $( "#shower" ).animate({
+        
+        opacity: 1,
+      }, 1500 );
+    
+
        $('myForm').keydown(function(e) {
            console.log('ssasa');
         if (e.keyCode == 13) {
             $('#myForm').submit();
         }
     });
+
+    
     }
    
 
@@ -85,7 +93,7 @@ class Login extends Component {
         return (
           <div className="login-page">
               <form id="myForm" onSubmit={this.login.bind(this)}>
-              <div className="login-container">
+              <div id="shower" className="login-container">
 
                     <div className="logo-login-page"></div>
                     <div className="login-input">

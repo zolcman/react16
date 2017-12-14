@@ -423,7 +423,7 @@ class Backup extends Component {
               </div>
             </div>
             <div className="table-wrapper">
-         {/*   <Link className="link-table" to={`${this.props.match.url}/jobdetail`}>sssss</Link> */}
+           
              
               <div className="table-content">
                 <table className="bk-table">
