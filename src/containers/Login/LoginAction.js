@@ -4,8 +4,6 @@ import { apiUrl, Urls } from '../../middlewares/url'
 export const GET_LOGIN = 'GET_LOGIN';
 export const GET_MYNAME = 'GET_MYNAME';
 export const GET_LOGOUT = 'GET_LOGOUT';
-export const SHOW_SETUP = 'SHOW_SETUP';
-
 
 import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 
@@ -80,18 +78,6 @@ export function LoginInServer (id) {
 				)
 		}
 	}
-
-	export function ShowSetup() {
-
-		const ert = {show:true}
-
-		return{
-	
-			type: SHOW_SETUP,
-			data: true
-	
-		}
-	};
 
 
 	function LetLogOut() {

@@ -44,12 +44,14 @@ class App extends Component {
   );
  } 
 
- login() {
+ login(isLogin) {
    
   // this.loginvar = localStorage.getItem('login');
   // console.log("loginprops")
-  this.props.ShowSetup()
-
+  //if (isLogin) {
+    this.props.ShowSetup()
+  //}
+  
    this.setState({isLogin:localStorage.getItem('AuthToken')});
    
 

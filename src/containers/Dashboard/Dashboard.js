@@ -19,9 +19,12 @@ class Dashboard extends Component {
     }
 }
     componentDidMount() {
-
+		this.setState({showInstall:this.props.showInstall})
     }
 
+	componentWillUnmount () {
+		this.setState({showInstall:false})
+	}
 
 	componentWillReceiveProps(nextProps) {
 		console.log(nextProps.showInstall)
@@ -39,7 +42,7 @@ class Dashboard extends Component {
 
         return (
         <div className="container dashmrgn">
-			{(this.props.showInstall)? (<div></div>):(<div></div>)}
+			{(this.state.showInstall)? (<div>LOGINFIRST</div>):(<div>LOGINSECOND</div>)}
 			<div className="leftclmn">
 				<div className="sqare">
 				<div className="sqareheading">Protection Status</div>

@@ -49,8 +49,8 @@ class Login extends Component {
          }
 
         if (nextProps.loginId) {
-            localStorage.setItem('AuthToken', nextProps.loginId);
-            this.props.login();
+            localStorage.setItem('AuthToken', nextProps.loginId.token);
+            this.props.login(nextProps.loginId.isFirstLogin);
         }
         
 
