@@ -259,6 +259,30 @@
     height: 23px;
 }
 
+.log-modificator thead {
+  display: table;
+  width: 100%;
+}
+.log-modificator tbody {
+  display: block;
+  overflow-y: scroll;
+  height: 141px;
+}
+.ut-1 {
+  width: 165px;
+}
+.ut-2 {
+  width: 500px;
+}
+.ut-3 {
+  width: 135px!important;
+}
+.ut-4 {
+  width: 500px!important;
+  padding-left: 34px;
+  text-align: left!important;
+}
+
 }
 
 

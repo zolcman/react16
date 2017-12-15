@@ -23,12 +23,8 @@ class JobWizard extends Component {
           page:'4',
           finish:false,
           lister:[{time:'9:58',action:'Job Started',duration:'22'},{time:'9:55',action:'Building',duration:'221'}],
-          blockScroll:false,
-          direction:'',
-          lastScrollPos:0
+          blockScroll:false
         }
-
-        this.handleScroll = this.handleScroll.bind(this);
     }
 
     componentDidMount() {
@@ -85,10 +81,7 @@ class JobWizard extends Component {
           if (!this.state.blockScroll) {
             
             var myDiv = document.getElementById("my_div");
-            if (myDiv != undefined && myDiv != null) {
-              myDiv.scrollTop = myDiv.scrollHeight + 35;
-            }
-           
+            myDiv.scrollTop = myDiv.scrollHeight + 35;
           }
         
       }
@@ -105,60 +98,45 @@ class JobWizard extends Component {
     console.log('ddd');
     }
 
-    handleScroll(event) {
-
-      
+   onScroll() {
      
-    
-    if (Object.keys(this.state.task_info.statistic.eventLog).length > 4) {
+    var self = this
+    console.log('scrolled')
+    if (Object.keys(self.state.task_info.statistic.eventLog).length > 3) {
      
-      if(this.state.lastScrollPos > event.currentTarget.scrollTop) {
-        this.setState({
-          direction:'top',
-          lastScrollPos:event.currentTarget.scrollTop,
-          blockScroll:true,
-        });
-        console.log("UNLOCKED")
-      } else if(this.state.lastScrollPos < event.currentTarget.scrollTop) {
+      var lastScrollTop = 0;
+      $('#my_div').scroll(function(event){
+         var st = $(this).scrollTop();
 
-        if ( $('#my_div').scrollTop() +  $('#my_div').innerHeight() >=  $('#my_div')[0].scrollHeight) {
-          this.setState({
-            direction:'bottom',
-            lastScrollPos:event.currentTarget.scrollTop,
-            blockScroll:false,
-          });
-         console.log("BLOCKED")
-        } else {
-          this.setState({
-            direction:'bottom',
-            lastScrollPos:event.currentTarget.scrollTop,
-            blockScroll:true,
-          });
+         if (st > lastScrollTop){
+
+          if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+            self.setState({blockScroll:false})
+           console.log("BLOCKED")
+          }
+         } else {
+          self.setState({blockScroll:true})
           console.log("UNLOCKED")
-        }
-        
-      }
-
-   
-}
-//var self = this
-//  var lastScrollTop = 0;
-    //  $('#my_div').scroll(function(event){
-      //   var st = $(this).scrollTop();
-
-      //   if (st > lastScrollTop){
-
-        //  if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-         //   self.setState({blockScroll:false})
-         //  console.log("BLOCKED")
-        //  }
-       //  } else {
-      //    self.setState({blockScroll:true})
-      //    console.log("UNLOCKED")
-      //   }
-      //   lastScrollTop = st;
-     // });
+         }
+         lastScrollTop = st;
+      });
     
+
+   //  $('#my_div').bind('mousewheel', function(e){
+   //  if(e.originalEvent.wheelDelta /120 > 0) {
+    //  self.setState({blockScroll:true})
+      
+    // }
+
+    // else{
+   //   if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+      //   self.setState({blockScroll:false})
+        
+      // }
+       
+    // }
+// });
+}
    }
 
 
@@ -300,7 +278,7 @@ convertDate(date) {
         var bottleneck = this.state.task_info.statistic.bottleneck
         var failed = this.state.task_info.statistic.failed
         if(this.state.task_info.statistic.eventLog != undefined) {
-         log =  this.state.task_info.statistic.eventLog
+         log =  this.state.task_info.statistic.eventLog 
 
           
          
@@ -406,10 +384,10 @@ convertDate(date) {
                               </tr>
                             </thead>
                             
-                            <tbody onScroll={this.handleScroll} onWheel ={this.onWheel.bind(this)} id="my_div">
+                            <tbody onScroll={this.onScroll.bind(this)} onWheel ={this.onWheel.bind(this)} id="my_div">
 
 
-                              {log.slice(0).reverse().map((item,index) => (
+                              {log.map((item,index) => (
                                   <tr className="" key={index}>
                                   <td className="ut-3">
                                       {this.convertDate(item.timeStamp)}
