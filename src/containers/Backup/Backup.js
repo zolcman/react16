@@ -447,7 +447,7 @@ class Backup extends Component {
                         <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
                     
                         <td>{item.cluster}</td>
-                        <td> {item.status == 'Running' ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name,item.asyncTaskId)} className="link-table">{item.status}</a>)
+                        <td> {item.asyncTaskId != null ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name,item.asyncTaskId)} className="link-table">{item.status}</a>)
                         : (<span>{item.status}</span>)
 
 

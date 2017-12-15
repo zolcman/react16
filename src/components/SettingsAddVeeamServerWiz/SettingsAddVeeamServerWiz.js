@@ -120,6 +120,7 @@ class SettingsAddVeeamServerWiz extends Component {
           <div className="modalWizPro156">
               {this.props.open ? (<div className="freeze">
                   <div className="pop-up-windowsmall">
+                  <form > 
                       <div className="pop-up-header">
                           {this.props.editable ? (<div className="gt-left pop-up-h-title">Edit Veeam Server</div>):(<div className="gt-left pop-up-h-title">Add Veeam Server</div>)}
                         
@@ -168,15 +169,18 @@ class SettingsAddVeeamServerWiz extends Component {
                             </div>
                     </div>
                     {this.state.disabledbtn ? (
-                         this.props.editable ? (<a className="add-serv-btn disabled">Edit</a>):(<a  className="add-serv-btn disabled">Add</a>)
+                         this.props.editable ? (<a className="add-serv-btn disabled">Save</a>):(<a  className="add-serv-btn disabled">Add</a>)
                     ): 
                     
                     (
-                    this.props.editable ? (<a onClick={this.Edit.bind(this)} className="add-serv-btn">Edit</a>):(<a onClick={this.add.bind(this)} className="add-serv-btn">Add</a>)
+                    this.props.editable ?
+                     (<button type="submit" onClick={this.Edit.bind(this)} className="add-serv-btn">Save</button>):
+                    (<button type="submit" onClick={this.add.bind(this)} className="add-serv-btn">Add</button>)
                     )}
                     
                     
                       </div>
+                      </form>
                   </div>
               </div>) : (null) }
 

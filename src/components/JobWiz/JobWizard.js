@@ -118,7 +118,7 @@ class JobWizard extends Component {
           lastScrollPos:event.currentTarget.scrollTop,
           blockScroll:true,
         });
-        console.log("UNLOCKED")
+     //   console.log("UNLOCKED")
       } else if(this.state.lastScrollPos < event.currentTarget.scrollTop) {
 
         if ( $('#my_div').scrollTop() +  $('#my_div').innerHeight() >=  $('#my_div')[0].scrollHeight) {
@@ -127,14 +127,14 @@ class JobWizard extends Component {
             lastScrollPos:event.currentTarget.scrollTop,
             blockScroll:false,
           });
-         console.log("BLOCKED")
+      //   console.log("BLOCKED")
         } else {
           this.setState({
             direction:'bottom',
             lastScrollPos:event.currentTarget.scrollTop,
             blockScroll:true,
           });
-          console.log("UNLOCKED")
+        //  console.log("UNLOCKED")
         }
         
       }

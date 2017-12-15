@@ -691,15 +691,15 @@ pointClick () {
       <table>
         <thead>
           <tr>
-            <th>Name</th>
+            <th className="textAlignLeft">Name</th>
             <th>Size</th>
-            <th className="width30"></th>
+            <th className="width30">Point</th>
           </tr>
         </thead>
         <tbody>
 
               <tr >
-                <td>{this.state.ObjFromFirstSreen.VmName}</td>
+                <td className="textAlignLeft" >{this.state.ObjFromFirstSreen.VmName}</td>
                 <td>{bytes(this.state.ObjFromFirstSreen.size, {unitSeparator: ' ', thousandsSeparator: ' '})}</td>
                 <td>{this.state.ObjFromFirstSreen.point}</td>
               </tr>
