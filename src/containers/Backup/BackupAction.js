@@ -17,6 +17,8 @@ export const GET_JOB_INFO_DATA = 'GET_JOB_INFO_DATA';
 export const GET_TREE_PROTECTED = 'GET_TREE_PROTECTED';
 export const LOGOUT = 'LOGOUT';
 export const GO_TO_BACK_LIST = 'GO_TO_BACK_LIST';
+export const PASS_JOB_INFO_TO_POINTS = 'PASS_JOB_INFO_TO_POINTS';
+
 
 
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -386,6 +388,17 @@ export function cleartask_info(json) {
 
 	}
 };
+
+
+export function PassJobInfo(id,name) {
+	return{
+
+		type: PASS_JOB_INFO_TO_POINTS,
+		data: {id,name}
+
+	}
+};
+
 
 
 

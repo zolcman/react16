@@ -13,6 +13,33 @@ cursor: default!important;
   text-decoration: none!important;
 }
 
+.backProtected {
+
+  a.bk-btn {
+    width: 100px;
+    height: 35px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    background-position: 7px 7px;
+    padding-top: 7px;
+    font-size: 15px;
+    box-sizing: border-box;
+    color: #4a4a4a;
+    padding-left: 36px;
+    cursor:pointer;
+    margin-right: 20px;
+    display: block;
+  }
+
+  .quickbk-btn {
+    background: url('./img/backup_active.svg') no-repeat #f8f8f8;
+    background-size: 20px;
+    width:143px!important;
+    font-size: 15px;
+  }
+
+}
+  
 
 .backup-page {
   .container {

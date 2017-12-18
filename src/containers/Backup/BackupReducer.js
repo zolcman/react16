@@ -50,6 +50,9 @@ const BackupReducer = function(state = initialUserState, action) {
                               case 'GET_TREE_PROTECTED':
                                return Object.assign({}, state, { tree_protected: action.data });
                                  break;
+                                 case 'PASS_JOB_INFO_TO_POINTS':
+                                 return Object.assign({}, state, { job_data_for_points: action.data });
+                                   break;
 
 
 

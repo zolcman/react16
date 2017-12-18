@@ -15,6 +15,7 @@ import { StartJobTask } from './BackupAction'
 import JobWizard from '../../components/JobWiz/JobWizard';
 import { clear_auto } from './BackupAction'
 import { DeleteBackupJob } from './BackupAction'
+import {PassJobInfo} from './BackupAction'
 
 class BackupDetail extends Component {
     constructor(props) {
@@ -134,6 +135,10 @@ class BackupDetail extends Component {
       }
     }
 
+    PassJobIdName() {
+      this.props.PassJobInfo(this.props.match.params.id,this.state.name)
+    }
+
     render(){
 
   var list = this.state.filteredItems || this.state.table || []
@@ -207,7 +212,7 @@ class BackupDetail extends Component {
 
                       {list.map((item,index) => (
                           <tr onClick={this.chooseitem.bind(this,item.Id,item.name)} key={index}>
-                          <td><Link className="link-table" to={`/vmsdetail/${ item.Id }`}>{item.name}</Link></td>
+                          <td><Link onClick={this.PassJobIdName.bind(this)} className="link-table" to={`/vmsjobdetail/${ item.Id }`}>{item.name}</Link></td>
                           <td>{item.recoveryPoints}</td>
                           <td>{item.status}</td>
                           <td className="width11">{item.location}</td>
@@ -243,6 +248,8 @@ const mapDispatchToProps = function(dispatch) {
     StartJobTask: (id) => dispatch(StartJobTask(id)),
     updatestatus: (id) => dispatch(updatestatus(id)),
     DeleteBackupJob: (id,detail) => dispatch(DeleteBackupJob(id,detail)),
+    PassJobInfo: (id,name) => dispatch(PassJobInfo(id,name)),
+    
     }
 }
 

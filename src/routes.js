@@ -10,6 +10,7 @@ import Backup from './containers/Backup/Backup';
 import Protected from './containers/Protected/Protected';
 import ProtectedDetail from './containers/Protected/ProtectedDetail';
 import BackupDetail from './containers/Backup/BackupDetail';
+import ProtectedDetailinJob from './containers/Backup/ProtectedDetailinJob';
 import Alert from './containers/Alert/Alert';
 import Settings from './containers/Settings/Settings';
 
@@ -41,10 +42,17 @@ export default [
 
   },
 
+
   {
     exact:true,
     path: '/vmsdetail/:id',
     component: ProtectedDetail, // Add your route here
+
+  },
+  {
+    exact:true,
+    path: '/vmsjobdetail/:id',
+    component: ProtectedDetailinJob, // Add your route here
 
   },
 

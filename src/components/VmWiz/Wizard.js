@@ -620,7 +620,7 @@ CloseNotitficationRename(val) {
         
         let Id = nextProps.vmid
         let arrayVmsToFilter = nextProps.vmsList;
-        
+        console.log(Id);
         if (Object.keys(nextProps.vmid).length != 0) {
          
           arrayVmsToFilter = arrayVmsToFilter.filter(function(item) {
@@ -633,8 +633,8 @@ CloseNotitficationRename(val) {
               VmName:arrayVmsToFilter[0].name,
               vmUid:arrayVmsToFilter[0].Id,
               size:arrayVmsToFilter[0].sizeInGb,
-              point:"Last Recovery Point",
-              recoveryPointUid:"",
+              point:(nextProps.pointinfo) ? (nextProps.pointinfo.point):("Last Recovery Point"),
+              recoveryPointUid:(nextProps.pointinfo) ? (nextProps.pointinfo.recoveryPointUid):(""),
               policyUid:""
             }  
             this.setState({ObjFromFirstSreen:ObjConsturctor})
