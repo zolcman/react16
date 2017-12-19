@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="25px" viewBox="0 0 26 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>notification copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Header" transform="translate(-1001.000000, -29.000000)">
+            <g id="search">
+                <g transform="translate(1001.000000, 29.000000)">
+                    <g id="Search">
+                        <g id="Icon" transform="translate(0.324253, 0.325254)">
+                            <path d="M19.5359611,14.4039563 L19.5359611,24.1539563 C19.5359611,24.7522647 20.0194935,25.2372896 20.6159611,25.2372896 C21.2124286,25.2372896 21.6959611,24.7522647 21.6959611,24.1539563 L21.6959611,14.4039563 C21.6959611,13.8056478 19.5359611,13.8056478 19.5359611,14.4039563 Z" id="Line-6" fill="#FFFFFF" fill-rule="nonzero" transform="translate(20.615961, 19.596257) rotate(-45.000000) translate(-20.615961, -19.596257) "></path>
+                            <ellipse id="Line-43" stroke="#FFFFFF" cx="9.82977246" cy="9.86011126" rx="9.32977246" ry="9.36011126"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

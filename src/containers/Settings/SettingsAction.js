@@ -8,7 +8,7 @@ export const GET_ClUSTER_LIST = 'GET_ClUSTER_LIST';
 export const GET_DETAILED_INFO_CLUSTER = 'GET_DETAILED_INFO_CLUSTER';
 export const LOGOUT = 'LOGOUT';
 export const SVD_PASS = 'SVD_PASS';
-
+import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 
 const getURI = (key) => apiUrl + Urls[key]
 
@@ -316,11 +316,11 @@ export function AddSettingsNewServer (objs) {
 		}
 
 		function Savedpass () {
-			alert('Saved')
+		//	alert('Saved')
 			return {
 				
 						type: SVD_PASS,
-						data: null
+						data: {page:3}
 				
 					}
 		}
@@ -338,11 +338,13 @@ export function AddSettingsNewServer (objs) {
 								 return
 						 }
 							 //console.log(response.data + '1111111111111');
+							dispatch(ShowAlert('success','saved',true,false));
 							dispatch(Savedpass());
 			
 						  })
 						.catch((error) => {
 							  console.log(error);
+							  dispatch(ShowAlert('warning','invalid old password',true,false));
 							  if(error.response.status == 401){
 								dispatch(LogOut())
 								 return
@@ -351,3 +353,17 @@ export function AddSettingsNewServer (objs) {
 						)
 				}
 			}
+
+
+export function Install (obj) {
+
+	return dispatch => {
+
+		return (
+			dispatch(LogOut())
+		)
+
+	 }
+	
+			
+}			

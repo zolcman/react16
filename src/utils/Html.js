@@ -29,6 +29,7 @@ const Html = ({ store, htmlContent }: Props) => {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css"></link>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script ></script>
 
 
         {head.title.toComponent()}
@@ -87,10 +88,12 @@ const Html = ({ store, htmlContent }: Props) => {
             __html: store && `window.__INITIAL_STATE__=${serialize(store.getState())};`,
           }}
         />
+        
         {
           // Reverse the order of scripts for accessing vendor.js first
           _.keys(assets.javascript).reverse().map(script =>
             <script key={_.uniqueId()} src={assets.javascript[script]} />,
+            
           )
         }
         {head.script.toComponent()}

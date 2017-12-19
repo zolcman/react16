@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Veeam-Appliance-for-AHV" transform="translate(-73.000000, -174.000000)" stroke="#7ED321">
+            <g id="install" transform="translate(74.000000, 170.000000)">
+                <g id="Group" transform="translate(0.000000, 5.000000)">
+                    <g id="download" transform="translate(9.333333, 9.333333)">
+                        <polyline id="Line-2" stroke-linecap="round" points="5.45454545 11 10.1413796 16.5 14.5454545 11"></polyline>
+                        <rect id="Rectangle-15" transform="translate(10.000000, 17.416667) rotate(90.000000) translate(-10.000000, -17.416667) " x="5.95454545" y="7.83333333" width="8.09090909" height="19.1666667"></rect>
+                        <path d="M10,15.5833333 L10,0.916666667" id="Line" stroke-linecap="round"></path>
+                    </g>
+                    <circle id="Oval-5" stroke-width="2" cx="20" cy="20" r="20"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

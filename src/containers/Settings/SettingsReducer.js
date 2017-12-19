@@ -24,6 +24,9 @@ break;
 case 'GET_DETAILED_INFO_CLUSTER':
 return Object.assign({}, state, { cluster_detail: action.data });
 break;
+case 'SVD_PASS':
+return Object.assign({}, state, { gopage: action.data });
+break;
 
  
      

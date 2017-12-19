@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import _ from 'lodash';
 import NavBar from '../../components/NavBar/NavBar'
 import Login from '../../containers/Login/Login'
+import InstallPage from '../../containers/InstallPage/InstallPage'
 import {ShowSetup} from '../../containers/Login/LoginAction'
 
 import config from '../../config';
@@ -24,7 +25,8 @@ class App extends Component {
      
       this.routeWithSubRoutes = this.routeWithSubRoutes.bind(this);
       this.state = {
-        isLogin:false
+        isLogin:false,
+        isLoginFirst:true,
     }
 }
 
@@ -44,13 +46,14 @@ class App extends Component {
   );
  } 
 
- login(isLogin) {
+ login(isFirst) {
    
   // this.loginvar = localStorage.getItem('login');
   // console.log("loginprops")
-  if (isLogin) {
-    this.props.ShowSetup()
-  }
+  
+  //  this.props.ShowSetup()
+  this.setState({isLoginFirst:isFirst})
+  
   
    this.setState({isLogin:localStorage.getItem('AuthToken')});
    
@@ -72,7 +75,7 @@ class App extends Component {
   
   console.log(this.state.isLogin);
 
-  if(this.state.isLogin) {
+  if(this.state.isLogin && !this.state.isLoginFirst) {
    
     return (
       <div className={styles.App}>
@@ -82,6 +85,15 @@ class App extends Component {
       <Switch>
       {routes.map(route => this.routeWithSubRoutes(route))}
       </Switch>
+      </div>
+    )
+  }
+
+  if (this.state.isLogin && this.state.isLoginFirst) {
+    return (
+      <div>
+      <InstallPage/>
+      <Alert/>
       </div>
     )
   }

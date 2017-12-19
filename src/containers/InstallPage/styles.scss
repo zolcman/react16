@@ -1,0 +1,108 @@
+:global {
+
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+
+
+
+
+
+
+.install-page {
+  height: 100%;
+  background: #ccc;
+  position: absolute;
+  width: 100%;
+  display: -webkit-flex; /* Safari */
+  -webkit-align-items: center; /* Safari 7.0+ */
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+
+.pop-up-window {
+  width: 600px;
+  margin: 0 auto;
+  min-height: 400px;
+  background: white;
+  margin-top:50px;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    overflow: hidden;
+    color:#4a4a4a;
+    font-family: 'Open Sans', sans-serif;
+        margin-bottom: 50px;
+				padding-bottom: 25px;
+				animation-name: fadeIn;
+				animation-iteration-count: 1;
+				animation-timing-function: ease-in;
+				animation-duration: 0.15s;
+				animation-fill-mode:forwards;
+}
+
+.pop-up-header {
+  background: #F8F8F8;
+  height: 50px;
+  padding: 13px;
+  box-sizing: border-box;
+}
+
+.pop-up-h-title {
+  font-weight: 600;
+  color:#4a4a4a;
+
+}
+
+.btns-g {
+  width: 455px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 20px;
+  padding-left: 60px;
+}
+
+.line-1 {
+  font-weight: bold;
+  
+  font-size: 18px;
+}
+.line-2 {
+  font-size: 14px;
+}
+.inst-mod .line-1 {
+  color:#83d333;
+}
+.inst-mod  {
+  background:url(./img/install.svg) no-repeat; 
+  background-size: 40px;
+  background-position: 10px 23px;
+  margin-top: 30px;
+}
+.inst-mod:hover {
+  background: url(./img/install.svg) no-repeat rgba(131, 211, 51, 0.23);
+  background-size: 40px;
+  background-position: 10px 23px;
+}
+
+.restore-mod:hover {
+  background: url(./img/point.svg) no-repeat rgba(131, 211, 51, 0.23);
+  background-size: 40px;
+  background-position: 10px 23px;
+}
+
+.restore-mod {
+  background:url(./img/point.svg) no-repeat; 
+  background-size: 40px;
+  background-position: 10px 23px;
+  margin-top: 48px;
+}
+
+
+
+}
