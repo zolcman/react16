@@ -26,7 +26,7 @@ class App extends Component {
       this.routeWithSubRoutes = this.routeWithSubRoutes.bind(this);
       this.state = {
         isLogin:false,
-        isLoginFirst:true,
+      //  isLoginFirst:true,
     }
 }
 
@@ -46,6 +46,8 @@ class App extends Component {
   );
  } 
 
+ 
+
  login(isFirst) {
    
   // this.loginvar = localStorage.getItem('login');
@@ -56,7 +58,7 @@ class App extends Component {
   
   
    this.setState({isLogin:localStorage.getItem('AuthToken')});
-   
+   localStorage.setItem('isLoginFirst', isFirst);
 
  }
 
@@ -66,6 +68,16 @@ class App extends Component {
   //  this.loginvar = localStorage.getItem('login');
    // console.log(this.loginvar);
     this.setState({isLogin:localStorage.getItem('AuthToken')});
+
+    if (localStorage.getItem('isLoginFirst') == 'false') {
+      this.setState({isLoginFirst:false})
+    }
+
+    if (localStorage.getItem('isLoginFirst') == 'true') {
+      this.setState({isLoginFirst:true})
+    }
+ //   this.setState({isLoginFirst:localStorage.getItem('isLoginFirst')})
+
    
  }
  
@@ -73,7 +85,7 @@ class App extends Component {
 
  render () {
   
-  console.log(this.state.isLogin);
+ // console.log(this.state.isLoginFirst+"222");
 
   if(this.state.isLogin && !this.state.isLoginFirst) {
    
@@ -90,6 +102,7 @@ class App extends Component {
   }
 
   if (this.state.isLogin && this.state.isLoginFirst) {
+    console.log(this.state.isLoginFirst)
     return (
       <div>
       <InstallPage/>
@@ -129,6 +142,7 @@ function mapStateToProps(state) {
 
   return {
 
+    loginId:state.toJS().LoginReducer.loginId,
    
   }
 }

@@ -394,11 +394,13 @@ changeGate(obj) {
   add () {
     
     const obj = {
-      ip:this.state.ip,
-      subnet:this.state.subnet,
-      gate:this.state.gate,
-      dns:this.state.dns,
-      hostname:this.state.hostName
+      "@odata.type": "NetworkSettings",
+      enableDHCP:this.state.checked6,
+      ipAddress:this.state.ip,
+      subnetMask:this.state.subnet,
+      defaultGateway:this.state.gate,
+      dnsServer:this.state.dns,
+      hostName:this.state.hostName
       
     }
 
