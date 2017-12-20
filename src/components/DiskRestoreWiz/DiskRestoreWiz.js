@@ -80,6 +80,11 @@ class DiskRestoreWiz extends Component {
       if (this.state.page == 2) {
         this.setState({page:3,disableAddbtn:true})
       }
+
+      if (this.state.page == 2 && !this.state.block4thstep) {
+        this.setState({page:3,disableAddbtn:false})
+      }
+
       if (this.state.page == 3) {
         if (this.state.block4thstep) {
           return
@@ -827,7 +832,7 @@ componentDidMount() {
                     </div>
                     <div className="btns-go-back gt-clear">
                        {this.state.page == 5 ?
-                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>) 
+                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Finish</a>) 
                        :
                         (this.state.disableAddbtn ? (<a  className="go-btn gt-right go-btn-global disabled">Next</a>)
                        :

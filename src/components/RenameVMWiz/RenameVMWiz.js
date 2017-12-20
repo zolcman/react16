@@ -19,7 +19,8 @@ class RenameVMWiz extends Component {
           finish:false,
           pre:'',
           su:'',
-
+          checked5:false,
+          checked6:false
 			
 			
         }
@@ -34,8 +35,8 @@ class RenameVMWiz extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-     // this.setState({name:this.props.name})
-      
+      this.setState({name:this.props.name})
+      this.setState({name:nextProps.name})
      }
 
 
@@ -53,9 +54,20 @@ class RenameVMWiz extends Component {
 
     add () {
       this.props.close();
-      let name = this.state.pre + this.state.name + this.state.su
+      let name;
+      if (this.state.checked5 && this.state.checked6) {
+        name = this.state.pre + this.state.name + this.state.su
+      }
+      if (this.state.checked5 && !this.state.checked6) {
+        name = this.state.pre + this.state.name
+      }
+
+      if (!this.state.checked5 && this.state.checked6) {
+        name =  this.state.name + this.state.su
+      }
+      
       this.props.getName(name)
-      this.setState({name:'',pre:'',su:''})
+      this.setState({name:'',pre:'',su:'',checked5:false,checked6:false})
     }
 
 
@@ -64,11 +76,27 @@ class RenameVMWiz extends Component {
     }
 
 
-   
+    checkPrefix() {
+      if( this.state.checked5) {
+        this.setState({checked5:false})
+      }
+      if( !this.state.checked5) {
+        this.setState({checked5:true})
+      }
+    }
+
+    checkSufix() {
+      if( this.state.checked6) {
+        this.setState({checked6:false})
+      }
+      if( !this.state.checked6) {
+        this.setState({checked6:true})
+      }
+    }
 
 
     render(){
-       
+       console.log(this.props.name)
         return (
           <div className="modalWizPro1lp1">
               {this.props.open ? (<div className="freeze">
@@ -87,17 +115,30 @@ class RenameVMWiz extends Component {
                         
                         <div className="renamevm-con">
                         <div className="lp-2">Name:</div>
-                          <input placeholder="enter new name" onChange={(e)=> {this.setState({name:e.target.value})}} value={this.state.name} type="text"/>
-                          <div className="lp-2">Add prefix</div>
-                          <input onChange={(e)=> {this.setState({pre:e.target.value})}} value={this.state.pre} placeholder="_new" type="text"/>
-                          <div  className="lp-2" >Add sufix</div>
-                          <input onChange={(e)=> {this.setState({su:e.target.value})}} value={this.state.su} placeholder="_restored" type="text"/>
+                          <input placeholder="enter new name" onChange={(e)=> {this.setState({name:e.target.value})}} value={ this.state.name} type="text"/>
+                          <div className="lp-2">
+                          <label><input type="checkbox" onChange={this.checkPrefix.bind(this)} checked={this.state.checked5} name="dva"/> Add prefix</label>
+                          </div>
+                          {(this.state.checked5)?(<input onChange={(e)=> {this.setState({pre:e.target.value})}} value={this.state.pre} placeholder="_new" type="text"/>)
+                          :
+                          (<input readOnly className="greybgf" value={this.state.pre} placeholder="_new" type="text"/>)
+                          }
+                          
+                          <div  className="lp-2" >
+                            <label><input type="checkbox" onChange={this.checkSufix.bind(this)} checked={this.state.checked6} name="dva"/> Add sufix</label>
+                            </div>
+                            {(this.state.checked6)?( <input onChange={(e)=> {this.setState({su:e.target.value})}} value={this.state.su} placeholder="_restored" type="text"/>
+                          )
+                          :
+                          ( <input readOnly className="greybgf" value={this.state.su} placeholder="_restored" type="text"/>)
+                          }
+                         
                         </div>
                         <div className="btns-group">
 
-
+                        <a onClick={this.add.bind(this)} className="go-btn lp-1 go-btn-global mr10r gt-left">Ok</a>
+                        <a onClick={this.close.bind(this)} className="go-btn  go-btn-global mr10r gt-left">Cancel</a>
                           
-                          <a onClick={this.add.bind(this)} className="go-btn lp-1 go-btn-global mr10r">Add</a>
 
                         </div>
                       </div>

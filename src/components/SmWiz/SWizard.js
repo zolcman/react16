@@ -17,16 +17,9 @@ class SWizard extends Component {
 
           page:'4',
           finish:false,
-          tree:[{
-              value: 'mars',
-              label: 'Mars',
-                  children: [
-                    { value: 'phobos', label: 'Phobos' },
-                    { value: 'deimos', label: 'Deimos' },
-                        ],
-                }],
+          tree:[],
                 checked: [],
-            expanded: [],
+            expanded: ['Test 1'],
 
         }
     }
@@ -172,6 +165,8 @@ check41 () {
                           Select Objects:
                         </div>
                         <div className="popup3-con">
+                        {(this.state.checked41)?(<div className="hidecluster"></div>):(null)}
+                        
                           <CheckboxTree
                             nameAsArray={true}
                 nodes={this.state.tree}

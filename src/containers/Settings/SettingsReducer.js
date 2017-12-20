@@ -27,6 +27,9 @@ break;
 case 'SVD_PASS':
 return Object.assign({}, state, { gopage: action.data });
 break;
+case 'GET_MAIN_IP':
+return Object.assign({}, state, { getMainIP: action.data });
+break;
 
  
      

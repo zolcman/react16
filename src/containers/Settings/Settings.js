@@ -5,14 +5,16 @@ import styles from './styles.scss';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import  SettingsAddAHVCluster from '../../components/SettingsAddAHVCluster/SettingsAddAHVCluster';
 import  SettingsAddVeeamServerWiz from '../../components/SettingsAddVeeamServerWiz/SettingsAddVeeamServerWiz';
+import  IPut from '../../components/Iput/Iput';
 
 import { GetBackupServers} from './SettingsAction'
 import { GetDetailServer} from './SettingsAction'
 import { GetDetailCluster} from './SettingsAction'
 import { UpdatePassLogin} from './SettingsAction'
-
+import { SaveFromSettingsIP } from './SettingsAction'
+import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 import { GetClusters} from './SettingsAction'
-
+import { GetMainSettingsIP} from './SettingsAction'
 
 class Settings extends Component {
     constructor(props) {
@@ -30,7 +32,7 @@ class Settings extends Component {
     componentDidMount() {
         this.props.GetBackupServers();
         this.props.GetClusters();
-
+        this.props.GetMainSettingsIP();
         
     }
 
@@ -59,6 +61,14 @@ class Settings extends Component {
         this.setState({listTab2:nextProps.cluster_list})
       }
 
+      if (nextProps.getMainIP) {
+        this.setState({hostName:nextProps.getMainIP.hostName})
+        this.setState({enableDHCP:nextProps.getMainIP.enableDHCP})
+        this.setState({ipAddress:nextProps.getMainIP.ipAddress})
+        this.setState({subnetMask:nextProps.getMainIP.subnetMask})
+        this.setState({defaultGateway:nextProps.getMainIP.defaultGateway})
+        this.setState({dnsServer:nextProps.getMainIP.dnsServer})
+      }
       
      }
 
@@ -113,7 +123,7 @@ class Settings extends Component {
             <thead>
               <tr>
               
-              <th>IP Address</th>
+              <th>Address</th>
               <th className="width20th">Backup Repositories</th>
               <th>Status</th>
               <th>Version</th>
@@ -213,7 +223,7 @@ class Settings extends Component {
                     
                     <th>Status</th>
                     <th>Version</th>
-                    <th>description</th>
+                    <th>Description</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -276,11 +286,11 @@ class Settings extends Component {
     }
 
     checkBoxInnerTab2 () {
-      if( this.state.checkInnerTab2) {
-        this.setState({checkInnerTab2:false})
+      if( this.state.enableDHCP) {
+        this.setState({enableDHCP:false})
       }
-      if( !this.state.checkInnerTab2) {
-        this.setState({checkInnerTab2:true})
+      if( !this.state.enableDHCP) {
+        this.setState({enableDHCP:true})
       }
     }
 
@@ -320,7 +330,15 @@ class Settings extends Component {
           </div>
           <div className="gt-clear row-label-input">
             <div className="gt-left width165px">
-            Password
+            Old Password
+            </div>
+            <div className="gt-left">
+            <input value={this.state.oldpassword} onChange={(e)=> {this.setState({oldpassword:e.target.value})}} type="password"/>
+            </div>
+          </div>
+          <div className="gt-clear row-label-input">
+            <div className="gt-left width165px">
+            New Password
             </div>
             <div className="gt-left">
             <input value={this.state.password} onChange={(e)=> {this.setState({password:e.target.value})}} type="password"/>
@@ -328,7 +346,7 @@ class Settings extends Component {
           </div>
           <div className="gt-clear row-label-input marbtm20">
             <div className="gt-left width165px">
-            Confirm Password
+            Confirm New Password
             </div>
             <div className="gt-left">
             <input value={this.state.NewPassword} onChange={(e)=> {this.setState({NewPassword:e.target.value})}} type="password" />
@@ -340,57 +358,251 @@ class Settings extends Component {
     }
 
     SavePassword() {
-      
-      
+
+      if (this.state.password != this.state.NewPassword) {
+        alert('Passwords not match!')
+        return
+      }
+      if (this.state.password == 'admin') {
+        alert('Please enter another password')
+        return
+      }
+      else {
         const Obj = {
-         // login:'admin',
-          "@odata.type": "ChangePasswordData",
-          OldPassword:this.state.password,
-          NewPassword:this.state.NewPassword,
-        }
-        this.props.UpdatePassLogin(Obj);
+          // login:'admin',
+           "@odata.type": "ChangePasswordData",
+           OldPassword:this.state.oldpassword,
+           NewPassword:this.state.NewPassword,
+         }
+         this.props.UpdatePassLogin(Obj);
+      }
+      
+      
+        
       
     }
+
+
+
+  //  this.setState({hostName:nextProps.getMainIP.hostName})
+  //  this.setState({enableDHCP:nextProps.getMainIP.enableDHCP})
+  //  this.setState({ipAddress:nextProps.getMainIP.ipAddress})
+  //  this.setState({subnetMask:nextProps.getMainIP.subnetMask})
+  //  this.setState({defaultGateway:nextProps.getMainIP.defaultGateway})
+  //  this.setState({dnsServer:nextProps.getMainIP.dnsServer})
+
+  testadd(address) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(address)) {  
+      return true
+    } 
+    else {
+      return false
+    }
+  }
+
+  ApplySettings() {
+
+
+    let ip = this.testadd(this.state.ipAddress)
+    let subnet = this.testadd(this.state.subnetMask)
+    let gate;
+    let dns;
+
+    if ((this.state.dnsServer == "...") || (this.state.dnsServer == "")) {
+      dns = "";
+      
+    }
+    else {
+      dns = this.testadd(this.state.dnsServer);
+    }
+
+    if ((this.state.defaultGateway == "...") || (this.state.dnsServer == "")) {
+      gate = "";
+      
+    }
+    else {
+      gate = this.testadd(this.state.defaultGateway);
+    }
+
+    if (ip && subnet && gate && dns && !this.state.enableDHCP) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.enableDHCP,
+        ipAddress:this.state.ipAddress,
+        subnetMask:this.state.subnetMask,
+        defaultGateway:this.state.defaultGateway,
+        dnsServer:this.state.dnsServer,
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(SaveFromSettingsIP(obj));
+      console.log('1')
+      return;
+      
+    }
+
+
+    if ( this.state.enableDHCP) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.enableDHCP,
+        ipAddress:"",
+        subnetMask:"",
+        defaultGateway:"",
+        dnsServer:"",
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(SaveFromSettingsIP(obj));
+      console.log('2')
+      return;
+      
+    }
+
+    if (ip && subnet && (gate == "") && (dns == "") && !this.state.enableDHCP) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.enableDHCP,
+        ipAddress:this.state.ipAddress,
+        subnetMask:this.state.subnetMask,
+        defaultGateway:"",
+        dnsServer:"",
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(SaveFromSettingsIP(obj));
+      console.log('3')
+      return;
+      
+    }
+
+    if (ip && subnet && gate  && (dns == "") && !this.state.enableDHCP) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.enableDHCP,
+        ipAddress:this.state.ipAddress,
+        subnetMask:this.state.subnetMask,
+        defaultGateway:this.state.defaultGateway,
+        dnsServer:"",
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(SaveFromSettingsIP(obj));
+      console.log('4')
+      return;
+      
+    }
+
+    if (ip && subnet && (gate == "") && dns  && !this.state.enableDHCP) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.enableDHCP,
+        ipAddress:this.state.ipAddress,
+        subnetMask:this.state.subnetMask,
+        defaultGateway:"",
+        dnsServer:this.state.dnsServer,
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(SaveFromSettingsIP(obj));
+      console.log('5')
+      return;
+      
+    }
+
+    else {
+      console.log(gate)
+      this.props.dispatch(ShowAlert('warning','incorrect Network settings ',true,false))
+    }
+    
+   //if (gate && dns) {
+    
+   //}
+
+    
+
+      
+
+    
+
+
+  }
+
+    changeIp(obj) {
+      
+        this.setState({ipAddress:obj})
+         
+        }
+      
+        changeHostName(e) {
+          
+         this.setState({hostName:e.target.value})
+             
+         }
+      
+        changeSubnet(obj) {
+            
+         this.setState({subnetMask:obj})
+               
+         }
+      
+      changeGate(obj) {
+            
+          this.setState({defaultGateway:obj})
+               
+       }
+      
+       changeDns(obj){
+        this.setState({dnsServer:obj})
+       }
+
 
     innerTab2(){
       return (
         <div className="wrapper-settings innerTab2wrapper">
           <div className="innerTab2-checkbox">
-          <label><input type="checkbox" onChange={this.checkBoxInnerTab2.bind(this)} checked={this.state.checkInnerTab2} name="dva"/> Obtain an IP address automatically</label>
+          <label><input type="checkbox" onChange={this.checkBoxInnerTab2.bind(this)} checked={this.state.enableDHCP} name="dva"/> Obtain an IP address automatically</label>
           </div>
-          <div className="gt-clear row-label-input">
+          {this.state.enableDHCP ? ( <div className="hideblock"></div>):(null)}
+         
+          <div className="gt-clear row-label-inputs">
             <div className="gt-left width165px">
             IP Address
             </div>
-            <div className="gt-left">
-            <input/>
+            <div className="gt-left ">
+            <IPut defaultValue={(this.state.ipAddress) ? (this.state.ipAddress):('" "." "." "." "')}  onChange={this.changeIp.bind(this)}/>
             </div>
           </div>
-          <div className="gt-clear row-label-input">
+          <div className="gt-clear row-label-inputs">
             <div className="gt-left width165px">
             Subnet mask
             </div>
             <div className="gt-left">
-            <input/>
+            <IPut defaultValue={(this.state.subnetMask) ? (this.state.subnetMask):('" "." "." "." "')}  onChange={this.changeSubnet.bind(this)}/>
             </div>
           </div>
-          <div className="gt-clear row-label-input">
+          <div className="gt-clear row-label-inputs">
             <div className="gt-left width165px">
             Default gateway
             </div>
             <div className="gt-left">
-            <input/>
+            <IPut defaultValue={(this.state.defaultGateway) ? (this.state.defaultGateway):('" "." "." "." "')}  onChange={this.changeGate.bind(this)}/>
             </div>
           </div>
-          <div className="gt-clear row-label-input marbtm20">
+          <div className="gt-clear row-label-inputs marbtm20">
             <div className="gt-left width165px">
             Preffered DNS server
             </div>
             <div className="gt-left">
-            <input/>
+            <IPut defaultValue={(this.state.dnsServer) ? (this.state.dnsServer):('" "." "." "." "')}  onChange={this.changeDns.bind(this)}/>
             </div>
           </div>
-          <a className="apply-btn btn-left-mar">Apply</a>
+          <a onClick={this.ApplySettings.bind(this)} className="apply-btn btn-left-mar">Apply</a>
         </div>
         
       )
@@ -421,14 +633,14 @@ class Settings extends Component {
       )
     }
     tabChanged(index) {
-      console.log(index)
+   //   console.log(index)
       
         this.setState({tabSelected:index,choosen:false,choosen2:false})
       
     }
 
     render(){
-      console.log(this.props.tabt)
+      
   
 
 
@@ -479,13 +691,14 @@ class Settings extends Component {
 }
 const mapDispatchToProps = function(dispatch) {
     return {
-
+      dispatch:dispatch,
 
       GetBackupServers: () => dispatch(GetBackupServers()),
       GetDetailServer: (id) => dispatch(GetDetailServer(id)),
       GetClusters: () => dispatch(GetClusters()),
       GetDetailCluster: (id) => dispatch(GetDetailCluster(id)),
       UpdatePassLogin: (obj) => dispatch(UpdatePassLogin(obj)),
+      GetMainSettingsIP: () => dispatch(GetMainSettingsIP()),
       
       
      // cleartask_info: () => dispatch(cleartask_info()),
@@ -496,7 +709,7 @@ const mapDispatchToProps = function(dispatch) {
 
 function mapStateToProps(state) {
 
-console.log(state.toJS().BackupReducer.backups);
+
     return {
 
 
@@ -504,6 +717,7 @@ console.log(state.toJS().BackupReducer.backups);
           
           listbackups:state.toJS().SettingsReducer.listbackups,
           cluster_list:state.toJS().SettingsReducer.cluster_list,
+          getMainIP:state.toJS().SettingsReducer.getMainIP,
           
 
     }

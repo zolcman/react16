@@ -25,7 +25,8 @@ class JobWizard extends Component {
           lister:[{time:'9:58',action:'Job Started',duration:'22'},{time:'9:55',action:'Building',duration:'221'}],
           blockScroll:false,
           direction:'',
-          lastScrollPos:0
+          lastScrollPos:0,
+          hidelogText:'Hide log'
         }
 
         this.handleScroll = this.handleScroll.bind(this);
@@ -286,6 +287,17 @@ convertDate(date) {
 }
 
 
+
+hidelog() {
+  if( this.state.hidelog) {
+    this.setState({hidelog:false,hidelogText:'Hide log'})
+
+  }
+  if( !this.state.hidelog) {
+    this.setState({hidelog:true,hidelogText:'Show log'})
+  }
+}
+
     render(){
       console.log(this.state.blockScroll)
        var log = []
@@ -394,6 +406,7 @@ convertDate(date) {
                          
                         </table>
                       </div>
+                      {this.state.hidelog ? (null):(
                       <div className="lvl-1 martop20">
                         <div className="table-content">
                           <table className="bk-table log-modificator">
@@ -426,10 +439,11 @@ convertDate(date) {
                           </table>
                         </div>
                       </div>
+                      )}
                       <div className="btns-group-jobwiz gt-clear">
-                        <a className="back-btn gt-left go-btn-global">Hide log</a>
+                        <a onClick={this.hidelog.bind(this)} className="back-btn gt-left go-btn-global">{this.state.hidelogText}</a>
                         <a onClick={this.close.bind(this)} className=" gt-right go-btn-global">Close</a>
-                        <a onClick={this.close.bind(this)} className="back-btn gt-right go-btn-global">Stop</a>
+                            {/*   <a onClick={this.close.bind(this)} className="back-btn gt-right go-btn-global">Stop</a> */}
 
                       </div>
                     </div>

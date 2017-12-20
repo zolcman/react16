@@ -960,7 +960,7 @@ check5 () {
   <dt>Retention</dt>
   <dd>{this.state.retentionMaxRecoveryPoints}</dd>
 </dl>
-	<div><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
+	<div className="lp-20"><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
 </div>
 		)
   }

@@ -36,8 +36,8 @@ class Wizard extends Component {
 
           nodes:[
             {
-            label:"Egor1",
-            value:"Egor1",
+            label:"cl-1",
+            value:"cl-1",
             restorePoint:"25/10/2017 10:00:29 PM",
             vmcount:"2",
             restorePointsCount:"",
@@ -64,8 +64,8 @@ class Wizard extends Component {
           ,
 
           {
-            label:"Egor12",
-            value:"Egor12",
+            label:"cl-12",
+            value:"cl-12",
             restorePoint:"25/10/2017 10:00:29 PM",
             vmcount:"22",
             restorePointsCount:"",
@@ -263,12 +263,23 @@ CloseNotitficationRename(val) {
      // }
     }
 
+
+    renameOpen() {
+      if (!this.state.selectedVMFor31PopUp) {
+        alert('Please choose VM')
+        return;
+      }
+      else {
+        this.setState({closeRename:true})
+      }
+    }
+
     windowsvm31() {
       return (
         <div>
           <div className="zagname">Restore Mode</div>
           <div className="pagetwoundertxt marnvz">Specify virtual machine name</div>
-          <a onClick={()=>{this.setState({closeRename:true})}} className="rename-vm-btn">Rename VM</a>
+          <a onClick={this.renameOpen.bind(this)} className="rename-vm-btn">Rename VM</a>
           <div className="tbl1op">
           <div className="tbls1 clear-gt">
       <table>

@@ -17,14 +17,15 @@ class SelectContainerWiz2 extends Component {
 
           page:'1',
           finish:false,
-          tree:[{
-              value: 'mars',
-              label: 'Mars',
-                  children: [
-                    { value: 'phobos', label: 'Phobos' },
-                    { value: 'deimos', label: 'Deimos' },
-                        ],
-                }],
+        //  tree:[{
+         //     value: 'mars',
+          //    label: 'Mars',
+           //       children: [
+           //         { value: 'phobos', label: 'Phobos' },
+             //       { value: 'deimos', label: 'Deimos' },
+             //           ],
+             //   }],
+             tree:[],
                 checked: [],
             expanded: [],
 

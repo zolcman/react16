@@ -9,7 +9,7 @@ export const LOGOUT = 'LOGOUT';
 export const GET_VM_LIST_DETAIL_FULL = 'GET_VM_LIST_DETAIL_FULL';
 
 
-
+import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -56,7 +56,7 @@ export function GetVmList (params) {
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
-			//dispatch(showLoading()),
+			dispatch(showLoading()),
 			axios.get(getURI("vms"),getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -64,10 +64,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 		 console.log(response.data);
     			dispatch(receiveData22(response.data));
-				//	dispatch(hideLoading())
+					dispatch(hideLoading())
   			})
    	 	.catch((error) => {
 				  console.log(error);
+				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
 				  if(error.response.status == 401){
 			
 					dispatch(LogOut())
@@ -92,7 +93,7 @@ export function GetVmListDetail (id) {
 	return dispatch => {
 var accessToken = sessionStorage.getItem('accessToken');
 		return (
-			//dispatch(showLoading()),
+			dispatch(showLoading()),
 			axios.get(apiUrl + `/api/v1/Vms/${ id }/backups`,getHeader()).then(function (response) {
 			 if(response.data.code>200){
 					// dispatch(toastrActions.add('error', '',response.data.message))
@@ -100,10 +101,11 @@ var accessToken = sessionStorage.getItem('accessToken');
 			 }
    	 	//	 console.log(response.data);
     			dispatch(receiveData23(response.data));
-				//	dispatch(hideLoading())
+					dispatch(hideLoading())
   			})
    	 	.catch((error) => {
 				  console.log(error);
+				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
@@ -141,6 +143,7 @@ export function GetVmListDetailFull (id) {
 				  })
 				.catch((error) => {
 					  console.log(error);
+					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
 					  if(error.response.status  == 401){
 						dispatch(LogOut())
 						 return
@@ -178,6 +181,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
+				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
@@ -214,6 +218,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
+				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return

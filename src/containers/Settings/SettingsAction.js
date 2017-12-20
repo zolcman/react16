@@ -8,6 +8,9 @@ export const GET_ClUSTER_LIST = 'GET_ClUSTER_LIST';
 export const GET_DETAILED_INFO_CLUSTER = 'GET_DETAILED_INFO_CLUSTER';
 export const LOGOUT = 'LOGOUT';
 export const SVD_PASS = 'SVD_PASS';
+export const GET_MAIN_IP = 'GET_MAIN_IP';
+
+
 import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 
 const getURI = (key) => apiUrl + Urls[key]
@@ -355,15 +358,109 @@ export function AddSettingsNewServer (objs) {
 			}
 
 
-export function Install (obj) {
+//export function Install (obj) {
 
-	return dispatch => {
+//	return dispatch => {
 
-		return (
-			dispatch(LogOut())
-		)
+	//	return (
+	//		dispatch(LogOut())
+	//	)
 
-	 }
+//	 }
 	
 			
-}			
+//}			
+
+
+export function Install (obj) {
+	
+		return dispatch => {
+	
+			return (
+	
+				axios.put(apiUrl + `/api/v1/networksettings`, obj,  getHeader()
+			).then(function (response) {
+				 if(response.data.code>200){
+						// dispatch(toastrActions.add('error', '',response.data.message))
+						 return
+				 }
+					 console.log(response.data);
+					 dispatch(LogOut())
+	
+				  })
+				.catch((error) => {
+					  console.log(error);
+					  if(error.response.status == 401){
+						dispatch(LogOut())
+						 return
+						 }	
+				})
+				)
+		}
+	}
+
+
+function GetIPmain(json) {
+
+	return {
+		
+				type: GET_MAIN_IP,
+				data: json
+		
+			}
+
+
+}
+
+export function GetMainSettingsIP (id) {
+			
+				return dispatch => {
+			var accessToken = sessionStorage.getItem('accessToken');
+					return (
+						//dispatch(showLoading()),
+						axios.get(apiUrl + `/api/v1/networksettings`,getHeader()).then(function (response) {
+						 if(response.data.code>200){
+								// dispatch(toastrActions.add('error', '',response.data.message))
+								 return
+						 }
+							 console.log(response.data);
+							dispatch(GetIPmain(response.data));
+							//	dispatch(hideLoading())
+						  })
+						.catch((error) => {
+							  console.log(error);
+							  if(error.response.status == 401){
+								dispatch(LogOut())
+								 return
+								 }	
+						})
+						)
+				}
+			}
+
+export function SaveFromSettingsIP (obj) {
+	
+		return dispatch => {
+	
+			return (
+	
+				axios.put(apiUrl + `/api/v1/networksettings`, obj,  getHeader()
+			).then(function (response) {
+				 if(response.data.code>200){
+						// dispatch(toastrActions.add('error', '',response.data.message))
+						 return
+				 }
+					 console.log(response.data);
+					 dispatch(ShowAlert('success','Saved!',true,false));
+	
+				  })
+				.catch((error) => {
+					  console.log(error);
+					  if(error.response.status == 401){
+						dispatch(LogOut())
+						 return
+						 }	
+				})
+				)
+		}
+	}

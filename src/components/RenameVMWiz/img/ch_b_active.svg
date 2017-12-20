@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>ch_passive copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="15" height="15" rx="2"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="checkpoint-">
+            <g id="ch_active">
+                <g id="Background-Copy">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#CCCCCC" stroke-width="1" x="0.5" y="0.5" width="14" height="14" rx="2"></rect>
+                </g>
+                <path d="M11.6215678,5.74558591 L6.749753,10.7503189 C6.64389127,10.8590688 6.51555205,10.9134438 6.36473534,10.9134438 C6.21391862,10.9134438 6.0855794,10.8590688 5.97971767,10.7503189 L3.1587926,7.85243026 C3.05293087,7.74368029 3,7.61183958 3,7.45690812 C3,7.30197667 3.05293087,7.17013596 3.1587926,7.06138599 L3.92919046,6.2699693 C4.03505219,6.16121933 4.16339141,6.10684435 4.31420812,6.10684435 C4.46502483,6.10684435 4.59336406,6.16121933 4.69922579,6.2699693 L6.36473534,7.98650556 L10.0807721,4.16312495 C10.1866338,4.05437498 10.314973,4 10.4657898,4 C10.6166065,4 10.7449457,4.05437498 10.8508074,4.16312495 L11.6212053,4.95454164 C11.727067,5.06304332 11.7799979,5.19488403 11.7799979,5.35006377 C11.7803604,5.50524352 11.7274296,5.63708423 11.6215678,5.74558591 Z" id="Check" fill="#7ED321" fill-rule="evenodd"></path>
+            </g>
+        </g>
+    </g>
+</svg>

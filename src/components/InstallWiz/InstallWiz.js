@@ -375,16 +375,33 @@ changeGate(obj) {
   <dt>Hostname:</dt>
   <dd>{this.state.hostName}</dd>
   <dt>IP settings</dt>
-  <dd>IPv4, Static</dd>
-  
-  <dt>IP address:</dt>
-    <dd>{(this.state.ip.length > 3 )?(this.state.ip):('auto')}</dd>
+  <dd>IPv4, {this.state.checked6 ? ('DHCP'):('Static')}</dd>
+  {this.state.checked6 ? (<div>
+
+    <dt>IP address:</dt>
+    <dd>auto</dd>
   <dt>Subnet mask</dt>
-  <dd>{(this.state.subnet.length > 3 )?(this.state.subnet):('auto')}</dd>
+  <dd>auto</dd>
   <dt>Default gateway</dt>
-  <dd>{(this.state.gate.length > 3 )?(this.state.gate):('auto')}</dd>
+  <dd>auto</dd>
   <dt>DNS server</dt>
-  <dd>{(this.state.dns.length > 3)?(this.state.dns):('auto')}</dd>
+  <dd>auto</dd>
+
+  </div>):(
+    <div>
+    
+        <dt>IP address:</dt>
+        <dd>{(this.state.ip.length > 3 )?(this.state.ip):('auto')}</dd>
+      <dt>Subnet mask</dt>
+      <dd>{(this.state.subnet.length > 3 )?(this.state.subnet):('auto')}</dd>
+      <dt>Default gateway</dt>
+      <dd>{(this.state.gate.length > 3 )?(this.state.gate):('auto')}</dd>
+      <dt>DNS server</dt>
+      <dd>{(this.state.dns.length > 3)?(this.state.dns):('auto')}</dd>
+    
+      </div>
+  )}
+  
 </dl>
 
 	    </div>
@@ -392,19 +409,42 @@ changeGate(obj) {
   }
 
   add () {
-    
-    const obj = {
-      "@odata.type": "NetworkSettings",
-      enableDHCP:this.state.checked6,
-      ipAddress:this.state.ip,
-      subnetMask:this.state.subnet,
-      defaultGateway:this.state.gate,
-      dnsServer:this.state.dns,
-      hostName:this.state.hostName
-      
+
+
+    if (!this.state.checked6) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.checked6,
+        ipAddress:this.state.ip,
+        subnetMask:this.state.subnet,
+        defaultGateway:this.state.gate,
+        dnsServer:this.state.dns,
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(Install(obj));
     }
 
-    this.props.dispatch(Install(obj));
+    if (this.state.checked6) {
+      const obj = {
+        "@odata.type": "NetworkSettings",
+        enableDHCP:this.state.checked6,
+        ipAddress:"",
+        subnetMask:"",
+        defaultGateway:"",
+        dnsServer:"",
+        hostName:this.state.hostName
+        
+      }
+  
+      this.props.dispatch(Install(obj));
+    }
+
+
+    
+    
+    
  
   }
 

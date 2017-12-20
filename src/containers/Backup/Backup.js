@@ -292,7 +292,7 @@ class Backup extends Component {
     }
 	
 	deleteJob () {
-    let deletee = confirm('are you shore?')
+    let deletee = confirm('Are you sure?')
   //  var isAdmin = confirm("alertrr?");
    // console.log('aaaaaaaaaaaaaaaaaaaaaa')
    // alert("sssss");
@@ -431,8 +431,8 @@ class Backup extends Component {
                     <tr >
                     <th>Name</th>
                     <th>Cluster</th>
-                    <th>Curent Status</th>
-                    <th>Last Run Result</th>
+                    <th>Status</th>
+                    
                     <th>Linked PD's</th>
                     <th>RPO</th>
                     <th>Start time</th>
@@ -454,7 +454,7 @@ class Backup extends Component {
                       }
 
                          </td>
-                        <td className="width11">{item.lastRunResult}</td>
+                      
                         <td>{item.linkedPds}</td>
                         <td>{item.rpo}</td>
                         <td>{item.startTime}</td>

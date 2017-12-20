@@ -136,7 +136,7 @@ class VMProgressBar extends Component {
                       <div className="windows-list">
                       <dl className="floated">
             
-                          <dt>Object remaining</dt>
+                          <dt>Objects remaining</dt>
                           <dd className="somefix">1 of 1</dd>
                           <dt>Restore rate</dt>
                           <dd>{processingRateBytesPerSecond}/s</dd>

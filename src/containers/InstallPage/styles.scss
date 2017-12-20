@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content:center;
-}
+
 
 
 .pop-up-window {
@@ -54,6 +54,11 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   font-weight: 600;
   color:#4a4a4a;
 
+}
+
+.body-popup {
+  padding: 40px;
+  min-height: 420px;
 }
 
 .btns-g {
@@ -103,6 +108,6 @@ box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
   margin-top: 48px;
 }
 
-
+}
 
 }

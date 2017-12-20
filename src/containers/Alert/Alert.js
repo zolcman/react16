@@ -24,7 +24,7 @@ class Alert extends Component {
 
 
         return (
-          <div><Upload/>
+          <div>
          {/*  <Link  className="link-table" to='/alert/detail'>sssss</Link> 
 
          <Switch>
