@@ -33,6 +33,8 @@ class InstallWiz extends Component {
           sudnetd:false,
           dnsd:false,
           gated:false,
+          checked6:false,
+          
           
         }
     }
@@ -417,8 +419,8 @@ changeGate(obj) {
         enableDHCP:this.state.checked6,
         ipAddress:this.state.ip,
         subnetMask:this.state.subnet,
-        defaultGateway:this.state.gate,
-        dnsServer:this.state.dns,
+        defaultGateway:(this.state.gate == '...') ? (''):(this.state.gate),
+        dnsServer:(this.state.dns == '...') ? (''):(this.state.dns),
         hostName:this.state.hostName
         
       }

@@ -53,7 +53,7 @@ class RenameVMWiz extends Component {
 
 
     add () {
-      this.props.close();
+      
       let name;
       if (this.state.checked5 && this.state.checked6) {
         name = this.state.pre + this.state.name + this.state.su
@@ -65,9 +65,14 @@ class RenameVMWiz extends Component {
       if (!this.state.checked5 && this.state.checked6) {
         name =  this.state.name + this.state.su
       }
+      if (!this.state.checked5 && !this.state.checked6) {
+        name =  this.state.name 
+      }
       
+      console.log(name)
       this.props.getName(name)
       this.setState({name:'',pre:'',su:'',checked5:false,checked6:false})
+      this.props.close();
     }
 
 

@@ -15,7 +15,7 @@ import { SaveFromSettingsIP } from './SettingsAction'
 import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
 import { GetClusters} from './SettingsAction'
 import { GetMainSettingsIP} from './SettingsAction'
-
+import { GetVerAndName} from './SettingsAction'
 class Settings extends Component {
     constructor(props) {
         super(props)
@@ -33,7 +33,7 @@ class Settings extends Component {
         this.props.GetBackupServers();
         this.props.GetClusters();
         this.props.GetMainSettingsIP();
-        
+        this.props.GetVerAndName();
     }
 
 
@@ -68,6 +68,10 @@ class Settings extends Component {
         this.setState({subnetMask:nextProps.getMainIP.subnetMask})
         this.setState({defaultGateway:nextProps.getMainIP.defaultGateway})
         this.setState({dnsServer:nextProps.getMainIP.dnsServer})
+        
+      }
+      if (nextProps.getVerProduct) {
+        this.setState({version:nextProps.getVerProduct.version,productName:nextProps.getVerProduct.name})
       }
       
      }
@@ -622,11 +626,11 @@ class Settings extends Component {
 
         <dl className="floated">
                 <dt >Appliance Hostname</dt>
-                <dd className="border0">vba.contoso.com</dd>
+                <dd className="border0">{this.state.hostName}</dd>
                 <dt>Product</dt>
-                <dd>Veeam Backup</dd>
+                <dd>{this.state.productName}</dd>
                 <dt>Appliance version</dt>
-                <dd>35</dd>
+                <dd>{this.state.version}</dd>
                 
               </dl>
         </div>
@@ -699,6 +703,7 @@ const mapDispatchToProps = function(dispatch) {
       GetDetailCluster: (id) => dispatch(GetDetailCluster(id)),
       UpdatePassLogin: (obj) => dispatch(UpdatePassLogin(obj)),
       GetMainSettingsIP: () => dispatch(GetMainSettingsIP()),
+      GetVerAndName: () => dispatch(GetVerAndName()),
       
       
      // cleartask_info: () => dispatch(cleartask_info()),
@@ -718,7 +723,7 @@ function mapStateToProps(state) {
           listbackups:state.toJS().SettingsReducer.listbackups,
           cluster_list:state.toJS().SettingsReducer.cluster_list,
           getMainIP:state.toJS().SettingsReducer.getMainIP,
-          
+          getVerProduct:state.toJS().SettingsReducer.getVerProduct,
 
     }
 }

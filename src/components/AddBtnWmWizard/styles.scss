@@ -180,7 +180,7 @@
   .rct-collapse,
   .rct-checkbox,
   .rct-node-icon {
-    padding: 0 5px;
+    padding: 0px!important;
   }
 
   .rct-collapse *,
@@ -276,15 +276,15 @@
   }
 
   .rct-icon-leaf::before {
-    content: "\f016";
+   // content: "\f016";
   }
 
   .rct-icon-parent-open::before {
-    content: "\f115";
+ //   content: "\f115";
   }
 
   .rct-icon-parent-close::before {
-    content: "\f114";
+   // content: "\f114";
   }
   .rct-node {
     position: relative;

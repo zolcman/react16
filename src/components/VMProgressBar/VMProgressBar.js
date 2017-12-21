@@ -13,9 +13,13 @@ class VMProgressBar extends Component {
         this.timer;
         this.state = {
 
+          blockScroll:false,
+          direction:'',
+          lastScrollPos:0,
 
 
         }
+        this.handleScroll = this.handleScroll.bind(this);
     }
 
 
@@ -105,7 +109,113 @@ class VMProgressBar extends Component {
       
       }
 
+      convertDate(date) {
+        var d = new Date(date);
+        let month = d.getMonth()+1  // 10
+        let day = d.getDate()     // 30
+        let year = d.getFullYear();
+        let hours = d.getHours();
+        let minutes = d.getMinutes();
+        minutes = minutes > 9 ? minutes : '0' + minutes;
+        let seconds = d.getSeconds();
+        let bestDate = year + '/' + month + '/' + day + ':' + hours + ':' +  minutes + ":" + seconds;
+        return bestDate;
+      }
 
+      onWheel() {
+        
+            console.log('ddd');
+            }
+
+      handleScroll(event) {
+        
+              
+             
+            
+            if (Object.keys(this.state.task_info.statistic.eventLog).length > 4) {
+             
+              if(this.state.lastScrollPos > event.currentTarget.scrollTop) {
+                this.setState({
+                  direction:'top',
+                  lastScrollPos:event.currentTarget.scrollTop,
+                  blockScroll:true,
+                });
+             //   console.log("UNLOCKED")
+              } else if(this.state.lastScrollPos < event.currentTarget.scrollTop) {
+        
+                if ( $('#my_div').scrollTop() +  $('#my_div').innerHeight() >=  $('#my_div')[0].scrollHeight) {
+                  this.setState({
+                    direction:'bottom',
+                    lastScrollPos:event.currentTarget.scrollTop,
+                    blockScroll:false,
+                  });
+              //   console.log("BLOCKED")
+                } else {
+                  this.setState({
+                    direction:'bottom',
+                    lastScrollPos:event.currentTarget.scrollTop,
+                    blockScroll:true,
+                  });
+                //  console.log("UNLOCKED")
+                }
+                
+              }
+        
+           
+        }
+        
+            
+           }
+
+      thirdtab() {
+
+        var log =[]
+
+        if (this.state.task_info) {
+          
+          if(this.state.task_info.statistic.eventLog != undefined) {
+           log =  this.state.task_info.statistic.eventLog
+  
+          }
+           
+          }
+
+
+        return (
+  <div className="table-content">
+  <table className="bk-table log-modificator">
+    <thead>
+      <tr>
+      <th className="ut-1">Time</th>
+      <th className="ut-2" >Action</th>
+     
+
+      </tr>
+    </thead>
+    
+    <tbody onScroll={this.handleScroll} onWheel ={this.onWheel.bind(this)} id="my_div">
+
+
+      {log.slice(0).reverse().map((item,index) => (
+          <tr className="" key={index}>
+          <td className="ut-3">
+              {this.convertDate(item.timeStamp)}
+        </td>
+          <td className="ut-4" >{item.message}</td>
+
+
+
+          </tr>
+
+      ))}
+    </tbody>
+      
+  </table>
+</div>
+    )
+
+       
+      }
           
 
         firsttab() {
@@ -210,6 +320,7 @@ class VMProgressBar extends Component {
           <TabList>
             <Tab>Statistic</Tab>
             <Tab>Reason</Tab>
+            <Tab>Log</Tab>
           </TabList>
           <div className="tabs-con-panel">
           <TabPanel>
@@ -217,6 +328,9 @@ class VMProgressBar extends Component {
           </TabPanel>
           <TabPanel>
             <div> {this.state.HANDLETEXT}</div>
+          </TabPanel>
+          <TabPanel>
+            <div> {this.thirdtab()}</div>
           </TabPanel>
           </div>
         </Tabs>

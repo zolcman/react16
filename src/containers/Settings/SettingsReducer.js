@@ -30,6 +30,9 @@ break;
 case 'GET_MAIN_IP':
 return Object.assign({}, state, { getMainIP: action.data });
 break;
+case 'GET_VER_PNAME':
+return Object.assign({}, state, { getVerProduct: action.data });
+break;
 
  
      

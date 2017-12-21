@@ -237,7 +237,7 @@ class BackWiz extends Component {
        // console.log(filter);
 
         if (filter.length > 0 && filter[0].name != this.state.backUpNameForEdit) {
-          alert('name exist! please enter another name')
+          alert('name exists! please enter another name')
           this.setState({page:1,blockNext:true})
         }
         else {
@@ -456,7 +456,7 @@ class BackWiz extends Component {
 		</div>
 
 		<div className="bottomelse">
-			<div className="onltext">Advanced job settings including compression, <br/> deduplicating and other settings</div>
+			<div className="onltext">Advanced job settings</div>
 			<div className="onltextbtn">Advanced</div>
 
 		</div>
@@ -599,8 +599,8 @@ class BackWiz extends Component {
 		return(
 		<div>
 		<div className="zagname">Configure Schedule</div>
-		<div>Specify the job scheduling option. If you do not set schedule, <br/> the job will need to be controlled manualy</div>
-		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Run the job automaticaly</label></div>
+		<div>Specify the job scheduling. If a schedule is not not set, <br/> the job will need to be controlled manualy</div>
+		<div className="runthehob"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/>Run the job automatically</label></div>
 
 <div className="myown">
       <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
@@ -608,7 +608,7 @@ class BackWiz extends Component {
     <TabList>
       <Tab>Daily at this time:</Tab>
       <Tab>Monthly at this time:</Tab>
-	  <Tab>Periodicaly every:</Tab>
+	  <Tab>Periodically</Tab>
 	  <Tab>After this job:</Tab>
     </TabList>
 <div className="tabs-con-panel">
@@ -805,7 +805,7 @@ class BackWiz extends Component {
 			</div>
 
 			<div className="bottomwithline ">
-			If the job does not complete within allocated backup window, it will be terminated to prevent snapshot commit during production hours
+			If the job does not complete within allocated backup window, it will be terminated
 			</div>
 
 

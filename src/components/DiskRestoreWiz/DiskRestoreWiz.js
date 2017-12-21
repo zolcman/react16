@@ -165,7 +165,7 @@ componentDidMount() {
 	return(
 	<div>
 		<div className="zagname">Virtual Machine</div>
-		<div className="pagetwoundertxt">Select Virtual Machine which disk you want to be restored.</div>
+		<div className="pagetwoundertxt">Select Virtual Machine disk to restore.</div>
         <div className="iconboxtbsearch gt-clear">
 			<div className="gt-left window1line3">StarWind plugin WEB sphere(SWMA)_(ABykovskiy)</div>
 			<div className="searchiccont">
@@ -496,7 +496,7 @@ componentDidMount() {
 		return(
 	<div>
         <div className="zagname">Disk Mapping</div>
-		<div className="pagetwoundertxt">Map virtual disks from backup to virtual device nodes on target VM</div>
+		<div className="pagetwoundertxt">Map virtual disks from backup to virtual devices on target VM</div>
         <div className="font600w virtualMachineLabel">Virtual Machine</div>
         
 
@@ -832,7 +832,7 @@ componentDidMount() {
                     </div>
                     <div className="btns-go-back gt-clear">
                        {this.state.page == 5 ?
-                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Finish</a>) 
+                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>) 
                        :
                         (this.state.disableAddbtn ? (<a  className="go-btn gt-right go-btn-global disabled">Next</a>)
                        :

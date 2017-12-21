@@ -26,6 +26,7 @@ class Wizard extends Component {
           page:'1', 
           finish:false,
       jjj:true,
+      selectedOnFourthStage:true, // change to false if need block 4 step
       disableAddbtn:true, 
       disableRecoveryBtn:true,
       BlockBubble:true, 
@@ -44,14 +45,14 @@ class Wizard extends Component {
             children:[
               {label:"disk111111111111111",
               value:"disk1",
-              restorePoint:"3 days ago",
+             restorePoint:"3 days ago",
               vmcount:"",
-              restorePointsCount:"11",
-            },
-            {label:"disk22222222222222",
-            value:"disk2",
-            name:"jobname2",
-            restorePoint:"4 days ago",
+             restorePointsCount:"11",
+           },
+           {label:"disk22222222222222",
+           value:"disk2",
+           name:"jobname2",
+           restorePoint:"4 days ago",
             vmcount:"",
             restorePointsCount:"11"},
             {label:"disk555",
@@ -60,7 +61,8 @@ class Wizard extends Component {
             restorePoint:"4 days ago",
             vmcount:"",
             restorePointsCount:"11"}
-          ]}
+          ]
+        }
           ,
 
           {
@@ -70,7 +72,7 @@ class Wizard extends Component {
             vmcount:"22",
             restorePointsCount:"",
             children:[
-              {label:"disk111111111111111",
+            {label:"disk111111111111111",
               value:"egorka",
               restorePoint:"2 days ago",
               vmcount:"",
@@ -80,9 +82,10 @@ class Wizard extends Component {
             value:"oleg",
             name:"jobname2",
             restorePoint:"restorepoint4",
-            vmcount:"",
+           vmcount:"",
             restorePointsCount:"12",}
-          ]},
+          ]
+        },
 
          
           ],
@@ -155,10 +158,28 @@ CloseNotitficationRename(val) {
         this.setState({page:5})
       }
       if (this.state.page == 5) {
-       // this.setState({page:6})
+       
        this.setState({openAlert:true})
       }
 
+
+    }
+
+
+    runAlertDeleted() {
+      
+      let emulatedArr = this.props.tree_flat;
+      let diffValue = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;
+      let finalValue = emulatedArr.filter(function(item) {
+        return item.name == diffValue;
+      });
+
+      if (finalValue.length > 0) {
+        this.setState({openAlert:true})
+      }
+      if (finalValue.length == 0) {
+        this.gopage4()
+      }
 
     }
 
@@ -250,17 +271,14 @@ CloseNotitficationRename(val) {
         this.setState({OpenNotitficationRename:true});
         this.setState({tableWithDiff:finalValue})
       }
-      if (finalValue.length == 0) {
+      if (finalValue.length == 0 && this.selectedOnFourthStage) {
         this.setState({page:4});
       }
 
-     // if (this.state.tableWithDiff) {
-    //    this.setState({OpenNotitficationRename:true});
-     // }
-    
-     // if (!this.state.tableWithDiff) {
-     //   this.setState({page:4});
-     // }
+   //  if (finalValue.length == 0 && !this.selectedOnFourthStage) {
+   //     this.setState({page:param});
+  //    }
+
     }
 
 
@@ -313,7 +331,7 @@ CloseNotitficationRename(val) {
     hideOrShow(value,checked) {
       
           
-        
+      return; // delete when we want this open
           
       
           if (this.state.filteredItems) {
@@ -364,12 +382,14 @@ CloseNotitficationRename(val) {
           }
 
           saveId(val,key,indexer,label) {
+
+            return; // delete when we want this open
             
                 if(this.state.checkedId===key){
                   this.setState({
                      checkedId: '',
                      indexer:'',
-                     selectedOnFourthStage:false,
+                     selectedOnFourthStage:true, //change to false if need block
                      disableAddbtn:true,
                      labelFor3step:''
                     });
@@ -396,7 +416,7 @@ CloseNotitficationRename(val) {
 
 <div>
 		<div className="zagname">Select container</div>
-		<div className="font13px">By default, original container and disk type are selected for each VM file. You can change them by selecting desired VM file, and clicking "
+		<div className="font13px">By default, original container and disk type are used for each VM file.This can be changed by selecting desired VM file, and selecting "
       Container"
       or "Disk types" buttons
     </div>
@@ -434,7 +454,8 @@ CloseNotitficationRename(val) {
                       (<div className="loop-lvl2 ">
                    {item.children.map((child,index) => (
 
-                      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ?
+      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ? 
+                        
                         'selected-green gt-clear childtable text-alignCenter': 'gt-clear childtable text-alignCenter'}`}>
                         <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
                         <div className="gt-left col-4">{child.restorePoint}</div>
@@ -471,7 +492,7 @@ CloseNotitficationRename(val) {
       return (
 	  <div>
 		 <div className="zagname">Reason</div>
-		  <div className="pagetwoundertxt marnvz">Type in reason for performing this restore operation. This information will be logged in the restore sessions history for later reference.</div>
+		  <div className="pagetwoundertxt marnvz">Enter the reason for performing this restore operation. This information will be logged in the restore sessions history for later reference.</div>
 
 		  <div className="zagname somevizstep3">Restore reason</div>
 
@@ -599,25 +620,35 @@ CloseNotitficationRename(val) {
             if (param == 4) {
               this.setState({disableAddbtn:true})
               this.runAlert(param);
+              console.log('30')
             }
+            console.log('31')
              return; // test future delete this if go 4 page every time
              }
 
 
           if ((param == 4 || param == 5 || param == 6) && this.state.checkNewLocaiton  && (this.state.page == 3 || this.state.page == 2 || this.state.page == 1)) {
             this.runAlert(param);
+            console.log('4')
             return;
             }
             
           if ((param == 6 && this.state.checkNewLocaiton) && this.state.selectedOnFourthStage) {
             this.setState({openAlert:true})
+            console.log('5')
             }
             if ((param == 5 || param == 6) && !this.state.selectedOnFourthStage) {
+              console.log('6')
               return;
+            }
+            if ((param == 5 || param == 6) && this.state.selectedOnFourthStage) {
+              this.setState({page:param})
+              console.log('56')
             }
       
           else {
             this.setState({page:param})
+            console.log('else')
           }
       }
       
@@ -678,7 +709,7 @@ pointClick () {
       return (
 	  <div>
 		 <div className="zagname">Virtual Machines</div>
-		  <div className="pagetwoundertxt">Select virtual machines to be restore. You can add individual virtual machines from backup list).</div>
+		  <div className="pagetwoundertxt">Select virtual machines to be restored.Individual virtual machines can be added from the backup list.</div>
 	  <div className="iconboxtbsearch gt-clear">
 		    <div onClick={()=> this.setState({closeAddBtnWmWizard:true})}  className="addic">Add</div>
         {
@@ -739,8 +770,8 @@ pointClick () {
         <div>
           <div className="windows-title">Summary</div>
           <div className="windows-text">
-            Please review the restore setting before continuing. The restore process will begin will after you click Finish.
-            Navigate to corresponding restore session under history node to monitor the progress
+           Please review the restore setting before continuing. The restore process will begin by selecting Finish.
+            Progress can be monitored by selecting the restore session under history
           </div>
           <div className="windows-lister">
           <table>
@@ -896,7 +927,7 @@ pointClick () {
       this.setState({page:1});
       this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, 
         checkNewLocaiton:false,checkedId: '',  indexer:'',
-        selectedOnFourthStage:false});
+        selectedOnFourthStage:true}); // change to false selectedOnFourthStage if need block 4 step
         
       this.props.openVMProgressBar();
       this.props.close();
@@ -907,7 +938,7 @@ pointClick () {
     
     close() {
       this.setState({disableAddbtn:true,disableRecoveryBtn:true,ObjFromFirstSreen:{},BlockBubble:true,page:1, checkOriginalLocaiton:true, checkedId: '',
-      indexer:'',  selectedOnFourthStage:false,  checkNewLocaiton:false})
+      indexer:'',  selectedOnFourthStage:true,  checkNewLocaiton:false}) // change to selectedOnFourthStage false if need block 4 step
       this.props.close();
 
     }

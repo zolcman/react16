@@ -398,7 +398,7 @@ hidelog() {
                               </tr>
                               <tr>
                                 <td>Bottleneck: {bottleneck}</td>
-                                <td>Transfered: {transferedBytes}</td>
+                                <td>Transferred: {transferedBytes}</td>
                                 <td>Errors: {failed}</td> 
                               </tr> 
 

@@ -9,6 +9,7 @@ export const GET_DETAILED_INFO_CLUSTER = 'GET_DETAILED_INFO_CLUSTER';
 export const LOGOUT = 'LOGOUT';
 export const SVD_PASS = 'SVD_PASS';
 export const GET_MAIN_IP = 'GET_MAIN_IP';
+export const GET_VER_PNAME = 'GET_VER_PNAME';
 
 
 import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
@@ -389,7 +390,8 @@ export function Install (obj) {
 	
 				  })
 				.catch((error) => {
-					  console.log(error);
+					dispatch(ShowAlert('warning',error.response.data,true,false));
+					  console.log(error.response);
 					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
@@ -464,3 +466,39 @@ export function SaveFromSettingsIP (obj) {
 				)
 		}
 	}
+
+function receiveDataNameVer(json) {
+
+	return {
+		
+				type: GET_VER_PNAME,
+				data: json
+		
+			}
+}
+
+export function GetVerAndName (id) {
+			
+				return dispatch => {
+			var accessToken = sessionStorage.getItem('accessToken');
+					return (
+						//dispatch(showLoading()),
+						axios.get(apiUrl + `/api/v1/`,getHeader()).then(function (response) {
+						 if(response.data.code>200){
+								// dispatch(toastrActions.add('error', '',response.data.message))
+								 return
+						 }
+							 console.log(response.data);
+							dispatch(receiveDataNameVer(response.data));
+							//	dispatch(hideLoading())
+						  })
+						.catch((error) => {
+							  console.log(error);
+							  if(error.response.status == 401){
+								dispatch(LogOut())
+								 return
+								 }	
+						})
+						)
+				}
+			}
