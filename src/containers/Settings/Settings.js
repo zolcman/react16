@@ -34,6 +34,22 @@ class Settings extends Component {
         this.props.GetClusters();
         this.props.GetMainSettingsIP();
         this.props.GetVerAndName();
+
+        var self = this;
+
+        var heigh =  $( document ).height();
+        $('.setttings').css("min-height",heigh - 81);
+
+        $('.setttings').click(function (e) {
+            
+             if(!$(e.target).is('.table-content tr td') && !$(e.target).is('.edit-btn') && !$(e.target).parents('.freeze').length > 0 && !$(e.target).is('.freeze')) {
+               $('.table-content tr').removeClass("selected-green");
+               self.setState({choosen:false,choosen2:false})
+               console.log('eeeeee')
+              }
+            });
+
+
     }
 
 
@@ -45,6 +61,8 @@ class Settings extends Component {
               $(this).addClass( "selected-green" );
             });
                   
+
+            
                   
             
                 }
@@ -614,7 +632,7 @@ class Settings extends Component {
 
     innerTab1() {
       return (
-        <div className="wrapper-settings ">
+        <div className="wrapper-settings  innerTab2wrapper">
           <div className="gt-clear he38">
         <div className="btns-group gt-right">
         <a  className="bk-btn gt-left config_backup-btn fixpad removewidth">Config Backup</a>

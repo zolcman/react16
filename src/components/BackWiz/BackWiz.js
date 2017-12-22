@@ -83,7 +83,7 @@ class BackWiz extends Component {
           disableMultiDaysDaily:true,
           DescToServer:'',
           //selectedStartTime: '18:00',
-          
+          indexsettings:0,
           retentionMaxRecoveryPoints: 5,
 
           schedulerSettings: {
@@ -188,9 +188,28 @@ class BackWiz extends Component {
         if (nextProps.edit_info.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay == 'DayOfMonth') {
           this.setState({turnOnDaysSelector:true})
         }
+
         if (nextProps.edit_info.schedulerSettings.periodicBasis.mode == 'EveryMinute') {
           this.setState({displayHourSelector:false})
         }
+
+
+        if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Daily') {
+          this.setState({indexsettings:0})
+        }
+        if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Monthly') {
+          this.setState({indexsettings:1})
+        }
+
+        if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Periodic ') {
+          this.setState({indexsettings:2})
+        }
+
+        if (nextProps.edit_info.schedulerSettings.automaticRetry) {
+          this.setState({checked41:nextProps.edit_info.schedulerSettings.automaticRetry})
+        }
+
+        
         if (nextProps.edit_info.pDs[0]) {
         //    console.log('uppper')
 
@@ -301,7 +320,7 @@ class BackWiz extends Component {
 	<div>
 		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
-		<input value={this.state.nameToServer} onChange={this.nameToServer.bind(this)} className="jobname" type="text" />
+		<input value={this.state.nameToServer} maxlength="40" onChange={this.nameToServer.bind(this)} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
 		<textarea onChange={(e)=> this.setState({DescToServer:e.target.value})} value={this.state.DescToServer} className="firstscreent"></textarea>
 
@@ -604,7 +623,7 @@ class BackWiz extends Component {
 
 <div className="myown">
       <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
-			<Tabs defaultIndex={0} onSelect={index => this.setState({SelectedTab:index})}>
+			<Tabs defaultIndex={this.state.indexsettings} onSelect={index => this.setState({SelectedTab:index})}>
     <TabList>
       <Tab>Daily at this time:</Tab>
       <Tab>Monthly at this time:</Tab>
@@ -960,7 +979,7 @@ check5 () {
   <dt>Retention</dt>
   <dd>{this.state.retentionMaxRecoveryPoints}</dd>
 </dl>
-	<div className="lp-20"><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when i click add</label></div>
+	<div className="lp-20"><label><input type="checkbox" onChange={this.check5.bind(this)} checked={this.state.checked5} name="dva"/> Run backup job when I click Finish</label></div>
 </div>
 		)
   }
@@ -1312,7 +1331,7 @@ check5 () {
                     </div>
                     <div className="btns-go-back gt-clear">
                        {this.state.page == 5 ?
-                        ((this.state.editmode) ?(<a onClick={this.updateJob.bind(this)} className="go-btn gt-right go-btn-global">Edit</a>):(<a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>)) 
+                        ((this.state.editmode) ?(<a onClick={this.updateJob.bind(this)} className="go-btn gt-right go-btn-global">Finish</a>):(<a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Finish</a>)) 
                        :
                         (
                           (this.state.blockNext) ? (<a className="go-btn gt-right go-btn-global disabled">Next</a>)

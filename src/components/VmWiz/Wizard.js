@@ -661,7 +661,7 @@ CloseNotitficationRename(val) {
       if (nextProps.vmid ) {
         
         let Id = nextProps.vmid
-        let arrayVmsToFilter = nextProps.vmsList;
+        let arrayVmsToFilter = nextProps.vmsList || [];
         console.log(Id);
         if (Object.keys(nextProps.vmid).length != 0) {
          

@@ -139,7 +139,7 @@ class ProtectedDetail extends Component {
                 </div>
                 <div className="gt-right label-view mar2px">
                   <div className="label-view-status ">VM status</div>
-                  <div className="label-view-counter">{(this.state.linkToSeeUpdates) ? (<a onClick={this.openVMProgressBarWithStatus.bind(this)}>Running</a>): ('null') }</div>
+                  <div className="label-view-counter">{(this.state.linkToSeeUpdates) ? (<a onClick={this.openVMProgressBarWithStatus.bind(this)}>Running</a>): ('NONE') }</div>
                 </div>
 
               </div>
@@ -163,10 +163,9 @@ class ProtectedDetail extends Component {
                       <tr>
                       <th>Date</th>
                       <th>Type</th>
-                      <th>Job</th>
-                      <th>Status</th>
-                      <th>Backup Size</th>
-                      <th>Last sucsess</th>
+                      <th> Backup Job</th>
+                      <th>Size</th>
+                     
                       </tr>
                     </thead>
                     <tbody>
@@ -178,9 +177,9 @@ class ProtectedDetail extends Component {
                           <td>{item.date}</td>
                           <td>{item.type}</td>
                           <td>{item.job}</td>
-                          <td className="width11">{item.status}</td>
-                          <td>{item.backupSize}</td>
-                          <td>{item.lastSuccess}</td>
+                          
+                          <td>{item.backupSizeBytes}</td>
+            
 
                           </tr>
 

@@ -95,7 +95,7 @@ export function GetBackList (params) {
 					 return
 					 }	
 				    if(error.response.status >= 500){
-					 dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					 dispatch(ShowAlert('warning',error.response.data,false,true));
 						 return
 					   }	
     		})
@@ -128,7 +128,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-			dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+			dispatch(ShowAlert('warning',error.response.data,false,true));
 				  console.log(error);
 				  if(error.response.status == 401){
 					dispatch(LogOut())
@@ -165,7 +165,7 @@ export function GetBackDetail2 (id) {
 					//	dispatch(hideLoading())
 				  })
 				.catch((error) => {
-					dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					dispatch(ShowAlert('warning',error.response.data,false,true));
 					  console.log(error);
 					  if(error.response.status == 401){
 						dispatch(LogOut())
@@ -206,7 +206,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
@@ -260,7 +260,7 @@ export function TreeProtected (id,bool) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					  dispatch(ShowAlert('warning',error.response.data,false,true));
 					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
@@ -288,7 +288,7 @@ var accessToken = sessionStorage.getItem('accessToken');
 				//	dispatch(hideLoading())
   			})
    	 	.catch((error) => {
-			dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+			dispatch(ShowAlert('warning',error.response.data,false,true));
 				  console.log(error);
 				  if(error.response.status == 401){
 					dispatch(LogOut())
@@ -326,7 +326,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
@@ -620,7 +620,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status == 401){
 				dispatch(LogOut())
 					 return

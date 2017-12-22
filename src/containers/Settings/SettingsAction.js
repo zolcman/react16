@@ -347,8 +347,8 @@ export function AddSettingsNewServer (objs) {
 			
 						  })
 						.catch((error) => {
-							  console.log(error);
-							  dispatch(ShowAlert('warning','invalid old password',true,false));
+							  console.log(error.response);
+							  dispatch(ShowAlert('warning',error.response.data,true,false));
 							  if(error.response.status == 401){
 								dispatch(LogOut())
 								 return
@@ -357,6 +357,9 @@ export function AddSettingsNewServer (objs) {
 						)
 				}
 			}
+
+			
+
 
 
 //export function Install (obj) {

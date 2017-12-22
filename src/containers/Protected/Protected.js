@@ -6,7 +6,7 @@ import { GetVmList } from './ProtectedAction'
 import Wizard from '../../components/VmWiz/Wizard';
 import VMProgressBar from '../../components/VMProgressBar/VMProgressBar';
 import DiskRestoreWiz from '../../components/DiskRestoreWiz/DiskRestoreWiz';
-
+import Select from 'react-select';
 import { updatestatus } from '../Backup/BackupAction'
 
 import { GetVmListDetail } from '../Protected/ProtectedAction';
@@ -66,6 +66,11 @@ class Protected extends Component {
         }
         if (nextProps.vms.length != 0) {
           this.setState({blockWhenEmpty:false})
+
+          let camlistpre = nextProps.vms.map((xf) => ({value:xf.Id,label:xf.clusterName}));
+          let change1 = this.distinct(camlistpre);
+          this.setState({options:change1});
+
         }
 
      if(nextProps.task_info) {
@@ -80,6 +85,45 @@ class Protected extends Component {
      
 }
      }
+
+     distinct(array) {
+      var flags = {};
+      var newPlaces = array.filter(function(entry) {
+          if (flags[entry.label]) {
+            return false;
+          }
+            flags[entry.label] = true;
+            return true;
+          });
+          return newPlaces;
+    }
+
+    filters(claster) {
+      
+            if (claster) {
+              var clear = this.state.tablebackup.filter(function(item) {
+                       return item.cluster == claster;
+                   });
+              this.setState({table:clear})
+            }
+
+     }
+
+
+     changeSelect(val) {
+      if (val) {
+        this.setState({selectOP:val})
+        this.setState({status:val.label})
+        this.filters(this.state.claster);
+      }
+      if (!val) {
+        this.setState({status:false})
+        this.setState({selectOP:val})
+        this.filters(this.state.claster);
+      }
+
+
+      }
 
      openWiz2() {
       this.setState({openWiz2:true})
@@ -130,7 +174,7 @@ class Protected extends Component {
       this.setState({openWiz4:false})
      }
 
-  
+     
 
 
     render(){
@@ -149,9 +193,23 @@ class Protected extends Component {
                   </div>
                   <div className="vm-counter gt-left">Protected VMs ({list.length})</div>
                 </div>
+                
                 <div className="gt-right label-view">
                   <div className="label-view-status">Restores in Progress</div>
-                  <div className="label-view-counter">{(this.state.linkToSeeUpdates) ? (<a onClick={this.openVMProgressBarWithStatus.bind(this)}>Running</a>): ('null') }</div>
+                  <div className="label-view-counter">{(this.state.linkToSeeUpdates) ? (<a onClick={this.openVMProgressBarWithStatus.bind(this)}>Running</a>): ('NONE') }</div>
+                </div>
+                <div className="filter-1 gt-right marr20 marr2045">
+                  <div className="gt-left filter-label">Nutanix cluster:</div>
+                  <div className="gt-left filter-select">
+                    <Select
+                      className="cusselect"
+                      name="form-field-name"
+                      value={this.state.selectOP}
+                      options={this.state.options}
+                      onChange={this.changeSelect.bind(this)}
+                    />
+                  </div>
+
                 </div>
 
               </div>
@@ -175,7 +233,7 @@ class Protected extends Component {
                   <table className="bk-table">
                     <thead>
                       <tr>
-                      <th>Date</th>
+                      <th>Name</th>
                       <th>Snapshots</th>
                       <th>Backups</th>
                       <th>Status</th>

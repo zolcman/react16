@@ -91,10 +91,8 @@ class ProtectedDetailinJob extends Component {
                       <tr>
                       <th>Date</th>
                       <th>Type</th>
-                      <th>Job</th>
-                      <th>Status</th>
-                      <th>Backup Size</th>
-                      <th>Last sucsess</th>
+                      <th> Backup Job</th>
+                      <th>Size</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -105,9 +103,8 @@ class ProtectedDetailinJob extends Component {
                           <td>{item.date}</td>
                           <td>{item.type}</td>
                           <td>{item.job}</td>
-                          <td className="width11">{item.status}</td>
-                          <td>{item.backupSize}</td>
-                          <td>{item.lastSuccess}</td>
+                          
+                          <td>{item.backupSizeBytes}</td>
 
                           </tr>
 

@@ -20,6 +20,8 @@ class Backup extends Component {
     constructor(props) {
         super(props)
 
+        this.interval;
+
         this.state = {
           options:[
             { value: 'one', label: 'One' },
@@ -38,11 +40,23 @@ class Backup extends Component {
           cur:false,
     }
 }
+
+  componentWillUnmount() {
+
+    clearInterval(this.interval);
+
+  }
+
     componentDidMount() {
 
       
         this.props.GetBackList();
         var self= this;
+
+
+      this.interval =  setInterval(function() {
+          self.props.GetBackList();
+        }, 50000);
 
         var heigh =  $( document ).height();
         $('.backup-page').css("min-height",heigh - 81);
@@ -433,7 +447,7 @@ class Backup extends Component {
                     <th>Cluster</th>
                     <th>Status</th>
                     
-                    <th>Linked PD's</th>
+                    <th>Linked PDs</th>
                     <th>RPO</th>
                     <th>Start time</th>
                     <th>Last run</th>

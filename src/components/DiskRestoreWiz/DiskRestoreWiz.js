@@ -832,7 +832,7 @@ componentDidMount() {
                     </div>
                     <div className="btns-go-back gt-clear">
                        {this.state.page == 5 ?
-                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Add</a>) 
+                        ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global">Finish</a>) 
                        :
                         (this.state.disableAddbtn ? (<a  className="go-btn gt-right go-btn-global disabled">Next</a>)
                        :
