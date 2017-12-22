@@ -26,6 +26,7 @@ class Settings extends Component {
           filterval: '',
           tabIndex: 0,
           tabts:3,
+          enableDHCP:false,
 
     }
 }
@@ -307,14 +308,7 @@ class Settings extends Component {
       )
     }
 
-    checkBoxInnerTab2 () {
-      if( this.state.enableDHCP) {
-        this.setState({enableDHCP:false})
-      }
-      if( !this.state.enableDHCP) {
-        this.setState({enableDHCP:true})
-      }
-    }
+    
 
     changeToggleSwitcher () {
       if( this.state.toggleCheck) {
@@ -583,12 +577,21 @@ class Settings extends Component {
         this.setState({dnsServer:obj})
        }
 
+       checkBoxInnerTab2 () {
+      
+        if( this.state.enableDHCP) {
+          this.setState({enableDHCP:false})
+        }
+        if( !this.state.enableDHCP) {
+          this.setState({enableDHCP:true})
+        }
+      }
 
     innerTab2(){
       return (
         <div className="wrapper-settings innerTab2wrapper">
           <div className="innerTab2-checkbox">
-          <label><input type="checkbox" onChange={this.checkBoxInnerTab2.bind(this)} checked={this.state.enableDHCP} name="dva"/> Obtain an IP address automatically</label>
+          <label><input type="checkbox" onClick={this.checkBoxInnerTab2.bind(this)} checked={this.state.enableDHCP} name="dva"/> Obtain an IP address automatically</label>
           </div>
           {this.state.enableDHCP ? ( <div className="hideblock"></div>):(null)}
          
