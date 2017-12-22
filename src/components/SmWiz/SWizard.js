@@ -19,7 +19,7 @@ class SWizard extends Component {
           finish:false,
           tree:[],
                 checked: [],
-            expanded: ['Test 1'],
+            expanded: [],
 
         }
     }
