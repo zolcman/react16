@@ -42,7 +42,7 @@ class Dashboard extends Component {
 
         return (
         <div className="container dashmrgn">
-			{(this.state.showInstall)? (<div>LOGINFIRST</div>):(<div>LOGINSECOND</div>)}
+		
 			<div className="leftclmn">
 				<div className="sqare">
 				<div className="sqareheading">Protection Status</div>

@@ -66,6 +66,8 @@ class SWizardAlert extends Component {
 
     render(){
         var elemns = this.state.array || []
+        var deletedelems = this.props.nameto || []
+        console.log(deletedelems)
         return (
           <div className="modalWizPro12">
               {this.props.open ? (<div className="freeze">
@@ -90,11 +92,13 @@ class SWizardAlert extends Component {
                                 </tr>
                               </thead>
                               <tbody>
+                              {deletedelems.map((item,index) => (
+                                  <tr key={index} >
+                                  <td>{item.name}</td>
 
-                                    <tr >
-                                      <td>{this.props.nameto}</td>
-
-                                    </tr>
+                                </tr>
+                              ))} 
+                                    
 
 
                               </tbody>

@@ -181,7 +181,10 @@ check41 () {
 
 
                           <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
-                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Add</a>
+                          {(this.state.checked.length > 0) ? ( <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Add</a>)
+                          :
+                          ( <a className="go-btn gt-right go-btn-global mr10r disabled">Add</a>)}
+                         
                           <a onClick={this.reset.bind(this)} className="go-btn gt-right go-btn-global mr10r">Reset</a>
                           <div className="gt-right dynamicMode"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Dynamic mode</label></div>
                         </div>

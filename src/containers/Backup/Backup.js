@@ -89,7 +89,7 @@ class Backup extends Component {
       if (nextProps.backup) {
      this.setState({table:nextProps.backup})
      this.setState({tablebackup:nextProps.backup})
-
+     this.setState({choosen:false});
      let camlistpre = nextProps.backup.map((xf) => ({value:xf.Id,label:xf.cluster}));
 
 
@@ -416,7 +416,7 @@ class Backup extends Component {
                      :
                       (  <a id="start-btnid" className="bk-btn gt-left start-btn fixpad marLeft60px disabled">Start</a>)}
 
-                      {this.state.stopbtn ? (   <a className="bk-btn gt-left stop-btn fixpad ">Stop</a>)
+                      {this.state.stopbtn ? (   <a className="bk-btn gt-left stop-btn fixpad disabled">Stop</a>)
                      :
                       (   <a className="bk-btn gt-left stop-btn fixpad disabled">Stop</a>)}
 

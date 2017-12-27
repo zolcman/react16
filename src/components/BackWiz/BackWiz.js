@@ -13,7 +13,7 @@ import { clearJobEditInfo } from '../../containers/Backup/BackupAction';
 import { clearReposInRedux } from '../../containers/Backup/BackupAction';
 import { TreeProtected } from '../../containers/Backup/BackupAction';
 import { UpdateJob } from '../../containers/Backup/BackupAction';
-
+import { ShowAlert, HideAlert } from '../Alert/AlertAction'
 
 class BackWiz extends Component {
     constructor(props) {
@@ -29,6 +29,7 @@ class BackWiz extends Component {
           hours: 12,
           minutes: 20,
           enabled: true,
+          SelectedTab:0,
           ProtectedID:null,
           options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           dailyBasisDaysPresetOptions: [
@@ -132,11 +133,19 @@ class BackWiz extends Component {
       var dayarray = [];
       var minarray = [];
       var hourarray = [];
+      var dayarrayFeb = [];
+      var dayarrayFebV = [];
 
-      for (var i=1; i <= 31;i++) {
+      for (var i=1; i <= 30;i++) {
         dayarray.push({label:i,value:i})
       }
+      dayarray.push({label:'Last Day',value:32})
       this.setState({NumberDayList:dayarray})
+
+
+   
+
+
 
       for (var i=1; i <= 60;i++) {
         minarray.push({label:i,value:i})
@@ -182,6 +191,31 @@ class BackWiz extends Component {
         this.setState({nameToServer:nextProps.edit_info.name,description:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
         this.setState({policyIdToUpdate:nextProps.edit_info.Id})
         this.setState({schedulerSettings:nextProps.edit_info.schedulerSettings,checked41:nextProps.edit_info.schedulerSettings.schedulerEnabled})
+
+
+        if (nextProps.edit_info.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay == 'DayOfMonth' 
+        && nextProps.edit_info.schedulerSettings.monthlyBasis.dayOfMonth > '29') {
+        
+        let filterd = nextProps.edit_info.schedulerSettings.monthlyBasis.months.filter(function(item){
+          return item == 'February'
+        })
+
+        if (filterd.length > 0) {
+          this.setState({showFEBALERT:true})
+        }
+        
+         
+
+
+        }
+
+      //  let camlistpre3 = nextProps.edit_info.schedulerSettings.monthlyBasis.months.map((xf) => ({value:xf,label:xf}));
+
+      //  let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
+     //  schedulerSettings.periodicBasis.months = camlistpre3; 
+      //  this.setState({schedulerSettings});
+
+
         if (nextProps.edit_info.schedulerSettings.dailyBasis.daysPreset == 'ThisDays') {
           this.setState({disableMultiDaysDaily:false})
         }
@@ -195,14 +229,14 @@ class BackWiz extends Component {
 
 
         if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Daily') {
-          this.setState({indexsettings:0})
+          this.setState({SelectedTab:0})
         }
         if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Monthly') {
-          this.setState({indexsettings:1})
+          this.setState({SelectedTab:1})
         }
 
         if (nextProps.edit_info.schedulerSettings.scheduleBasis == 'Periodic ') {
-          this.setState({indexsettings:2})
+          this.setState({SelectedTab:2})
         }
 
         if (nextProps.edit_info.schedulerSettings.automaticRetry) {
@@ -276,7 +310,7 @@ class BackWiz extends Component {
         this.setState({page:4})
       }
       if (this.state.page == 4) {
-        this.setState({page:5})
+        this.CheckEpmtyMonthorDate();
       }
 
     }
@@ -546,7 +580,7 @@ class BackWiz extends Component {
     if (val.value != 'DayOfMonth' ) {
       this.setState({turnOnDaysSelector:false})
     }
-
+    
     //if (val.value == 'LastDay' ) {
      // this.setState({disableWeekDays:true})
     //}
@@ -555,16 +589,102 @@ class BackWiz extends Component {
     //}
     let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
     schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = val;                        //updating value
-    this.setState({schedulerSettings});
+    this.setState({schedulerSettings},()=>{this.CheckForFeb(this.state.schedulerSettings.monthlyBasis.months)});
   }
 
   changeMonthlyDayOfWeek (val) {
+    
     let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
     schedulerSettings.monthlyBasis.dayOfWeek = val;                        //updating value
-    this.setState({schedulerSettings});
+    this.setState({schedulerSettings},()=>{this.CheckForFeb(this.state.schedulerSettings.monthlyBasis.months)});
+  }
+
+
+  CheckEpmtyMonthorDate() {
+    console.log('mymeee')
+    if (this.state.checked41) {
+      if (this.state.SelectedTab == 0 ) {
+        if ((this.state.schedulerSettings.dailyBasis.thisDays.length == 0
+           || Object.keys(this.state.schedulerSettings.dailyBasis.thisDays).length == 0) && 
+           (this.state.schedulerSettings.dailyBasis.daysPreset == 'ThisDays' || this.state.schedulerSettings.dailyBasis.daysPreset.value == 'ThisDays'))
+            {
+          this.props.dispatch(ShowAlert('warning',"days of the week in Schedule settings can't be empty",true,false))
+        }
+        else {
+          this.setState({page:5})
+        }
+        return;
+      }
+  
+      if (this.state.SelectedTab == 1 ) {
+        if (this.state.schedulerSettings.monthlyBasis.months.length == 0 || Object.keys(this.state.schedulerSettings.monthlyBasis.months).length == 0) {
+          this.props.dispatch(ShowAlert('warning',"months in Schedule settings can't be empty",true,false))
+        }
+        else {
+          this.setState({page:5})
+        }
+        return;
+      }
+  
+      if (this.state.SelectedTab > 1 ) {
+        this.setState({page:5})
+      }
+    }
+    else {
+      this.setState({page:5})
+    }
+
+    
+  }
+
+
+  CheckForFeb(val) {
+    
+
+    let avar;
+    let bvar;
+
+
+    if (this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value) {
+      avar = this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value;
+    }
+    if (this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value == (undefined || null)) {
+      avar = this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay;
+    }
+
+    if (this.state.schedulerSettings.monthlyBasis.dayOfMonth.value) {
+      bvar = this.state.schedulerSettings.monthlyBasis.dayOfMonth.value;
+      console.log(bvar)
+    }
+    if (this.state.schedulerSettings.monthlyBasis.dayOfMonth.value == (undefined || null)) {
+      bvar = this.state.schedulerSettings.monthlyBasis.dayOfMonth
+    }
+    
+
+    if (avar == 'DayOfMonth' && bvar > '29') {
+      let filtered = val.filter(function(item) {
+        return item.label == 'February' || item == 'February'
+      })
+      
+      if (filtered.length > 0) {
+        this.setState({showFEBALERT:true})
+      }
+      if (filtered.length == 0) {
+        this.setState({showFEBALERT:false})
+      }
+    }
+    else {
+      this.setState({showFEBALERT:false})
+    }
   }
 
   changeMonthlyBasisMonth (val) {
+  //  console.log(val)
+
+
+  this.CheckForFeb(val);
+     
+
     let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
     schedulerSettings.monthlyBasis.months = val;                        //updating value
     this.setState({schedulerSettings});
@@ -572,9 +692,10 @@ class BackWiz extends Component {
 
 
   changeNumberDayList(val) {
+
     let schedulerSettings = Object.assign({}, this.state.schedulerSettings);    //creating copy of object
     schedulerSettings.monthlyBasis.dayOfMonth = val;                        //updating value
-    this.setState({schedulerSettings});
+    this.setState({schedulerSettings},()=>{this.CheckForFeb(this.state.schedulerSettings.monthlyBasis.months)});
   }
 
   ChangeTimeMode(val) {
@@ -623,11 +744,11 @@ class BackWiz extends Component {
 
 <div className="myown">
       <div className={this.state.checked41 ? ('') : ('disabled-block')}></div>
-			<Tabs defaultIndex={this.state.indexsettings} onSelect={index => this.setState({SelectedTab:index})}>
+			<Tabs defaultIndex={this.state.SelectedTab} onSelect={index => this.setState({SelectedTab:index})}>
     <TabList>
       <Tab>Daily at this time:</Tab>
       <Tab>Monthly at this time:</Tab>
-	  <Tab>Periodically</Tab>
+	  <Tab>Periodically every:</Tab>
 	  <Tab>After this job:</Tab>
     </TabList>
 <div className="tabs-con-panel">
@@ -675,6 +796,7 @@ class BackWiz extends Component {
 			  		  placeholder="Fourth"
                       className="tabs2"
                       name="form-field-name"
+                      clearable={false}
                       value={this.state.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay}
                       options={this.state.MonthlyBasisDaysPresets}
 					  searchable={false}
@@ -689,6 +811,7 @@ class BackWiz extends Component {
                       value={this.state.schedulerSettings.monthlyBasis.dayOfMonth}
                       options={this.state.NumberDayList}
                       searchable={false}
+                      clearable={false}
                       disabled = {this.state.disableWeekDays}
                       onChange={this.changeNumberDayList.bind(this)}
         />):(
@@ -696,6 +819,7 @@ class BackWiz extends Component {
           placeholder="Thursday"
                     className="tabs3"
                     name="form-field-name"
+                    clearable={false}
                     disabled = {this.state.disableWeekDays}
                     value={this.state.schedulerSettings.monthlyBasis.dayOfWeek}
                     options={this.state.dailyBasisThisDaysOptions}
@@ -718,6 +842,7 @@ class BackWiz extends Component {
 					  searchable={false}
                       onChange={this.changeMonthlyBasisMonth.bind(this)}
         />
+        {this.state.showFEBALERT ? (<div className="alertFORFEB">Since February has 28 days in common years or 29 days in leap years, the "Last day" setting will be selected.</div>):(null)}
 		</div>
     </TabPanel>
 	<TabPanel>
@@ -1054,6 +1179,8 @@ check5 () {
     }
 
     switch (param) {
+
+     
       
       if (param != 1 && !this.state.nameToServer) {
         this.setState({page:1})
@@ -1088,6 +1215,10 @@ check5 () {
           this.setState({blockNext:false})
         }
         if(filter.length == 0 || filter[0].name == this.state.backUpNameForEdit) {
+          if ( param == 5) {
+            this.CheckEpmtyMonthorDate();
+            return
+          }
           this.setState({page:param})
           this.setState({blockNext:false})
           
@@ -1153,11 +1284,41 @@ check5 () {
 
       policyObj.retentionMaxRecoveryPoints = this.state.retentionMaxRecoveryPoints;
 
-      let thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
-      let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
+      let thisDays;
+
+      if (this.state.schedulerSettings.dailyBasis.thisDays.length != 0) {
+        if (this.state.schedulerSettings.dailyBasis.thisDays[0].label != undefined) {
+          thisDays = this.state.schedulerSettings.dailyBasis.thisDays.map((xf) => (xf.value)) || [];
+        }
+  
+        else {
+          thisDays = this.state.schedulerSettings.dailyBasis.thisDays
+        }
+      }
+      else {
+        thisDays = this.state.schedulerSettings.dailyBasis.thisDays
+      }
+      
+      let months;
+
+      if (this.state.schedulerSettings.monthlyBasis.months !=0) {
+        if (this.state.schedulerSettings.monthlyBasis.months[0].label != undefined) {
+          months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
+        }
+  
+        else {
+          months = this.state.schedulerSettings.monthlyBasis.months
+        }
+      }
+      else {
+        months = this.state.schedulerSettings.monthlyBasis.months
+      }
+      
+
+   //   let months = this.state.schedulerSettings.monthlyBasis.months.map((xf) => (xf.value)) || [];
       
       //let timeOffSet = this.state.schedulerSettings.periodicBasis.timeOffset.map((xf) => (xf.value)) || [];
-      
+      console.log(months)
       policyObj.schedulerSettings = this.state.schedulerSettings; //schedulerSettingsObj;
       policyObj.schedulerSettings.dailyBasis.thisDays = thisDays;
       policyObj.schedulerSettings.monthlyBasis.months = months;
@@ -1167,9 +1328,14 @@ check5 () {
       policyObj.retryCount = this.state.retry,
       policyObj.retryTimeDelay = this.state.auto_retry,
       
-      policyObj.schedulerSettings.monthlyBasis.months = policyObj.schedulerSettings.monthlyBasis.months.value || policyObj.schedulerSettings.monthlyBasis.months;
+    //  policyObj.schedulerSettings.monthlyBasis.months = policyObj.schedulerSettings.monthlyBasis.months.value || policyObj.schedulerSettings.monthlyBasis.months;
+
+      
       policyObj.schedulerSettings.periodicBasis.timeOffset = policyObj.schedulerSettings.periodicBasis.timeOffset.value || policyObj.schedulerSettings.periodicBasis.timeOffset;
       policyObj.schedulerSettings.monthlyBasis.dayOfWeek = policyObj.schedulerSettings.monthlyBasis.dayOfWeek.value || policyObj.schedulerSettings.monthlyBasis.dayOfWeek;
+
+      policyObj.schedulerSettings.monthlyBasis.dayOfMonth = policyObj.schedulerSettings.monthlyBasis.dayOfMonth.value || policyObj.schedulerSettings.monthlyBasis.dayOfMonth;
+
       policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay = policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay.value || policyObj.schedulerSettings.monthlyBasis.weekNumberOrSpecifiedDay      
       policyObj.schedulerSettings.periodicBasis.mode = policyObj.schedulerSettings.periodicBasis.mode.value || policyObj.schedulerSettings.periodicBasis.mode;
       policyObj.schedulerSettings.schedulerEnabled = this.state.checked41;
@@ -1195,7 +1361,7 @@ check5 () {
     add () {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
-    // console.log(policyObj);
+    //console.log(policyObj);
       this.props.addJobSS(policyObj,runner);
       this.props.close();
       this.resetData();
@@ -1204,7 +1370,7 @@ check5 () {
     updateJob() {
       let policyObj = this.createPolicyObject();
       let runner = this.state.checked5;
-    //  console.log(policyObj);
+     console.log(policyObj);
       this.props.UpdateJob(this.state.policyIdToUpdate,policyObj,runner);
       this.props.close();
       this.resetData();
@@ -1214,7 +1380,7 @@ check5 () {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
       this.setState({editmode:false})
-
+      this.setState({showFEBALERT:false})
       const  schedulerSettings = {
         "@odata.type": "SchedulerSettings",
         schedulerEnabled:false,
@@ -1361,7 +1527,7 @@ check5 () {
 const mapDispatchToProps = function(dispatch) {
 
     return {
-
+      dispatch:dispatch,
       addJobSS: (id,runner) => dispatch(addJobSS(id,runner)),
         TreeFlat: (id) => dispatch(TreeFlat(id)),
         GetRepos: (id) => dispatch(GetRepos(id)),

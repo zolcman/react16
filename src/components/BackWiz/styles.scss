@@ -11,7 +11,7 @@
   top:0;
 }
 .pop-up-window {
-  width: 800px;
+  width: 805px;
   margin: 0 auto;
   min-height: 400px;
   background: white;
@@ -285,6 +285,20 @@ cursor: pointer;
 		background-size: 30px;
     color:#7ED321;
 	}
+
+	.alertFORFEB {
+		position: absolute;
+		top: 117px;
+		background: url(img/alert.png) no-repeat ;
+		padding-left: 40px;
+		font-weight: bold;
+		height: 30px;
+		padding-top: 0px;
+    font-size: 11px;
+    width: 368px;
+		
+	}
+
 	.searchiccont{
 	height:30px;
 	float: right;
@@ -606,6 +620,7 @@ font-size: 13px;
 	.restorepointsinput {
 		z-index: 11;
 		position: relative;
+		width: 392px;
 	}
 	.autoretryleft input {
 		width: 100px;

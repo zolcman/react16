@@ -143,8 +143,9 @@ CloseNotitficationRename(val) {
       }
       if (this.state.page == 3) {
         if (!this.state.checkNewLocaiton) {
-          this.setState({openAlert:true})
+       //   this.setState({openAlert:true})
           console.log('ssss')
+          this.runAlertDeleted();
         }
         else {
           this.runAlert(4);
@@ -158,8 +159,8 @@ CloseNotitficationRename(val) {
         this.setState({page:5})
       }
       if (this.state.page == 5) {
-       
-       this.setState({openAlert:true})
+        this.runAlertDeleted();
+    //   this.setState({openAlert:true})
       }
 
 
@@ -174,11 +175,27 @@ CloseNotitficationRename(val) {
         return item.name == diffValue;
       });
 
+      
+
       if (finalValue.length > 0) {
-        this.setState({openAlert:true})
+
+        let filtered = finalValue.filter(function(item){
+          return item.inCluster == true;
+        })
+
+        if (filtered.length > 0) {
+          this.setState({openAlert:true,NameWillBeDeleted:filtered})
+          console.log('1')
+        }
+        else {
+          this.gopage4()
+          console.log('2')
+        }
+        
       }
       if (finalValue.length == 0) {
         this.gopage4()
+        console.log('3')
       }
 
     }
@@ -612,7 +629,8 @@ CloseNotitficationRename(val) {
       }
       else {
         if (param == 4 && !this.state.checkNewLocaiton) {
-          this.setState({openAlert:true})
+        //  this.setState({openAlert:true})
+        this.runAlertDeleted();
           }
 
           if ((param == 4 || param == 5 || param == 6) && this.state.checkNewLocaiton && !this.state.selectedOnFourthStage  && (this.state.page == 3 || this.state.page == 2 || this.state.page == 1)) {
@@ -634,7 +652,8 @@ CloseNotitficationRename(val) {
             }
             
           if ((param == 6 && this.state.checkNewLocaiton) && this.state.selectedOnFourthStage) {
-            this.setState({openAlert:true})
+        //    this.setState({openAlert:true})
+            this.runAlertDeleted();
             console.log('5')
             }
             if ((param == 5 || param == 6) && !this.state.selectedOnFourthStage) {
@@ -1037,7 +1056,7 @@ pointClick () {
               (null)}
               <SWizardPro array={this.updatefirsttable2.bind(this)} open={this.state.closeWizPRO} close={this.closeWizPRO.bind(this)} selectedVmId={this.props.vmid}/>
               <AddBtnWmWizard array={this.updatefirsttable.bind(this)} open={this.state.closeAddBtnWmWizard} close={this.closeAddBtnWmWizard.bind(this)}/>
-              <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.ObjFromFirstSreen.VmName} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
+              <SWizardAlert gopage4={this.gopage4.bind(this)} nameto={this.state.NameWillBeDeleted} open={this.state.openAlert} close={this.closeAlert.bind(this)}/>
               <RenameVMWiz getName={this.updateRenamed.bind(this)} name={this.state.selectedVMFor31PopUp} close={this.closeRename.bind(this)} open={this.state.closeRename}/>
               <SelectContainerWiz2 open={this.state.selectContainer2} close={this.selectContainer2.bind(this)}  />
               <SWizardAlert2 nameto={this.state.tableWithDiff} open={this.state.OpenNotitficationRename} close={this.CloseNotitficationRename.bind(this)}/>
