@@ -7,6 +7,8 @@ export const GET_LIST_FOR_ADD_BTN_WMS_WIZARD = 'GET_LIST_FOR_ADD_BTN_WMS_WIZARD'
 export const GET_POINTS = 'GET_POINTS';
 export const LOGOUT = 'LOGOUT';
 export const GET_VM_LIST_DETAIL_FULL = 'GET_VM_LIST_DETAIL_FULL';
+export const GET_CONTAINERS = 'GET_CONTAINERS';
+
 
 
 import { ShowAlert, HideAlert } from '../../components/Alert/AlertAction'
@@ -228,3 +230,40 @@ var accessToken = sessionStorage.getItem('accessToken');
 	}
 }
 
+function GetContainersR(json) {
+	return{
+		
+				type: GET_CONTAINERS,
+				data: json
+		
+			}
+}
+
+
+export function GetContainers (SendObj) {
+	
+		return dispatch => {
+	var accessToken = sessionStorage.getItem('accessToken');
+			return (
+	
+				//axios.post(apiUrl + `/api/v1/Policies/${ 'testjob1' }/startbackup`,{body: {}},  headers
+				axios.post(apiUrl + `/api/v1/Vms/disksfrombackups`,SendObj,  getHeader()
+			).then(function (response) {
+	
+	
+					 //console.log(response.data + '1111111111111');
+					dispatch(GetContainersR(response.data));
+	
+				  })
+				.catch((error) => {
+					  console.log(error);
+					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+						//	dispatch(cleartask_info());
+						if(error.response.status == 401){
+							dispatch(LogOut())
+							 return
+							 }	
+				})
+				)
+		}
+	}

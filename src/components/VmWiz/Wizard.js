@@ -12,6 +12,9 @@ import  RenameVMWiz from '../RenameVMWiz/RenameVMWiz';
 import  SelectContainerWiz2 from '../SelectContainerWiz2/SelectContainerWiz2';
 import  SWizardAlert2 from '../SmWizAlert2/SWizardAlert2';
 import { TreeFlat } from '../../containers/Backup/BackupAction';
+import Spinner from '../Spinner/Spinner'
+import  { GetContainers } from '../../containers/Protected/ProtectedAction'
+
 
 var bytes = require('bytes');
 
@@ -35,60 +38,7 @@ class Wizard extends Component {
           emu:[],
           ObjFromFirstSreen: {},
 
-          nodes:[
-            {
-            label:"cl-1",
-            value:"cl-1",
-            restorePoint:"25/10/2017 10:00:29 PM",
-            vmcount:"2",
-            restorePointsCount:"",
-            children:[
-              {label:"disk111111111111111",
-              value:"disk1",
-             restorePoint:"3 days ago",
-              vmcount:"",
-             restorePointsCount:"11",
-           },
-           {label:"disk22222222222222",
-           value:"disk2",
-           name:"jobname2",
-           restorePoint:"4 days ago",
-            vmcount:"",
-            restorePointsCount:"11"},
-            {label:"disk555",
-            value:"disk552",
-            name:"jobnam555e2",
-            restorePoint:"4 days ago",
-            vmcount:"",
-            restorePointsCount:"11"}
-          ]
-        }
-          ,
-
-          {
-            label:"cl-12",
-            value:"cl-12",
-            restorePoint:"25/10/2017 10:00:29 PM",
-            vmcount:"22",
-            restorePointsCount:"",
-            children:[
-            {label:"disk111111111111111",
-              value:"egorka",
-              restorePoint:"2 days ago",
-              vmcount:"",
-              restorePointsCount:"12",
-            },
-            {label:"disk22222222222222",
-            value:"oleg",
-            name:"jobname2",
-            restorePoint:"restorepoint4",
-           vmcount:"",
-            restorePointsCount:"12",}
-          ]
-        },
-
-         
-          ],
+          nodes:[  ],
 
 
 
@@ -114,7 +64,9 @@ CloseNotitficationRename(val) {
     this.setState({OpenNotitficationRename:false});
     if (this.state.selectedOnFourthStage) {
       this.setState({page:this.state.pageDop,disableAddbtn:false});
-      console.log(this.state.pageDop)
+      let SendObj = this.objForScreen();
+      this.props.GetContainers(SendObj) /// send request for contauners
+      console.log(SendObj)
     }
     if (!this.state.selectedOnFourthStage) {
       this.setState({page:4,disableAddbtn:true});
@@ -288,8 +240,12 @@ CloseNotitficationRename(val) {
         this.setState({OpenNotitficationRename:true});
         this.setState({tableWithDiff:finalValue})
       }
-      if (finalValue.length == 0 && this.selectedOnFourthStage) {
+      if (finalValue.length == 0 && this.state.selectedOnFourthStage) {
         this.setState({page:4});
+        let SendObj = this.objForScreen();
+          this.props.GetContainers(SendObj) /// send request for contauners
+          console.log(SendObj)
+        
       }
 
    //  if (finalValue.length == 0 && !this.selectedOnFourthStage) {
@@ -348,7 +304,7 @@ CloseNotitficationRename(val) {
     hideOrShow(value,checked) {
       
           
-      return; // delete when we want this open
+     // return; // delete when we want this open
           
       
           if (this.state.filteredItems) {
@@ -400,7 +356,7 @@ CloseNotitficationRename(val) {
 
           saveId(val,key,indexer,label) {
 
-            return; // delete when we want this open
+           // return; // delete when we want this open
             
                 if(this.state.checkedId===key){
                   this.setState({
@@ -447,49 +403,53 @@ CloseNotitficationRename(val) {
         <table className="standart-table">
         <thead>
           <tr>
-            <th>File</th>
-            <th>Size</th>
+            <th className="width129px">File</th>
+            <th className="width118px">Size</th>
             <th>Container</th>
             <th>Disk type</th>
           </tr>
         </thead>
         
       </table>
-      <div className="looper">
-          
-          {loopArray.map((item,indexer) => (
-            <div key={indexer} className="loop-lvl1 gt-clear">
-                   <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
-                    <div className="col-4 back_upicon">{item.label}</div>
-                    <div className="col-4">{item.restorePoint}</div>
-                    <div className="col-4">{item.vmcount}</div>
-                    <div className="col-4">{item.restorePointsCount}</div>
-                   
-                   </div>
-                  {
-                     (item.expand) ?
-                      (<div className="loop-lvl2 ">
-                   {item.children.map((child,index) => (
+      {this.state.nodes.length == 0 ? (<Spinner center="120px"/>):(
+        <div className="looper">
+        
+        {loopArray.map((item,indexer) => (
+          <div key={indexer} className="loop-lvl1 gt-clear">
+                 <div className={(item.expand) ? ('hider minus'):('hider plus')} onClick={this.hideOrShow.bind(this,item.value,item.expand)}>
+                  <div className="col-4 back_upicon padleft42px">{item.label}</div>
+                  <div className="col-4">{item.restorePoint}</div>
+                  <div className="col-4">{item.vmcount}</div>
+                  <div className="col-4">{item.restorePointsCount}</div>
+                 
+                 </div>
+                {
+                   (item.expand) ?
+                    (<div className="loop-lvl2 ">
+                 {item.children.map((child,index) => (
 
-      <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ? 
-                        
-                        'selected-green gt-clear childtable text-alignCenter': 'gt-clear childtable text-alignCenter'}`}>
-                        <div className="gt-left cliptext vm-icon col-4">{child.label}</div>
-                        <div className="gt-left col-4">{child.restorePoint}</div>
-                        <div className="gt-left col-4">{child.vmcount}</div>
-                        <div className="gt-left col-4">{child.restorePointsCount}</div>
-                      </div>
+    <div key={index} onClick={this.saveId.bind(this,child.value,index,indexer,child.label)} className={`${this.state.checkedId===index && this.state.indexer===indexer ? 
+                      
+                      'selected-green gt-clear childtable text-alignCenter': 'gt-clear childtable text-alignCenter'}`}>
+                      <div className="gt-left cliptext vm-icon col-4">{child.file}</div>
+                      <div className="gt-left col-4">{child.size}</div>
+                      <div className="gt-left col-4">{child.container}</div>
+                      <div className="gt-left col-4">{child.diskType}</div>
+                    </div>
 
-                      ))}
-                   </div>)
-                   :
-                   (null)
-                   }
-                   
-            </div>
-            ))}
-          
-      </div>
+                    ))}
+                 </div>)
+                 :
+                 (null)
+                 }
+                 
+          </div>
+          ))}
+        
+    </div>
+
+      )}
+      
 
         </div>
         <div className="gt-clear martop20px">
@@ -712,6 +672,10 @@ CloseNotitficationRename(val) {
          
         
       }
+
+      if (nextProps.containers) {
+        this.setState({nodes:nextProps.containers})
+      }
      }
 
 removeTable () {
@@ -918,6 +882,31 @@ pointClick () {
       console.log('addd')
     }
 
+
+    objForScreen() {
+
+      let location = '';
+      
+       if (this.state.checkOriginalLocaiton) {
+            location = 'RestoreVmFromLastPoint'
+         }
+       if (!this.state.checkOriginalLocaiton) {
+           location = 'RestoreVmAsNewFromPoint'
+         }
+       if (this.state.ObjFromFirstSreen.recoveryPointUid !== '' ) {
+           location = 'RestoreVmFromPoint'
+           }
+
+            let ObjFromFirstSreen = Object.assign({}, this.state.ObjFromFirstSreen);    //creating copy of object
+            ObjFromFirstSreen.restoreMode = location;
+            ObjFromFirstSreen.newName = this.state.renamedName || this.state.ObjFromFirstSreen.VmName;                       
+            this.setState({ObjFromFirstSreen});
+
+        return ObjFromFirstSreen;
+
+
+    }
+
     changewindow () {
 
      // this.setState({finish:false});
@@ -1068,7 +1057,8 @@ pointClick () {
 const mapDispatchToProps = function(dispatch) {
 
     return {
-
+      
+      GetContainers: (id) => dispatch(GetContainers(id)),
       StartVMTask: (param) => dispatch(StartVMTask(param)),
       GetPointList: (id) => dispatch(GetPointList(id)),
       TreeFlat: (id) => dispatch(TreeFlat(id)),
@@ -1084,6 +1074,7 @@ function mapStateToProps(state) {
     return {
         vmsList:state.toJS().ProtectedReducer.vms,
         tree_flat:state.toJS().BackupReducer.tree_flat,
+        containers:state.toJS().ProtectedReducer.containers,
    //   taskid:state.toJS().BackupReducer.vmidtoupdate,
     //  task_info:state.toJS().BackupReducer.task_status,
 

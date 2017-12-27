@@ -13,7 +13,7 @@ class SettingsAddAHVCluster extends Component {
 
         this.state = {
             disabledbtn:true,
-            port:9443,
+            port:9440,
             Ip:'',
             userName:'',
             password:'',

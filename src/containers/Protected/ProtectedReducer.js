@@ -26,7 +26,11 @@ const ProtectedReducer = function(state = initialUserState, action) {
                            break;
                            case 'GET_POINTS':
                            return Object.assign({}, state, { points: action.data });
-                       break;
+                         break;
+
+                       case 'GET_CONTAINERS':
+                        return Object.assign({}, state, { containers: action.data });
+                           break;
 
 
 
