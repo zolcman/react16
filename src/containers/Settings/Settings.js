@@ -376,11 +376,13 @@ class Settings extends Component {
     SavePassword() {
 
       if (this.state.password != this.state.NewPassword) {
-        alert('Passwords not match!')
+        
+        this.props.dispatch(ShowAlert('warning','Passwords not match!',true,false))
         return
       }
       if (this.state.password == 'admin') {
-        alert('Please enter another password')
+        this.props.dispatch(ShowAlert('warning','Please enter another password',true,false))
+        
         return
       }
       else {

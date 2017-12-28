@@ -134,6 +134,7 @@ if (!this.state.checked41) {
 
 reset () {
   this.setState({checked:[]})
+  this.props.Tree('test1');
 }
 
 check41 () {
@@ -185,7 +186,7 @@ check41 () {
                           :
                           ( <a className="go-btn gt-right go-btn-global mr10r disabled">Add</a>)}
                          
-                          <a onClick={this.reset.bind(this)} className="go-btn gt-right go-btn-global mr10r">Reset</a>
+                          <a onClick={this.reset.bind(this)} className="go-btn gt-right go-btn-global mr10r">Refresh</a>
                           <div className="gt-right dynamicMode"><label><input onChange={this.check41.bind(this)} type="checkbox" checked={this.state.checked41} name="dva"/> Dynamic mode</label></div>
                         </div>
                       </div>

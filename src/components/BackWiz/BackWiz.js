@@ -31,7 +31,7 @@ class BackWiz extends Component {
           enabled: true,
           SelectedTab:0,
           ProtectedID:null,
-          options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
+      //    options:[{label:'Repository 1',value:'Repository 1'},{label:'Repository 2',value:'Repository 2'}],
           dailyBasisDaysPresetOptions: [
             {label:'On week days',value:'WeekDays'},
             {label:'EveryDay',value:'EveryDay'},
@@ -188,7 +188,7 @@ class BackWiz extends Component {
         this.setState({editmode:true})
         this.setState({blockNext:false})
         this.setState({backUpNameForEdit:nextProps.edit_info.name})
-        this.setState({nameToServer:nextProps.edit_info.name,description:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
+        this.setState({nameToServer:nextProps.edit_info.name,DescToServer:nextProps.edit_info.description,reposselected:nextProps.edit_info.repositoryUid});
         this.setState({policyIdToUpdate:nextProps.edit_info.Id})
         this.setState({schedulerSettings:nextProps.edit_info.schedulerSettings,checked41:nextProps.edit_info.schedulerSettings.schedulerEnabled})
 
@@ -354,9 +354,9 @@ class BackWiz extends Component {
 	<div>
 		<div className="zagname">General Settings</div>
 		<div className="upperlbl">Job Name:</div>
-		<input value={this.state.nameToServer} maxlength="40" onChange={this.nameToServer.bind(this)} className="jobname" type="text" />
+		<input value={this.state.nameToServer} maxLength="40" onChange={this.nameToServer.bind(this)} className="jobname" type="text" />
 		<div className="upperlbl">Job Description:</div>
-		<textarea onChange={(e)=> this.setState({DescToServer:e.target.value})} value={this.state.DescToServer} className="firstscreent"></textarea>
+		<textarea maxLength="1024" onChange={(e)=> this.setState({DescToServer:e.target.value})} value={this.state.DescToServer} className="firstscreent"></textarea>
 
 	</div>
 	)
@@ -901,10 +901,11 @@ class BackWiz extends Component {
 	<TabPanel>
 			<div className="withclock">
       <Select
-					  placeholder="Backup Job 3"
+					  placeholder="not supported"
                       className="tabl1"
                       name="form-field-name"
-                      value={this.state.backupjobssimpleselected}
+                      disabled={true}
+                      value={!this.state.backupjobssimpleselected} // delete !! to enable this
                       options={this.state.backupjobssimple}
 					  searchable={false}
                       onChange={this.changeSelect2.bind(this)}
@@ -1379,7 +1380,7 @@ check5 () {
     resetData() {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
-      this.setState({editmode:false})
+      this.setState({editmode:false,reposselected:false})
       this.setState({showFEBALERT:false})
       const  schedulerSettings = {
         "@odata.type": "SchedulerSettings",
@@ -1424,9 +1425,18 @@ check5 () {
         this.setState({blockNext:false})
       }
 
+      let mappedArraymain = this.state.array.map(function(name){
+        return name.Id;
+      })
+      let mergedArray = array.concat(mappedArraymain);
+      var noDupe = Array.from(new Set(mergedArray))
+
       this.setState({bigcheck:false})
-      this.setState({array:array})
-      let clearArr = this.clearArrFunc(array,this.state.tree_flat);
+    //  this.setState({array:array})
+      let clearArr = this.clearArrFunc(noDupe,this.state.tree_flat);
+
+      console.log(noDupe)
+
       clearArr = clearArr.map(function(name) {
         return ({'Id':name.Id,'size':name.sizeInGb,'name':name.name,'type':name['@odata.type'],'checked':false});
      });

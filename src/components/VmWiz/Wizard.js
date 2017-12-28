@@ -453,9 +453,9 @@ CloseNotitficationRename(val) {
 
         </div>
         <div className="gt-clear martop20px">
-        <div className="gt-right"><a  className=" btns-browser-change">Disk type..</a></div>
-          <div className="gt-right marr12px"> <a onClick={()=> {this.setState({selectContainer2:true})}} className=" btns-browser-change ">Container..</a></div>
-          
+        <div className="gt-right"><a  className=" btns-browser-change disabled">Disk type..</a></div>
+          <div className="gt-right marr12px"> <a  className=" btns-browser-change disabled">Container..</a></div>
+      {/*    <div className="gt-right marr12px"> <a onClick={()=> {this.setState({selectContainer2:true})}} className=" btns-browser-change ">Container..</a></div> */}
          
             
         </div>

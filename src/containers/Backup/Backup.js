@@ -458,7 +458,10 @@ class Backup extends Component {
                   <tbody>
                     {list.map((item,index) => (
                         <tr onClick={this.chooseitem.bind(this,item.Id,item.status,item.name)} className="" key={index}>
-                        <td><Link className="link-table" to={`/jobdetail/${ item.Id }`}>{item.name}</Link></td>
+                        <td className="relative"><Link className="link-table fortooltip trimword" to={`/jobdetail/${ item.Id }`}>{item.name}</Link>
+                        {item.name.length > 19 ? (<div className="tooltiplink">{item.name}</div>):(null)}  
+                     
+                        </td>
                     
                         <td>{item.cluster}</td>
                         <td> {item.asyncTaskId != null ? ( <a onClick={this.openWiz2.bind(this,item.Id,item.name,item.asyncTaskId)} className="link-table">{item.status}</a>)
@@ -474,7 +477,10 @@ class Backup extends Component {
                         <td>{item.startTime}</td>
                         <td className="width16">{item.lastRun}</td>
                         <td>{item.vmsCount}</td>
-                        <td>{item.description}</td>
+                        <td className="relative">
+                          <div className="trimword2">{item.description}</div>
+                        {item.description.length > 19 ? (<div className="tooltipdescr">{item.description}</div>):(null)}  
+                        </td>
                         </tr>
 
                     ))}

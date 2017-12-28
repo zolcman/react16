@@ -17,8 +17,8 @@ class RenameVMWiz extends Component {
 
           page:'1',
           finish:false,
-          pre:'',
-          su:'',
+          pre:'new_',
+          su:'_restored',
           checked5:false,
           checked6:false
 			

@@ -94,7 +94,7 @@ class SWizardAlert extends Component {
                               <tbody>
                               {deletedelems.map((item,index) => (
                                   <tr key={index} >
-                                  <td>{item.name}</td>
+                                  <td className="vmicon">{item.name}</td>
 
                                 </tr>
                               ))} 
@@ -107,8 +107,8 @@ class SWizardAlert extends Component {
                         </div>
                         <div className="btns-group">
 
-                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mar154px ">OK</a>
-                          <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global mr10r">Hide VM(s)</a>
+                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mar154px ">Overwrite</a>
+                          <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global mr10r">Close</a>
 
 
                         </div>

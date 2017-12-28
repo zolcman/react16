@@ -149,7 +149,7 @@ class SWizardPro extends Component {
 
 
                           <a onClick={this.close.bind(this)} className="go-btn gt-right go-btn-global ">Close</a>
-                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Add</a>
+                          <a onClick={this.add.bind(this)} className="go-btn gt-right go-btn-global mr10r">Ok</a>
 
                         </div>
                       </div>

@@ -105,7 +105,62 @@ cursor: default!important;
     font-size: 14px;
   }
 
+  .trimword {
+		white-space: nowrap;
+		overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    
+    width:153px!important;
+  }
   
+  .trimword2 {
+		white-space: nowrap;
+		overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    padding-top:7px;
+    width:153px!important;
+  }
+  .relative {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .tooltiplink {
+    display: none;
+    position: absolute
+  }
+
+  .fortooltip:hover + .tooltiplink {
+    display: block;
+    position: absolute;
+    background: rgba(126, 126, 126, 0.904);
+    color:white;
+    padding: 5px;
+    border-radius: 3px;
+    top:8px;
+    left:150px;
+  }
+  .tooltipdescr {
+    display: none;
+    position: absolute;
+  }
+
+  .trimword2:hover + .tooltipdescr {
+    display: block;
+    position: absolute;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    background: rgba(126, 126, 126, 0.904);
+    color:white;
+    padding: 5px;
+    border-radius: 3px;
+    top:8px;
+    left:-300px;
+    width: 300px;
+  }
 
   .vm-counter {
     font-size: 21px;
@@ -274,6 +329,7 @@ cursor: default!important;
       margin-top: 9px;
       color: #4a4a4a;
       background: url('./img/search.png') no-repeat 280px 2px;
+      padding-right: 25px;
   }
 
   .start-btn {
@@ -355,6 +411,10 @@ cursor: default!important;
     border-top: 1px solid #ccc;
     width: 10%;
     box-sizing: border-box;
+  }
+  .bk-table tbody tr:hover {
+    background-color: #E1ECCB!important;
+    cursor: pointer;
   }
 
   .bk-table tr:nth-child(2n) {
