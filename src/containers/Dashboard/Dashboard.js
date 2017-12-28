@@ -41,8 +41,10 @@ class Dashboard extends Component {
 
 
         return (
-        <div className="container dashmrgn">
-		
+        <div key="ls" className="container dashmrgn">
+		<div className="underconstruction">
+			<div className="green-labedsl">WORK IN PROGRESS</div>
+		</div>
 			<div className="leftclmn">
 				<div className="sqare">
 				<div className="sqareheading">Protection Status</div>
@@ -75,6 +77,7 @@ class Dashboard extends Component {
 			
 			
        </div>
+	   
 
 
 
