@@ -9,6 +9,8 @@ import VirtualDiskProperties from '../VirtualDiskProperties/VirtualDiskPropertie
 import  { GetPointList } from '../../containers/Protected/ProtectedAction'
 import  Clock from '../Clock/Clock';
 import { StartVMTask } from '../../containers/Backup/BackupAction'
+import  { GetVmListDetailFull } from '../../containers/Protected/ProtectedAction'
+
 var bytes = require('bytes');
 
 class DiskRestoreWiz extends Component {
@@ -48,12 +50,19 @@ class DiskRestoreWiz extends Component {
 
      if (nextProps.list && this.state.nodes.length == 0) {
      this.setState({nodes:nextProps.list})
-      console.log("received")
+      
      }
 
      if (nextProps.points) {
        this.setState({points:nextProps.points})
      }
+
+     if (nextProps.detailFull) {
+      this.setState({detailsecondstepvmName:nextProps.detailFull.name})
+      this.setState({detailsecondstepvmSize:nextProps.detailFull.sizeInGb})
+    }
+
+     
 
      }
 
@@ -256,6 +265,7 @@ componentDidMount() {
     this.setState({vmUid:vmId})
     console.log(backupId)
     this.props.GetPointList(idToSend)
+    this.props.dispatch(GetVmListDetailFull(vmId))
   }
 
   hideOrShow(value,checked) {
@@ -330,11 +340,11 @@ componentDidMount() {
                 <div className="gt-left width50">
                     <div className="gt-clear heigth25px">
                         <div className="gt-left width30">VM Name:</div>
-                        <div className="gt-left width70 cliptext font600w padding0">StarWind plugin WEB sphere(SWMA)_(ABykovskiy)</div>
+                        <div className="gt-left width70 cliptext font600w padding0">{this.state.detailsecondstepvmName}</div>
                     </div>
                     <div className="gt-clear">
                         <div className="gt-left width30">VM Size:</div>
-                        <div className="gt-left font600w">10.0 GB</div>
+                        <div className="gt-left font600w">{this.state.detailsecondstepvmSize} GB</div>
                     </div>
                 </div>
                 <div className="gt-right">
@@ -857,7 +867,7 @@ const mapDispatchToProps = function(dispatch) {
 
     return {
 
-     
+     dispatch:dispatch,
       GetPointList: (id) => dispatch(GetPointList(id)),
       StartVMTask: (param) => dispatch(StartVMTask(param)),  
 
@@ -868,6 +878,8 @@ function mapStateToProps(state) {
 
 
     return {
+      detailFull:state.toJS().ProtectedReducer.vmsdetailFull,
+      
       list:state.toJS().ProtectedReducer.listAddBtnWmsWizard,
       points:state.toJS().ProtectedReducer.points,
     }

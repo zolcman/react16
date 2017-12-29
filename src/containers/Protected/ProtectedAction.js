@@ -70,7 +70,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status == 401){
 			
 					dispatch(LogOut())
@@ -107,7 +107,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
@@ -145,7 +145,7 @@ export function GetVmListDetailFull (id) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					  dispatch(ShowAlert('warning',error.response.data,false,true));
 					  if(error.response.status  == 401){
 						dispatch(LogOut())
 						 return
@@ -183,7 +183,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
@@ -220,7 +220,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status  == 401){
 					dispatch(LogOut())
 					 return
@@ -257,7 +257,7 @@ export function GetContainers (SendObj) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					  dispatch(ShowAlert('warning',error.response.data,false,true));
 						//	dispatch(cleartask_info());
 						if(error.response.status == 401){
 							dispatch(LogOut())

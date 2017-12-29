@@ -375,7 +375,7 @@ var accessToken = sessionStorage.getItem('accessToken');
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 					//	dispatch(cleartask_info());
 					if(error.response.status == 401){
 						dispatch(LogOut())
@@ -491,7 +491,7 @@ export function StartVMTask (param) {
 
   			})
    	 	.catch((error) => {
-			dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+			dispatch(ShowAlert('warning',error.response.data,false,true));
 				  console.log(error);
 				  if(error.response.status == 401){
 					dispatch(LogOut())
@@ -571,7 +571,7 @@ export function addJobSS (id,runner) {
   			})
    	 	.catch((error) => {
 				  console.log(error);
-				  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+				  dispatch(ShowAlert('warning',error.response.data,false,true));
 				  if(error.response.status == 401){
 					dispatch(LogOut())
 					 return
@@ -669,7 +669,7 @@ export function EditJobInfo (id) {
 				  })
 				.catch((error) => {
 					  console.log(error);
-					  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+					  dispatch(ShowAlert('warning',error.response.data,false,true));
 					  if(error.response.status == 401){
 						dispatch(LogOut())
 						 return
@@ -711,7 +711,7 @@ export function EditJobInfo (id) {
 					  })
 					.catch((error) => {
 						  console.log(error);
-						  dispatch(ShowAlert('warning','oops! some problem with connection',false,true));
+						  dispatch(ShowAlert('warning',error.response.data,false,true));
 						  if(error.response.status == 401){
 							dispatch(LogOut())
 							 return

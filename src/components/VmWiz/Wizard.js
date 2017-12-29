@@ -55,12 +55,12 @@ class Wizard extends Component {
       this.props.TreeFlat('test1')
 
 
-      var self= this;
+    //  var self= this;
       
       
-            this.interval =  setInterval(function() {
-              self.props.TreeFlat('test1')
-              }, 50000);
+       //     this.interval =  setInterval(function() {
+         //     self.props.TreeFlat('test1')
+         //     }, 50000);
 
       if (this.props.fromlist) {
         this.setState({finish:true}) // сдесь будем сразу по id выполнять запрос на обновление прогрессбара
@@ -380,7 +380,7 @@ CloseNotitficationRename(val) {
                      checkedId: '',
                      indexer:'',
                      selectedOnFourthStage:true, //change to false if need block
-                     disableAddbtn:true,
+                     disableAddbtn:false,
                      labelFor3step:''
                     });
                   }else{
@@ -406,7 +406,7 @@ CloseNotitficationRename(val) {
 
 <div>
 		<div className="zagname">Select container</div>
-		<div className="font13px">By default, original container and disk type are used for each VM file.This can be changed by selecting desired VM file, and selecting "
+		<div className="font13px">By default, original container and disk type are used for each VM file. This can be changed by selecting desired VM file, and selecting "
       Container"
       or "Disk types" buttons
     </div>
@@ -710,7 +710,7 @@ pointClick () {
       return (
 	  <div>
 		 <div className="zagname">Virtual Machines</div>
-		  <div className="pagetwoundertxt">Select virtual machines to be restored.Individual virtual machines can be added from the backup list.</div>
+		  <div className="pagetwoundertxt">Select virtual machines to be restored. Individual virtual machines can be added from the backup list.</div>
 	  <div className="iconboxtbsearch gt-clear">
 		    <div onClick={()=> this.setState({closeAddBtnWmWizard:true})}  className="addic">Add</div>
         {
@@ -726,8 +726,8 @@ pointClick () {
         }
 			
 			
-	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/>
-		</div>
+{/*	<div className="searchiccont"><input type="text" placeholder="Search"/><input type="button" className="search-icon-jh" value=""/> 
+		</div> */}
 
 		</div>
     <div className="tbls1 clear-gt">
