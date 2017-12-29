@@ -52,7 +52,7 @@ class Wizard extends Component {
         }
 
     componentDidMount() {
-    //  this.props.TreeFlat('test1')
+      this.props.TreeFlat('test1')
 
 
       var self= this;
