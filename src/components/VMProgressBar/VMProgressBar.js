@@ -318,7 +318,7 @@ class VMProgressBar extends Component {
         <Tabs>
 
           <TabList>
-            <Tab>Statistic</Tab>
+            <Tab>Statistics</Tab>
             <Tab>Reason</Tab>
             <Tab>Log</Tab>
           </TabList>
