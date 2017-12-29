@@ -22,7 +22,7 @@ class Wizard extends Component {
     constructor(props) {
         super(props)
         this.timer
-
+        this.interval;
         this.state = {
           checkOriginalLocaiton:true, //change to true
           checkNewLocaiton:false,// change to false
@@ -45,8 +45,22 @@ class Wizard extends Component {
         }
     }
 
+    componentWillUnmount() {
+      
+          clearInterval(this.interval);
+      
+        }
+
     componentDidMount() {
-      this.props.TreeFlat('test1')
+    //  this.props.TreeFlat('test1')
+
+
+      var self= this;
+      
+      
+            this.interval =  setInterval(function() {
+              self.props.TreeFlat('test1')
+              }, 50000);
 
       if (this.props.fromlist) {
         this.setState({finish:true}) // сдесь будем сразу по id выполнять запрос на обновление прогрессбара
@@ -97,9 +111,11 @@ CloseNotitficationRename(val) {
         if (!this.state.checkNewLocaiton) {
        //   this.setState({openAlert:true})
           console.log('ssss')
+         this.setState({nodes:[]})
           this.runAlertDeleted();
         }
         else {
+          this.setState({nodes:[]})
           this.runAlert(4);
          // this.setState({page:4})
         }
@@ -111,6 +127,7 @@ CloseNotitficationRename(val) {
         this.setState({page:5})
       }
       if (this.state.page == 5) {
+        
         this.runAlertDeleted();
     //   this.setState({openAlert:true})
       }
@@ -586,6 +603,7 @@ CloseNotitficationRename(val) {
       if (param == 1 || param == 2 || param == 3) {
         this.setState ({ disableAddbtn:false})
         this.setState({page:param})
+        this.setState({nodes:[]})
       }
       else {
         if (param == 4 && !this.state.checkNewLocaiton) {
