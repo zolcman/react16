@@ -168,7 +168,7 @@ class BackWiz extends Component {
       if (nextProps.repos) {
       //  console.log(nextProps.repos)
         let camlistpre = nextProps.repos.map((xf) => ({value:xf.Id,label:xf.name}));
-        this.setState({repos:camlistpre,reposselected:camlistpre[0]
+        this.setState({repos:camlistpre,reposselected:camlistpre[0],resposselectedBackup:camlistpre[0]
         })
         this.props.clearReposInRedux();
       }
@@ -500,6 +500,7 @@ class BackWiz extends Component {
                       value={this.state.reposselected}
                       options={this.state.repos}
                       searchable={false}
+                      clearable={false}
                       onChange={this.chRepo.bind(this)}
         />
 		<div className="capacitycont">
@@ -832,7 +833,7 @@ class BackWiz extends Component {
 		
 
 		<Select
-					  placeholder="Mounths"
+					  placeholder="Months"
             multi={true}
             closeOnSelect = {false}
                       className="tabs4"
@@ -1380,7 +1381,7 @@ check5 () {
     resetData() {
       this.setState({page:1})
       this.setState({checked41:false,nameToServer:'',DescToServer:'',filteredItems:false,array:[]})
-      this.setState({editmode:false,reposselected:false})
+      this.setState({editmode:false,reposselected:this.state.resposselectedBackup})
       this.setState({showFEBALERT:false})
       const  schedulerSettings = {
         "@odata.type": "SchedulerSettings",

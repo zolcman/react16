@@ -58,11 +58,11 @@ class InstallPage extends Component {
                     <div className="body-popup gt-clear">
                         <div onClick={()=>{this.setState({openWiz:true})}} className="btns-g inst-mod">
                             <div className="line-1">Install</div>
-                            <div className="line-2">Deploy a new Veeam Backup Applicance for Nutanix AHV</div>
+                            <div className="line-2">Deploy a new Veeam Backup Appliance for Nutanix AHV</div>
                         </div>
                         <div className="btns-g restore-mod">
                             <div className="line-1">Restore</div>
-                            <div className="line-2">Restore Veeam Backup Applicance from a previously created configuration backup</div>
+                            <div className="line-2">Restore Veeam Backup Appliance from a previously created configuration backup</div>
                         </div>
                     </div>
             </div>

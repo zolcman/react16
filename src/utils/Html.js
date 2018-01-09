@@ -19,16 +19,17 @@ const Html = ({ store, htmlContent }: Props) => {
   return (
     <html {...rest} lang={lang || 'en'}>
       <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="assets/cssbootstrap/bootstrap.min"></link>
         <meta charSet="utf-8" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/clockpicker/0.0.7/bootstrap-clockpicker.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css"></link>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <script src="assets/jquery.min.js" />
+        <script src="assets/bootstrap-clockpicker.min.min.js"></script>
+        <link rel="stylesheet" href="assets/react-select.css"></link>
+        <script src="assets/jquery-ui.js"></script>
         <script ></script>
 
 
@@ -93,9 +94,10 @@ const Html = ({ store, htmlContent }: Props) => {
           // Reverse the order of scripts for accessing vendor.js first
           _.keys(assets.javascript).reverse().map(script =>
             <script key={_.uniqueId()} src={assets.javascript[script]} />,
-            
+           
           )
         }
+         
         {head.script.toComponent()}
       </body>
     </html>

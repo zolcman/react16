@@ -124,9 +124,9 @@ class RenameVMWiz extends Component {
                           <div className="lp-2">
                           <label><input type="checkbox" onChange={this.checkPrefix.bind(this)} checked={this.state.checked5} name="dva"/> Add prefix</label>
                           </div>
-                          {(this.state.checked5)?(<input onChange={(e)=> {this.setState({pre:e.target.value})}} value={this.state.pre} placeholder="_new" type="text"/>)
+                          {(this.state.checked5)?(<input onChange={(e)=> {this.setState({pre:e.target.value})}} value={this.state.pre} placeholder="new_" type="text"/>)
                           :
-                          (<input readOnly className="greybgf" value={this.state.pre} placeholder="_new" type="text"/>)
+                          (<input readOnly className="greybgf" value={this.state.pre} placeholder="new_" type="text"/>)
                           }
                           
                           <div  className="lp-2" >

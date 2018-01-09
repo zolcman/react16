@@ -52,7 +52,8 @@
     "clean:client": "better-npm-run clean:client",
     "clean:server": "better-npm-run clean:server",
     "clean:test": "better-npm-run clean:test",
-    "coveralls": "better-npm-run coveralls && yarn clean:test"
+    "coveralls": "better-npm-run coveralls && yarn clean:test",
+	"postbuild": "better-npm-run postbuild"
   },
   "betterScripts": {
     "start": {
@@ -106,6 +107,9 @@
     },
     "coveralls": {
       "command": "cat ./coverage/lcov.info | coveralls"
+    },
+    "postbuild": {
+      "command": "ncp ./third_party ./build/public/assets"
     }
   },
   "babel": {
@@ -225,7 +229,8 @@
     "redux-thunk": "^2.2.0",
     "serialize-javascript": "^1.4.0",
     "serve-favicon": "^2.4.3",
-    "webpack-isomorphic-tools": "^3.0.3"
+    "webpack-isomorphic-tools": "^3.0.3",
+	"ncp": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

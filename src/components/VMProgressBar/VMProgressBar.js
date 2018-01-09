@@ -301,7 +301,7 @@ class VMProgressBar extends Component {
                 <div className="windows-list">
         <dl className="floated">
             <dt>VM name</dt>
-            <dd>{name}</dd>
+            <dd className="clip-text">{name}</dd>
             <dt>Restore type</dt>
             <dd>Restore to the original location</dd>
         {/*  <dt>Restore point</dt>

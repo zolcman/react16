@@ -440,7 +440,7 @@ class InstallWiz extends Component {
 	<div>
   <div className="zagname">Credentials</div>
     <div className="subzagname">
-     Specify the credentials for the Veeam Backup Applicance web console.
+     Specify the credentials for the Veeam Backup Appliance web console.
     </div>
     <div className="jis-1">
 <div className="gt-clear row-label-input ">
@@ -585,13 +585,13 @@ changeGate(obj) {
 	<div>
       <div className="zagname">Network settings</div>
     <div className="subzagname">
-     Specify the network for settings for the Veeam Backup Applicance.
+     Specify the network for settings for the Veeam Backup Appliance.
     </div>
     
     <div className="jis-4">
 <div className="gt-clear row-label-input ">
             <div className="gt-left width177px">
-            Applicance host name:
+            Appliance host name:
             </div>
             <div className="gt-left">
             <input value={this.state.hostName} onChange={this.changeHostName.bind(this)}/>
@@ -601,7 +601,7 @@ changeGate(obj) {
           {(this.state.checked6)? (<div className="blocksettings"></div>):(null)}
           <div className="gt-clear row-label-inputs">
             <div className="gt-left width177px">
-            Ip address:
+            IP address:
             </div>
             <div className="gt-left">
             <IPut defaultValue={(this.state.ipd) ? (this.state.ipd):('" "." "." "." "')}  onChange={this.changeIp.bind(this)}/>
@@ -649,7 +649,7 @@ changeGate(obj) {
 		<div>
       <div className="zagname">Summary</div>
     <div className="subzagname">
-     Please review the Applicance settings before continuing.<br/>
+     Please review the Appliance settings before continuing.<br/>
      Specified settings will be applied immidiately after completing  this wizard
     </div>
     <div className="sep-1"></div>
